@@ -4,7 +4,7 @@ Import json and dataclasses modules
 from typing import Optional
 from dataclasses import dataclass, field
 from marshmallow_dataclass import class_schema
-from tahini.schema import Schema
+from .schema import Schema
 
 
 @dataclass

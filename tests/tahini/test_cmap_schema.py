@@ -4,14 +4,14 @@ Import unittest and FullRegmap modules to test
 from os import path
 import unittest
 import marshmallow.exceptions
-from tahini.cmap_schema import FullRegmap as CmapFullRegmap
-from tahini.cmap_schema import Register as CmapRegister
-from tahini.cmap_schema import State as CmapState
-from tahini.cmap_schema import Bitfield as CmapBitfield
-from tahini.cmap_schema import Type, VisibilityOptions, CType, InvalidBitfieldsError,\
+from cmlpytools.tahini.cmap_schema import FullRegmap as CmapFullRegmap
+from cmlpytools.tahini.cmap_schema import Register as CmapRegister
+from cmlpytools.tahini.cmap_schema import State as CmapState
+from cmlpytools.tahini.cmap_schema import Bitfield as CmapBitfield
+from cmlpytools.tahini.cmap_schema import Type, VisibilityOptions, CType, InvalidBitfieldsError,\
     InvalidRegisterError, InvalidStatesError, InvalidRegisterStructError, InvalidRepeatForError
 
-PATH_TO_DATA = "./tests/data"
+PATH_TO_DATA = "./tests/tahini/data"
 FIELD_REGMAP_DATA = 'regmap'
 
 

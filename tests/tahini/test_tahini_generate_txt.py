@@ -2,17 +2,17 @@
 Import unittest module to test GenerateTxt
 """
 import unittest
-from tahini.tahini_generate_txt import GenerateTxt
+from cmlpytools.tahini.tahini_generate_txt import GenerateTxt
 
-CMAP_PATH = "./tests/data/test_tahini_generate_txt.json"
-OUTPUT_PATH = "./tests/output_generate_txt.txt"
-COMPARE_PATH = "./tests/data/test_tahini_generate_txt.txt"
+CMAP_PATH = "./tests/tahini/data/test_tahini_generate_txt.json"
+OUTPUT_PATH = "./tests/tahini/output_generate_txt.txt"
+COMPARE_PATH = "./tests/tahini/data/test_tahini_generate_txt.txt"
 
-TEST_CMAP_PATH = "./tests/data/test_cmap_generate_txt.json"
-TEST_OUTPUT_PATH = "./tests/data/output_test_generate_txt.txt"
-TEST_BITFIELDS_STATES_PATH = "./tests/data/test_tahini_generate_txt_bitfields_state.json"
-TEST_COMPARE_BITFIELDS_STATES_PATH = "./tests/data/test_tahini_generate_txt_bitfields_state.txt"
-TEST_OUTPUT_BITFIELDS_STATES_PATH = "./tests/output_generate_txt_bitfields_state.txt"
+TEST_CMAP_PATH = "./tests/tahini/data/test_cmap_generate_txt.json"
+TEST_OUTPUT_PATH = "./tests/tahini/data/output_test_generate_txt.txt"
+TEST_BITFIELDS_STATES_PATH = "./tests/tahini/data/test_tahini_generate_txt_bitfields_state.json"
+TEST_COMPARE_BITFIELDS_STATES_PATH = "./tests/tahini/data/test_tahini_generate_txt_bitfields_state.txt"
+TEST_OUTPUT_BITFIELDS_STATES_PATH = "./tests/tahini/output_generate_txt_bitfields_state.txt"
 
 
 class TestGenerateFlat(unittest.TestCase):

@@ -2,9 +2,9 @@
 """
 from io import TextIOWrapper
 from typing import List, Tuple
-from tahini.cmap_schema import FullRegmap as CmapFullRegmap
-from tahini.cmap_schema import Type as CmapType
-from tahini.cmap_schema import RegisterOrStruct as CmapRegisterOrStruct
+from .cmap_schema import FullRegmap as CmapFullRegmap
+from .cmap_schema import Type as CmapType
+from .cmap_schema import RegisterOrStruct as CmapRegisterOrStruct
 
 
 class TahiniGenerateFlatError(Exception):

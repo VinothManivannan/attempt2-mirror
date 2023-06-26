@@ -7,7 +7,7 @@ import json
 import os
 import re
 import subprocess
-from tahini.version_schema import LastTag, GitVersion, VersionInfo, ExtendedVersionInfo
+from .version_schema import LastTag, GitVersion, VersionInfo, ExtendedVersionInfo
 
 VERSION_TAG_REGEX_G = r"((?P<major>[0-9]+)(\.)(?P<minor>[0-9]+)(\.)(?P<patch>[0-9]+))"
 

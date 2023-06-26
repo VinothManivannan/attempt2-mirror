@@ -5,9 +5,9 @@ RELEASE-VERSION
 .eggs
 VERSION
 *.pyc
-/tests/data/output/output_cmapfile.json
-/tests/data/output_test_generate_txt.txt
-/tests/data/output_flat.txt
-/tests/output_generate_txt.txt
-/tests/output_generate_txt_bitfields_state.txt
-/tests/output_tahini_generate_csv.csv
+/tests/tahini/data/output/output_cmapfile.json
+/tests/tahini/data/output_test_generate_txt.txt
+/tests/tahini/data/output_flat.txt
+/tests/tahini/output_generate_txt.txt
+/tests/tahini/output_generate_txt_bitfields_state.txt
+/tests/tahini/output_tahini_generate_csv.csv

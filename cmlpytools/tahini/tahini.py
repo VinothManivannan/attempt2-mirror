@@ -4,15 +4,15 @@ This module implements the tahini command line argument.
 import argparse
 import textwrap
 import sys
-from tahini.tahini_cmap import TahiniCmap
-from tahini.tahini_crc import TahiniCrc
-from tahini.tahini_gimli import TahiniGimli
-from tahini.tahini_version import TahiniVersion
-from tahini.tahini_generate_legacy_regmap import GenerateLegacyRegmap
-from tahini.legacy_json_converter import legacy_json_to_input_regmap
-from tahini.tahini_generate_flat_txt import GenerateFlatTxt
-from tahini.tahini_generate_appnote_csv import GenerateAppnoteCSV
-from tahini.tahini_generate_txt import GenerateTxt
+from .tahini_cmap import TahiniCmap
+from .tahini_crc import TahiniCrc
+from .tahini_gimli import TahiniGimli
+from .tahini_version import TahiniVersion
+from .tahini_generate_legacy_regmap import GenerateLegacyRegmap
+from .legacy_json_converter import legacy_json_to_input_regmap
+from .tahini_generate_flat_txt import GenerateFlatTxt
+from .tahini_generate_appnote_csv import GenerateAppnoteCSV
+from .tahini_generate_txt import GenerateTxt
 
 
 class Tahini():

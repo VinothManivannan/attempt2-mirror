@@ -9,9 +9,9 @@ from dataclasses import field
 from dataclasses import dataclass
 import struct
 from marshmallow_dataclass import class_schema
-from tahini.schema import Schema
-from tahini.input_json_schema import VisibilityOptions as InputVisibilityOptions
-from tahini.version_schema import ExtendedVersionInfo
+from .schema import Schema
+from .input_json_schema import VisibilityOptions as InputVisibilityOptions
+from .version_schema import ExtendedVersionInfo
 
 
 class InvalidRegisterStructError(Exception):

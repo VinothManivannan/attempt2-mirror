@@ -3,10 +3,10 @@ Import unittest module to test inputjson
 """
 from os import path
 import unittest
-from tahini.input_json_schema import InputJson
-from tahini.input_json_schema import InvalidInputEnumError
+from cmlpytools.tahini.input_json_schema import InputJson
+from cmlpytools.tahini.input_json_schema import InvalidInputEnumError
 
-PATH_TO_DATA = "./tests/data"
+PATH_TO_DATA = "./tests/tahini/data"
 
 
 class TestFilePath(unittest.TestCase):

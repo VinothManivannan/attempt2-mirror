@@ -2,11 +2,11 @@
 Import unittest module to test GenerateAppnoteCSV
 """
 import unittest
-from tahini.tahini_generate_appnote_csv import GenerateAppnoteCSV
+from cmlpytools.tahini.tahini_generate_appnote_csv import GenerateAppnoteCSV
 
-OUTPUTPATH = "./tests/output_tahini_generate_csv.csv"
-REFPATH = "./tests/data/test_tahini_generate_csv.csv"
-CMAPPATH = "./tests/data/test_tahini_generate_csv.json"
+OUTPUTPATH = "./tests/tahini/output_tahini_generate_csv.csv"
+REFPATH = "./tests/tahini/data/test_tahini_generate_csv.csv"
+CMAPPATH = "./tests/tahini/data/test_tahini_generate_csv.json"
 
 
 class TestGenerateCSV(unittest.TestCase):

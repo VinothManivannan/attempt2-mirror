@@ -6,11 +6,11 @@ import sys
 from os import path
 from typing import Optional
 import clr
-from tahini.tahini_cmap import TahiniCmap
-from tahini.tahini_generate_legacy_regmap import GenerateLegacyRegmap
-from tahini.legacy_regmap_schema import LegacyRegmap
-from tahini.cmap_schema import CType, State
-from tahini.input_json_schema import InputJson, InputEnum, InputRegmap, InputType
+from cmlpytools.tahini.tahini_cmap import TahiniCmap
+from cmlpytools.tahini.tahini_generate_legacy_regmap import GenerateLegacyRegmap
+from cmlpytools.tahini.legacy_regmap_schema import LegacyRegmap
+from cmlpytools.tahini.cmap_schema import CType, State
+from cmlpytools.tahini.input_json_schema import InputJson, InputEnum, InputRegmap, InputType
 
 sys.path.append(path.dirname(path.realpath(__file__)))
 clr.AddReference("SERVALib")
@@ -19,9 +19,9 @@ clr.AddReference("SERVALib")
 from Encryption_Module import JSON_Serialisation  # nopep8
 # pylint:enable = wrong-import-position, wrong-import-order
 
-VERSION_INFO_PATH = "./tests/data/test_version.info.json"
-EXTENDED_VERSION_INFO_PATH = "./tests/data/test_extendedversion.info.json"
-INPUT_JSON_PATH = "./tests/data/test_fullregmap_inputjsonexample.json"
+VERSION_INFO_PATH = "./tests/tahini/data/test_version.info.json"
+EXTENDED_VERSION_INFO_PATH = "./tests/tahini/data/test_extendedversion.info.json"
+INPUT_JSON_PATH = "./tests/tahini/data/test_fullregmap_inputjsonexample.json"
 
 
 class TestLegacyRegmap(unittest.TestCase):

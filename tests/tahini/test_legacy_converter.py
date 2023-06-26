@@ -3,7 +3,7 @@ Tests for the search function
 """
 import unittest
 from os import path
-from tahini import legacy_json_to_input_regmap, TahiniCmap, search, CmapType
+from cmlpytools.tahini import legacy_json_to_input_regmap, TahiniCmap, search, CmapType
 
 DIR_PATH = path.dirname(path.realpath(__file__))
 PATH_TO_DATA = path.join(DIR_PATH, "data/test_example_legacy.json")

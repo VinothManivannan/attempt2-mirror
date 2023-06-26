@@ -6,8 +6,8 @@ import datetime
 import tempfile
 import unittest
 import json
-from tahini.version_schema import GitVersion, LastTag, ExtendedVersionInfo
-from tahini.tahini_version import LiveRepository, Repository, InvalidProjectPathError, InvalidArgumentError
+from cmlpytools.tahini.version_schema import GitVersion, LastTag, ExtendedVersionInfo
+from cmlpytools.tahini.tahini_version import LiveRepository, Repository, InvalidProjectPathError, InvalidArgumentError
 
 
 class MockRepositoryMaster(Repository):
@@ -190,7 +190,7 @@ class TestVersionInfo(unittest.TestCase):
         self.assertEqual(version_info.timestamp[0:9], data_time_now[0:9])
 
         full_version_info = test_obj.get_full_version(
-            "./tests/data/test_version.info.json")
+            "./tests/tahini/data/test_version.info.json")
 
         self.assertEqual(full_version_info.project, "topcode")
         self.assertEqual(full_version_info.uid, "0123ABC")
@@ -287,7 +287,7 @@ class TestVersionInfoBranch(unittest.TestCase):
             None, "CONFIG_NAME", 3)
 
         full_version_info = test_obj.get_full_version(
-            "./tests/data/test_version.info.json")
+            "./tests/tahini/data/test_version.info.json")
 
         self.assertEqual(full_version_info.git_versions[0].branch_ids,
                          self.test_ver_topcode.branch_ids)
@@ -312,7 +312,7 @@ class TestSerialization(unittest.TestCase):
             None, None, None)
 
         full_version_info = test_obj.get_full_version(
-            "./tests/data/test_version.info.json")
+            "./tests/tahini/data/test_version.info.json")
 
         # Serialize into json
 
@@ -369,7 +369,7 @@ class TestDeserialization1(unittest.TestCase):
             None, "CONFIG_NAME", 10)
 
         full_version_obj = test_obj.get_full_version(
-            "./tests/data/test_version.info.json")
+            "./tests/tahini/data/test_version.info.json")
 
         # Serialize
         full_version_json = full_version_obj.to_json()
@@ -432,7 +432,7 @@ class TestDeserialization2(unittest.TestCase):
         basic_version_obj = test_obj.get_basic_version()
 
         basic_version_deserialized = test_obj.deserialize_basic_version(
-            "./tests/data/test_version.info.json")
+            "./tests/tahini/data/test_version.info.json")
 
         self.assertEqual(basic_version_obj.project,
                          basic_version_deserialized.project)

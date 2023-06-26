@@ -2,12 +2,12 @@
 Import unittest module to test GenerateFlatTxt
 """
 import unittest
-from tahini.tahini_generate_flat_txt import GenerateFlatTxt, TahiniGenerateFlatError
+from cmlpytools.tahini.tahini_generate_flat_txt import GenerateFlatTxt, TahiniGenerateFlatError
 
-CMAPPATH = "./tests/data/test_cmap_generate_flat.json"
-FLATPATH = "./tests/data/test_cmap_generate_flat.txt"
-OUTPUTPATH = "./tests/data/output_flat.txt"
-INVALIDPATH = "./tests/invalid_path/invalid"
+CMAPPATH = "./tests/tahini/data/test_cmap_generate_flat.json"
+FLATPATH = "./tests/tahini/data/test_cmap_generate_flat.txt"
+OUTPUTPATH = "./tests/tahini/data/output_flat.txt"
+INVALIDPATH = "./tests/tahini/invalid_path/invalid"
 
 
 class TestGenerateFlat(unittest.TestCase):

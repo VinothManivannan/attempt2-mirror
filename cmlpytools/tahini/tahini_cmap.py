@@ -4,22 +4,22 @@ from typing import List, Optional, Dict, Tuple
 import re
 from copy import deepcopy
 import marshmallow.exceptions
-from tahini.cmap_schema import ArrayIndex as CmapArrayIndex
-from tahini.cmap_schema import Bitfield as CmapBitfield
-from tahini.cmap_schema import FullRegmap as CmapFullRegmap
-from tahini.cmap_schema import CType as CmapCtype
-from tahini.cmap_schema import Register as CmapRegister
-from tahini.cmap_schema import RegisterOrStruct as CmapRegisterOrStruct
-from tahini.cmap_schema import Regmap as CmapRegmap
-from tahini.cmap_schema import State as CmapState
-from tahini.cmap_schema import Struct as CmapStruct
-from tahini.cmap_schema import Type as CmapType
-from tahini.cmap_schema import VisibilityOptions as CmapVisibilityOptions
-from tahini.cmap_schema import Scheme as CmapScheme
-from tahini.input_json_schema import (InputEnum, InputJson, InputJsonParserError,
+from .cmap_schema import ArrayIndex as CmapArrayIndex
+from .cmap_schema import Bitfield as CmapBitfield
+from .cmap_schema import FullRegmap as CmapFullRegmap
+from .cmap_schema import CType as CmapCtype
+from .cmap_schema import Register as CmapRegister
+from .cmap_schema import RegisterOrStruct as CmapRegisterOrStruct
+from .cmap_schema import Regmap as CmapRegmap
+from .cmap_schema import State as CmapState
+from .cmap_schema import Struct as CmapStruct
+from .cmap_schema import Type as CmapType
+from .cmap_schema import VisibilityOptions as CmapVisibilityOptions
+from .cmap_schema import Scheme as CmapScheme
+from .input_json_schema import (InputEnum, InputJson, InputJsonParserError,
                                       InputRegmap, InputType, VisibilityOptions)
-from tahini.tahini_version import TahiniVersion
-from tahini.version_schema import ExtendedVersionInfo
+from .tahini_version import TahiniVersion
+from .version_schema import ExtendedVersionInfo
 
 
 class TahiniCmapError(Exception):

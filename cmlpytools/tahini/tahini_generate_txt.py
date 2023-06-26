@@ -2,10 +2,10 @@
 """
 from io import TextIOWrapper
 from typing import List
-from tahini.cmap_schema import FullRegmap as CmapFullRegmap
-from tahini.cmap_schema import Type as CmapType
-from tahini.cmap_schema import State as CmapState
-from tahini.cmap_schema import RegisterOrStruct as CmapRegisterOrStruct
+from .cmap_schema import FullRegmap as CmapFullRegmap
+from .cmap_schema import Type as CmapType
+from .cmap_schema import State as CmapState
+from .cmap_schema import RegisterOrStruct as CmapRegisterOrStruct
 
 
 def _indent(depth: int) -> str:

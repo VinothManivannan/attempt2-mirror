@@ -11,8 +11,8 @@ from marshmallow_dataclass import class_schema
 from marshmallow.fields import Field
 import marshmallow.exceptions
 import clr
-from tahini.schema import Schema
-from tahini.version_schema import GitVersion
+from .schema import Schema
+from .version_schema import GitVersion
 
 
 sys.path.append(path.dirname(path.realpath(__file__)))

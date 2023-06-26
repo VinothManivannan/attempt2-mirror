@@ -2,14 +2,14 @@
 Tests for the search function
 """
 import unittest
-from tahini.cmap_schema import ArrayIndex as CmapArrayIndex
-from tahini.cmap_schema import CType as CmapCtype
-from tahini.cmap_schema import Register as CmapRegister
-from tahini.cmap_schema import RegisterOrStruct as CmapRegisterOrStruct
-from tahini.cmap_schema import Regmap as CmapRegmap
-from tahini.cmap_schema import Struct as CmapStruct
-from tahini.cmap_schema import Type as CmapType
-from tahini.search import search
+from cmlpytools.tahini.cmap_schema import ArrayIndex as CmapArrayIndex
+from cmlpytools.tahini.cmap_schema import CType as CmapCtype
+from cmlpytools.tahini.cmap_schema import Register as CmapRegister
+from cmlpytools.tahini.cmap_schema import RegisterOrStruct as CmapRegisterOrStruct
+from cmlpytools.tahini.cmap_schema import Regmap as CmapRegmap
+from cmlpytools.tahini.cmap_schema import Struct as CmapStruct
+from cmlpytools.tahini.cmap_schema import Type as CmapType
+from cmlpytools.tahini.search import search
 
 
 class TestSearch(unittest.TestCase):

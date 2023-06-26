@@ -6,9 +6,9 @@ import sys
 from os import path
 from typing import Optional
 import clr
-from tahini.legacy_regmap_schema import LegacyRegmap, LegacyRegmapRegister, \
+from .legacy_regmap_schema import LegacyRegmap, LegacyRegmapRegister, \
     HostAccessOptions, DeviceInformation, DataToEncrypt
-from tahini.cmap_schema import FullRegmap, Type, CType, RegisterOrStruct
+from .cmap_schema import FullRegmap, Type, CType, RegisterOrStruct
 
 sys.path.append(path.dirname(path.realpath(__file__)))
 clr.AddReference("SERVALib")
@@ -17,7 +17,7 @@ clr.AddReference("SERVALib")
 from Encryption_Module import JSON_Serialisation  # nopep8
 # pylint:enable = wrong-import-position, wrong-import-order
 
-INPUTPATH = "../tests/data/test_fullregmap_inputjsonexample.json"
+INPUTPATH = "../tests/tahini/data/test_fullregmap_inputjsonexample.json"
 
 VERSION_TAG_REGEX_G = r"((?P<major>[0-9]+)(\.)(?P<minor>[0-9]+)(\.)(?P<patch>[0-9]+))"
 

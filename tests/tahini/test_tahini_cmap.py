@@ -4,14 +4,14 @@ Import unittest module to test InputToCMapSource
 import unittest
 import warnings
 from os import path
-from tahini.cmap_schema import FullRegmap as CmapFullRegmap
-from tahini.cmap_schema import Type as CmapType
-from tahini.cmap_schema import ArrayIndex as CmapArrayIndex
-from tahini.input_json_schema import (InputJsonParserError, InputJson, InputRegmap,
+from cmlpytools.tahini.cmap_schema import FullRegmap as CmapFullRegmap
+from cmlpytools.tahini.cmap_schema import Type as CmapType
+from cmlpytools.tahini.cmap_schema import ArrayIndex as CmapArrayIndex
+from cmlpytools.tahini.input_json_schema import (InputJsonParserError, InputJson, InputRegmap,
                                       InputType, VisibilityOptions, InputEnum)
-from tahini.tahini_cmap import TahiniCmap, TahiniCmapError
+from cmlpytools.tahini.tahini_cmap import TahiniCmap, TahiniCmapError
 
-PATH_TO_DATA = "./tests/data"
+PATH_TO_DATA = "./tests/tahini/data"
 
 INPUTPATH = path.join(PATH_TO_DATA, "test_fullregmap_inputjsonexample.json")
 INVALID_CMAP_PATH = path.join(PATH_TO_DATA, "test_cmapparser_tocmap.json")
@@ -215,7 +215,7 @@ class TestToCMapSourceMethod(unittest.TestCase):
     def test_dw9787(self):
         """Test conversion of DW9787 input to cmap
         """
-        _ = TahiniCmap.cmap_regmap_from_input_json_path('tests/data/dw9787.json')
+        _ = TahiniCmap.cmap_regmap_from_input_json_path('tests/tahini/data/dw9787.json')
 
     def test_convert_mask_enum_into_bitfields(self):
         """Check that mask enums can be converted into cmapsource

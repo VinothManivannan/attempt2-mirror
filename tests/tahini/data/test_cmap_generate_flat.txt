@@ -1,0 +1,4 @@
+******address*******
+0x9b00 chip_id                       
+0x9b02 fw_uid_l                      
+0x9b04 fw_uid_h                      

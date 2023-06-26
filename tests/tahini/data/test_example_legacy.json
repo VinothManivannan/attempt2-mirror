@@ -1,0 +1,2725 @@
+{
+    "Actuator": {
+        "Fourwire": {
+            "children": [
+                [
+                    "Chain",
+                    "Thermal Models"
+                ],
+                [
+                    "Chain",
+                    "Warmup 4W"
+                ],
+                [
+                    "Chain",
+                    "SMA 4ws Control"
+                ],
+                [
+                    "Chain",
+                    "Protection Models"
+                ],
+                [
+                    "Chain",
+                    "Outer Control 4W"
+                ],
+                [
+                    "Chain",
+                    "Observation Models 4W"
+                ],
+                [
+                    "Struct",
+                    "fourwire_nonpersist"
+                ],
+                [
+                    "Struct",
+                    "fourwire_persist"
+                ],
+                [
+                    "Module",
+                    "Common Actuator Structures"
+                ]
+            ],
+            "controlindexes": {
+                "wires": 4
+            },
+            "controlspaces": {
+                "axes": [
+                    "x",
+                    "y"
+                ],
+                "dof": [
+                    "x",
+                    "y"
+                ]
+            }
+        }
+    },
+    "Chain": {
+        "Observation Models 4W": {
+            "children": [
+                [
+                    "Module",
+                    "Wire to Dof"
+                ],
+                [
+                    "Module",
+                    "Posest"
+                ],
+                [
+                    "Module",
+                    "Limest_4ws"
+                ]
+            ],
+            "controlindexes": {
+                "axes": 2,
+                "wires": 4
+            }
+        },
+        "Outer Control": {
+            "children": [
+                [
+                    "Module",
+                    "Dynamic Limit Finding 4W"
+                ],
+                [
+                    "Module",
+                    "Hysteresis Thermal Model"
+                ]
+            ]
+        },
+        "Protection Models": {
+            "children": [
+                [
+                    "Module",
+                    "Temperature Validation"
+                ],
+                [
+                    "Module",
+                    "Wire Break"
+                ]
+            ]
+        },
+        "SMA 4ws Control": {
+            "children": [
+                [
+                    "Module",
+                    "Matrix Multiplication"
+                ],
+                [
+                    "Module",
+                    "Hysteresis Model"
+                ],
+                [
+                    "Module",
+                    "Feed Forward Proportional"
+                ],
+                [
+                    "Module",
+                    "Feed Forward Dynamic Legacy"
+                ],
+                [
+                    "Module",
+                    "Linear Gain"
+                ],
+                [
+                    "Module",
+                    "Sum"
+                ],
+                [
+                    "Module",
+                    "Limit Application 4W"
+                ],
+                [
+                    "Module",
+                    "Dof to Wire"
+                ],
+                [
+                    "Module",
+                    "Wire to Dof"
+                ],
+                [
+                    "Module",
+                    "Limit Range"
+                ],
+                [
+                    "Module",
+                    "Arc"
+                ]
+            ],
+            "controlindexes": {
+                "axes": 2,
+                "wires": 4
+            },
+            "controlspaces": {
+                "dof": [
+                    "x",
+                    "y"
+                ]
+            }
+        },
+        "Thermal Models": {
+            "children": [
+                [
+                    "Module",
+                    "Temperature Estimation Model"
+                ],
+                [
+                    "Module",
+                    "Bias Model"
+                ],
+                [
+                    "Module",
+                    "Resistance Model"
+                ],
+                [
+                    "Module",
+                    "Stroke Model"
+                ],
+                [
+                    "Reg",
+                    "temperature"
+                ]
+            ]
+        },
+        "Warmup": {
+            "children": [
+                [
+                    "Module",
+                    "Centring Model"
+                ],
+                [
+                    "Module",
+                    "Arc"
+                ],
+                [
+                    "Module",
+                    "Limit Range"
+                ]
+            ]
+        }
+    },
+    "Flag": {
+        "AUTO_CENTRING": {},
+        "AUTO_LIMITING": {},
+        "AXIS_COMP": {},
+        "BREAK_LOOP": {},
+        "CENTRING_EN": {},
+        "CLH_ENABLE": {
+            "brief": "Set to enable Closed Loop hysteresis compensation"
+        },
+        "CLH_HTM_ENABLE": {
+            "brief": "Set to enable the application of hysteresis thermal model compensation. Note that if CLH_ENABLE is off, then HTM aplication is automatically disabled."
+        },
+        "CTRL_PERSISTED_RMIDS": {},
+        "FFD_ENABLE": {
+            "brief": "Set to enable feed forward dynamic module"
+        },
+        "FFH_ENABLE": {
+            "brief": "Set to enable feed forward hysteresis module"
+        },
+        "FFP_ENABLE": {
+            "brief": "Set to enable feed forward proportional module"
+        },
+        "FILTER_EN": {},
+        "GYRO_TEMP": {},
+        "HYST_EN": {},
+        "LIM_ENABLE": {
+            "brief": "Set to enable LIM_EST module"
+        },
+        "MANUAL_POSITION": {},
+        "MANUAL_TEMP": {},
+        "OPEN_LOOP": {},
+        "PERSISTED_RMIDS": {},
+        "POST_WARMUP_AXIS_COMPENSATION": {},
+        "POS_ADJ_EN": {},
+        "POS_ENABLE": {},
+        "RESERVED_4WIRE_11": {
+            "brief": "Reserved for 8 wire"
+        },
+        "RESERVED_4WIRE_12": {
+            "brief": "Reserved for 8 wire"
+        },
+        "RESERVED_4WIRE_13": {
+            "brief": "Reserved for 8 wire"
+        },
+        "RESERVED_4WIRE_14": {
+            "brief": "Reserved for 8 wire"
+        },
+        "RESERVED_S4H_5": {
+            "brief": "Reserved for Huang Shan - S4H for backward compatibility"
+        },
+        "ROT_COMP": {},
+        "TEMP_VALID": {},
+        "TV_ERR": {
+            "brief": "Indicates whether an invalid temperature was detected"
+        },
+        "WB_OPENCIRCUIT": {},
+        "WB_SHORTCIRCUIT": {},
+        "WIREBREAK": {}
+    },
+    "Module": {
+        "Arc": {
+            "children": [
+                [
+                    "Struct",
+                    "arc_params"
+                ],
+                [
+                    "Struct",
+                    "arc_readbacks"
+                ]
+            ],
+            "controlindexes": {
+                "wires": 4
+            }
+        },
+        "Bias Model": {
+            "children": [
+                [
+                    "Struct",
+                    "btm_params"
+                ],
+                [
+                    "Struct",
+                    "btm_readbacks"
+                ]
+            ],
+            "description": "The bias thermal model changes the bias power based on ambient temperature.",
+            "initvalues": {
+                "btm_shift": 8
+            }
+        },
+        "CML Lib": {
+            "children": [
+                [
+                    "Struct",
+                    "cml_regs"
+                ],
+                [
+                    "Struct",
+                    "cml_params"
+                ]
+            ]
+        },
+        "CML Lib 4ws": {
+            "children": [
+                [
+                    "Struct",
+                    "ssl_regs"
+                ],
+                [
+                    "Struct",
+                    "ssl_params"
+                ]
+            ]
+        },
+        "Centring Model": {
+            "children": [
+                [
+                    "Struct",
+                    "centring_model_8w_params"
+                ],
+                [
+                    "Struct",
+                    "centring_model_4w_params"
+                ],
+                [
+                    "Struct",
+                    "centring_model_8w_readbacks"
+                ],
+                [
+                    "Struct",
+                    "centring_model_4w_readbacks"
+                ]
+            ]
+        },
+        "Common Actuator Structures": {
+            "children": [
+                [
+                    "Reg",
+                    "STATUS"
+                ],
+                [
+                    "Struct",
+                    "counters_readbacks"
+                ]
+            ]
+        },
+        "Dof to Wire": null,
+        "Dynamic Limit Finding 4w": {
+            "children": [
+                [
+                    "Struct",
+                    "dlf_4w_params"
+                ],
+                [
+                    "Struct",
+                    "dlf_4w_readbacks"
+                ],
+                [
+                    "Struct",
+                    "centring"
+                ]
+            ],
+            "controlindexes": {
+                "wires": 4
+            },
+            "controlspaces": {
+                "axes": [
+                    "x",
+                    "y"
+                ],
+                "dofs": [
+                    "x",
+                    "y"
+                ]
+            },
+            "initvalues": {
+                "DLF 4w dof index x": 0,
+                "DLF 4w dof index y": 1
+            }
+        },
+        "Feed Forward Dynamic Legacy": {
+            "children": [
+                [
+                    "Struct",
+                    "ffd_legacy_params"
+                ],
+                [
+                    "Struct",
+                    "ffd_legacy_readbacks_8w"
+                ],
+                [
+                    "Struct",
+                    "ffd_legacy_readbacks_4w"
+                ]
+            ],
+            "controlindexes": {
+                "wires": 8
+            }
+        },
+        "Feed Forward Proportional": {
+            "children": [
+                [
+                    "Struct",
+                    "ffp_params_8w"
+                ],
+                [
+                    "Struct",
+                    "ffp_params_4w"
+                ],
+                [
+                    "Struct",
+                    "ffp_readbacks_8w"
+                ],
+                [
+                    "Struct",
+                    "ffp_readbacks_4w"
+                ]
+            ],
+            "controlindexes": {
+                "wires": 8
+            }
+        },
+        "Hysteresis Model": {
+            "children": [
+                [
+                    "Struct",
+                    "ffh_params"
+                ],
+                [
+                    "Struct",
+                    "ffh_readbacks_8w"
+                ],
+                [
+                    "Struct",
+                    "ffh_readbacks_4w"
+                ],
+                [
+                    "Struct",
+                    "clh_params"
+                ],
+                [
+                    "Struct",
+                    "clh_readbacks"
+                ]
+            ],
+            "controlindexes": {
+                "wires": 8
+            },
+            "initvalues": {
+                "max_num_channels": 8,
+                "num_backlashes": 4
+            }
+        },
+        "Hysteresis Thermal Model": {
+            "children": [
+                [
+                    "Struct",
+                    "htm_params"
+                ],
+                [
+                    "Struct",
+                    "htm_readbacks"
+                ]
+            ]
+        },
+        "Limest 4WS": {
+            "children": [
+                [
+                    "Struct",
+                    "limest_4ws_params"
+                ],
+                [
+                    "Struct",
+                    "limest_4ws_readbacks"
+                ]
+            ]
+        },
+        "Limit Application 4W": null,
+        "Limit Range": null,
+        "Linear Gain": {
+            "children": [
+                [
+                    "Struct",
+                    "linear_gain_params"
+                ],
+                [
+                    "Struct",
+                    "linear_gain_readbacks"
+                ]
+            ],
+            "controlspaces": {
+                "axes": [
+                    "x",
+                    "y",
+                    "z"
+                ]
+            },
+            "initvalues": {
+                "KPROP_GAIN_SHIFT": 8,
+                "axis_x": 0,
+                "axis_y": 1,
+                "axis_z": 2,
+                "length to rdelta shift": 8,
+                "rx": 0,
+                "ry": 1,
+                "rz": 2,
+                "x": 3,
+                "y": 4,
+                "z": 5
+            }
+        },
+        "Matrix Multiplication": null,
+        "Posest": {
+            "children": [
+                [
+                    "Struct",
+                    "pos_8w_params"
+                ],
+                [
+                    "Struct",
+                    "pos_4w_params"
+                ],
+                [
+                    "Struct",
+                    "pos_8w_readbacks"
+                ],
+                [
+                    "Struct",
+                    "pos_4w_readbacks"
+                ]
+            ]
+        },
+        "Resistance Model": {
+            "children": [
+                [
+                    "Struct",
+                    "rtm_params"
+                ],
+                [
+                    "Struct",
+                    "rtm_readbacks"
+                ]
+            ]
+        },
+        "Stroke Model": {
+            "children": [
+                [
+                    "Struct",
+                    "stm_params"
+                ],
+                [
+                    "Struct",
+                    "stm_readbacks"
+                ]
+            ],
+            "initvalues": {
+                "stm_base": 500,
+                "stm_shift": 20
+            }
+        },
+        "Sum": {
+            "initvalues": {
+                "sub": 1,
+                "sum": 0,
+                "sum_input_and_single_offset": 2
+            }
+        },
+        "Temperature Estimation Model": {
+            "children": [
+                [
+                    "Struct",
+                    "tempest_params"
+                ],
+                [
+                    "Struct",
+                    "tempest_readbacks"
+                ]
+            ],
+            "initvalues": {
+                "tempest_q": 4
+            }
+        },
+        "Temperature Validation": {
+            "children": [
+                [
+                    "Struct",
+                    "tv_params"
+                ],
+                [
+                    "Struct",
+                    "tv_readbacks"
+                ]
+            ]
+        },
+        "Wire Break": {
+            "children": [
+                [
+                    "Struct",
+                    "wb_params"
+                ],
+                [
+                    "Struct",
+                    "wb_readbacks"
+                ]
+            ]
+        },
+        "Wire to Dof": null
+    },
+    "Reg": {
+        "ACTUATOR_ID": {
+            "brief": "Identify the actuator type.",
+            "bytes": 2,
+            "signed": false
+        },
+        "ADC": {
+            "brief": "ADC measurements",
+            "bytes": 2,
+            "count": 8,
+            "signed": false
+        },
+        "ARC_DENOM": {
+            "brief": "This register is used to set the nominal resistance for the ARC model. DENOM = 4294967296 / RN.",
+            "bytes": 4
+        },
+        "ARC_FEATURES": {
+            "brief": "Enable features in the ARC model",
+            "children": [
+                [
+                    "Flag",
+                    "AXIS_COMP",
+                    1
+                ],
+                [
+                    "Flag",
+                    "ROT_COMP",
+                    2
+                ],
+                [
+                    "Flag",
+                    "POST_WARMUP_AXIS_COMPENSATION",
+                    4
+                ]
+            ]
+        },
+        "ARC_PDELTA_W": {
+            "brief": "Delta powers calculated by ARC",
+            "repeatfor": "wires",
+            "signed": true
+        },
+        "BTM_ADJUSTDEC": {
+            "brief": "Units to decrease bias by per control cycle when P_WIN_EFF not exceeded for BTM_ADJUSTWAIT cycles"
+        },
+        "BTM_ADJUSTINC": {
+            "brief": "Units to increase bias by per control cycle when P_WIN_EFF exceeded by demand, but P_WIN not exceedeed."
+        },
+        "BTM_ADJUSTMAX": {
+            "brief": "Maximum bias units by which power reduction can reduce bias."
+        },
+        "BTM_ADJUSTWAIT": {
+            "brief": "NOT IMPLEMENTED YET Number of control loop cycles for which power reduction conditions must be met before power starts to reduce."
+        },
+        "BTM_BASE": {
+            "brief": "Parameter BASE of the Bias Temperature Model",
+            "reset": "PBIAS_DEFAULT"
+        },
+        "BTM_BIAS": {
+            "brief": "Power bias applied on all the wires (power units)"
+        },
+        "BTM_BIASMAX": {
+            "brief": "The maximum value that BTM_BIAS is permitted to reach to ensure the power window remains open",
+            "bytes": 2,
+            "signed": false
+        },
+        "BTM_GRAD": {
+            "brief": "Parameter GRADIENT of the Bias Temperature Model",
+            "reset": "BTM_GRAD",
+            "signed": true
+        },
+        "BTM_POWER_MAX": {
+            "brief": "max power calulated with given max allowed wire temperature and input temperature"
+        },
+        "BTM_TEMPINIT": {
+            "brief": "Parameter TEMPERATURE_INIT of the Bias Temperature Model",
+            "reset": "BTM_TEMPINIT",
+            "signed": true
+        },
+        "BTM_TEMPWD": {
+            "brief": "Parameter TEMPERATURE_WINDDOWN of the Bias Temperature Model",
+            "reset": "BTM_TEMPWD",
+            "signed": true
+        },
+        "BTM_WIN": {
+            "brief": "Parameter PWIN of the Bias Temperature Model",
+            "reset": "P_RANGE_MAX"
+        },
+        "BTM_WINDOW": {
+            "brief": "Power window applied on the forward path (power units)"
+        },
+        "BTM_W_TEMP_MAX": {
+            "brief": "user-defined max wire temperature"
+        },
+        "CENTRE_ADJ": {
+            "brief": "Resistance delta in mOhms by which resistance demands are adjusted due to centering from DLF",
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "CENTRING_MODE": {
+            "brief": "register for selecting centring model: Power Centre, Absolute Resistance Centre, Relative Resistance Centre",
+            "bytes": 2,
+            "children": [
+                [
+                    "State",
+                    "POWER_CENTRE",
+                    0
+                ],
+                [
+                    "State",
+                    "ABS_RESISTANCE_CENTRE",
+                    1
+                ],
+                [
+                    "State",
+                    "REL_RESISTANCE_CENTRE",
+                    2
+                ]
+            ]
+        },
+        "CLH_ADJ_A": {
+            "brief": "Hysteresis adjustment value, combination of delta applied across the hysteresis block and the gain shortfall corrected delta accross the inverted PI model, per axis.",
+            "bytes": 2,
+            "repeatfor": "channels",
+            "signed": true
+        },
+        "CLH_FEATURES": {
+            "brief": "Flags to control 4W Closed Loop hysteresis features",
+            "children": [
+                [
+                    "Flag",
+                    "CLH_ENABLE",
+                    1
+                ],
+                [
+                    "Flag",
+                    "CLH_HTM_ENABLE",
+                    2
+                ]
+            ],
+            "signed": "false"
+        },
+        "CLH_GAIN_SF_FACTOR_A": {
+            "brief": "Gain shortfall hysteresis scaling factor. Format is Q1.15 fixed point.",
+            "repeatfor": "channels",
+            "signed": true
+        },
+        "CLH_PIR": {
+            "brief": "Prandtl-Ishliskii (PI) backlash bandwidth",
+            "count": 4,
+            "signed": false
+        },
+        "CLH_PIWEIGHT": {
+            "brief": "Prandtl-Ishliskii (PI) backlash weight, in Q4.11",
+            "count": 4,
+            "signed": true
+        },
+        "CLH_RDELTA_HYST_A": {
+            "brief": "Hysteresis adjusted rdelta demand, per axis.",
+            "repeatfor": "channels",
+            "signed": true
+        },
+        "COUNTER_CTRL": {
+            "brief": "Counter incremented each time the control loop is executed"
+        },
+        "COUNTER_MAIN": {
+            "brief": "Counter incremented each time the main loop is executed"
+        },
+        "COUNTER_POS": {
+            "brief": "Counter incremented each time a new position is provided to the library"
+        },
+        "COUNTER_TEMP": {
+            "brief": "Counter incremented each time a new temperature is provided to the library"
+        },
+        "CTRL_FEATURES": {
+            "brief": "Bit field used to enable or disable features: Open-loop, DLF, Dynamic Centring, Octagonal SWIN, Wire break detection.",
+            "children": [
+                [
+                    "Flag",
+                    "AUTO_LIMITING",
+                    1
+                ],
+                [
+                    "Flag",
+                    "AUTO_CENTRING",
+                    2
+                ],
+                [
+                    "Flag",
+                    "RESERVED_S4H_5",
+                    16
+                ],
+                [
+                    "Flag",
+                    "WIREBREAK",
+                    32
+                ],
+                [
+                    "Flag",
+                    "BREAK_LOOP",
+                    64
+                ],
+                [
+                    "Flag",
+                    "TEMP_VALID",
+                    128
+                ],
+                [
+                    "Flag",
+                    "PERSISTED_RMIDS",
+                    256
+                ],
+                [
+                    "Flag",
+                    "CTRL_PERSISTED_RMIDS",
+                    512
+                ],
+                [
+                    "Flag",
+                    "RESERVED_4WIRE_11",
+                    1024
+                ],
+                [
+                    "Flag",
+                    "RESERVED_4WIRE_12",
+                    2048
+                ],
+                [
+                    "Flag",
+                    "RESERVED_4WIRE_13",
+                    4096
+                ],
+                [
+                    "Flag",
+                    "RESERVED_4WIRE_14",
+                    8192
+                ]
+            ]
+        },
+        "CTRL_GAIN_A": {
+            "brief": "Proportional gain of the control loop",
+            "repeatfor": "axes"
+        },
+        "CTRL_POFFSET": {
+            "brief": "PDELTA Offset",
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "DLF_BACKOFF": {
+            "brief": "How much maximum Resistance demand will be clipped in a Limit finding event"
+        },
+        "DLF_ERR": {
+            "brief": "Filtered RDELTA_ERROR (mOhms). Whilst this is below DLF_ERRLIM Firmware is considered in control",
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "DLF_ERRLIM": {
+            "brief": "Threshold value of DLF_Err below which the Firmware will be considered in the out of control state."
+        },
+        "DLF_HOTZONE": {
+            "brief": "Resistance range in which the Firmware cannot be out of control"
+        },
+        "DLF_MAXPDR": {
+            "brief": "Maximum resistance delta applied on an axis (mOhms). This is updated every time a limit finding event is found.",
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "DLF_MINPDR": {
+            "brief": "Minimum resistance delta applied on an axis (mOhms). This is updated every time a limit finding event is found.",
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "DLF_TIMEOUT": {
+            "brief": "Threshold number of cycles of being in the out of control state before Limit finding is applied"
+        },
+        "DLF_VEL": {
+            "brief": "Filtered RDELTA_VELOCITY (mOhms/cycle). Whilst this is above DLF_VELLIM Firmware is considered in control",
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "DLF_VELLIM": {
+            "brief": "Threshold filtered RDelta velocity above which the Firmware will not be considered in the out of control state."
+        },
+        "DUTY": {
+            "brief": "Duty currently applied in number of cycles",
+            "bytes": 2,
+            "count": 8,
+            "signed": false
+        },
+        "ENABLE_PWR": {
+            "brief": "Status of power output enabled/disabled",
+            "bytes": 2,
+            "signed": false
+        },
+        "FFD_FEATURES": {
+            "brief": "Bit field to control feed forward dynamic feature",
+            "children": [
+                [
+                    "Flag",
+                    "FFD_ENABLE",
+                    1
+                ]
+            ],
+            "signed": "false"
+        },
+        "FFD_KDYN": {
+            "brief": "Feed forward dynamic control gain, in Q6.6",
+            "count": 2,
+            "signed": false
+        },
+        "FFD_PDELTA_A": {
+            "brief": "Feed forward dynamic control output demand, per axis.",
+            "repeatfor": "channels",
+            "signed": true
+        },
+        "FFD_PDELTA_W": {
+            "brief": "Feed forward dynamic control output demand, per wire.",
+            "repeatfor": "channels",
+            "signed": true
+        },
+        "FFD_TC": {
+            "brief": "Feed forward dynamic control time constant, in Q0.12",
+            "count": 2,
+            "signed": false
+        },
+        "FFH_FEATURES": {
+            "brief": "Bit field to control feed forward hysteresis feature",
+            "children": [
+                [
+                    "Flag",
+                    "FFH_ENABLE",
+                    1
+                ]
+            ],
+            "signed": "false"
+        },
+        "FFH_PIR": {
+            "brief": "Prandtl-Ishliskii (PI) backlash bandwidth",
+            "count": 4,
+            "signed": false
+        },
+        "FFH_PIWEIGHT": {
+            "brief": "Prandtl-Ishliskii (PI) backlash weight, in Q4.11",
+            "count": 4,
+            "signed": true
+        },
+        "FFH_RDELTA_HYST_A": {
+            "brief": "Hysteresis adjusted rdelta demand, per axis.",
+            "repeatfor": "channels",
+            "signed": true
+        },
+        "FFH_RDELTA_HYST_W": {
+            "brief": "Hysteresis adjusted rdelta demand, per wire.",
+            "repeatfor": "channels",
+            "signed": true
+        },
+        "FFP_FEATURES": {
+            "brief": "Bit field to control feed forward proportional feature",
+            "children": [
+                [
+                    "Flag",
+                    "FFP_ENABLE",
+                    1
+                ]
+            ],
+            "signed": "false"
+        },
+        "FFP_KPROP": {
+            "brief": "Feed forward proportional gain, in (signed) Q4.12",
+            "repeatfor": "channels",
+            "signed": true
+        },
+        "FFP_PDELTA_A": {
+            "brief": "Feed forward Pdelta proportional control output, per axis.",
+            "repeatfor": "channels",
+            "signed": true
+        },
+        "FFP_PDELTA_W": {
+            "brief": "Feed forward Pdelta proportional control output, per axis.",
+            "repeatfor": "channels",
+            "signed": true
+        },
+        "HTMEFF": {
+            "brief": "Mixing factor of rdelta demand and rdelta hysteresis in Q0.16",
+            "repeatfor": "axes"
+        },
+        "HTMGRAD": {
+            "brief": "Mixing grad to determine a combination of hysteresis compensated and uncompensated rdelta demands"
+        },
+        "HTMMAX": {
+            "brief": "Maximum wire temperature above which output consists solely of uncompensated rdelta demands",
+            "signed": true
+        },
+        "HTMMIN": {
+            "brief": "Minimum wire temperature below which output consists solely of hysteresis compensated rdelta demands",
+            "signed": true
+        },
+        "INPUT_CTRL": {
+            "brief": "Bit field that can be used to enable special debug features",
+            "children": [
+                [
+                    "Flag",
+                    "MANUAL_TEMP",
+                    1
+                ],
+                [
+                    "Flag",
+                    "MANUAL_POSITION",
+                    2
+                ]
+            ]
+        },
+        "INPUT_POS": {
+            "brief": "Position Demand used by the library",
+            "repeatfor": "axes",
+            "signed": true,
+            "writeable": true
+        },
+        "INPUT_TEMP": {
+            "brief": "Temperature received by the library.",
+            "signed": true,
+            "writeable": true
+        },
+        "LIB_BRANCH": {
+            "brief": "Branch version number of CML library as in <major>.<minor>.<patch>-<branch>.<release>",
+            "bytes": 2,
+            "signed": false
+        },
+        "LIB_BUILDID": {
+            "brief": "Build identifier for CML library",
+            "bytes": 2,
+            "signed": false
+        },
+        "LIB_MAJOR": {
+            "brief": "Major version number of CML library as in <major>.<minor>.<patch>-<branch>.<release>",
+            "bytes": 2,
+            "signed": false
+        },
+        "LIB_MINOR": {
+            "brief": "Minor version number of CML library as in <major>.<minor>.<patch>-<branch>.<release>",
+            "bytes": 2,
+            "signed": false
+        },
+        "LIB_PATCH": {
+            "brief": "Patch version number of CML library as in <major>.<minor>.<patch>-<branch>.<release>",
+            "bytes": 2,
+            "signed": false
+        },
+        "LIB_RELEASE": {
+            "brief": "Branch version number of CML library as in <major>.<minor>.<patch>-<branch>.<release>",
+            "bytes": 2,
+            "signed": false
+        },
+        "LIB_REVISION": {
+            "brief": "Git sha1 of CML library",
+            "bytes": 4,
+            "signed": false
+        },
+        "LIM_EST": {
+            "brief": "Position estimation of DLF limits",
+            "bytes": 2,
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "LIM_FEATURES": {
+            "brief": "Enable position limit estimation",
+            "children": [
+                [
+                    "Flag",
+                    "LIM_ENABLE",
+                    1
+                ]
+            ]
+        },
+        "LINEAR_GAIN_ADJ_A": {
+            "brief": "The amount of compensation applied to be fed to posest to correct it",
+            "bytes": 2,
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "OIS_AF_SCALE": {
+            "brief": "The coefficient of the linear gain for sacling the OIS and rotation axes depending on Z. Q12.20",
+            "bytes": 4,
+            "count": 4,
+            "signed": true
+        },
+        "OIS_AF_SCALING_EN": {
+            "brief": "Enables the AF dependent OIS scaling",
+            "bytes": 2,
+            "signed": false
+        },
+        "PARAMS_UID": {
+            "brief": "Unique identifier for the parameter file.",
+            "bytes": 4,
+            "signed": false
+        },
+        "PDELTA": {
+            "brief": "Delta Power",
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "POS_EST": {
+            "brief": "Estimated Lens Position",
+            "bytes": 2,
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "POS_FEATURES": {
+            "brief": "Enable features in the position estimation model",
+            "bytes": 2,
+            "children": [
+                [
+                    "Flag",
+                    "POS_ENABLE",
+                    1
+                ],
+                [
+                    "Flag",
+                    "FILTER_EN",
+                    2
+                ],
+                [
+                    "Flag",
+                    "CENTRING_EN",
+                    4
+                ],
+                [
+                    "Flag",
+                    "HYST_EN",
+                    8
+                ],
+                [
+                    "Flag",
+                    "POS_ADJ_EN",
+                    16
+                ]
+            ],
+            "signed": false
+        },
+        "POS_FILTCOEF": {
+            "brief": "Filter coefficient for position model. 0 is pass-through while 65536 corresponds to the lowest cut-off frequency.",
+            "bytes": 2,
+            "signed": false
+        },
+        "POS_GAIN_CORRECTION": {
+            "brief": "Gain shortfall correction after the pos estimate filter. In Q2.14",
+            "bytes": 2,
+            "repeatfor": "axes",
+            "signed": false
+        },
+        "PWM_FREQUENCY": {
+            "brief": "Target PWM frequency in Hz",
+            "bytes": 4,
+            "signed": false
+        },
+        "PWR_W": {
+            "brief": "Power applied",
+            "repeatfor": "wires"
+        },
+        "RDELTA": {
+            "brief": "Delta wire resistance",
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "RDELTADEMANDOUTPUT": {
+            "brief": "Delta resistance demands - output of DLA block",
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "RDELTAERR": {
+            "brief": "Delta Resistance Error",
+            "repeatfor": "axes",
+            "signed": true
+        },
+        "RES_W": {
+            "brief": "Compensated wire resistance (after RLM)",
+            "repeatfor": "wires"
+        },
+        "RMID_CAL": {
+            "brief": "Calibrated centre of resistance used by PosEst",
+            "bytes": 2,
+            "repeatfor": "wires",
+            "signed": false
+        },
+        "RMID_W": {
+            "brief": "Centre of Resistance as calculated by Centre Calibration algorithm (mOhms)",
+            "repeatfor": "wires",
+            "signed": false
+        },
+        "RSLACK_AVG": {
+            "brief": "Slack resistance metric averaged over all wires",
+            "bytes": 2,
+            "signed": true
+        },
+        "RSLACK_W": {
+            "brief": "Slack resistance metric",
+            "repeatfor": "wires",
+            "signed": true
+        },
+        "RTM_BASE": {
+            "brief": "Parameter BASE of the Resistance Temperature Model",
+            "reset": "RTM_BASE"
+        },
+        "RTM_CURV": {
+            "brief": "Parameter CURVATURE of the Resistance Temperature Model",
+            "signed": true
+        },
+        "RTM_GRAD": {
+            "brief": "Parameter GRADIENT of the Resistance Temperature Model",
+            "signed": true
+        },
+        "RTM_RSCEFF": {
+            "brief": "Scaling factor between TARGET0..1 and RDELTA_DEMAND0..1 as calculated by the Resistance Temperature Model (mOhms per Position Demand unit, in Q8.8 fixed-point)",
+            "bytes": 2,
+            "signed": false
+        },
+        "RTM_RSCEFF_INV": {
+            "brief": "Inverse of RTM_RSCEFF, in Q8.8 fixed-point",
+            "bytes": 2,
+            "signed": false
+        },
+        "RTM_TEMPINIT": {
+            "brief": "Reference temperature at which RTM_BASE is the effective RSC (unaffected by gradients)",
+            "reset": "RTM_TEMPINIT",
+            "signed": true
+        },
+        "RTM_TEMPWIRE": {
+            "brief": "Temperature of the wires as calculated by the Resistance Temperature Model (1/10 C)"
+        },
+        "RTM_THERMALRES": {
+            "brief": "Parameter THERMAL_RESISTANCE of the Resistance Temperature Model",
+            "signed": true
+        },
+        "SCM_FFX_MATRIX_VALUES": {
+            "brief": "Sensitivity calibration matrix values for hybrid drive, in Q3.12",
+            "bytes": 2,
+            "count": 4,
+            "signed": true
+        },
+        "SCM_FFX_TRANSFORM_APPLIED": {
+            "brief": "Centered position with transformation matrix applied for hybrid drive",
+            "bytes": 2,
+            "count": 2,
+            "signed": true
+        },
+        "SCM_INVERSE_MATRIX_VALUES": {
+            "brief": "Inversed sensitivity calibration matrix, in Q3.12",
+            "bytes": 2,
+            "count": 4,
+            "signed": true
+        },
+        "SCM_MATRIX_VALUES": {
+            "brief": "Sensitivity calibration matrix values, in Q3.12",
+            "bytes": 2,
+            "count": 4,
+            "signed": true
+        },
+        "SCM_TRANSFORM_APPLIED": {
+            "brief": "Centered position with transformation matrix applied",
+            "bytes": 2,
+            "count": 2,
+            "signed": true
+        },
+        "STATUS": {
+            "brief": "Control status",
+            "children": [
+                [
+                    "State",
+                    "SMASTATUS_WARMINGUP",
+                    0
+                ],
+                [
+                    "State",
+                    "SMASTATUS_RUNNING",
+                    1
+                ]
+            ]
+        },
+        "STM_BASE": {
+            "brief": "Parameter BASE of the Stroke Temperature Model",
+            "reset": "STM_BASE"
+        },
+        "STM_GRADHIGH": {
+            "brief": "Parameter GRADIENT_HIGH of the Stroke Temperature Model",
+            "signed": true
+        },
+        "STM_GRADLOW": {
+            "brief": "Parameter GRADIENT_LOW of the Stroke Temperature Model",
+            "signed": true
+        },
+        "STM_RDELTAWINEFF": {
+            "brief": "SWIN_EFF multiplied by RSC_EFF"
+        },
+        "STM_SWINEFF": {
+            "brief": "Stroke window as calculated by the Stoke Temperature Model (Position Demand units)"
+        },
+        "STM_TEMPREF": {
+            "brief": "Parameter reference temperature at which STM_BASE is the effective SWIN (unaffected by gradients)",
+            "signed": true
+        },
+        "TEMPEST_ADJ": {
+            "brief": "Temperature offset between the thermometer and the actuator as calculated by the Temperature Estimation Model (1/10 C)",
+            "signed": true
+        },
+        "TEMPEST_FILTMEAS": {
+            "brief": "Filtered temperature from the measurement device (1/10 C)",
+            "signed": true
+        },
+        "TEMPEST_GRAD": {
+            "brief": "Parameter C1 of the Temperature Estimation Model",
+            "signed": true
+        },
+        "TEMPEST_OFFSET": {
+            "brief": "Parameter C0 of the Temperature Estimation Model",
+            "signed": true
+        },
+        "TEMPEST_TEMPAMB": {
+            "brief": "Temperature of the actuator as calculated by the Temperature Estimation Model (1/10 C)",
+            "signed": true
+        },
+        "TV_COUNTER": {
+            "brief": "Temperature validation counter, indicating the number of consecutive invalid temperatures measured.",
+            "bytes": 2,
+            "signed": false
+        },
+        "TV_ERRLIM": {
+            "brief": "Maximum number of errors allowed before the temperature invalid flag is set.",
+            "bytes": 2,
+            "signed": false
+        },
+        "TV_ERR_FLAG": {
+            "brief": "Temperature validation flag, indicating if an invalid temperature triggered a power down.",
+            "bytes": 2,
+            "children": [
+                [
+                    "Flag",
+                    "TV_ERR",
+                    1
+                ]
+            ]
+        },
+        "WB_BREAK_FLAG": {
+            "brief": "Wire break flags, indicating whether an open/closed circuit was detected triggering a power down.",
+            "bytes": 2,
+            "children": [
+                [
+                    "Flag",
+                    "WB_OPENCIRCUIT",
+                    1
+                ],
+                [
+                    "Flag",
+                    "WB_SHORTCIRCUIT",
+                    2
+                ]
+            ]
+        },
+        "WB_COUNTER": {
+            "brief": "Wire break detect counter, indicating the number of consecutive open/closed circuits detected.",
+            "bytes": 2,
+            "signed": false
+        },
+        "WB_ERRLIM": {
+            "brief": "Maximum number of errors allowed before the wire break flag is set.",
+            "bytes": 2,
+            "signed": false
+        },
+        "WB_RESMAX": {
+            "brief": "Resistance threshold used in wire break detection. Maximum threshold above which an open circuit is indicated",
+            "bytes": 2,
+            "signed": false
+        },
+        "WB_RESMIN": {
+            "brief": "Resistance threshold used in wire break detection. Maximum threshold above which an short circuit is indicated",
+            "bytes": 2,
+            "signed": false
+        },
+        "temperature": {
+            "signed": true
+        }
+    },
+    "RegMap": {
+        "CSA_Lib": {
+            "addr_bytes": 2,
+            "children": [
+                [
+                    "Struct",
+                    "cml_params"
+                ]
+            ],
+            "controlindexes": {
+                "wires": 4
+            },
+            "controlspaces": {
+                "axes": [
+                    "x",
+                    "y"
+                ],
+                "dof": [
+                    "rx",
+                    "ry",
+                    "x",
+                    "y"
+                ]
+            },
+            "endianness": "<",
+            "min_address": 0,
+            "tags": [
+                "CSA_Lib"
+            ],
+            "version": "1"
+        }
+    },
+    "ReservedReg": {
+        "INPUT_POS_WORD_ALIGN": {},
+        "OIS_AF_PADDING": {
+            "bytes": 2
+        },
+        "arc_params_RESERVED": {},
+        "reserved_cml_params": {
+            "bytes": 1,
+            "count": 28
+        },
+        "reserved_cml_regs": {
+            "bytes": 1,
+            "count": 28
+        },
+        "reserved_cml_version": {
+            "bytes": 1,
+            "count": 12
+        }
+    },
+    "State": {
+        "ABS_RESISTANCE_CENTRE": {
+            "brief": "rmid_w is 0"
+        },
+        "POWER_CENTRE": {
+            "brief": "rmid_w is resistance of powered wire"
+        },
+        "REL_RESISTANCE_CENTRE": {
+            "brief": "rmid_w is resistance of un-powered wire"
+        },
+        "SMASTATUS_RUNNING": {},
+        "SMASTATUS_WARMINGUP": {}
+    },
+    "Struct": {
+        "arc_params": {
+            "children": [
+                [
+                    "Reg",
+                    "ARC_DENOM"
+                ],
+                [
+                    "Reg",
+                    "ARC_FEATURES"
+                ],
+                [
+                    "ReservedReg",
+                    "arc_params_RESERVED"
+                ]
+            ],
+            "cname": "arc",
+            "ctype": "ArcParams",
+            "prefix": "ARC",
+            "protocol": "arc_v1_3"
+        },
+        "arc_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "ARC_PDELTA_W"
+                ]
+            ],
+            "cname": "arc_readbacks",
+            "controlindexes": {
+                "wires": 4
+            },
+            "ctype": "ArcReadbacks",
+            "protocol": "arc_v1_3",
+            "writeable": false
+        },
+        "btm_params": {
+            "children": [
+                [
+                    "Reg",
+                    "BTM_BASE"
+                ],
+                [
+                    "Reg",
+                    "BTM_WIN"
+                ],
+                [
+                    "Reg",
+                    "BTM_GRAD"
+                ],
+                [
+                    "Reg",
+                    "BTM_TEMPINIT"
+                ],
+                [
+                    "Reg",
+                    "BTM_TEMPWD"
+                ],
+                [
+                    "Reg",
+                    "BTM_BIASMAX"
+                ],
+                [
+                    "Reg",
+                    "BTM_W_TEMP_MAX"
+                ]
+            ],
+            "cname": "btm",
+            "prefix": "BTM"
+        },
+        "btm_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "BTM_BIAS"
+                ],
+                [
+                    "Reg",
+                    "BTM_WINDOW"
+                ],
+                [
+                    "Reg",
+                    "BTM_POWER_MAX"
+                ]
+            ],
+            "cname": "btm",
+            "prefix": "BTM",
+            "writeable": false
+        },
+        "centring": {
+            "children": [
+                [
+                    "Reg",
+                    "CENTRE_ADJ"
+                ]
+            ],
+            "cname": "centring",
+            "ctype": "DynamicCentringReadbacks",
+            "prefix": "CENTRE",
+            "protocol": "dynamic_centring_v1_0",
+            "writeable": false
+        },
+        "centring_model_4w_params": {
+            "children": [
+                [
+                    "Reg",
+                    "CENTRING_MODE"
+                ],
+                [
+                    "Reg",
+                    "RMID_CAL"
+                ]
+            ],
+            "controlindexes": {
+                "wires": 4
+            },
+            "protocol": "warmup_centring_v1_0"
+        },
+        "centring_model_4w_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "RMID_W"
+                ],
+                [
+                    "Reg",
+                    "RSLACK_AVG"
+                ],
+                [
+                    "Reg",
+                    "RSLACK_W"
+                ]
+            ],
+            "controlindexes": {
+                "wires": 4
+            },
+            "protocol": "warmup_centring_v1_0",
+            "writeable": true
+        },
+        "centring_model_8w_params": {
+            "children": [
+                [
+                    "Reg",
+                    "CENTRING_MODE"
+                ],
+                [
+                    "Reg",
+                    "RMID_CAL"
+                ]
+            ],
+            "controlindexes": {
+                "wires": 8
+            }
+        },
+        "centring_model_8w_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "RMID_W"
+                ],
+                [
+                    "Reg",
+                    "RSLACK_AVG"
+                ],
+                [
+                    "Reg",
+                    "RSLACK_W"
+                ]
+            ],
+            "controlindexes": {
+                "wires": 8
+            },
+            "protocol": "stm32_8ws/centring_model_v1_1",
+            "writeable": true
+        },
+        "clh_params": {
+            "brief": "Parameters for the closed loop hysteresis module",
+            "children": [
+                [
+                    "Reg",
+                    "CLH_FEATURES"
+                ],
+                [
+                    "Reg",
+                    "CLH_PIR"
+                ],
+                [
+                    "Reg",
+                    "CLH_PIWEIGHT"
+                ],
+                [
+                    "Reg",
+                    "CLH_GAIN_SF_FACTOR_A"
+                ]
+            ],
+            "controlindexes": {
+                "channels": 2
+            },
+            "prefix": "CLH",
+            "protocol": "clh_v1_2"
+        },
+        "clh_readbacks": {
+            "brief": "Readbacks for the closed loop hysteresis module",
+            "children": [
+                [
+                    "Reg",
+                    "CLH_RDELTA_HYST_A"
+                ],
+                [
+                    "Reg",
+                    "CLH_ADJ_A"
+                ]
+            ],
+            "controlindexes": {
+                "channels": 2
+            },
+            "prefix": "CLH",
+            "protocol": "clh_v1_2",
+            "writeable": false
+        },
+        "cml_params": {
+            "children": [
+                [
+                    "Reg",
+                    "PWM_FREQUENCY"
+                ],
+                [
+                    "ReservedReg",
+                    "reserved_cml_params"
+                ],
+                [
+                    "Struct",
+                    "ssl_params"
+                ]
+            ]
+        },
+        "cml_regs": {
+            "children": [
+                [
+                    "Reg",
+                    "LIB_MAJOR"
+                ],
+                [
+                    "Reg",
+                    "LIB_MINOR"
+                ],
+                [
+                    "Reg",
+                    "LIB_PATCH"
+                ],
+                [
+                    "Reg",
+                    "LIB_BRANCH"
+                ],
+                [
+                    "Reg",
+                    "LIB_RELEASE"
+                ],
+                [
+                    "Reg",
+                    "LIB_BUILDID"
+                ],
+                [
+                    "Reg",
+                    "LIB_REVISION"
+                ],
+                [
+                    "Reg",
+                    "PARAMS_UID"
+                ],
+                [
+                    "Reg",
+                    "ACTUATOR_ID"
+                ],
+                [
+                    "ReservedReg",
+                    "reserved_cml_version"
+                ],
+                [
+                    "Reg",
+                    "ADC"
+                ],
+                [
+                    "Reg",
+                    "DUTY"
+                ],
+                [
+                    "ReservedReg",
+                    "reserved_cml_regs"
+                ],
+                [
+                    "Struct",
+                    "ssl_regs"
+                ]
+            ]
+        },
+        "counters_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "COUNTER_MAIN"
+                ],
+                [
+                    "Reg",
+                    "COUNTER_CTRL"
+                ],
+                [
+                    "Reg",
+                    "COUNTER_TEMP"
+                ],
+                [
+                    "Reg",
+                    "COUNTER_POS"
+                ]
+            ],
+            "prefix": "COUNTER",
+            "protocol": "counter_v1_1",
+            "writeable": false
+        },
+        "ctrl_params": {
+            "children": [
+                [
+                    "Reg",
+                    "CTRL_FEATURES"
+                ],
+                [
+                    "Reg",
+                    "CTRL_GAIN_A"
+                ],
+                [
+                    "Reg",
+                    "CTRL_POFFSET"
+                ]
+            ],
+            "cname": "ctrl",
+            "ctype": "Control_Parameters",
+            "prefix": "CTRL",
+            "protocol": "ctrl_v1_2"
+        },
+        "ctrl_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "STATUS"
+                ],
+                [
+                    "Reg",
+                    "RES_W"
+                ],
+                [
+                    "Reg",
+                    "RDELTA"
+                ],
+                [
+                    "Reg",
+                    "RDELTADEMANDOUTPUT"
+                ],
+                [
+                    "Reg",
+                    "RDELTAERR"
+                ],
+                [
+                    "Reg",
+                    "PDELTA"
+                ],
+                [
+                    "Reg",
+                    "PWR_W"
+                ],
+                [
+                    "Reg",
+                    "ENABLE_PWR"
+                ]
+            ],
+            "cname": "ctrl",
+            "ctype": "CtrlReadbacks",
+            "protocol": "ctrl_v1_2",
+            "writeable": false
+        },
+        "dlf_4w_params": {
+            "children": [
+                [
+                    "Reg",
+                    "DLF_HOTZONE"
+                ],
+                [
+                    "Reg",
+                    "DLF_TIMEOUT"
+                ],
+                [
+                    "Reg",
+                    "DLF_VELLIM"
+                ],
+                [
+                    "Reg",
+                    "DLF_ERRLIM"
+                ],
+                [
+                    "Reg",
+                    "DLF_BACKOFF"
+                ]
+            ],
+            "ctype": "Dlf4WParams",
+            "prefix": "DLF",
+            "protocol": "dlf_v2_1"
+        },
+        "dlf_4w_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "DLF_MINPDR"
+                ],
+                [
+                    "Reg",
+                    "DLF_MAXPDR"
+                ],
+                [
+                    "Reg",
+                    "DLF_ERR"
+                ],
+                [
+                    "Reg",
+                    "DLF_VEL"
+                ]
+            ],
+            "cname": "dlf_4w_readbacks",
+            "ctype": "Dlf4WReadbacks",
+            "prefix": "DLF",
+            "protocol": "dlf_v2_1",
+            "writeable": false
+        },
+        "ffd_legacy_params": {
+            "children": [
+                [
+                    "Reg",
+                    "FFD_FEATURES"
+                ],
+                [
+                    "Reg",
+                    "FFD_KDYN"
+                ],
+                [
+                    "Reg",
+                    "FFD_TC"
+                ]
+            ],
+            "cname": "ffd",
+            "prefix": "FFD"
+        },
+        "ffd_legacy_readbacks_4w": {
+            "children": [
+                [
+                    "Reg",
+                    "FFD_PDELTA_A"
+                ]
+            ],
+            "cname": "ffd",
+            "controlindexes": {
+                "channels": 2
+            },
+            "prefix": "FFD",
+            "protocol": "ffd_v1_1",
+            "writeable": false
+        },
+        "ffd_legacy_readbacks_8w": {
+            "children": [
+                [
+                    "Reg",
+                    "FFD_PDELTA_W"
+                ]
+            ],
+            "cname": "ffd",
+            "controlindexes": {
+                "channels": 8
+            },
+            "prefix": "FFD",
+            "writeable": false
+        },
+        "ffh_params": {
+            "brief": "Parameters for the feedforward hysteresis module",
+            "children": [
+                [
+                    "Reg",
+                    "FFH_FEATURES"
+                ],
+                [
+                    "Reg",
+                    "FFH_PIR"
+                ],
+                [
+                    "Reg",
+                    "FFH_PIWEIGHT"
+                ]
+            ],
+            "cname": "ffh",
+            "prefix": "FFH",
+            "protocol": "ffh_v1_2"
+        },
+        "ffh_readbacks_4w": {
+            "brief": "Readbacks for the feedforward hysteresis module",
+            "children": [
+                [
+                    "Reg",
+                    "FFH_RDELTA_HYST_A"
+                ]
+            ],
+            "cname": "ffh",
+            "controlindexes": {
+                "channels": 2
+            },
+            "prefix": "FFH",
+            "protocol": "ffh_v1_2",
+            "writeable": false
+        },
+        "ffh_readbacks_8w": {
+            "children": [
+                [
+                    "Reg",
+                    "FFH_RDELTA_HYST_W"
+                ]
+            ],
+            "cname": "ffh",
+            "controlindexes": {
+                "channels": 8
+            },
+            "prefix": "FFH",
+            "writeable": false
+        },
+        "ffp_params_4w": {
+            "children": [
+                [
+                    "Reg",
+                    "FFP_FEATURES"
+                ],
+                [
+                    "Reg",
+                    "FFP_KPROP"
+                ]
+            ],
+            "cname": "ffp",
+            "controlindexes": {
+                "channels": 2
+            },
+            "prefix": "FFP",
+            "protocol": "ffp_v1_1"
+        },
+        "ffp_params_8w": {
+            "children": [
+                [
+                    "Reg",
+                    "FFP_FEATURES"
+                ],
+                [
+                    "Reg",
+                    "FFP_KPROP"
+                ]
+            ],
+            "cname": "ffp",
+            "controlindexes": {
+                "channels": 8
+            },
+            "prefix": "FFP"
+        },
+        "ffp_readbacks_4w": {
+            "children": [
+                [
+                    "Reg",
+                    "FFP_PDELTA_A"
+                ]
+            ],
+            "cname": "ffp",
+            "controlindexes": {
+                "channels": 2
+            },
+            "prefix": "FFP",
+            "protocol": "ffp_v1_1",
+            "writeable": false
+        },
+        "ffp_readbacks_8w": {
+            "children": [
+                [
+                    "Reg",
+                    "FFP_PDELTA_W"
+                ]
+            ],
+            "cname": "ffp",
+            "controlindexes": {
+                "channels": 8
+            },
+            "prefix": "FFP",
+            "writeable": false
+        },
+        "fourwire_nonpersist": {
+            "children": [
+                [
+                    "Struct",
+                    "fourwire_nonpersist_public"
+                ],
+                [
+                    "Struct",
+                    "fourwire_nonpersist_private"
+                ]
+            ],
+            "cname": "nonpersist",
+            "minor_version": 3
+        },
+        "fourwire_nonpersist_private": {
+            "children": [
+                [
+                    "Struct",
+                    "ctrl_readbacks"
+                ],
+                [
+                    "Struct",
+                    "counters_readbacks"
+                ],
+                [
+                    "Struct",
+                    "btm_readbacks"
+                ],
+                [
+                    "Struct",
+                    "htm_readbacks"
+                ],
+                [
+                    "Struct",
+                    "dlf_4w_readbacks"
+                ],
+                [
+                    "Struct",
+                    "centring"
+                ],
+                [
+                    "Struct",
+                    "clh_readbacks"
+                ],
+                [
+                    "Struct",
+                    "ffh_readbacks_4w"
+                ],
+                [
+                    "Struct",
+                    "rtm_readbacks"
+                ],
+                [
+                    "Struct",
+                    "stm_readbacks"
+                ],
+                [
+                    "Struct",
+                    "scm_readbacks"
+                ],
+                [
+                    "Struct",
+                    "ffp_readbacks_4w"
+                ],
+                [
+                    "Struct",
+                    "ffd_legacy_readbacks_4w"
+                ],
+                [
+                    "Struct",
+                    "arc_readbacks"
+                ]
+            ],
+            "cname": "prv"
+        },
+        "fourwire_nonpersist_public": {
+            "children": [
+                [
+                    "Struct",
+                    "input"
+                ],
+                [
+                    "Struct",
+                    "tempest_readbacks"
+                ],
+                [
+                    "Struct",
+                    "pos_4w_readbacks"
+                ],
+                [
+                    "Struct",
+                    "limest_4ws_readbacks"
+                ],
+                [
+                    "Struct",
+                    "centring_model_4w_readbacks"
+                ],
+                [
+                    "Struct",
+                    "wb_readbacks"
+                ],
+                [
+                    "Struct",
+                    "tv_readbacks"
+                ]
+            ],
+            "cname": "pub"
+        },
+        "fourwire_persist": {
+            "children": [
+                [
+                    "Struct",
+                    "fourwire_persist_public"
+                ],
+                [
+                    "Struct",
+                    "fourwire_persist_private"
+                ]
+            ],
+            "cname": "persist",
+            "minor_version": 3
+        },
+        "fourwire_persist_private": {
+            "children": [
+                [
+                    "Struct",
+                    "ctrl_params"
+                ],
+                [
+                    "Struct",
+                    "pos_4w_params"
+                ],
+                [
+                    "Struct",
+                    "btm_params"
+                ],
+                [
+                    "Struct",
+                    "rtm_params"
+                ],
+                [
+                    "Struct",
+                    "dlf_4w_params"
+                ],
+                [
+                    "Struct",
+                    "clh_params"
+                ],
+                [
+                    "Struct",
+                    "ffh_params"
+                ],
+                [
+                    "Struct",
+                    "htm_params"
+                ],
+                [
+                    "Struct",
+                    "wb_params"
+                ],
+                [
+                    "Struct",
+                    "limest_4ws_params"
+                ],
+                [
+                    "Struct",
+                    "arc_params"
+                ],
+                [
+                    "Struct",
+                    "tv_params"
+                ],
+                [
+                    "Struct",
+                    "stm_params"
+                ],
+                [
+                    "Struct",
+                    "ffp_params_4w"
+                ],
+                [
+                    "Struct",
+                    "ffd_legacy_params"
+                ]
+            ],
+            "cname": "prv"
+        },
+        "fourwire_persist_public": {
+            "children": [
+                [
+                    "Struct",
+                    "tempest_params"
+                ],
+                [
+                    "Struct",
+                    "centring_model_4w_params"
+                ],
+                [
+                    "Struct",
+                    "scm_params"
+                ]
+            ],
+            "cname": "pub"
+        },
+        "htm_params": {
+            "brief": "Parameters for Closed loop hysteresis thermal model",
+            "children": [
+                [
+                    "Reg",
+                    "HTMMIN"
+                ],
+                [
+                    "Reg",
+                    "HTMMAX"
+                ],
+                [
+                    "Reg",
+                    "HTMGRAD"
+                ]
+            ],
+            "ctype": "HTMParams",
+            "prefix": "HYS",
+            "protocol": "htm_v1_3"
+        },
+        "htm_readbacks": {
+            "brief": "Readbacks for the Closed Loop hysteresis thermal model",
+            "children": [
+                [
+                    "Reg",
+                    "HTMEFF"
+                ]
+            ],
+            "ctype": "HTMReadbacks",
+            "prefix": "HYS",
+            "protocol": "htm_v1_3",
+            "writeable": false
+        },
+        "input": {
+            "children": [
+                [
+                    "Reg",
+                    "INPUT_CTRL"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_POS_WORD_ALIGN"
+                ],
+                [
+                    "Reg",
+                    "INPUT_POS"
+                ],
+                [
+                    "Reg",
+                    "INPUT_TEMP"
+                ]
+            ],
+            "cname": "input",
+            "ctype": "Input_Control",
+            "prefix": "INPUT",
+            "protocol": "input_v1_1"
+        },
+        "limest_4ws_params": {
+            "children": [
+                [
+                    "Reg",
+                    "LIM_FEATURES"
+                ]
+            ],
+            "cname": "lim_params",
+            "prefix": "LIM",
+            "protocol": "lim_v1_1"
+        },
+        "limest_4ws_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "LIM_EST"
+                ]
+            ],
+            "cname": "lim_readbacks",
+            "prefix": "LIM",
+            "protocol": "lim_v1_1",
+            "writeable": false
+        },
+        "linear_gain_params": {
+            "children": [
+                [
+                    "Reg",
+                    "OIS_AF_SCALING_EN"
+                ],
+                [
+                    "ReservedReg",
+                    "OIS_AF_PADDING"
+                ],
+                [
+                    "Reg",
+                    "OIS_AF_SCALE"
+                ]
+            ]
+        },
+        "linear_gain_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "LINEAR_GAIN_ADJ_A"
+                ]
+            ]
+        },
+        "pos_4w_params": {
+            "children": [
+                [
+                    "Reg",
+                    "POS_FEATURES"
+                ],
+                [
+                    "Reg",
+                    "POS_FILTCOEF"
+                ],
+                [
+                    "Reg",
+                    "POS_GAIN_CORRECTION"
+                ]
+            ],
+            "cname": "pos_params",
+            "controlindexes": {
+                "wires": 4
+            },
+            "controlspaces": {
+                "axes": [
+                    "x",
+                    "y"
+                ],
+                "dof": [
+                    "x",
+                    "y"
+                ]
+            },
+            "prefix": "POS",
+            "protocol": "pos_v1_1"
+        },
+        "pos_4w_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "POS_EST"
+                ]
+            ],
+            "cname": "pos_readbacks",
+            "controlindexes": {
+                "wires": 4
+            },
+            "controlspaces": {
+                "axes": [
+                    "x",
+                    "y"
+                ],
+                "dof": [
+                    "x",
+                    "y"
+                ]
+            },
+            "prefix": "POS",
+            "protocol": "pos_v1_1",
+            "writeable": false
+        },
+        "pos_8w_params": {
+            "children": [
+                [
+                    "Reg",
+                    "POS_FEATURES"
+                ],
+                [
+                    "Reg",
+                    "POS_FILTCOEF"
+                ],
+                [
+                    "Reg",
+                    "POS_GAIN_CORRECTION"
+                ]
+            ],
+            "cname": "pos",
+            "controlindexes": {
+                "wires": 8
+            },
+            "controlspaces": {
+                "axes": [
+                    "x",
+                    "y",
+                    "z"
+                ],
+                "dof": [
+                    "rx",
+                    "ry",
+                    "rz",
+                    "x",
+                    "y",
+                    "z"
+                ]
+            },
+            "prefix": "POS",
+            "protocol": "stm32_8ws/pos_v2_2"
+        },
+        "pos_8w_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "POS_EST"
+                ]
+            ],
+            "cname": "pos",
+            "controlindexes": {
+                "wires": 8
+            },
+            "controlspaces": {
+                "axes": [
+                    "x",
+                    "y",
+                    "z"
+                ],
+                "dof": [
+                    "rx",
+                    "ry",
+                    "rz",
+                    "x",
+                    "y",
+                    "z"
+                ]
+            },
+            "prefix": "POS",
+            "protocol": "stm32_8ws/pos_v2_2",
+            "writeable": false
+        },
+        "rtm_params": {
+            "children": [
+                [
+                    "Reg",
+                    "RTM_BASE"
+                ],
+                [
+                    "Reg",
+                    "RTM_GRAD"
+                ],
+                [
+                    "Reg",
+                    "RTM_CURV"
+                ],
+                [
+                    "Reg",
+                    "RTM_TEMPINIT"
+                ],
+                [
+                    "Reg",
+                    "RTM_THERMALRES"
+                ]
+            ],
+            "cname": "rtm",
+            "prefix": "RTM"
+        },
+        "rtm_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "RTM_TEMPWIRE"
+                ],
+                [
+                    "Reg",
+                    "RTM_RSCEFF"
+                ],
+                [
+                    "Reg",
+                    "RTM_RSCEFF_INV"
+                ]
+            ],
+            "cname": "rtm",
+            "prefix": "RTM",
+            "writeable": false
+        },
+        "scm_params": {
+            "children": [
+                [
+                    "Reg",
+                    "SCM_MATRIX_VALUES"
+                ],
+                [
+                    "Reg",
+                    "SCM_FFX_MATRIX_VALUES"
+                ],
+                [
+                    "Reg",
+                    "SCM_INVERSE_MATRIX_VALUES"
+                ]
+            ],
+            "cname": "scm_params",
+            "prefix": "SCM"
+        },
+        "scm_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "SCM_TRANSFORM_APPLIED"
+                ],
+                [
+                    "Reg",
+                    "SCM_FFX_TRANSFORM_APPLIED"
+                ]
+            ],
+            "cname": "scm_readbacks",
+            "prefix": "SCM",
+            "protocol": "scm_v1_1",
+            "writeable": false
+        },
+        "ssl_params": {
+            "children": [
+                [
+                    "Struct",
+                    "fourwire_persist"
+                ]
+            ]
+        },
+        "ssl_regs": {
+            "children": [
+                [
+                    "Struct",
+                    "fourwire_nonpersist"
+                ]
+            ]
+        },
+        "status_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "STATUS"
+                ],
+                [
+                    "Reg",
+                    "ENABLE_PWR"
+                ]
+            ],
+            "cname": "status",
+            "writeable": false
+        },
+        "stm_params": {
+            "children": [
+                [
+                    "Reg",
+                    "STM_BASE"
+                ],
+                [
+                    "Reg",
+                    "STM_GRADLOW"
+                ],
+                [
+                    "Reg",
+                    "STM_GRADHIGH"
+                ],
+                [
+                    "Reg",
+                    "STM_TEMPREF"
+                ]
+            ],
+            "cname": "stm",
+            "prefix": "STM"
+        },
+        "stm_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "STM_SWINEFF"
+                ],
+                [
+                    "Reg",
+                    "STM_RDELTAWINEFF"
+                ]
+            ],
+            "cname": "stm",
+            "prefix": "STM",
+            "writeable": false
+        },
+        "tempest_params": {
+            "children": [
+                [
+                    "Reg",
+                    "TEMPEST_OFFSET"
+                ],
+                [
+                    "Reg",
+                    "TEMPEST_GRAD"
+                ]
+            ],
+            "cname": "tempest",
+            "prefix": "TEMPEST"
+        },
+        "tempest_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "TEMPEST_FILTMEAS"
+                ],
+                [
+                    "Reg",
+                    "TEMPEST_ADJ"
+                ],
+                [
+                    "Reg",
+                    "TEMPEST_TEMPAMB"
+                ]
+            ],
+            "cname": "tempest",
+            "prefix": "TEMPEST",
+            "writeable": false
+        },
+        "tv_params": {
+            "children": [
+                [
+                    "Reg",
+                    "TV_ERRLIM"
+                ]
+            ],
+            "cname": "tv",
+            "ctype": "TvParams",
+            "minor_version": 1,
+            "prefix": "TV",
+            "protocol": "tv"
+        },
+        "tv_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "TV_COUNTER"
+                ],
+                [
+                    "Reg",
+                    "TV_ERR_FLAG"
+                ]
+            ],
+            "cname": "tv",
+            "ctype": "TvReadbacks",
+            "prefix": "TV",
+            "protocol": "tv",
+            "writeable": false
+        },
+        "wb_params": {
+            "children": [
+                [
+                    "Reg",
+                    "WB_RESMIN"
+                ],
+                [
+                    "Reg",
+                    "WB_RESMAX"
+                ],
+                [
+                    "Reg",
+                    "WB_ERRLIM"
+                ]
+            ],
+            "cname": "wb",
+            "ctype": "WbParams",
+            "prefix": "WB",
+            "protocol": "wb_v2_0"
+        },
+        "wb_readbacks": {
+            "children": [
+                [
+                    "Reg",
+                    "WB_COUNTER"
+                ],
+                [
+                    "Reg",
+                    "WB_BREAK_FLAG"
+                ]
+            ],
+            "cname": "wb",
+            "ctype": "WbReadbacks",
+            "prefix": "WB",
+            "protocol": "wb_v2_0",
+            "writeable": false
+        }
+    }
+}

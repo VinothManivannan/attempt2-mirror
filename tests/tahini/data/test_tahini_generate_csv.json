@@ -1,0 +1,86 @@
+{
+  "scheme": {
+    "major": 1,
+    "minor": 0
+  },
+  "version": {
+    "project": "example-project-name",
+    "uid": "12cd6f3d",
+    "version": "1.2.3",
+    "config_name": "example-config-name",
+    "config_id": 1,
+    "timestamp": "2022-10-19T11:24:01+00:00",
+    "git_versions": []
+  },
+  "regmap": {
+    "children": [
+      {
+        "name": "cmd",
+        "type": "struct",
+        "addr": 39680,
+        "size": 128,
+        "brief": "cmd",
+        "struct": {
+          "children": [
+            {
+              "name": "chip_id",
+              "type": "register",
+              "addr": 39680,
+              "size": 2,
+              "brief": "Chip Identifier of the device, not the firmware. Set to 0 for DW9787, 0xC401 for CM401, 0xC402 for CM402, etc. The firmware is locked to the chip id.",
+              "register": {
+                "ctype": "uint16"
+              },
+              "offset": 0,
+              "access": "private"
+            },
+            {
+              "name": "fw_uid_l",
+              "type": "register",
+              "addr": 39682,
+              "size": 2,
+              "brief": "This is the next most significant 2 bytes of the SHA1 Hash of the firmware directory contents at the time of build",
+              "register": {
+                "ctype": "uint16"
+              },
+              "offset": 2,
+              "access": "private"
+            },
+            {
+              "name": "fw_uid_h",
+              "type": "register",
+              "addr": 39684,
+              "size": 2,
+              "brief": "This is the most significant 2 bytes of the SHA1 Hash of the firmware directory contents at the time of build",
+              "register": {
+                "ctype": "uint16"
+              },
+              "offset": 4,
+              "access": "private"
+            },
+            {
+              "name": "res_w",
+              "type": "register",
+              "addr": 39686,
+              "size": 2,
+              "brief": "This is the most significant 2 bytes of the SHA1 Hash of the firmware directory contents at the time of build",
+              "register": {
+                "ctype": "uint16"
+              },
+              "offset": 4,
+              "access": "private",
+              "repeat_for": [
+                {
+                  "count": 4,
+                  "offset": 2
+                }
+              ]
+            }
+          ]
+        },
+        "offset": 0,
+        "access": "private"
+      }
+    ]
+  }
+}

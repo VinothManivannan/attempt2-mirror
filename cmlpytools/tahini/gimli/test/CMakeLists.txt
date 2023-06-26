@@ -1,0 +1,11 @@
+set(CMAKE_C_FLAGS "-g" CACHE INTERNAL "c compiler flags")
+set(CMAKE_CXX_FLAGS "-g" CACHE INTERNAL "cxx compiler flags")
+
+add_executable(c_to_json_1 c_to_json_1.c)
+add_executable(c_to_json_2 c_to_json_2.c)
+add_executable(c_to_json_3 c_to_json_3.c)
+add_executable(c_to_json_4 c_to_json_4.c)
+add_executable(c_to_json_5 c_to_json_5.c)
+add_executable(c_to_json_6 c_to_json_6.c)
+add_executable(c_to_json_7 c_to_json_7.c)
+add_executable(c_to_json_full c_to_json_full.c)

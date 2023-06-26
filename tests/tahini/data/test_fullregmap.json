@@ -1,0 +1,330 @@
+{
+    "scheme": {
+        "major": 1,
+        "minor": 0
+    },
+    "version": {
+        "project": "topcode",
+        "uid": "0123ABC",
+        "version": "1.2.3-4567.8-9-gABCDEF",
+        "config_name": "CONFIG_NAME",
+        "config_id": 10,
+        "timestamp": "2022-09-13T12:26:02+00:00",
+        "git_versions": [
+            {
+                "name": "topcode_project",
+                "last_tag": {
+                    "major": 1,
+                    "minor": 2,
+                    "patch": 3,
+                    "commit_num": 10
+                },
+                "branch_ids": [
+                    "FW-1234",
+                    "FW-2345",
+                    "FW-3456",
+                    "FW-4567",
+                    "FW-5678",
+                    "FW-6789",
+                    "FW-7890"
+                ],
+                "commit_id": "123ABCD"
+            },
+            {
+                "name": "submodule1",
+                "last_tag": {
+                    "major": 4,
+                    "minor": 5,
+                    "patch": 6,
+                    "commit_num": 20
+                },
+                "branch_ids": [
+                    "FW-4321",
+                    "FW-8765",
+                    "FW-2109"
+                ],
+                "commit_id": "345CDEF"
+            },
+            {
+                "name": "submodule2",
+                "last_tag": {},
+                "branch_ids": [],
+                "commit_id": "567EFAB"
+            }
+        ]
+    },
+    "regmap": {
+        "children": [
+            {
+                "name": "doe",
+                "type": "register",
+                "addr": 1024,
+                "size": 2,
+                "brief": "A deer, a female deer",
+                "register": {
+                    "ctype": "uint16",
+                    "format": "Q10.5",
+                    "min": 10.0,
+                    "max": 100.0
+                },
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "ray",
+                "type": "register",
+                "addr": 2048,
+                "size": 2,
+                "brief": "A drop of golden sun",
+                "register": {
+                    "ctype": "uint16",
+                    "format": "Q2",
+                    "states": [
+                        {
+                            "name": "off",
+                            "value": 0
+                        },
+                        {
+                            "name": "low",
+                            "value": 1
+                        },
+                        {
+                            "name": "mid",
+                            "value": 2
+                        },
+                        {
+                            "name": "high",
+                            "value": 3
+                        }
+                    ]
+                },
+                "namespace": "ray1",
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "me",
+                "type": "register",
+                "addr": 3072,
+                "size": 2,
+                "brief": "A name I call myself",
+                "register": {
+                    "ctype": "uint16"
+                },
+                "repeat_for": [
+                    {
+                        "count": 3,
+                        "offset": 2
+                    }
+                ],
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "far",
+                "type": "struct",
+                "addr": 4096,
+                "size": 8,
+                "brief": "A long long way to run",
+                "struct": {
+                    "children": [
+                        {
+                            "name": "fetched",
+                            "type": "register",
+                            "addr": 4096,
+                            "size": 2,
+                            "brief": "Distance to get it",
+                            "register": {
+                                "ctype": "uint16"
+                            },
+                            "offset": 0,
+                            "access": "private"
+                        },
+                        {
+                            "name": "sighted",
+                            "type": "register",
+                            "addr": 4100,
+                            "size": 4,
+                            "brief": "Distance to see it",
+                            "register": {
+                                "ctype": "int32"
+                            },
+                            "offset": 4,
+                            "access": "private"
+                        }
+                    ]
+                },
+                "namespace": "far1",
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "sew",
+                "type": "struct",
+                "addr": 5120,
+                "size": 8,
+                "brief": "A needle pulling a thread",
+                "struct": {
+                    "children": [
+                        {
+                            "name": "threads",
+                            "type": "register",
+                            "addr": 5120,
+                            "size": 2,
+                            "brief": "Thread count by index",
+                            "register": {
+                                "ctype": "uint16"
+                            },
+                            "repeat_for": [
+                                {
+                                    "count": 3,
+                                    "offset": 2,
+                                    "aliases": [
+                                        "red",
+                                        "green",
+                                        "blue"
+                                    ]
+                                }
+                            ],
+                            "offset": 0,
+                            "access": "private"
+                        },
+                        {
+                            "name": "thread",
+                            "type": "struct",
+                            "addr": 5120,
+                            "size": 6,
+                            "brief": "Thread count by name",
+                            "struct": {
+                                "children": [
+                                    {
+                                        "name": "red",
+                                        "type": "register",
+                                        "addr": 5120,
+                                        "size": 1,
+                                        "brief": "Number of red threads",
+                                        "register": {
+                                            "ctype": "uint8"
+                                        },
+                                        "offset": 0,
+                                        "access": "private"
+                                    },
+                                    {
+                                        "name": "_reserved0",
+                                        "type": "register",
+                                        "addr": 5121,
+                                        "size": 1,
+                                        "register": {
+                                            "ctype": "uint8"
+                                        },
+                                        "offset": 1,
+                                        "access": "private"
+                                    },
+                                    {
+                                        "name": "green",
+                                        "type": "register",
+                                        "addr": 5122,
+                                        "size": 1,
+                                        "brief": "Number of green threads",
+                                        "register": {
+                                            "ctype": "uint8"
+                                        },
+                                        "offset": 2,
+                                        "access": "private"
+                                    },
+                                    {
+                                        "name": "_reserved1",
+                                        "type": "register",
+                                        "addr": 5123,
+                                        "size": 1,
+                                        "register": {
+                                            "ctype": "uint8"
+                                        },
+                                        "offset": 3,
+                                        "access": "private"
+                                    },
+                                    {
+                                        "name": "blue",
+                                        "type": "register",
+                                        "addr": 5124,
+                                        "size": 1,
+                                        "brief": "Number of blue threads",
+                                        "register": {
+                                            "ctype": "uint8"
+                                        },
+                                        "offset": 4,
+                                        "access": "private"
+                                    },
+                                    {
+                                        "name": "_reserved2",
+                                        "type": "register",
+                                        "addr": 5125,
+                                        "size": 1,
+                                        "register": {
+                                            "ctype": "uint8"
+                                        },
+                                        "offset": 5,
+                                        "access": "private"
+                                    }
+                                ]
+                            },
+                            "offset": 0,
+                            "access": "private"
+                        }
+                    ]
+                },
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "note",
+                "type": "register",
+                "addr": 6000,
+                "size": 1,
+                "brief": "Each note",
+                "register": {
+                    "ctype": "uint8",
+                    "bitfields": [
+                        {
+                            "name": "g",
+                            "position": 1,
+                            "num_bits": 1
+                        },
+                        {
+                            "name": "f",
+                            "position": 2,
+                            "num_bits": 1
+                        },
+                        {
+                            "name": "e",
+                            "position": 3,
+                            "num_bits": 1
+                        },
+                        {
+                            "name": "d",
+                            "position": 4,
+                            "num_bits": 1
+                        },
+                        {
+                            "name": "c",
+                            "position": 5,
+                            "num_bits": 1
+                        },
+                        {
+                            "name": "b",
+                            "position": 6,
+                            "num_bits": 1
+                        },
+                        {
+                            "name": "a",
+                            "position": 7,
+                            "num_bits": 1
+                        }
+                    ]
+                },
+                "offset": 0,
+                "access": "private"
+            }
+        ]
+    }
+}

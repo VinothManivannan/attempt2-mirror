@@ -1,0 +1,68 @@
+{
+    "scheme": {
+        "major": 1,
+        "minor": 0
+    },
+    "version": {
+        "project": "example-project-name",
+        "uid": "12cd6f3d",
+        "version": "1.2.3",
+        "config_name": "example-config-name",
+        "config_id": 1,
+        "timestamp": "2022-10-19T11:24:01+00:00",
+        "git_versions": []
+    },
+    "regmap": {
+        "children": [
+            {
+                "name": "note",
+                "addr": 6144,
+                "size": 1,
+                "brief": "Each note",
+                "offset": 0,
+                "access": "private",
+                "type": "register",
+                "register": {
+                    "ctype": "uint8",
+                    "bitfields": [
+                        {
+                            "position": 9,
+                            "num_bits": 1,
+                            "name": "a"
+                        },
+                        {
+                            "position": 6,
+                            "num_bits": 1,
+                            "name": "b"
+                        },
+                        {
+                            "position": 5,
+                            "num_bits": 1,
+                            "name": "c"
+                        },
+                        {
+                            "position": 4,
+                            "num_bits": 1,
+                            "name": "d"
+                        },
+                        {
+                            "position": 3,
+                            "num_bits": 1,
+                            "name": "e"
+                        },
+                        {
+                            "position": 2,
+                            "num_bits": 1,
+                            "name": "f"
+                        },
+                        {
+                            "position": 1,
+                            "num_bits": 1,
+                            "name": "g"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

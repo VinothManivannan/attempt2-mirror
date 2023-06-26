@@ -1,0 +1,39 @@
+{
+    "regmap": 
+    [
+        {
+            "type": "unsigned short",
+            "name": "ray",
+            "brief": "A drop of golden sun",
+            "format": "Q2",
+            "namespace": "ray1",
+            "address": 2048,
+            "value_enum": "RAY",
+            "byte_size": 2
+        }
+    ],
+    "enums": 
+    [
+        {
+            "name": "RAY",
+            "enumerators": [
+              {
+                "name": "RAY_OFF",
+                "value": 1
+              },
+              {
+                "name": "RAY_LOW",
+                "value": 1
+              },
+              {
+                "name": "RAY_MID",
+                "value": 2
+              },
+              {
+                "name": "RAY_HIGH",
+                "value": 3
+              }
+            ]
+          }
+    ]
+}

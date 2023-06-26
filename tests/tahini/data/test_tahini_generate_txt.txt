@@ -1,0 +1,32 @@
+0x9b00  cmd                                   (struct)             private
+        0x9b00  chip_id                               (uint16)             private
+        0x9b02  fw_uid_l                              (uint16)             private
+        0x9b04  fw_uid_h                              (uint16)             private
+        0x9b06  fw_build_config_id                    (uint16)             private
+        0x9b08  ctrl_regs[0-1]                        (struct)             private
+                0x9b08  ctrl_features[0-1]                    (uint16)             private
+                0x9b0a  res_w[0-1][0-3]                       (uint16)             private
+
+
+
+
+********************************Register Briefs*********************************
+
+
+chip_id                       Chip Identifier of the device, not the firmware. Set to 0 for DW9787, 0xC401 for CM401, 0xC402 for CM402, etc. The firmware is locked to the chip id.
+    Access:private    Bytes:2    Format:None    Max:None    Min:None
+
+fw_uid_l                      This is the next most significant 2 bytes of the SHA1 Hash of the firmware directory contents at the time of build
+    Access:private    Bytes:2    Format:None    Max:None    Min:None
+
+fw_uid_h                      This is the most significant 2 bytes of the SHA1 Hash of the firmware directory contents at the time of build
+    Access:private    Bytes:2    Format:None    Max:None    Min:None
+
+fw_build_config_id            Firmware Build Configuration Identifier
+    Access:private    Bytes:2    Format:None    Max:None    Min:None
+
+ctrl_features                 Control features
+    Access:private    Bytes:2    Format:None    Max:None    Min:None
+
+res_w                         Live wire resistance value
+    Access:private    Bytes:2    Format:None    Max:None    Min:None

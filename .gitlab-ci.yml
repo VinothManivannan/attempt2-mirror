@@ -1,0 +1,79 @@
+variables:
+    PY_RELEASE_FOLDER: \\ws-fs1\Company\Technical\Utilities\Continuous_Integration\python_packages
+    GIT_SUBMODULE_STRATEGY: recursive
+
+# Template for docker windows jobs
+.windows-docker-job: &windows-docker-job
+    image: $REGISTRY_URL/devops/fw-builder:1.21-win
+    interruptible: true
+    tags:
+        - win-docker-20H2
+
+# Template for windows shell jobs
+.windows-shell-job: &windows-shell-job
+    tags:
+        - win-20h2
+
+# Template for docker linux jobs
+.linux-docker-job: &linux-docker-job
+    image: python:3.9
+    interruptible: true
+    tags:
+        - linux-docker-exec
+
+stages:
+  - build
+  - test
+  - prepare
+  - deploy
+
+Build Gimli for Windows:
+  <<: *windows-docker-job
+  stage: build
+  artifacts:
+    paths:
+      - cmlpytools/tahini/gimli/build-windows
+  script:
+    - ./set-env-windows.ps1
+    - cd cmlpytools/tahini/gimli
+    - msys2_shell.cmd -defterm -here -no-start -mingw64 -lc 'cmake -B build-windows -G Ninja'
+    - msys2_shell.cmd -defterm -here -no-start -mingw64 -lc 'cmake --build build-windows'
+
+tahini unittests:
+  <<: *windows-docker-job
+  stage: test
+  script:
+    - python3 -m pip install .
+    - python3 -m unittest discover -v tests
+
+Python_3_code_check:
+  <<: *linux-docker-job
+  stage: test
+  script:
+    - pip install wrapt==1.12.1
+    - pip install pylint
+    - pylint -rn ./cmlpytools
+    - pylint -rn ./tests
+
+prepare_wheel:
+  <<: *linux-docker-job
+  stage: prepare
+  rules:
+    - if: $CI_COMMIT_TAG
+    - when: never
+  artifacts:
+    paths:
+      - dist/
+  script:
+    - echo $CI_COMMIT_TAG > VERSION
+    - python setup.py sdist bdist_wheel
+
+deploy_wheel:
+  <<: *windows-shell-job
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG
+    - when: never
+  script:
+    - cd dist/
+    - Get-ChildItem *.whl | Copy-Item  -Destination $env:PY_RELEASE_FOLDER

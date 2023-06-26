@@ -1,0 +1,70 @@
+{
+    "regmap": 
+    [
+        {
+            "type": "struct",
+            "name": "far",
+            "brief": "A long long way to run",
+            "namespace": "far1",
+            "address": 4096,
+            "access": "private",
+            "byte_size": 8,
+            "members": [
+              {
+                "type": "unsigned short",
+                "name": "fetched",
+                "brief": "Distance to get it",
+                "byte_offset": 0,
+                "byte_size": 2
+              },
+              {
+                "type": "int",
+                "name": "sighted",
+                "brief": "Distance to see it",
+                "byte_offset": 4,
+                "byte_size": 4
+              }
+            ]
+        }
+    ],
+    "enums": [
+        {
+          "name": "RAY",
+          "enumerators": [
+            {
+              "name": "RAY_OFF",
+              "value": 0
+            },
+            {
+              "name": "RAY_LOW",
+              "value": 1
+            },
+            {
+              "name": "RAY_MID",
+              "value": 2
+            },
+            {
+              "name": "RAY_HIGH",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "name": "THREAD",
+          "enumerators": [
+            {
+              "name": "RED",
+              "value": 0
+            },
+            {
+              "name": "GREEN",
+              "value": 1
+            },
+            {
+              "name": "BLUE",
+              "value": 2
+            }
+          ]
+        }
+    ]
+}

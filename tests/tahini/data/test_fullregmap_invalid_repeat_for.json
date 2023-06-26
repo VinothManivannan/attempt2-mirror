@@ -1,0 +1,39 @@
+{
+    "scheme": {
+        "major": 1,
+        "minor": 0
+    },
+    "version": {
+        "project": "example-project-name",
+        "uid": "12cd6f3d",
+        "version": "1.2.3",
+        "config_name": "example-config-name",
+        "config_id": 1,
+        "timestamp": "2022-10-19T11:24:01+00:00",
+        "git_versions": []
+    },
+    "regmap": {
+        "children": [
+            {
+                "name": "me",
+                "addr": 3072,
+                "size": 2,
+                "brief": "A name I call myself",
+                "namespace": "i",
+                "offset": 0,
+                "access": "private",
+                "repeat_for": [
+                    {
+                        "brief": "A name I call myself",
+                        "count": -3,
+                        "offset": 2
+                    }
+                ],
+                "type": "register",
+                "register": {
+                    "ctype": "uint16"
+                }
+            }
+        ]
+    }
+}

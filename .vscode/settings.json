@@ -1,0 +1,30 @@
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./tests",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "terminal.integrated.env.windows": {
+        "PATH": "${env:PYTHON_3_PATH};${env:PATH}"
+    },
+    "editor.wordWrapColumn": 120,
+    "python.formatting.autopep8Args": [
+        "--max-line-length=120"
+    ],
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportOptionalIterable": "none",
+        "reportOptionalMemberAccess": "none",
+        "reportOptionalOperand": "none"
+    },
+    "editor.formatOnSave": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "python.formatting.provider": "none"
+}

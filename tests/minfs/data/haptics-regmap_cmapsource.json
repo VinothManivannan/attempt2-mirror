@@ -96,9 +96,12 @@
                             "register": {
                                 "ctype": "uint16"
                             },
-                            "repeat_for": {
-                                "count": 2
-                            },
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 4
+                                }
+                            ],
                             "offset": 0,
                             "access": "private"
                         }
@@ -244,7 +247,13 @@
                                 ]
                             },
                             "offset": 0,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 4
+                                }
+                            ]
                         },
                         {
                             "name": "but_mintime",
@@ -255,13 +264,22 @@
                                 "ctype": "uint16"
                             },
                             "offset": 2,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 4
+                                }
+                            ]
                         }
                     ]
                 },
-                "repeat_for": {
-                    "count": 2
-                },
+                "repeat_for": [
+                    {
+                        "count": 2,
+                        "offset": 4
+                    }
+                ],
                 "offset": 0,
                 "access": "private"
             },
@@ -300,7 +318,13 @@
                                             ]
                                         },
                                         "offset": 0,
-                                        "access": "private"
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 10
+                                            }
+                                        ]
                                     },
                                     {
                                         "name": "force_mintime",
@@ -311,7 +335,13 @@
                                             "ctype": "uint16"
                                         },
                                         "offset": 2,
-                                        "access": "private"
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 10
+                                            }
+                                        ]
                                     },
                                     {
                                         "name": "force_threshold",
@@ -322,7 +352,13 @@
                                             "ctype": "uint16"
                                         },
                                         "offset": 4,
-                                        "access": "private"
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 10
+                                            }
+                                        ]
                                     },
                                     {
                                         "name": "force_hyst",
@@ -333,12 +369,24 @@
                                             "ctype": "uint16"
                                         },
                                         "offset": 6,
-                                        "access": "private"
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 10
+                                            }
+                                        ]
                                     }
                                 ]
                             },
                             "offset": 0,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 10
+                                }
+                            ]
                         },
                         {
                             "name": "forcesensor_readbacks",
@@ -356,18 +404,33 @@
                                             "ctype": "uint16"
                                         },
                                         "offset": 0,
-                                        "access": "private"
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 10
+                                            }
+                                        ]
                                     }
                                 ]
                             },
                             "offset": 8,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 10
+                                }
+                            ]
                         }
                     ]
                 },
-                "repeat_for": {
-                    "count": 2
-                },
+                "repeat_for": [
+                    {
+                        "count": 2,
+                        "offset": 10
+                    }
+                ],
                 "offset": 0,
                 "access": "private"
             },
@@ -401,7 +464,13 @@
                                             ]
                                         },
                                         "offset": 0,
-                                        "access": "private"
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 12
+                                            }
+                                        ]
                                     },
                                     {
                                         "name": "temp_period",
@@ -412,12 +481,24 @@
                                             "ctype": "uint32"
                                         },
                                         "offset": 4,
-                                        "access": "private"
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 12
+                                            }
+                                        ]
                                     }
                                 ]
                             },
                             "offset": 0,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 12
+                                }
+                            ]
                         },
                         {
                             "name": "temperaturesensor_readbacks",
@@ -435,18 +516,33 @@
                                             "ctype": "int32"
                                         },
                                         "offset": 0,
-                                        "access": "private"
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 12
+                                            }
+                                        ]
                                     }
                                 ]
                             },
                             "offset": 8,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 12
+                                }
+                            ]
                         }
                     ]
                 },
-                "repeat_for": {
-                    "count": 2
-                },
+                "repeat_for": [
+                    {
+                        "count": 2,
+                        "offset": 12
+                    }
+                ],
                 "offset": 0,
                 "access": "private"
             },
@@ -473,7 +569,13 @@
                                 ]
                             },
                             "offset": 0,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 8
+                                }
+                            ]
                         },
                         {
                             "name": "output_features",
@@ -484,7 +586,13 @@
                                 "ctype": "uint8"
                             },
                             "offset": 1,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 8
+                                }
+                            ]
                         },
                         {
                             "name": "output_safetime",
@@ -495,13 +603,22 @@
                                 "ctype": "uint32"
                             },
                             "offset": 4,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 8
+                                }
+                            ]
                         }
                     ]
                 },
-                "repeat_for": {
-                    "count": 2
-                },
+                "repeat_for": [
+                    {
+                        "count": 2,
+                        "offset": 8
+                    }
+                ],
                 "offset": 0,
                 "access": "private"
             },
@@ -528,7 +645,13 @@
                                 ]
                             },
                             "offset": 0,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
                         },
                         {
                             "name": "action_inputid",
@@ -539,7 +662,13 @@
                                 "ctype": "uint8"
                             },
                             "offset": 1,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
                         },
                         {
                             "name": "action_eventid",
@@ -550,7 +679,13 @@
                                 "ctype": "uint8"
                             },
                             "offset": 2,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
                         },
                         {
                             "name": "action_waveformid",
@@ -561,7 +696,13 @@
                                 "ctype": "uint8"
                             },
                             "offset": 3,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
                         },
                         {
                             "name": "action_actuatorid",
@@ -572,7 +713,13 @@
                                 "ctype": "uint8"
                             },
                             "offset": 4,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
                         },
                         {
                             "name": "action_delay",
@@ -583,13 +730,22 @@
                                 "ctype": "uint32"
                             },
                             "offset": 8,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
                         }
                     ]
                 },
-                "repeat_for": {
-                    "count": 4
-                },
+                "repeat_for": [
+                    {
+                        "count": 4,
+                        "offset": 12
+                    }
+                ],
                 "offset": 0,
                 "access": "private"
             },
@@ -609,7 +765,13 @@
                                 "ctype": "uint8"
                             },
                             "offset": 0,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 516
+                                }
+                            ]
                         },
                         {
                             "name": "wf_pulses",
@@ -620,7 +782,13 @@
                                 "ctype": "uint8"
                             },
                             "offset": 1,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 516
+                                }
+                            ]
                         },
                         {
                             "name": "wf_pad",
@@ -631,7 +799,13 @@
                                 "ctype": "uint16"
                             },
                             "offset": 2,
-                            "access": "private"
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 516
+                                }
+                            ]
                         },
                         {
                             "name": "pulse",
@@ -649,7 +823,17 @@
                                             "ctype": "uint32"
                                         },
                                         "offset": 0,
-                                        "access": "private"
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 4,
+                                                "offset": 516
+                                            },
+                                            {
+                                                "count": 64,
+                                                "offset": 8
+                                            }
+                                        ]
                                     },
                                     {
                                         "name": "wf_width",
@@ -660,21 +844,41 @@
                                             "ctype": "uint32"
                                         },
                                         "offset": 4,
-                                        "access": "private"
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 4,
+                                                "offset": 516
+                                            },
+                                            {
+                                                "count": 64,
+                                                "offset": 8
+                                            }
+                                        ]
                                     }
                                 ]
                             },
-                            "repeat_for": {
-                                "count": 64
-                            },
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 516
+                                },
+                                {
+                                    "count": 64,
+                                    "offset": 8
+                                }
+                            ],
                             "offset": 4,
                             "access": "private"
                         }
                     ]
                 },
-                "repeat_for": {
-                    "count": 4
-                },
+                "repeat_for": [
+                    {
+                        "count": 4,
+                        "offset": 516
+                    }
+                ],
                 "offset": 0,
                 "access": "private"
             }

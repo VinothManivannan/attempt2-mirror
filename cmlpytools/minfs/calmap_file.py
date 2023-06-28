@@ -1,11 +1,11 @@
 """
 CalmapFile class for creating minfs calmap files
 """
-#import os
-#from os import path
+# import os
+# from os import path
 from builtins import str
 import json
-import tahini
+from cmlpytools import tahini
 from .shared import CalmapFileWriter
 from .file_types import FileTypes
 from .file_base import FileBase

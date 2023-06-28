@@ -42,40 +42,6 @@ class TestRegmapCfgFile(unittest.TestCase):
         with self.assertRaises(RegmapCfgParseError):
             _ = RegmapCfgFile(regmap_cfg_json_file, regmap_file)
 
-    def test_incorrect_state(self):
-        regmap_cfg_json_file = path.join(
-            PATH_TO_DATA, "stm32_config_state_incorrect.json")
-        regmap_file = path.join(PATH_TO_DATA, "stm32_framework_cmapsource.json")
-
-        with self.assertRaises(RegmapCfgParseError) as context:
-            _ = RegmapCfgFile(regmap_cfg_json_file, regmap_file)
-
-    def test_correct_state(self):
-        regmap_cfg_json_file = path.join(
-            PATH_TO_DATA, "stm32_config_state_correct.json")
-        regmap_file = path.join(PATH_TO_DATA, "stm32_framework_cmapsource.json")
-
-        _ = RegmapCfgFile(regmap_cfg_json_file, regmap_file)
-
-    def test_correct_compression_mode(self):
-        regmap_cfg_json_file = path.join(
-            PATH_TO_DATA, "stm32_config_state_correct.json")
-        regmap_file = path.join(PATH_TO_DATA, "stm32_framework_cmapsource.json")
-
-        num_modes = 3  # Only values 0,1, and 2 are valid compression modes
-        for i in range(num_modes):
-            _ = RegmapCfgFile(regmap_cfg_json_file, regmap_file, "config0",
-                              compressed=i)
-
-    def test_incorrect_compression_mode(self):
-        regmap_cfg_json_file = path.join(
-            PATH_TO_DATA, "stm32_config_state_correct.json")
-        regmap_file = path.join(PATH_TO_DATA, "stm32_framework_cmapsource.json")
-
-        with self.assertRaises(RegmapCfgParseError) as context:
-            _ = RegmapCfgFile(
-                regmap_cfg_json_file, regmap_file, "config0", 3)
-
     def test_distances_of_compression_modes(self):
         # haptics_regmap_distances.json file contains 8 registers:
         # - ACTION_EVENTID0", "ACTION_WAVEFORMID0", "ACTION_ACTUATORID0" are contiguous

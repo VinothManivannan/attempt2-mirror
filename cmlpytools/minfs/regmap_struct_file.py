@@ -6,7 +6,7 @@ http://gitlab.cm.local/devops/tzatziki/-/blob/master/tzatziki/regmap_out/sslconf
 from builtins import range
 import json
 from typing import List, Any
-import tahini
+from cmlpytools import tahini
 from .file_types import FileTypes
 from .file_base import FileBase
 

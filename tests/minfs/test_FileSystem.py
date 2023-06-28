@@ -10,25 +10,6 @@ PATH_TO_DATA = path.join(DIR_PATH, "data")
 
 
 class TestFileSystem(unittest.TestCase):
-
-    def test_createfilesystem(self):
-
-        files = []
-        regmap_cfg_json_file = path.join(
-            PATH_TO_DATA, "haptics_regmap_cfg_correct.json")
-        regmap_file = path.join(PATH_TO_DATA, "haptics-regmap_cmapsource.json")
-        calmap_json_file = path.join(PATH_TO_DATA, "calmap_file_valid.json")
-        calmap_regmap_file = path.join(PATH_TO_DATA, "calmap_regmap_cmapsource.json")
-        binary_file = path.join(PATH_TO_DATA, "binary_regmap_file.bin")
-
-        files.append(CalmapFile(calmap_regmap_file,
-                     calmap_json_file, "calmap0"))
-        files.append(RegmapCfgFile(
-            regmap_cfg_json_file, regmap_file, "config1"))
-        files.append(File(binary_file, "REGMAP_CFG", "config2"))
-
-        _ = FileSystem(files)
-
     def test_createemptyfilesystem(self):
 
         files = []

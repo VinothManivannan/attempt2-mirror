@@ -4,7 +4,7 @@ RegmapCfgFile class for creating minfs regmap config files
 from builtins import range
 import json
 from operator import itemgetter
-import tahini
+from cmlpytools import tahini
 from .shared import RegmapFileWriter
 from .file_types import FileTypes
 from .file_base import FileBase

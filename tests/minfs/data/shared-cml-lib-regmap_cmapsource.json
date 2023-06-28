@@ -40,9 +40,12 @@
                             "register": {
                                 "ctype": "uint8"
                             },
-                            "repeat_for": {
-                                "count": 28
-                            },
+                            "repeat_for": [
+                                {
+                                    "count": 28,
+                                    "offset": 1
+                                }
+                            ],
                             "offset": 4,
                             "access": "private"
                         },
@@ -141,9 +144,12 @@
                                                                             "register": {
                                                                                 "ctype": "uint16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 4
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 2,
                                                                             "access": "private"
                                                                         }
@@ -167,9 +173,12 @@
                                                                             "register": {
                                                                                 "ctype": "int16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 4
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 0,
                                                                             "access": "private"
                                                                         },
@@ -181,9 +190,12 @@
                                                                             "register": {
                                                                                 "ctype": "int16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 4
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 8,
                                                                             "access": "private"
                                                                         },
@@ -195,9 +207,12 @@
                                                                             "register": {
                                                                                 "ctype": "int16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 4
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 16,
                                                                             "access": "private"
                                                                         }
@@ -306,13 +321,16 @@
                                                                             "register": {
                                                                                 "ctype": "uint16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 2,
-                                                                                "aliases": [
-                                                                                    "x",
-                                                                                    "y"
-                                                                                ]
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2,
+                                                                                    "aliases": [
+                                                                                        "x",
+                                                                                        "y"
+                                                                                    ]
+                                                                                }
+                                                                            ],
                                                                             "offset": 2,
                                                                             "access": "private"
                                                                         },
@@ -324,13 +342,16 @@
                                                                             "register": {
                                                                                 "ctype": "int16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 2,
-                                                                                "aliases": [
-                                                                                    "x",
-                                                                                    "y"
-                                                                                ]
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2,
+                                                                                    "aliases": [
+                                                                                        "x",
+                                                                                        "y"
+                                                                                    ]
+                                                                                }
+                                                                            ],
                                                                             "offset": 6,
                                                                             "access": "private"
                                                                         }
@@ -403,13 +424,16 @@
                                                                             "register": {
                                                                                 "ctype": "uint16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 2,
-                                                                                "aliases": [
-                                                                                    "x",
-                                                                                    "y"
-                                                                                ]
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2,
+                                                                                    "aliases": [
+                                                                                        "x",
+                                                                                        "y"
+                                                                                    ]
+                                                                                }
+                                                                            ],
                                                                             "offset": 4,
                                                                             "access": "private"
                                                                         }
@@ -679,9 +703,12 @@
                                                                             "register": {
                                                                                 "ctype": "uint16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 4
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 2,
                                                                             "access": "private"
                                                                         },
@@ -693,9 +720,12 @@
                                                                             "register": {
                                                                                 "ctype": "int16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 4
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 10,
                                                                             "access": "private"
                                                                         },
@@ -707,9 +737,12 @@
                                                                             "register": {
                                                                                 "ctype": "int16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 2
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 18,
                                                                             "access": "private"
                                                                         }
@@ -751,9 +784,12 @@
                                                                             "register": {
                                                                                 "ctype": "uint16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 4
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 2,
                                                                             "access": "private"
                                                                         },
@@ -765,9 +801,12 @@
                                                                             "register": {
                                                                                 "ctype": "int16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 4
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 10,
                                                                             "access": "private"
                                                                         }
@@ -1070,9 +1109,12 @@
                                                                             "register": {
                                                                                 "ctype": "int16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 2
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 2,
                                                                             "access": "private"
                                                                         }
@@ -1114,9 +1156,12 @@
                                                                             "register": {
                                                                                 "ctype": "uint16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 2
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 2,
                                                                             "access": "private"
                                                                         },
@@ -1128,9 +1173,12 @@
                                                                             "register": {
                                                                                 "ctype": "uint16"
                                                                             },
-                                                                            "repeat_for": {
-                                                                                "count": 2
-                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
                                                                             "offset": 6,
                                                                             "access": "private"
                                                                         }

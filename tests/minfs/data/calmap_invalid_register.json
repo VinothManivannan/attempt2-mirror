@@ -1,0 +1,25 @@
+{
+    "Persist_Name": [
+        "cml_params"
+    ],
+    "Top_Level_FW_Reg_Name": [
+        "cml_regs"
+    ],
+    "version info": {
+        "map ver": 1
+    },
+    "calibration_params":{
+        "TEST_NON_EXISTENT_REG": {
+            "type": 4,
+            "bytes": 4,
+            "valid_flag_offset": 0,
+            "offset_in_cal_buffer": 1
+        },
+        "ACTUATOR_ID": {
+            "type": 1,
+            "bytes": 2,
+            "valid_flag_offset": 5,
+            "offset_in_cal_buffer": 6
+        }
+    }
+}

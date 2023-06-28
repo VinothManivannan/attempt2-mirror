@@ -1,0 +1,18 @@
+{
+    "Persist_Name": [
+        "cml_params"
+    ],
+    "Top_Level_FW_Reg_Name": [
+        "cml_regs"
+    ],
+    "version info": {
+        "map ver": 1
+    },
+    "calibration_params":{
+        "ACTUATOR_ID": {
+            "type": 1,
+            "valid_flag_offset": 5,
+            "offset_in_cal_buffer": 6
+        }
+    }
+}

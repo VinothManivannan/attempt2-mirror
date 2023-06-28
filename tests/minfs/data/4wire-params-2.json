@@ -1,0 +1,30 @@
+{
+    "Persist_Name": ["cml_params"],
+    
+    "Reg": {
+        "FFP_FEATURES":{
+            "reset": 1
+        },
+        "FFP_KPROP0":{
+            "reset": 100
+        },
+        "FFP_KPROP1":{
+            "reset": 250
+        },
+        "FFD_FEATURES":{
+            "reset": 1
+        },
+        "FFD_KDYN0":{
+            "reset": 444
+        },
+        "FFD_KDYN1":{
+            "reset": 231
+        },
+        "FFD_TC0":{
+            "reset": 305
+        },
+        "FFD_TC1":{
+            "reset": 212
+        }
+    }
+}

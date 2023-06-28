@@ -1,0 +1,1091 @@
+{
+    "Persist_Name": [
+        "cml_params",
+        "eightwire_persist"
+    ], 
+    "Reg": {
+        "TEMPEST_OFFSET": {
+            "reset": 258
+        },
+        "TEMPEST_GRAD": {
+            "reset": 772
+        },
+        "CENTRING_MODE": {
+            "reset": 1286
+        },
+        "RMID_CAL0": {
+            "reset": 1800
+        },
+        "RMID_CAL1": {
+            "reset": 2314
+        },
+        "RMID_CAL2": {
+            "reset": 2828
+        },
+        "RMID_CAL3": {
+            "reset": 3342
+        },
+        "RMID_CAL4": {
+            "reset": 3856
+        },
+        "RMID_CAL5": {
+            "reset": 4370
+        },
+        "RMID_CAL6": {
+            "reset": 4884
+        },
+        "RMID_CAL7": {
+            "reset": 5398
+        },
+        "XTALK_ALPHA_GRAD0": {
+            "reset": 5912
+        },
+        "XTALK_ALPHA_GRAD1": {
+            "reset": 6426
+        },
+        "XTALK_ALPHA_OFFSET0": {
+            "reset": 6940
+        },
+        "XTALK_ALPHA_OFFSET1": {
+            "reset": 7454
+        },
+        "XTALK_BETA_GRAD0": {
+            "reset": 7968
+        },
+        "XTALK_BETA_GRAD1": {
+            "reset": 8482
+        },
+        "XTALK_BETA_OFFSET0": {
+            "reset": -559038737
+        },
+        "XTALK_BETA_OFFSET1": {
+            "reset": -889302679
+        },
+        "XTALK_AFCOMP_ALPHA": {
+            "reset": 10024
+        },
+        "XTALK_AFCOMP_BETA": {
+            "reset": 10538
+        },
+        "XTALK_AFCOMP_GAMMA": {
+            "reset": 11052
+        },
+        "AF_PHASE_COMP_FEATURES": {
+            "reset": 11566
+        },
+        "AF_PHASE_COMP_OFFSET_LF": {
+            "reset": 12080
+        },
+        "AF_PHASE_COMP_GRAD_X_HF_POS": {
+            "reset": 12594
+        },
+        "AF_PHASE_COMP_GRAD_X_HF_NEG": {
+            "reset": 13108
+        },
+        "AF_PHASE_COMP_GRAD_Y_HF_POS": {
+            "reset": 13622
+        },
+        "AF_PHASE_COMP_GRAD_Y_HF_NEG": {
+            "reset": 14136
+        },
+        "AF_PHASE_COMP_OFFSET_X_HF": {
+            "reset": 14650
+        },
+        "AF_PHASE_COMP_OFFSET_Y_HF": {
+            "reset": 15164
+        },
+        "CTRL_FEATURES": {
+            "reset": 15678
+        },
+        "CTRL_GAIN_DRX": {
+            "reset": 16192
+        },
+        "CTRL_GAIN_DRY": {
+            "reset": 16706
+        },
+        "CTRL_GAIN_DRZ": {
+            "reset": 17220
+        },
+        "CTRL_GAIN_DX": {
+            "reset": 17734
+        },
+        "CTRL_GAIN_DY": {
+            "reset": 18248
+        },
+        "CTRL_GAIN_DZ": {
+            "reset": 18762
+        },
+        "CTRL_INTEGRAL_GAIN_DRX": {
+            "reset": 19276
+        },
+        "CTRL_INTEGRAL_GAIN_DRY": {
+            "reset": 19790
+        },
+        "CTRL_INTEGRAL_GAIN_DRZ": {
+            "reset": 20304
+        },
+        "CTRL_INTEGRAL_GAIN_DX": {
+            "reset": 20818
+        },
+        "CTRL_INTEGRAL_GAIN_DY": {
+            "reset": 21332
+        },
+        "CTRL_INTEGRAL_GAIN_DZ": {
+            "reset": 21846
+        },
+        "CTRL_DIFFERENTIAL_GAIN_DRX": {
+            "reset": 22360
+        },
+        "CTRL_DIFFERENTIAL_GAIN_DRY": {
+            "reset": 22874
+        },
+        "CTRL_DIFFERENTIAL_GAIN_DRZ": {
+            "reset": 23388
+        },
+        "CTRL_DIFFERENTIAL_GAIN_DX": {
+            "reset": 23902
+        },
+        "CTRL_DIFFERENTIAL_GAIN_DY": {
+            "reset": 24416
+        },
+        "CTRL_DIFFERENTIAL_GAIN_DZ": {
+            "reset": 24930
+        },
+        "CTRL_POFFSET_DRX": {
+            "reset": 25444
+        },
+        "CTRL_POFFSET_DRY": {
+            "reset": 25958
+        },
+        "CTRL_POFFSET_DRZ": {
+            "reset": 26472
+        },
+        "CTRL_POFFSET_DX": {
+            "reset": 26986
+        },
+        "CTRL_POFFSET_DY": {
+            "reset": 27500
+        },
+        "CTRL_POFFSET_DZ": {
+            "reset": 28014
+        },
+        "CTRL_POS_ADJ_DRX": {
+            "reset": 28528
+        },
+        "CTRL_POS_ADJ_DRY": {
+            "reset": 29042
+        },
+        "CTRL_POS_ADJ_DRZ": {
+            "reset": 29556
+        },
+        "CTRL_POS_ADJ_DX": {
+            "reset": 30070
+        },
+        "CTRL_POS_ADJ_DY": {
+            "reset": 30584
+        },
+        "CTRL_POS_ADJ_DZ": {
+            "reset": 31098
+        },
+        "CTRL_BOFFSET_W0": {
+            "reset": 31612
+        },
+        "CTRL_BOFFSET_W1": {
+            "reset": 32126
+        },
+        "CTRL_BOFFSET_W2": {
+            "reset": 32640
+        },
+        "CTRL_BOFFSET_W3": {
+            "reset": -32382
+        },
+        "CTRL_BOFFSET_W4": {
+            "reset": -31868
+        },
+        "CTRL_BOFFSET_W5": {
+            "reset": -31354
+        },
+        "CTRL_BOFFSET_W6": {
+            "reset": -30840
+        },
+        "CTRL_BOFFSET_W7": {
+            "reset": -30326
+        },
+        "POS_FEATURES": {
+            "reset": 35724
+        },
+        "POS_FILTCOEF": {
+            "reset": 36238
+        },
+        "POS_GAIN_CORRECTIONX": {
+            "reset": 36752
+        },
+        "POS_GAIN_CORRECTIONY": {
+            "reset": 37266
+        },
+        "POS_GAIN_CORRECTIONZ": {
+            "reset": 37780
+        },
+        "BTM_BASE": {
+            "reset": 38294
+        },
+        "BTM_WIN": {
+            "reset": 38808
+        },
+        "BTM_GRAD": {
+            "reset": -26214
+        },
+        "BTM_TEMPINIT": {
+            "reset": -25700
+        },
+        "BTM_TEMPWD": {
+            "reset": -25186
+        },
+        "BTM_BIASMAX": {
+            "reset": 40864
+        },
+        "BTM_W_TEMP_MAX": {
+            "reset": 41378
+        },
+        "DEMLIM_RANGE_NEGRX": {
+            "reset": -23644
+        },
+        "DEMLIM_RANGE_NEGRY": {
+            "reset": -23130
+        },
+        "DEMLIM_RANGE_NEGRZ": {
+            "reset": -22616
+        },
+        "DEMLIM_RANGE_NEGX": {
+            "reset": -22102
+        },
+        "DEMLIM_RANGE_NEGY": {
+            "reset": -21588
+        },
+        "DEMLIM_RANGE_NEGZ": {
+            "reset": -21074
+        },
+        "DEMLIM_RANGE_POSRX": {
+            "reset": -20560
+        },
+        "DEMLIM_RANGE_POSRY": {
+            "reset": -20046
+        },
+        "DEMLIM_RANGE_POSRZ": {
+            "reset": -19532
+        },
+        "DEMLIM_RANGE_POSX": {
+            "reset": -19018
+        },
+        "DEMLIM_RANGE_POSY": {
+            "reset": -18504
+        },
+        "DEMLIM_RANGE_POSZ": {
+            "reset": -17990
+        },
+        "STM_BASE": {
+            "reset": 48060
+        },
+        "STM_GRADLOW": {
+            "reset": -16962
+        },
+        "STM_GRADHIGH": {
+            "reset": -16448
+        },
+        "STM_TEMPREF": {
+            "reset": -15934
+        },
+        "RLM_RATE": {
+            "reset": 50116
+        },
+        "RLM_SCALE": {
+            "reset": -14906
+        },
+        "RLM_SCALE_GRAD": {
+            "reset": -14392
+        },
+        "RLM_SCALE_CURV": {
+            "reset": -13878
+        },
+        "RTM_BASE": {
+            "reset": 52172
+        },
+        "RTM_GRAD": {
+            "reset": -12850
+        },
+        "RTM_CURV": {
+            "reset": -12336
+        },
+        "RTM_TEMPINIT": {
+            "reset": -11822
+        },
+        "RTM_THERMALRES": {
+            "reset": -11308
+        },
+        "DLF_CONTROL": {
+            "reset": 54742
+        },
+        "DLF_HOTZONE": {
+            "reset": 55256
+        },
+        "DLF_TIMEOUT": {
+            "reset": 55770
+        },
+        "DLF_VELLIM": {
+            "reset": 56284
+        },
+        "DLF_ERRLIM": {
+            "reset": 56798
+        },
+        "DLF_BACKOFF": {
+            "reset": 57312
+        },
+        "DLF_DOFS_MASK": {
+            "reset": 57826
+        },
+        "LEAKYINT_RATE": {
+            "reset": 58340
+        },
+        "FFH_FEATURES": {
+            "reset": 58854
+        },
+        "FFH_PIR0": {
+            "reset": 59368
+        },
+        "FFH_PIR1": {
+            "reset": 59882
+        },
+        "FFH_PIR2": {
+            "reset": 60396
+        },
+        "FFH_PIR3": {
+            "reset": 60910
+        },
+        "FFH_PIWEIGHT0": {
+            "reset": -4112
+        },
+        "FFH_PIWEIGHT1": {
+            "reset": -3598
+        },
+        "FFH_PIWEIGHT2": {
+            "reset": -3084
+        },
+        "FFH_PIWEIGHT3": {
+            "reset": -2570
+        },
+        "FFP_FEATURES": {
+            "reset": 63480
+        },
+        "FFP_KPROP0": {
+            "reset": -1542
+        },
+        "FFP_KPROP1": {
+            "reset": -1028
+        },
+        "FFP_KPROP2": {
+            "reset": -514
+        },
+        "FFP_KPROP3": {
+            "reset": -8224
+        },
+        "FFP_KPROP4": {
+            "reset": -8738
+        },
+        "FFP_KPROP5": {
+            "reset": -9252
+        },
+        "FFP_KPROP6": {
+            "reset": -9766
+        },
+        "FFP_KPROP7": {
+            "reset": -10280
+        },
+        "FFD_FEATURES": {
+            "reset": 54742
+        },
+        "FFD_ALPHA_MODEL": {
+            "reset": 54228
+        },
+        "FFD_BETA_MODEL": {
+            "reset": 53714
+        },
+        "DOF6_TO_WIRE8_INTEGERS0": {
+            "reset": -12336
+        },
+        "DOF6_TO_WIRE8_INTEGERS1": {
+            "reset": -12850
+        },
+        "DOF6_TO_WIRE8_INTEGERS2": {
+            "reset": -13364
+        },
+        "DOF6_TO_WIRE8_INTEGERS3": {
+            "reset": -13878
+        },
+        "DOF6_TO_WIRE8_INTEGERS4": {
+            "reset": -14392
+        },
+        "DOF6_TO_WIRE8_INTEGERS5": {
+            "reset": -14906
+        },
+        "DOF6_TO_WIRE8_INTEGERS6": {
+            "reset": -15420
+        },
+        "DOF6_TO_WIRE8_INTEGERS7": {
+            "reset": -15934
+        },
+        "DOF6_TO_WIRE8_INTEGERS8": {
+            "reset": -16448
+        },
+        "DOF6_TO_WIRE8_INTEGERS9": {
+            "reset": -16962
+        },
+        "DOF6_TO_WIRE8_INTEGERS10": {
+            "reset": -17476
+        },
+        "DOF6_TO_WIRE8_INTEGERS11": {
+            "reset": -17990
+        },
+        "DOF6_TO_WIRE8_INTEGERS12": {
+            "reset": -18504
+        },
+        "DOF6_TO_WIRE8_INTEGERS13": {
+            "reset": -19018
+        },
+        "DOF6_TO_WIRE8_INTEGERS14": {
+            "reset": -19532
+        },
+        "DOF6_TO_WIRE8_INTEGERS15": {
+            "reset": -20046
+        },
+        "DOF6_TO_WIRE8_INTEGERS16": {
+            "reset": -20560
+        },
+        "DOF6_TO_WIRE8_INTEGERS17": {
+            "reset": -21074
+        },
+        "DOF6_TO_WIRE8_INTEGERS18": {
+            "reset": -21588
+        },
+        "DOF6_TO_WIRE8_INTEGERS19": {
+            "reset": -22102
+        },
+        "DOF6_TO_WIRE8_INTEGERS20": {
+            "reset": -22616
+        },
+        "DOF6_TO_WIRE8_INTEGERS21": {
+            "reset": -23130
+        },
+        "DOF6_TO_WIRE8_INTEGERS22": {
+            "reset": -23644
+        },
+        "DOF6_TO_WIRE8_INTEGERS23": {
+            "reset": -24158
+        },
+        "DOF6_TO_WIRE8_INTEGERS24": {
+            "reset": -24672
+        },
+        "DOF6_TO_WIRE8_INTEGERS25": {
+            "reset": -25186
+        },
+        "DOF6_TO_WIRE8_INTEGERS26": {
+            "reset": -25700
+        },
+        "DOF6_TO_WIRE8_INTEGERS27": {
+            "reset": -26214
+        },
+        "DOF6_TO_WIRE8_INTEGERS28": {
+            "reset": -26728
+        },
+        "DOF6_TO_WIRE8_INTEGERS29": {
+            "reset": -27242
+        },
+        "DOF6_TO_WIRE8_INTEGERS30": {
+            "reset": -27756
+        },
+        "DOF6_TO_WIRE8_INTEGERS31": {
+            "reset": -28270
+        },
+        "DOF6_TO_WIRE8_INTEGERS32": {
+            "reset": -28784
+        },
+        "DOF6_TO_WIRE8_INTEGERS33": {
+            "reset": -29298
+        },
+        "DOF6_TO_WIRE8_INTEGERS34": {
+            "reset": -29812
+        },
+        "DOF6_TO_WIRE8_INTEGERS35": {
+            "reset": -30326
+        },
+        "DOF6_TO_WIRE8_INTEGERS36": {
+            "reset": -30840
+        },
+        "DOF6_TO_WIRE8_INTEGERS37": {
+            "reset": -31354
+        },
+        "DOF6_TO_WIRE8_INTEGERS38": {
+            "reset": -31868
+        },
+        "DOF6_TO_WIRE8_INTEGERS39": {
+            "reset": -32382
+        },
+        "DOF6_TO_WIRE8_INTEGERS40": {
+            "reset": 32640
+        },
+        "DOF6_TO_WIRE8_INTEGERS41": {
+            "reset": 32126
+        },
+        "DOF6_TO_WIRE8_INTEGERS42": {
+            "reset": 31612
+        },
+        "DOF6_TO_WIRE8_INTEGERS43": {
+            "reset": 31098
+        },
+        "DOF6_TO_WIRE8_INTEGERS44": {
+            "reset": 30584
+        },
+        "DOF6_TO_WIRE8_INTEGERS45": {
+            "reset": 30070
+        },
+        "DOF6_TO_WIRE8_INTEGERS46": {
+            "reset": 29556
+        },
+        "DOF6_TO_WIRE8_INTEGERS47": {
+            "reset": 29042
+        },
+        "WIRE8_TO_DOF6_INTEGERS0": {
+            "reset": 28528
+        },
+        "WIRE8_TO_DOF6_INTEGERS1": {
+            "reset": 28014
+        },
+        "WIRE8_TO_DOF6_INTEGERS2": {
+            "reset": 27500
+        },
+        "WIRE8_TO_DOF6_INTEGERS3": {
+            "reset": 26986
+        },
+        "WIRE8_TO_DOF6_INTEGERS4": {
+            "reset": 26472
+        },
+        "WIRE8_TO_DOF6_INTEGERS5": {
+            "reset": 25958
+        },
+        "WIRE8_TO_DOF6_INTEGERS6": {
+            "reset": 25444
+        },
+        "WIRE8_TO_DOF6_INTEGERS7": {
+            "reset": 24930
+        },
+        "WIRE8_TO_DOF6_INTEGERS8": {
+            "reset": 24416
+        },
+        "WIRE8_TO_DOF6_INTEGERS9": {
+            "reset": 23902
+        },
+        "WIRE8_TO_DOF6_INTEGERS10": {
+            "reset": 23388
+        },
+        "WIRE8_TO_DOF6_INTEGERS11": {
+            "reset": 22874
+        },
+        "WIRE8_TO_DOF6_INTEGERS12": {
+            "reset": 22360
+        },
+        "WIRE8_TO_DOF6_INTEGERS13": {
+            "reset": 21846
+        },
+        "WIRE8_TO_DOF6_INTEGERS14": {
+            "reset": 21332
+        },
+        "WIRE8_TO_DOF6_INTEGERS15": {
+            "reset": 20818
+        },
+        "WIRE8_TO_DOF6_INTEGERS16": {
+            "reset": 20304
+        },
+        "WIRE8_TO_DOF6_INTEGERS17": {
+            "reset": 19790
+        },
+        "WIRE8_TO_DOF6_INTEGERS18": {
+            "reset": 19276
+        },
+        "WIRE8_TO_DOF6_INTEGERS19": {
+            "reset": 18762
+        },
+        "WIRE8_TO_DOF6_INTEGERS20": {
+            "reset": 18248
+        },
+        "WIRE8_TO_DOF6_INTEGERS21": {
+            "reset": 17734
+        },
+        "WIRE8_TO_DOF6_INTEGERS22": {
+            "reset": 17220
+        },
+        "WIRE8_TO_DOF6_INTEGERS23": {
+            "reset": 16706
+        },
+        "WIRE8_TO_DOF6_INTEGERS24": {
+            "reset": 16192
+        },
+        "WIRE8_TO_DOF6_INTEGERS25": {
+            "reset": 15678
+        },
+        "WIRE8_TO_DOF6_INTEGERS26": {
+            "reset": 15164
+        },
+        "WIRE8_TO_DOF6_INTEGERS27": {
+            "reset": 14650
+        },
+        "WIRE8_TO_DOF6_INTEGERS28": {
+            "reset": 14136
+        },
+        "WIRE8_TO_DOF6_INTEGERS29": {
+            "reset": 13622
+        },
+        "WIRE8_TO_DOF6_INTEGERS30": {
+            "reset": 13108
+        },
+        "WIRE8_TO_DOF6_INTEGERS31": {
+            "reset": 12594
+        },
+        "WIRE8_TO_DOF6_INTEGERS32": {
+            "reset": 12080
+        },
+        "WIRE8_TO_DOF6_INTEGERS33": {
+            "reset": 11566
+        },
+        "WIRE8_TO_DOF6_INTEGERS34": {
+            "reset": 11052
+        },
+        "WIRE8_TO_DOF6_INTEGERS35": {
+            "reset": 10538
+        },
+        "WIRE8_TO_DOF6_INTEGERS36": {
+            "reset": 10024
+        },
+        "WIRE8_TO_DOF6_INTEGERS37": {
+            "reset": 9510
+        },
+        "WIRE8_TO_DOF6_INTEGERS38": {
+            "reset": 8996
+        },
+        "WIRE8_TO_DOF6_INTEGERS39": {
+            "reset": 8482
+        },
+        "WIRE8_TO_DOF6_INTEGERS40": {
+            "reset": 7968
+        },
+        "WIRE8_TO_DOF6_INTEGERS41": {
+            "reset": 7454
+        },
+        "WIRE8_TO_DOF6_INTEGERS42": {
+            "reset": 6940
+        },
+        "WIRE8_TO_DOF6_INTEGERS43": {
+            "reset": 6426
+        },
+        "WIRE8_TO_DOF6_INTEGERS44": {
+            "reset": 5912
+        },
+        "WIRE8_TO_DOF6_INTEGERS45": {
+            "reset": 5398
+        },
+        "WIRE8_TO_DOF6_INTEGERS46": {
+            "reset": 4884
+        },
+        "WIRE8_TO_DOF6_INTEGERS47": {
+            "reset": 4370
+        },
+        "DOF6_TO_WIRE8_DECIMALS0": {
+            "reset": 255
+        },
+        "DOF6_TO_WIRE8_DECIMALS1": {
+            "reset": 254
+        },
+        "DOF6_TO_WIRE8_DECIMALS2": {
+            "reset": 253
+        },
+        "DOF6_TO_WIRE8_DECIMALS3": {
+            "reset": 252
+        },
+        "DOF6_TO_WIRE8_DECIMALS4": {
+            "reset": 251
+        },
+        "DOF6_TO_WIRE8_DECIMALS5": {
+            "reset": 250
+        },
+        "DOF6_TO_WIRE8_DECIMALS6": {
+            "reset": 249
+        },
+        "DOF6_TO_WIRE8_DECIMALS7": {
+            "reset": 248
+        },
+        "DOF6_TO_WIRE8_DECIMALS8": {
+            "reset": 247
+        },
+        "DOF6_TO_WIRE8_DECIMALS9": {
+            "reset": 246
+        },
+        "DOF6_TO_WIRE8_DECIMALS10": {
+            "reset": 245
+        },
+        "DOF6_TO_WIRE8_DECIMALS11": {
+            "reset": 244
+        },
+        "DOF6_TO_WIRE8_DECIMALS12": {
+            "reset": 243
+        },
+        "DOF6_TO_WIRE8_DECIMALS13": {
+            "reset": 242
+        },
+        "DOF6_TO_WIRE8_DECIMALS14": {
+            "reset": 241
+        },
+        "DOF6_TO_WIRE8_DECIMALS15": {
+            "reset": 240
+        },
+        "DOF6_TO_WIRE8_DECIMALS16": {
+            "reset": 239
+        },
+        "DOF6_TO_WIRE8_DECIMALS17": {
+            "reset": 238
+        },
+        "DOF6_TO_WIRE8_DECIMALS18": {
+            "reset": 237
+        },
+        "DOF6_TO_WIRE8_DECIMALS19": {
+            "reset": 236
+        },
+        "DOF6_TO_WIRE8_DECIMALS20": {
+            "reset": 235
+        },
+        "DOF6_TO_WIRE8_DECIMALS21": {
+            "reset": 234
+        },
+        "DOF6_TO_WIRE8_DECIMALS22": {
+            "reset": 233
+        },
+        "DOF6_TO_WIRE8_DECIMALS23": {
+            "reset": 232
+        },
+        "DOF6_TO_WIRE8_DECIMALS24": {
+            "reset": 231
+        },
+        "DOF6_TO_WIRE8_DECIMALS25": {
+            "reset": 230
+        },
+        "DOF6_TO_WIRE8_DECIMALS26": {
+            "reset": 229
+        },
+        "DOF6_TO_WIRE8_DECIMALS27": {
+            "reset": 228
+        },
+        "DOF6_TO_WIRE8_DECIMALS28": {
+            "reset": 227
+        },
+        "DOF6_TO_WIRE8_DECIMALS29": {
+            "reset": 226
+        },
+        "DOF6_TO_WIRE8_DECIMALS30": {
+            "reset": 225
+        },
+        "DOF6_TO_WIRE8_DECIMALS31": {
+            "reset": 224
+        },
+        "DOF6_TO_WIRE8_DECIMALS32": {
+            "reset": 223
+        },
+        "DOF6_TO_WIRE8_DECIMALS33": {
+            "reset": 222
+        },
+        "DOF6_TO_WIRE8_DECIMALS34": {
+            "reset": 221
+        },
+        "DOF6_TO_WIRE8_DECIMALS35": {
+            "reset": 220
+        },
+        "DOF6_TO_WIRE8_DECIMALS36": {
+            "reset": 219
+        },
+        "DOF6_TO_WIRE8_DECIMALS37": {
+            "reset": 218
+        },
+        "DOF6_TO_WIRE8_DECIMALS38": {
+            "reset": 217
+        },
+        "DOF6_TO_WIRE8_DECIMALS39": {
+            "reset": 216
+        },
+        "DOF6_TO_WIRE8_DECIMALS40": {
+            "reset": 215
+        },
+        "DOF6_TO_WIRE8_DECIMALS41": {
+            "reset": 214
+        },
+        "DOF6_TO_WIRE8_DECIMALS42": {
+            "reset": 213
+        },
+        "DOF6_TO_WIRE8_DECIMALS43": {
+            "reset": 212
+        },
+        "DOF6_TO_WIRE8_DECIMALS44": {
+            "reset": 211
+        },
+        "DOF6_TO_WIRE8_DECIMALS45": {
+            "reset": 210
+        },
+        "DOF6_TO_WIRE8_DECIMALS46": {
+            "reset": 209
+        },
+        "DOF6_TO_WIRE8_DECIMALS47": {
+            "reset": 208
+        },
+        "WIRE8_TO_DOF6_DECIMALS0": {
+            "reset": 207
+        },
+        "WIRE8_TO_DOF6_DECIMALS1": {
+            "reset": 206
+        },
+        "WIRE8_TO_DOF6_DECIMALS2": {
+            "reset": 205
+        },
+        "WIRE8_TO_DOF6_DECIMALS3": {
+            "reset": 204
+        },
+        "WIRE8_TO_DOF6_DECIMALS4": {
+            "reset": 203
+        },
+        "WIRE8_TO_DOF6_DECIMALS5": {
+            "reset": 202
+        },
+        "WIRE8_TO_DOF6_DECIMALS6": {
+            "reset": 201
+        },
+        "WIRE8_TO_DOF6_DECIMALS7": {
+            "reset": 200
+        },
+        "WIRE8_TO_DOF6_DECIMALS8": {
+            "reset": 199
+        },
+        "WIRE8_TO_DOF6_DECIMALS9": {
+            "reset": 198
+        },
+        "WIRE8_TO_DOF6_DECIMALS10": {
+            "reset": 197
+        },
+        "WIRE8_TO_DOF6_DECIMALS11": {
+            "reset": 196
+        },
+        "WIRE8_TO_DOF6_DECIMALS12": {
+            "reset": 195
+        },
+        "WIRE8_TO_DOF6_DECIMALS13": {
+            "reset": 194
+        },
+        "WIRE8_TO_DOF6_DECIMALS14": {
+            "reset": 193
+        },
+        "WIRE8_TO_DOF6_DECIMALS15": {
+            "reset": 192
+        },
+        "WIRE8_TO_DOF6_DECIMALS16": {
+            "reset": 191
+        },
+        "WIRE8_TO_DOF6_DECIMALS17": {
+            "reset": 190
+        },
+        "WIRE8_TO_DOF6_DECIMALS18": {
+            "reset": 189
+        },
+        "WIRE8_TO_DOF6_DECIMALS19": {
+            "reset": 188
+        },
+        "WIRE8_TO_DOF6_DECIMALS20": {
+            "reset": 187
+        },
+        "WIRE8_TO_DOF6_DECIMALS21": {
+            "reset": 186
+        },
+        "WIRE8_TO_DOF6_DECIMALS22": {
+            "reset": 185
+        },
+        "WIRE8_TO_DOF6_DECIMALS23": {
+            "reset": 184
+        },
+        "WIRE8_TO_DOF6_DECIMALS24": {
+            "reset": 183
+        },
+        "WIRE8_TO_DOF6_DECIMALS25": {
+            "reset": 182
+        },
+        "WIRE8_TO_DOF6_DECIMALS26": {
+            "reset": 181
+        },
+        "WIRE8_TO_DOF6_DECIMALS27": {
+            "reset": 180
+        },
+        "WIRE8_TO_DOF6_DECIMALS28": {
+            "reset": 179
+        },
+        "WIRE8_TO_DOF6_DECIMALS29": {
+            "reset": 178
+        },
+        "WIRE8_TO_DOF6_DECIMALS30": {
+            "reset": 177
+        },
+        "WIRE8_TO_DOF6_DECIMALS31": {
+            "reset": 176
+        },
+        "WIRE8_TO_DOF6_DECIMALS32": {
+            "reset": 175
+        },
+        "WIRE8_TO_DOF6_DECIMALS33": {
+            "reset": 174
+        },
+        "WIRE8_TO_DOF6_DECIMALS34": {
+            "reset": 173
+        },
+        "WIRE8_TO_DOF6_DECIMALS35": {
+            "reset": 172
+        },
+        "WIRE8_TO_DOF6_DECIMALS36": {
+            "reset": 171
+        },
+        "WIRE8_TO_DOF6_DECIMALS37": {
+            "reset": 170
+        },
+        "WIRE8_TO_DOF6_DECIMALS38": {
+            "reset": 169
+        },
+        "WIRE8_TO_DOF6_DECIMALS39": {
+            "reset": 168
+        },
+        "WIRE8_TO_DOF6_DECIMALS40": {
+            "reset": 167
+        },
+        "WIRE8_TO_DOF6_DECIMALS41": {
+            "reset": 166
+        },
+        "WIRE8_TO_DOF6_DECIMALS42": {
+            "reset": 165
+        },
+        "WIRE8_TO_DOF6_DECIMALS43": {
+            "reset": 164
+        },
+        "WIRE8_TO_DOF6_DECIMALS44": {
+            "reset": 163
+        },
+        "WIRE8_TO_DOF6_DECIMALS45": {
+            "reset": 162
+        },
+        "WIRE8_TO_DOF6_DECIMALS46": {
+            "reset": 161
+        },
+        "WIRE8_TO_DOF6_DECIMALS47": {
+            "reset": 160
+        },
+        "LIMEST_FEATURES": {
+            "reset": 159
+        },
+        "LIMEST_SYM_USER_VALX": {
+            "reset": 3856
+        },
+        "LIMEST_SYM_USER_VALY": {
+            "reset": 3342
+        },
+        "LIMEST_SYM_USER_VALZ": {
+            "reset": 2828
+        },
+        "WB_RESMIN": {
+            "reset": 2314
+        },
+        "WB_RESMAX": {
+            "reset": 1800
+        },
+        "WB_ERRLIM": {
+            "reset": 1286
+        },
+        "TV_ERRLIM": {
+            "reset": 772
+        },
+        "CS_TAP_COEFFS0": {
+            "reset": 258
+        },
+        "CS_TAP_COEFFS1": {
+            "reset": 11052
+        },
+        "CS_TAP_COEFFS2": {
+            "reset": 11566
+        },
+        "CS_TAP_COEFFS3": {
+            "reset": 12080
+        },
+        "CS_TAP_COEFFS4": {
+            "reset": 12594
+        },
+        "CS_TAP_COEFFS5": {
+            "reset": 13108
+        },
+        "CS_TAP_COEFFS6": {
+            "reset": 13622
+        },
+        "CS_TAP_COEFFS7": {
+            "reset": 14136
+        },
+        "FFP_ENTHALPY_FEATURES": {
+            "reset": 14650
+        },
+        "FFP_ENTHALPY_KPROP0": {
+            "reset": 15164
+        },
+        "FFP_ENTHALPY_KPROP1": {
+            "reset": 15678
+        },
+        "FFP_ENTHALPY_KPROP2": {
+            "reset": 16192
+        },
+        "FFP_ENTHALPY_KPROP3": {
+            "reset": 16706
+        },
+        "FFP_ENTHALPY_KPROP4": {
+            "reset": 17220
+        },
+        "FFP_ENTHALPY_KPROP5": {
+            "reset": 17734
+        },
+        "FFP_ENTHALPY_KPROP6": {
+            "reset": 18248
+        },
+        "FFP_ENTHALPY_KPROP7": {
+            "reset": 18762
+        },
+        "FFD_ENTHALPY_FEATURES": {
+            "reset": 19276
+        },
+        "FFD_ENTHALPY_ALPHA_ENTHALPY_MODEL": {
+            "reset": 19790
+        },
+        "FFD_ENTHALPY_BETA_ENTHALPY_MODEL": {
+            "reset": 20304
+        },
+        "OIS_AF_SCALING_EN": {
+            "reset": 20818
+        },
+        "OIS_AF_SCALE0": {
+            "reset": -215372350
+        },
+        "OIS_AF_SCALE1": {
+            "reset": 1431764190
+        },
+        "OIS_AF_SCALE2": {
+            "reset": 1465427340
+        },
+        "OIS_AF_SCALE3": {
+            "reset": -1161930406
+        },
+        "DIFF_ORDER": {
+            "reset": 63
+        }
+    }
+}

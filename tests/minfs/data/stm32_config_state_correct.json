@@ -1,0 +1,10 @@
+{
+  "format" : 1,
+  "data":
+  [
+    {
+      "register": "CENTRING_MODE",
+      "state": "REL_RESISTANCE_CENTRE"
+    }
+  ]
+}

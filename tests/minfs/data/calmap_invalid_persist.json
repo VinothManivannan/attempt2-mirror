@@ -1,0 +1,49 @@
+{
+    "Persist_Name": [
+        "non_existent_struct"
+    ],
+    "Top_Level_FW_Reg_Name": [
+        "cml_regs"
+    ],
+    "version info": {
+        "map ver": 1
+    },
+    "calibration_params":{
+        "DEBUG_RW_ADDR": {
+            "type": 0,
+            "bytes": 4,
+            "valid_flag_offset": 0,
+            "offset_in_cal_buffer": 1
+        },
+        "ACTUATOR_ID": {
+            "type": 1,
+            "bytes": 2,
+            "valid_flag_offset": 5,
+            "offset_in_cal_buffer": 6
+        },
+        "GFLT0_GYRO_GAIN_COEF": {
+            "type": 2,
+            "bytes": 2,
+            "valid_flag_offset": 8,
+            "offset_in_cal_buffer": 9
+        },
+        "PWM_FREQUENCY": {
+            "type": 3,
+            "bytes": 4,
+            "valid_flag_offset": 11,
+            "offset_in_cal_buffer": 12
+        },
+        "SMA_MODE": {
+            "type": 4,
+            "bytes": 4,
+            "valid_flag_offset": 16,
+            "offset_in_cal_buffer": 17
+        },
+        "TEMPEST_OFFSET": {
+            "type": 3,
+            "bytes": 2,
+            "valid_flag_offset": 21,
+            "offset_in_cal_buffer": 22
+        }
+    }
+}

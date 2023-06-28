@@ -1,0 +1,64 @@
+{
+    "Persist_Name": [
+        "cml_params"
+    ], 
+    "Reg": {
+        "PWM_FREQUENCY": {
+            "reset": 2880093114
+        },
+        "BTM_BASE": {
+            "reset": 81
+        }, 
+        "BTM_BIASMAX": {
+            "reset": 200
+        }, 
+        "BTM_GRAD": {
+            "reset": -40
+        }, 
+        "BTM_TEMPINIT": {
+            "reset": 500
+        }, 
+        "BTM_TEMPWD": {
+            "reset": 500
+        }, 
+        "BTM_WIN": {
+            "reset": 98
+        }, 
+        "BTM_W_TEMP_MAX": {
+            "reset": 1500
+        }, 
+        "DEMLIM_RANGE_NEGZ": {
+            "reset": 172
+        },
+        "DEMLIM_RANGE_POSZ": {
+            "reset": 173
+        },
+        "GS_PWL_GRADIENTZ_0": {
+            "reset": 15400
+        },
+        "GS_PWL_Y_THRESHOLDZ_0": {
+            "reset": 8192
+        },
+        "GS_PWL_X_THRESHOLDZ_0": {
+            "reset": -1500
+        },
+        "GS_PWL_GRADIENTZ_1": {
+            "reset": -450
+        },
+        "GS_PWL_Y_THRESHOLDZ_1": {
+            "reset": 8192
+        },
+        "GS_PWL_X_THRESHOLDZ_1": {
+            "reset": 1500
+        },
+        "GS_PWL_GRADIENTZ_2": {
+            "reset": -32767
+        },
+        "GS_PWL_Y_THRESHOLDZ_2": {
+            "reset": 8192
+        },
+        "GS_PWL_X_THRESHOLDZ_2": {
+            "reset": 1500
+        }        
+    }
+}

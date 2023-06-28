@@ -1,0 +1,198 @@
+{
+  "format" : 1,
+  "data":
+  [
+    {
+      "register": "BUT_FEATURES0",
+      "flags": ["BUT_ENABLE"]
+    },
+    {
+      "register": "BUT_MINTIME0",
+      "value": 0
+    },
+    {
+      "register": "BUT_FEATURES1",
+      "flags": ["BUT_ENABLE"]
+    },
+    {
+      "register": "BUT_MINTIME1",
+      "value": 0
+    },
+    {
+      "register": "FORCE_FEATURES0",
+      "flags": []
+    },
+    {
+      "register": "FORCE_MINTIME0",
+      "value": 1000
+    },
+    {
+      "register": "FORCE_THRESHOLD0",
+      "value": 450
+    },
+    {
+      "register": "FORCE_HYST0",
+      "value": 100
+    },
+    {
+      "register": "FORCE_FEATURES1",
+      "flags": []
+    },
+    {
+      "register": "FORCE_MINTIME1",
+      "value": 1000
+    },
+    {
+      "register": "FORCE_THRESHOLD1",
+      "value": 450
+    },
+    {
+      "register": "FORCE_HYST1",
+      "value": 100
+    },
+    {
+      "register": "OUTPUT_CTRL0",
+      "flags": ["OUTPUT_ENABLE"]
+    },
+    {
+      "register": "OUTPUT_SAFETIME0",
+      "value": 150000
+    },
+    {
+      "register": "OUTPUT_CTRL1",
+      "flags": ["OUTPUT_ENABLE"]
+    },
+    {
+      "register": "OUTPUT_SAFETIME1",
+      "value": 150000
+    },
+    {
+      "register": "ACTION_CTRL0",
+      "flags": ["ACTION_ENABLE"]
+    },
+    {
+      "register": "ACTION_INPUTID0",
+      "value": 0
+    },
+    {
+      "register": "ACTION_EVENTID0",
+      "value": 1
+    },
+    {
+      "register": "ACTION_WAVEFORMID0",
+      "value": 0
+    },
+    {
+      "register": "ACTION_ACTUATORID0",
+      "value": 0
+    },
+    {
+      "register": "ACTION_DELAY0",
+      "value": 0
+    },
+    {
+      "register": "ACTION_CTRL0",
+      "flags": ["ACTION_ENABLE"]
+    },
+    {
+      "register": "ACTION_INPUTID1",
+      "value": 0
+    },
+    {
+      "register": "ACTION_EVENTID1",
+      "value": 2
+    },
+    {
+      "register": "ACTION_WAVEFORMID1",
+      "value": 0
+    },
+    {
+      "register": "ACTION_ACTUATORID1",
+      "value": 0
+    },
+    {
+      "register": "ACTION_DELAY1",
+      "value": 0
+    },
+    {
+      "register": "ACTION_CTRL1",
+      "flags": ["ACTION_ENABLE"]
+    },
+    {
+      "register": "ACTION_INPUTID2",
+      "value": 1
+    },
+    {
+      "register": "ACTION_EVENTID2",
+      "value": 1
+    },
+    {
+      "register": "ACTION_WAVEFORMID2",
+      "value": 1
+    },
+    {
+      "register": "ACTION_ACTUATORID2",
+      "value": 1
+    },
+    {
+      "register": "ACTION_DELAY2",
+      "value": 0
+    },
+    {
+      "register": "ACTION_CTRL3",
+      "flags": ["ACTION_ENABLE"]
+    },
+    {
+      "register": "ACTION_INPUTID3",
+      "value": 1
+    },
+    {
+      "register": "ACTION_EVENTID3",
+      "value": 2
+    },
+    {
+      "register": "ACTION_WAVEFORMID3",
+      "value": 1
+    },
+    {
+      "register": "ACTION_ACTUATORID3",
+      "value": 1
+    },
+    {
+      "register": "ACTION_DELAY3",
+      "value": 0
+    },
+    {
+      "register": "WF_FORMAT0",
+      "value": 0
+    },
+    {
+      "register": "WF_PULSES0",
+      "value": 1
+    },
+    {
+      "register": "WF_DELAY0_0",
+      "value": 0
+    },
+    {
+      "register": "WF_WIDTH0_0",
+      "value": 4600
+    },
+    {
+      "register": "WF_FORMAT1",
+      "value": 0
+    },
+    {
+      "register": "WF_PULSES1",
+      "value": 1
+    },
+    {
+      "register": "WF_DELAY1_0",
+      "value": 0
+    },
+    {
+      "register": "WF_WIDTH1_0",
+      "value": 4000
+    }
+  ]
+}

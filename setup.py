@@ -16,7 +16,7 @@ if path.exists(version_file_path):
     with open(path.join(here, 'VERSION'), encoding='utf-8') as f:
         VERSION_INFO = f.read().strip()
 else:
-    # If no version file found, indicate local machine is used in version string
+    # If no version file found, use this string instead to indicate local machine
     VERSION_INFO = "0.0.dev0"
 
 setup(
@@ -24,9 +24,9 @@ setup(
     version=VERSION_INFO,
     author="Cambridge Mechatronics Ltd.",
     author_email="electronicsgroup@cambridgemechatronics.com",
-    url="http://gitlab.cm.local/devops/tahini",
+    url="http://gitlab.cm.local/devops/cmlpytools",
     description="Register map library 2.0",
-    install_requires=["marshmallow_dataclass", "marshmallow_enum", "crcmod", "future"],
+    install_requires=["marshmallow_dataclass", "marshmallow_enum", "crcmod", "future", "pythonnet"],
     entry_points={
         'console_scripts': ['tahini=tahini.tahini:main'],
     },

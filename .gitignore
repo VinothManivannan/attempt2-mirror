@@ -11,3 +11,5 @@ VERSION
 /tests/tahini/output_generate_txt.txt
 /tests/tahini/output_generate_txt_bitfields_state.txt
 /tests/tahini/output_tahini_generate_csv.csv
+/bin_header.h
+/bin_test.bin

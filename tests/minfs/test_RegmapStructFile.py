@@ -1,7 +1,7 @@
 from builtins import str
 import unittest
 from os import path
-from minfs.regmap_struct_file import *
+from cmlpytools.minfs.regmap_struct_file import *
 
 
 DIR_PATH = path.dirname(path.realpath(__file__))

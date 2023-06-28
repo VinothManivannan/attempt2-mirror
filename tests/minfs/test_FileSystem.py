@@ -1,9 +1,9 @@
 import unittest
 from os import path
-from minfs.file import *
-from minfs.regmap_cfg_file import RegmapCfgFile
-from minfs.calmap_file import CalmapFile
-from minfs.file_system import FileSystem
+from cmlpytools.minfs.file import *
+from cmlpytools.minfs.regmap_cfg_file import RegmapCfgFile
+from cmlpytools.minfs.calmap_file import CalmapFile
+from cmlpytools.minfs.file_system import FileSystem
 
 DIR_PATH = path.dirname(path.realpath(__file__))
 PATH_TO_DATA = path.join(DIR_PATH, "data")

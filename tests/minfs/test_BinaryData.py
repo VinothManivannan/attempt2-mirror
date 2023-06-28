@@ -1,5 +1,5 @@
 import unittest
-from minfs.binary_data import *
+from cmlpytools.minfs.binary_data import *
 
 FILE_TEMPLATE = """\
 /*

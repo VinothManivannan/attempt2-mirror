@@ -2,7 +2,7 @@ from builtins import str
 from builtins import range
 import unittest
 from os import path
-from minfs.regmap_cfg_file import *
+from cmlpytools.minfs.regmap_cfg_file import *
 
 
 DIR_PATH = path.dirname(path.realpath(__file__))

@@ -1,7 +1,7 @@
 from builtins import str
 import unittest
 from os import path
-from minfs.file import *
+from cmlpytools.minfs.file import *
 
 DIR_PATH = path.dirname(path.realpath(__file__))
 PATH_TO_DATA = path.join(DIR_PATH, "data")

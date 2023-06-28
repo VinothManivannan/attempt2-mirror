@@ -1,7 +1,7 @@
 import unittest
 from os import path
-from minfs.calmap_file import CalmapFile
-from minfs.calmap_file import CalmapParseError
+from cmlpytools.minfs.calmap_file import CalmapFile
+from cmlpytools.minfs.calmap_file import CalmapParseError
 
 
 DIR_PATH = path.dirname(path.realpath(__file__))

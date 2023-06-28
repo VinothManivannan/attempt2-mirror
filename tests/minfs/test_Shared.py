@@ -1,7 +1,8 @@
 from builtins import str
 import unittest
-from minfs.shared import *
-from minfs.file_types import FileTypes
+from cmlpytools.minfs.shared import *
+from cmlpytools.minfs.file_types import FileTypes
+
 
 class TestSharedLibrary(unittest.TestCase):
 
@@ -9,17 +10,17 @@ class TestSharedLibrary(unittest.TestCase):
         MAX_FILES = 0x1
         ADDR = 0x1234
         DATA = bytearray([0xBA, 0xAD, 0xBE, 0xEF])
-        
+
         try:
             whandle = RegmapFileWriter(MAX_FILES, len(DATA))
         except:
             self.fail("failed to allocate handle")
-        
+
         try:
             whandle.add_entry(ADDR, DATA)
         except:
             self.fail("can't add entry")
-            
+
     def test_AddEntryUnsuccesfully(self):
         """
         Try to add an entry larger than the buffer
@@ -27,13 +28,13 @@ class TestSharedLibrary(unittest.TestCase):
         MAX_FILES = 0x1
         ADDR = 0x1234
         DATA = bytearray([0xBA, 0xAD, 0xBE, 0xEF])
-        
+
         whandle = RegmapFileWriter(MAX_FILES, len(DATA)-1)
-        
+
         with self.assertRaises(Exception) as context:
             whandle.add_entry(ADDR, DATA)
-            
-        self.assertIn('Invalid buffer', str(context.exception), "Failed to return the correct error message")    
+
+        self.assertIn('Invalid buffer', str(context.exception), "Failed to return the correct error message")
 
     def test_GetFile(self):
         """
@@ -44,38 +45,38 @@ class TestSharedLibrary(unittest.TestCase):
         MAX_FILES = 0x1
         ADDR = 0x1234
         DATA = bytearray([0xBA, 0xAD, 0xBE, 0xEF])
-        
+
         whandle = RegmapFileWriter(MAX_FILES, len(DATA))
         whandle.add_entry(ADDR, DATA)
-        
+
         try:
             file = whandle.get_file()
         except:
             self.fail("failed to getfile")
-            
+
         self.assertEqual(HEADER_SIZE + ENTRY_SIZE + len(DATA), len(file), "Incorrect file size")
-        
+
     def test_AddFile(self):
         """
         Read the file and check if the file size is correct
-        """    
+        """
         HEADER_SIZE = 8
         ENTRY_SIZE = 6
         MAX_FILES = 0x1
         ADDR = 0x1234
         DATA = bytearray([0xBA, 0xAD, 0xBE, 0xEF])
-        
+
         whandle = RegmapFileWriter(MAX_FILES, len(DATA))
         whandle.add_entry(ADDR, DATA)
         file = whandle.get_file()
-        
+
         fs_size = HEADER_SIZE + ENTRY_SIZE + len(DATA)
 
         try:
             file_system = FileSystemWriter(1, fs_size*2)
         except:
-            self.fail("failed to create a file system")             
-        
+            self.fail("failed to create a file system")
+
         try:
             file_system.add_file("configf", FileTypes.REGMAP_CFG, file, 1)
         except:
@@ -156,6 +157,7 @@ class TestSharedLibrary(unittest.TestCase):
             file_system.add_file("calmap0", FileTypes.CALMAP, calfile, 2)
         except:
             self.fail("failed to add file")
+
 
 if __name__ == '__main__':
     unittest.main()

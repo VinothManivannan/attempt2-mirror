@@ -26,7 +26,7 @@ setup(
     author_email="electronicsgroup@cambridgemechatronics.com",
     url="http://gitlab.cm.local/devops/tahini",
     description="Register map library 2.0",
-    install_requires=["marshmallow_dataclass", "marshmallow_enum", "crcmod"],
+    install_requires=["marshmallow_dataclass", "marshmallow_enum", "crcmod", "future"],
     entry_points={
         'console_scripts': ['tahini=tahini.tahini:main'],
     },

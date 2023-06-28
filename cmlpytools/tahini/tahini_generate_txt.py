@@ -46,7 +46,7 @@ class GenerateTxt():
             display_type = item.type.value
         else:
             display_type = item.register.ctype.value
-        output.write(f"({display_type}){item.access:>20}\n")
+        output.write(f"({display_type}){item.access.value:>20}\n")
 
     @staticmethod
     def _create_register_info(item: CmapRegisterOrStruct,
@@ -91,7 +91,7 @@ class GenerateTxt():
             output.write(f"{item.brief}\n")
         else:
             output.write("\n")
-        output.write(_indent(2)+f"Access:{item.access}" +
+        output.write(_indent(2)+f"Access:{item.access.value}" +
                      _indent(2)+f"Bytes:{item.size}" +
                      _indent(2)+f"Format:{item.register.format}" +
                      _indent(2)+f"Max:{item.register.max}" +

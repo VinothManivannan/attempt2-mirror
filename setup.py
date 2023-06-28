@@ -17,7 +17,7 @@ if path.exists(version_file_path):
         VERSION_INFO = f.read().strip()
 else:
     # If no version file found, indicate local machine is used in version string
-    VERSION_INFO = "local-machine"
+    VERSION_INFO = "0.0.dev0"
 
 setup(
     name="cmlpytools",

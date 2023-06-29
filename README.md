@@ -24,8 +24,9 @@ find-links = W:/Technical/Utilities/Continuous_Integration/python_packages
 ```
 
 CML packages (and dependencies) can then be installed using the following command:
+
 ```
-pip install <YOUR_MODULE_NAME>
+pip install <MODULE_NAME>
 ```
 
 ## Python 3 Static Analysis

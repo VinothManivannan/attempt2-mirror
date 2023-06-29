@@ -1,22 +1,45 @@
-# Register map based on Python 3 library
+# CML Python Tools
 
-# Installation
-Tahini can be installed into the local machine from a wheel in CML python package repository, which will enable the tahini commands. To install Tahini in the local machine, following command needs to be run from command line:
-`pip install tahini --no-index --find-links=\\ws-fs1\company\Technical\Utilities\Continuous_Integration\python_packages`
+This package contains a number of python tools used in our Firmware build process.
 
-## Caution
-There is a public python package of same name _tahini_. To install the correct Tahini, i.e. the CML one, the option `--no-index` is necessary which makes sure pip will try to install the package from the given location and nowhere else.
+## Installation
 
-# Tahini CLI
-There are three tahini commands
-tahini gimli <args> - TODO
-tahini version <args>
-tahini cmap <args> - TODO
+### Using option `--find-links`
 
-## Usage
-tahini version can be used as follows:
-tahini version --project_path="Path/to/FW/project" --config_name="CONFIG_NAME" --config_id=1 --destination="version/info/json/output/directory"
+After a release has been deployed it can be installed using the following command:
 
-# Testing in local machine
-1. Set the directory to the top level Git repository in VS Code terminal.
-2. Run the command "python3 -m unittest discover -v tests", this is needed to make sure the relative path to the test files are correct in the tests.
+```
+pip install --find-links="%PYPIPATH%" --no-index <YOUR_MODULE_NAME>
+```
+
+Where `PYPIPATH` should be a system variable set to `\\ws-fs1\company\Technical\Utilities\Continuous_Integration\python_packages`
+
+### Using pip.ini
+Alternatively, users can also add the look-up path permanently to their `pip.ini` file in `C:/Users/%USER%/pip`.
+
+**pip.ini:**
+```
+[install]
+find-links = W:/Technical/Utilities/Continuous_Integration/python_packages
+```
+
+CML packages (and dependencies) can then be installed using the following command:
+```
+pip install <YOUR_MODULE_NAME>
+```
+
+## Python 3 Static Analysis
+This repository uses `Pylint` as a static analysis tool to enforce the best python 3 guidelines and code styles. `Pylint` follows the "Style Guide for Python Code" -- `PEP 8`, which can be a quick and easy way of seeing if your code has captured the essence of `PEP 8`.
+
+`PEP 8`: https://peps.python.org/pep-0008/
+
+## Getting started with Python 3
+
+Some training document is available at `W:\projects\P0069_Firmware_Development\Training\Introduction to Python3.pptx`
+
+## Projects
+
+This repository is used to store multiple projects:
+- [tahini](doc/tahini.md)
+- [minfs](doc/minfs.md)
+- [logparse](doc/logparse.md)

@@ -39,14 +39,14 @@ Build Gimli for Windows:
     - msys2_shell.cmd -defterm -here -no-start -mingw64 -lc 'cmake -B build-windows -G Ninja'
     - msys2_shell.cmd -defterm -here -no-start -mingw64 -lc 'cmake --build build-windows'
 
-tahini unittests:
+unittests:
   <<: *windows-docker-job
   stage: test
   script:
     - python3 -m pip install .
     - python3 -m unittest discover -v tests
 
-Python_3_code_check:
+Pylint:
   <<: *linux-docker-job
   stage: test
   script:

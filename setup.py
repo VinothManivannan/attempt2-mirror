@@ -25,10 +25,14 @@ setup(
     author="Cambridge Mechatronics Ltd.",
     author_email="electronicsgroup@cambridgemechatronics.com",
     url="http://gitlab.cm.local/devops/cmlpytools",
-    description="Register map library 2.0",
+    description="CML Python tools used in our Firmware build system",
     install_requires=["marshmallow_dataclass", "marshmallow_enum", "crcmod", "future", "pythonnet"],
     entry_points={
-        'console_scripts': ['tahini=tahini.tahini:main'],
+        'console_scripts': [
+            'tahini=cmlpytools.tahini.tahini:main',
+            'logparse=cmlpytools.logparse.cmd:RunCommandParser',
+            'minfs=cmlpytools.minfs.command_parser:run_command_parser'
+        ],
     },
     package_data={'': [r'tahini/gimli/build-windows/gimli.exe',
                        r'tahini/gimli/build-windows/*.dll',

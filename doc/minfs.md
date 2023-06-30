@@ -131,7 +131,7 @@ minfs mergebin --firmware "C:/path/to/firmware.bin" --params 0x7000 "C:/path/to/
 
 ### Create a regmap configuration file
 ```python
-from minfs import RegmapCfgFile
+from cmlpytools.minfs import RegmapCfgFile
 
 # Read json file that contains the regmap defaults using regmap file 
 regmap_cfg = RegmapCfgFile("C:/path/to/regmap-defaults0.json", "C:/path/to/tzatziki-regmap.json", "config0")
@@ -144,7 +144,7 @@ regmap_cfg.tocheader("C:/path/to/regmap-defaults0.h")
 
 ### Create a calibration map file
 ```python
-from minfs import CalmapFile
+from cmlpytools.minfs import CalmapFile
 
 # Read json file that contains the regmap defaults using regmap file 
 calmap_file = CalmapFile("C:/path/to/tzatziki-regmap.json", "C:/path/to/calmap.json", "calmap0")
@@ -157,7 +157,7 @@ calmap_file.tocheader("C:/path/to/calmap.h")
 
 ### Create a file system
 ```python
-from minfs import FileSystem, File, RegmapCfgFile
+from cmlpytools.minfs import FileSystem, File, RegmapCfgFile
 
 # Option 1: import a file using an existing binary that was already created using the FileBase.tobin() method
 file0 = File("RegmapCfgFile", "C:/path/to/regmap-defaults0.bin")
@@ -180,7 +180,7 @@ fs.tocheader("C:/path/to/file-system.h")
 ### Merge binary files
 
 ```python
-import minfs
+from cmlpytools import minfs
 
 minfs.merge_bin("C:/path/to/firmware.bin", 0x7000, "C:/path/to/file-system.bin", "C:/path/to/firmware+params.bin")
 ```

@@ -9,7 +9,7 @@ This package contains a number of python tools used in our Firmware build proces
 After a release has been deployed it can be installed using the following command:
 
 ```
-pip install --find-links="%PYPIPATH%" --no-index <YOUR_MODULE_NAME>
+pip install --find-links="%PYPIPATH%" --no-index cmlpytools
 ```
 
 Where `PYPIPATH` should be a system variable set to `\\ws-fs1\company\Technical\Utilities\Continuous_Integration\python_packages`
@@ -26,7 +26,7 @@ find-links = W:/Technical/Utilities/Continuous_Integration/python_packages
 CML packages (and dependencies) can then be installed using the following command:
 
 ```
-pip install <MODULE_NAME>
+pip install cmlpytools
 ```
 
 ## Python 3 Static Analysis

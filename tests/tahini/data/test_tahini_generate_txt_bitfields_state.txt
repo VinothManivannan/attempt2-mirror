@@ -1,0 +1,29 @@
+0x9e02  motion_flag                           (struct)             private
+        0x9e02  bits                                  (uint16)             private
+        0x9e02  bitfields                             (uint16)             private
+                mask: 0x01 ois_flag                                (flag)
+                mask: 0x02 pan_tilt_flag                           (flag)
+                mask: 0x04 tripod_flag                             (flag)
+                mask: 0x18 medium_flag                             (flag)
+
+
+
+
+********************************Register Briefs*********************************
+
+
+bits                          
+    Access:private    Bytes:2    Format:None    Max:None    Min:None
+    States:
+            0:  standby
+
+bitfields                     Bit field members.
+    Access:private    Bytes:2    Format:None    Max:None    Min:None
+    Flags:
+        mask: 0x01    ois_flag    Normal OIS motion detected.
+        mask: 0x02    pan_tilt_flag    Pan-tilt motion detected.
+        mask: 0x04    tripod_flag    Tripod mode low shake detected.
+        mask: 0x18    medium_flag    Tripod mode medium shake detected.
+            States:
+                    0:  state_1
+                    2:  state_2

@@ -1,0 +1,10 @@
+{
+  "format" : 1,
+  "data":
+  [
+    {
+      "register": "BUT_MINTIME1",
+      "incorrectmember": 0
+    }
+  ]
+}

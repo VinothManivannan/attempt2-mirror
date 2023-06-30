@@ -1,0 +1,97 @@
+{
+    "scheme": {
+        "major": 1,
+        "minor": 0
+    },
+    "version": {
+        "project": "example-project-name",
+        "uid": "12cd6f3d",
+        "version": "1.2.3",
+        "config_name": "example-config-name",
+        "config_id": 1,
+        "timestamp": "2022-10-19T11:24:01+00:00",
+        "git_versions": []
+    },
+    "regmap": {
+        "children": [
+            {
+                "name": "motion_flag",
+                "type": "struct",
+                "addr": 40450,
+                "size": 2,
+                "brief": "motion_flag",
+                "struct": {
+                    "children": [
+                        {
+                            "name": "bits",
+                            "type": "register",
+                            "addr": 40450,
+                            "size": 2,
+                            "register": {
+                                "ctype": "uint16",
+                                "states": [
+                                    {
+                                        "name": "standby",
+                                        "value": 0
+                                    }
+                                ]
+                            },
+                            "offset": 0,
+                            "access": "private"
+                        },
+                        {
+                            "name": "bitfields",
+                            "type": "register",
+                            "addr": 40450,
+                            "size": 2,
+                            "brief": "Bit field members.",
+                            "register": {
+                                "ctype": "uint16",
+                                "bitfields": [
+                                    {
+                                        "name": "ois_flag",
+                                        "position": 0,
+                                        "num_bits": 1,
+                                        "brief": "Normal OIS motion detected."
+                                    },
+                                    {
+                                        "name": "pan_tilt_flag",
+                                        "position": 1,
+                                        "num_bits": 1,
+                                        "brief": "Pan-tilt motion detected."
+                                    },
+                                    {
+                                        "name": "tripod_flag",
+                                        "position": 2,
+                                        "num_bits": 1,
+                                        "brief": "Tripod mode low shake detected."
+                                    },
+                                    {
+                                        "name": "medium_flag",
+                                        "position": 3,
+                                        "num_bits": 2,
+                                        "brief": "Tripod mode medium shake detected.",
+                                        "states": [
+                                            {
+                                                "name": "state_1",
+                                                "value": 0
+                                            },
+                                            {
+                                                "name": "state_2",
+                                                "value": 2
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "offset": 0,
+                            "access": "private"
+                        }
+                    ]
+                },
+                "offset": 2,
+                "access": "private"
+            }
+        ]
+    }
+}

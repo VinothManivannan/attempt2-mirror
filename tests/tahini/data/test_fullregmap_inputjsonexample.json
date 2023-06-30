@@ -1,0 +1,204 @@
+{
+  "regmap": [
+    {
+      "type": "unsigned short",
+      "name": "doe",
+      "brief": "A deer, a female deer",
+      "format": "Q10.5",
+      "min": 10.0,
+      "max": 100.0,
+      "address": 1024,
+      "byte_size": 2
+    },
+    {
+      "type": "unsigned short",
+      "name": "ray",
+      "brief": "A drop of golden sun",
+      "format": "Q2",
+      "namespace": "ray1",
+      "address": 2048,
+      "value_enum": "RAY",
+      "byte_size": 2
+    },
+    {
+      "type": "unsigned short",
+      "name": "me",
+      "brief": "A name I call myself",
+      "address": 3072,
+      "array_count": 3,
+      "byte_size": 2
+    },
+    {
+      "type": "struct",
+      "name": "far",
+      "brief": "A long long way to run",
+      "namespace": "far1",
+      "address": 4096,
+      "access": "private",
+      "byte_size": 8,
+      "members": [
+        {
+          "type": "unsigned short",
+          "name": "fetched",
+          "brief": "Distance to get it",
+          "byte_offset": 0,
+          "byte_size": 2
+        },
+        {
+          "type": "int",
+          "name": "sighted",
+          "brief": "Distance to see it",
+          "byte_offset": 4,
+          "byte_size": 4
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "sew",
+      "brief": "A needle pulling a thread",
+      "address": 5120,
+      "byte_size": 8,
+      "members": [
+        {
+          "type": "unsigned short",
+          "name": "threads",
+          "brief": "Thread count by index",
+          "array_enum": "THREAD",
+          "array_count": 3,
+          "byte_offset": 0,
+          "byte_size": 2
+        },
+        {
+          "type": "struct",
+          "name": "thread",
+          "brief": "Thread count by name",
+          "byte_offset": 0,
+          "byte_size": 6,
+          "members": [
+            {
+              "type": "unsigned char",
+              "name": "red",
+              "brief": "Number of red threads",
+              "byte_offset": 0,
+              "byte_size": 1
+            },
+            {
+              "type": "unsigned char",
+              "name": "_reserved0",
+              "byte_offset": 1,
+              "byte_size": 1
+            },
+            {
+              "type": "unsigned char",
+              "name": "green",
+              "brief": "Number of green threads",
+              "byte_offset": 2,
+              "byte_size": 1
+            },
+            {
+              "type": "unsigned char",
+              "name": "_reserved1",
+              "byte_offset": 3,
+              "byte_size": 1
+            },
+            {
+              "type": "unsigned char",
+              "name": "blue",
+              "brief": "Number of blue threads",
+              "byte_offset": 4,
+              "byte_size": 1
+            },
+            {
+              "type": "unsigned char",
+              "name": "_reserved2",
+              "byte_offset": 5,
+              "byte_size": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "unsigned char",
+      "name": "note",
+      "brief": "Each note",
+      "address": 6000,
+      "byte_size": 1,
+      "mask_enum": "NOTES"
+    }
+  ],
+  "enums": [
+    {
+      "name": "RAY",
+      "enumerators": [
+        {
+          "name": "RAY_OFF",
+          "value": 0
+        },
+        {
+          "name": "RAY_LOW",
+          "value": 1
+        },
+        {
+          "name": "RAY_MID",
+          "value": 2
+        },
+        {
+          "name": "RAY_HIGH",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "name": "THREAD",
+      "enumerators": [
+        {
+          "name": "RED",
+          "value": 0
+        },
+        {
+          "name": "GREEN",
+          "value": 1
+        },
+        {
+          "name": "BLUE",
+          "value": 2
+        }
+      ]
+    },
+    {
+      "name": "NOTES",
+      "enumerators": [
+        {
+          "name": "A_MASK",
+          "value": 128
+        },
+        {
+          "name": "B_MASK",
+          "value": 64
+        },
+        {
+          "name": "C_MASK",
+          "value": 32
+        },
+        {
+          "name": "D_MASK",
+          "value": 16
+        },
+        {
+          "name": "E_MASK",
+          "value": 8
+        },
+        {
+          "name": "F_MASK",
+          "value": 4
+        },
+        {
+          "name": "G_MASK",
+          "value": 2
+        }
+      ]
+    }
+  ]
+}

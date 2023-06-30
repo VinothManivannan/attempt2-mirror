@@ -1,0 +1,52 @@
+{
+  "regmap": [
+    {
+      "type": "unsigned short",
+      "name": "me",
+      "brief": "A name I call myself",
+      "address": 3072,
+      "array_count": 3,
+      "byte_size": 2
+    }
+  ],
+  "enums": [
+    {
+      "name": "RAY",
+      "enumerators": [
+        {
+          "name": "RAY_OFF",
+          "value": 0
+        },
+        {
+          "name": "RAY_LOW",
+          "value": 1
+        },
+        {
+          "name": "RAY_MID",
+          "value": 2
+        },
+        {
+          "name": "RAY_HIGH",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "name": "THREAD",
+      "enumerators": [
+        {
+          "name": "RED",
+          "value": 0
+        },
+        {
+          "name": "GREEN",
+          "value": 1
+        },
+        {
+          "name": "BLUE",
+          "value": 2
+        }
+      ]
+    }
+  ]
+}

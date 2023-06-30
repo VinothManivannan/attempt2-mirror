@@ -1,0 +1,40 @@
+{
+    "Persist_Name": [
+        "cml_params"
+    ], 
+    "Reg": {
+        "PWM_FREQUENCY": {
+            "reset": 2880093114
+        },
+        "BTM_BASE": {
+            "reset": 81
+        }, 
+        "BTM_BIASMAX": {
+            "reset": 200
+        }, 
+        "BTM_GRAD": {
+            "reset": -40
+        }, 
+        "BTM_TEMPINIT": {
+            "reset": 500
+        }, 
+        "BTM_TEMPWD": {
+            "reset": 500
+        }, 
+        "BTM_WIN": {
+            "reset": 98
+        }, 
+        "BTM_W_TEMP_MAX": {
+            "reset": 1500
+        }, 
+        "POS_GAIN_CORRECTIONX": {
+            "reset": 16466
+        }, 
+        "POS_GAIN_CORRECTIONY": {
+            "reset": 16302
+        }, 
+        "POS_GAIN_CORRECTIONZ": {
+            "reset": 16465
+        }
+    }
+}

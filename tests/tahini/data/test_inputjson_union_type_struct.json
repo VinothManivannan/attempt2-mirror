@@ -1,0 +1,95 @@
+{
+    "regmap": 
+    [
+        {
+            "type": "union",
+            "name": "sew",
+            "brief": "A needle pulling a thread",
+            "address": 5120,
+            "byte_size": 6,
+            "members": [
+              {
+                "type": "unsigned short",
+                "name": "threads",
+                "brief": "Thread count by index",
+                "array_enum": "THREAD",
+                "array_count": 3,
+                "byte_offset": 0,
+                "byte_size": 2
+              },
+              {
+                "type": "struct",
+                "name": "thread",
+                "brief": "Thread count by name",
+                "byte_offset": 0,
+                "byte_size": 6,
+                "members": [
+                  {
+                    "type": "unsigned char",
+                    "name": "red",
+                    "brief": "Number of red threads",
+                    "byte_offset": 0,
+                    "byte_size": 1
+                  },
+                  {
+                    "type": "unsigned char",
+                    "name": "_reserved0",
+                    "byte_offset": 1,
+                    "byte_size": 1
+                  },
+                  {
+                    "type": "unsigned char",
+                    "name": "green",
+                    "brief": "Number of green threads",
+                    "byte_offset": 2,
+                    "byte_size": 1
+                  },
+                  {
+                    "type": "unsigned char",
+                    "name": "_reserved1",
+                    "byte_offset": 3,
+                    "byte_size": 1
+                  },
+                  {
+                    "type": "unsigned char",
+                    "name": "blue",
+                    "brief": "Number of blue threads",
+                    "byte_offset": 4,
+                    "byte_size": 1
+                  },
+                  {
+                    "type": "unsigned char",
+                    "name": "_reserved2",
+                    "byte_offset": 5,
+                    "byte_size": 1
+                  }
+                ]
+              }
+            ]
+        }
+    ],
+    "enums": 
+    [
+        {
+            "name": "RAY",
+            "enumerators": [
+              {
+                "name": "RAY_OFF",
+                "value": 0
+              },
+              {
+                "name": "RAY_LOW",
+                "value": 1
+              },
+              {
+                "name": "RAY_MID",
+                "value": 2
+              },
+              {
+                "name": "RAY_HIGH",
+                "value": 3
+              }
+            ]
+          }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "scheme": {
+        "major": 1,
+        "minor": 0
+    },
+    "version": {
+        "project": "example-project-name",
+        "uid": "12cd6f3d",
+        "version": "1.2.3",
+        "config_name": "example-config-name",
+        "config_id": 1,
+        "timestamp": "2022-10-19T11:24:01+00:00",
+        "git_versions": []
+    },
+    "regmap": {
+        "children": [
+            {
+                "name": "doe",
+                "addr": 1024,
+                "size": 2,
+                "brief": "A deer, a female deer",
+                "offset": 0,
+                "access": "private",
+                "type": "register",
+                "register": {
+                    "ctype": "uint16",
+                    "format": "Q10.7",
+                    "min": 10.0,
+                    "max": 100.0
+                }
+            }
+        ]
+    }
+}

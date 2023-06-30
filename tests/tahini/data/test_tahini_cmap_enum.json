@@ -1,0 +1,78 @@
+{
+    "regmap": [
+        {
+            "address": 0,
+            "type": "short",
+            "name": "input_pos_d",
+            "brief": "Position Demand used by the library in position units",
+            "array_enum": "sesh_dof",
+            "array_count": 3,
+            "byte_size": 2
+        },
+        {
+            "address": 256,
+            "type": "unsigned short",
+            "name": "gyro_gain",
+            "brief": "Gyro Gain, one per axis (X, Y and Z axes). Q format is unsigned Q3.13.",
+            "array_enum": "gyro_axis",
+            "array_count": 3,
+            "byte_size": 2
+        },
+        {
+            "address": 512,
+            "type": "unsigned short",
+            "name": "rdelta_d",
+            "array_enum": "hbaf_dof",
+            "byte_size": 2
+        }
+    ],
+    "enums": [
+        {
+            "name": "sesh_dof",
+            "enumerators": [
+                {
+                    "name": "sesh_dof_rz",
+                    "value": 0
+                },
+                {
+                    "name": "sesh_dof_x",
+                    "value": 1
+                },
+                {
+                    "name": "sesh_dof_y",
+                    "value": 2
+                }
+            ]
+        },
+        {
+            "name": "gyro_axis",
+            "enumerators": [
+                {
+                    "name": "GYRO_AXIS_RZ",
+                    "value": 0
+                },
+                {
+                    "name": "GYRO_AXIS_X",
+                    "value": 1
+                },
+                {
+                    "name": "GYRO_AXIS_Y",
+                    "value": 2
+                },
+                {
+                    "name": "GYRO_AXIS_COUNT",
+                    "value": 3
+                }
+            ]
+        },
+        {
+            "name": "hbaf_dof",
+            "enumerators": [
+                {
+                    "name": "hbaf_dof_z",
+                    "value": 0
+                }
+            ]
+        }
+    ]
+}

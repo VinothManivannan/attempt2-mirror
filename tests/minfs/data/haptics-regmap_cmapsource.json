@@ -1,0 +1,887 @@
+{
+    "scheme": {
+        "major": 1,
+        "minor": 0
+    },
+    "version": {
+        "project": "topcode",
+        "uid": "0123ABC",
+        "version": "1.2.3-4567.8-9-gABCDEF",
+        "config_name": "CONFIG_NAME",
+        "config_id": 10,
+        "timestamp": "2022-09-13T12:26:02+00:00",
+        "git_versions": []
+    },
+    "regmap": {
+        "children": [
+            {
+                "name": "std_version",
+                "type": "struct",
+                "addr": 0,
+                "size": 12,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "std_major",
+                            "type": "register",
+                            "addr": 0,
+                            "size": 2,
+                            "register": {
+                                "ctype": "uint16"
+                            },
+                            "offset": 0,
+                            "access": "private"
+                        },
+                        {
+                            "name": "std_minor",
+                            "type": "register",
+                            "addr": 2,
+                            "size": 2,
+                            "register": {
+                                "ctype": "uint16"
+                            },
+                            "offset": 2,
+                            "access": "private"
+                        },
+                        {
+                            "name": "std_patch",
+                            "type": "register",
+                            "addr": 4,
+                            "size": 2,
+                            "register": {
+                                "ctype": "uint16"
+                            },
+                            "offset": 4,
+                            "access": "private"
+                        },
+                        {
+                            "name": "std_hwid",
+                            "type": "register",
+                            "addr": 6,
+                            "size": 2,
+                            "register": {
+                                "ctype": "uint16"
+                            },
+                            "offset": 6,
+                            "access": "private"
+                        },
+                        {
+                            "name": "std_buildinfo",
+                            "type": "register",
+                            "addr": 8,
+                            "size": 4,
+                            "register": {
+                                "ctype": "uint32"
+                            },
+                            "offset": 8,
+                            "access": "private"
+                        }
+                    ]
+                },
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "std_debug",
+                "type": "struct",
+                "addr": 12,
+                "size": 4,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "std_echo",
+                            "type": "register",
+                            "addr": 12,
+                            "size": 2,
+                            "register": {
+                                "ctype": "uint16"
+                            },
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 4
+                                }
+                            ],
+                            "offset": 0,
+                            "access": "private"
+                        }
+                    ]
+                },
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "boot_registers",
+                "type": "struct",
+                "addr": 16,
+                "size": 4,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "boot_ctrl",
+                            "type": "register",
+                            "addr": 16,
+                            "size": 4,
+                            "register": {
+                                "ctype": "uint32"
+                            },
+                            "offset": 0,
+                            "access": "private"
+                        }
+                    ]
+                },
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "system_ctrl",
+                "type": "struct",
+                "addr": 32,
+                "size": 2,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "sys_ctrl",
+                            "type": "register",
+                            "addr": 32,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8",
+                                "bitfields": [
+                                    {
+                                        "name": "sys_enable",
+                                        "position": 0,
+                                        "num_bits": 1
+                                    }
+                                ]
+                            },
+                            "offset": 0,
+                            "access": "private"
+                        },
+                        {
+                            "name": "trigger_action",
+                            "type": "register",
+                            "addr": 33,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8"
+                            },
+                            "offset": 1,
+                            "access": "private"
+                        }
+                    ]
+                },
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "events_readbacks",
+                "type": "struct",
+                "addr": 48,
+                "size": 4,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "events_waiting",
+                            "type": "register",
+                            "addr": 48,
+                            "size": 2,
+                            "register": {
+                                "ctype": "uint16"
+                            },
+                            "offset": 0,
+                            "access": "private"
+                        },
+                        {
+                            "name": "next_event_src",
+                            "type": "register",
+                            "addr": 50,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8"
+                            },
+                            "offset": 2,
+                            "access": "private"
+                        },
+                        {
+                            "name": "next_event",
+                            "type": "register",
+                            "addr": 51,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8"
+                            },
+                            "offset": 3,
+                            "access": "private"
+                        }
+                    ]
+                },
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "button_config",
+                "type": "struct",
+                "addr": 64,
+                "size": 4,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "but_features",
+                            "type": "register",
+                            "addr": 64,
+                            "size": 2,
+                            "register": {
+                                "ctype": "uint16",
+                                "bitfields": [
+                                    {
+                                        "name": "but_enable",
+                                        "position": 0,
+                                        "num_bits": 1
+                                    },
+                                    {
+                                        "name": "but_notify",
+                                        "position": 1,
+                                        "num_bits": 1
+                                    }
+                                ]
+                            },
+                            "offset": 0,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 4
+                                }
+                            ]
+                        },
+                        {
+                            "name": "but_mintime",
+                            "type": "register",
+                            "addr": 66,
+                            "size": 2,
+                            "register": {
+                                "ctype": "uint16"
+                            },
+                            "offset": 2,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 4
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "repeat_for": [
+                    {
+                        "count": 2,
+                        "offset": 4
+                    }
+                ],
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "force_sensors",
+                "type": "struct",
+                "addr": 128,
+                "size": 10,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "forcesensor_config",
+                            "type": "struct",
+                            "addr": 128,
+                            "size": 8,
+                            "struct": {
+                                "children": [
+                                    {
+                                        "name": "force_features",
+                                        "type": "register",
+                                        "addr": 128,
+                                        "size": 2,
+                                        "register": {
+                                            "ctype": "uint16",
+                                            "bitfields": [
+                                                {
+                                                    "name": "force_enable",
+                                                    "position": 0,
+                                                    "num_bits": 1
+                                                },
+                                                {
+                                                    "name": "force_notify",
+                                                    "position": 1,
+                                                    "num_bits": 1
+                                                }
+                                            ]
+                                        },
+                                        "offset": 0,
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 10
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "force_mintime",
+                                        "type": "register",
+                                        "addr": 130,
+                                        "size": 2,
+                                        "register": {
+                                            "ctype": "uint16"
+                                        },
+                                        "offset": 2,
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 10
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "force_threshold",
+                                        "type": "register",
+                                        "addr": 132,
+                                        "size": 2,
+                                        "register": {
+                                            "ctype": "uint16"
+                                        },
+                                        "offset": 4,
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 10
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "force_hyst",
+                                        "type": "register",
+                                        "addr": 134,
+                                        "size": 2,
+                                        "register": {
+                                            "ctype": "uint16"
+                                        },
+                                        "offset": 6,
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 10
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "offset": 0,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 10
+                                }
+                            ]
+                        },
+                        {
+                            "name": "forcesensor_readbacks",
+                            "type": "struct",
+                            "addr": 136,
+                            "size": 2,
+                            "struct": {
+                                "children": [
+                                    {
+                                        "name": "force_readback",
+                                        "type": "register",
+                                        "addr": 136,
+                                        "size": 2,
+                                        "register": {
+                                            "ctype": "uint16"
+                                        },
+                                        "offset": 0,
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 10
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "offset": 8,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 10
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "repeat_for": [
+                    {
+                        "count": 2,
+                        "offset": 10
+                    }
+                ],
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "temperature_sensors",
+                "type": "struct",
+                "addr": 192,
+                "size": 12,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "temperaturesensor_config",
+                            "type": "struct",
+                            "addr": 192,
+                            "size": 8,
+                            "struct": {
+                                "children": [
+                                    {
+                                        "name": "temp_ctrl",
+                                        "type": "register",
+                                        "addr": 192,
+                                        "size": 1,
+                                        "register": {
+                                            "ctype": "uint8",
+                                            "bitfields": [
+                                                {
+                                                    "name": "temp_sensor_enable",
+                                                    "position": 0,
+                                                    "num_bits": 1
+                                                }
+                                            ]
+                                        },
+                                        "offset": 0,
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 12
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "temp_period",
+                                        "type": "register",
+                                        "addr": 196,
+                                        "size": 4,
+                                        "register": {
+                                            "ctype": "uint32"
+                                        },
+                                        "offset": 4,
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 12
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "offset": 0,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 12
+                                }
+                            ]
+                        },
+                        {
+                            "name": "temperaturesensor_readbacks",
+                            "type": "struct",
+                            "addr": 200,
+                            "size": 4,
+                            "struct": {
+                                "children": [
+                                    {
+                                        "name": "temp",
+                                        "type": "register",
+                                        "addr": 200,
+                                        "size": 4,
+                                        "register": {
+                                            "ctype": "int32"
+                                        },
+                                        "offset": 0,
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 2,
+                                                "offset": 12
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "offset": 8,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 12
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "repeat_for": [
+                    {
+                        "count": 2,
+                        "offset": 12
+                    }
+                ],
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "output_config",
+                "type": "struct",
+                "addr": 256,
+                "size": 8,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "output_ctrl",
+                            "type": "register",
+                            "addr": 256,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8",
+                                "bitfields": [
+                                    {
+                                        "name": "output_enable",
+                                        "position": 0,
+                                        "num_bits": 1
+                                    }
+                                ]
+                            },
+                            "offset": 0,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 8
+                                }
+                            ]
+                        },
+                        {
+                            "name": "output_features",
+                            "type": "register",
+                            "addr": 257,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8"
+                            },
+                            "offset": 1,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 8
+                                }
+                            ]
+                        },
+                        {
+                            "name": "output_safetime",
+                            "type": "register",
+                            "addr": 260,
+                            "size": 4,
+                            "register": {
+                                "ctype": "uint32"
+                            },
+                            "offset": 4,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 2,
+                                    "offset": 8
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "repeat_for": [
+                    {
+                        "count": 2,
+                        "offset": 8
+                    }
+                ],
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "action_config",
+                "type": "struct",
+                "addr": 320,
+                "size": 12,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "action_ctrl",
+                            "type": "register",
+                            "addr": 320,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8",
+                                "bitfields": [
+                                    {
+                                        "name": "action_enable",
+                                        "position": 0,
+                                        "num_bits": 1
+                                    }
+                                ]
+                            },
+                            "offset": 0,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
+                        },
+                        {
+                            "name": "action_inputid",
+                            "type": "register",
+                            "addr": 321,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8"
+                            },
+                            "offset": 1,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
+                        },
+                        {
+                            "name": "action_eventid",
+                            "type": "register",
+                            "addr": 322,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8"
+                            },
+                            "offset": 2,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
+                        },
+                        {
+                            "name": "action_waveformid",
+                            "type": "register",
+                            "addr": 323,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8"
+                            },
+                            "offset": 3,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
+                        },
+                        {
+                            "name": "action_actuatorid",
+                            "type": "register",
+                            "addr": 324,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8"
+                            },
+                            "offset": 4,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
+                        },
+                        {
+                            "name": "action_delay",
+                            "type": "register",
+                            "addr": 328,
+                            "size": 4,
+                            "register": {
+                                "ctype": "uint32"
+                            },
+                            "offset": 8,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 12
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "repeat_for": [
+                    {
+                        "count": 4,
+                        "offset": 12
+                    }
+                ],
+                "offset": 0,
+                "access": "private"
+            },
+            {
+                "name": "waveform",
+                "type": "struct",
+                "addr": 448,
+                "size": 516,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "wf_format",
+                            "type": "register",
+                            "addr": 448,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8"
+                            },
+                            "offset": 0,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 516
+                                }
+                            ]
+                        },
+                        {
+                            "name": "wf_pulses",
+                            "type": "register",
+                            "addr": 449,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8"
+                            },
+                            "offset": 1,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 516
+                                }
+                            ]
+                        },
+                        {
+                            "name": "wf_pad",
+                            "type": "register",
+                            "addr": 450,
+                            "size": 2,
+                            "register": {
+                                "ctype": "uint16"
+                            },
+                            "offset": 2,
+                            "access": "private",
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 516
+                                }
+                            ]
+                        },
+                        {
+                            "name": "pulse",
+                            "type": "struct",
+                            "addr": 452,
+                            "size": 8,
+                            "struct": {
+                                "children": [
+                                    {
+                                        "name": "wf_delay",
+                                        "type": "register",
+                                        "addr": 452,
+                                        "size": 4,
+                                        "register": {
+                                            "ctype": "uint32"
+                                        },
+                                        "offset": 0,
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 4,
+                                                "offset": 516
+                                            },
+                                            {
+                                                "count": 64,
+                                                "offset": 8
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "wf_width",
+                                        "type": "register",
+                                        "addr": 456,
+                                        "size": 4,
+                                        "register": {
+                                            "ctype": "uint32"
+                                        },
+                                        "offset": 4,
+                                        "access": "private",
+                                        "repeat_for": [
+                                            {
+                                                "count": 4,
+                                                "offset": 516
+                                            },
+                                            {
+                                                "count": 64,
+                                                "offset": 8
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "repeat_for": [
+                                {
+                                    "count": 4,
+                                    "offset": 516
+                                },
+                                {
+                                    "count": 64,
+                                    "offset": 8
+                                }
+                            ],
+                            "offset": 4,
+                            "access": "private"
+                        }
+                    ]
+                },
+                "repeat_for": [
+                    {
+                        "count": 4,
+                        "offset": 516
+                    }
+                ],
+                "offset": 0,
+                "access": "private"
+            }
+        ]
+    }
+}

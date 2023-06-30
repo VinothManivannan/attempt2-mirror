@@ -1,0 +1,2592 @@
+{
+  "regmap": [
+    {
+      "type": "struct",
+      "name": "cmd",
+      "brief": "cmd",
+      "address": 39680,
+      "byte_size": 128,
+      "members": [
+        {
+          "type": "unsigned short",
+          "name": "chip_id",
+          "brief": "Chip Identifier of the device, not the firmware. Set to 0 for DW9787, 0xC401 for CM401, 0xC402 for CM402, etc. The firmware is locked to the chip id.",
+          "byte_offset": 0,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "fw_uid_l",
+          "brief": "This is the next most significant 2 bytes of the SHA1 Hash of the firmware directory contents at the time of build",
+          "byte_offset": 2,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "fw_uid_h",
+          "brief": "This is the most significant 2 bytes of the SHA1 Hash of the firmware directory contents at the time of build",
+          "byte_offset": 4,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "fw_build_config_id",
+          "brief": "Firmware Build Configuration Identifier",
+          "byte_offset": 6,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "fw_version_major",
+          "brief": "Major version number",
+          "byte_offset": 8,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "fw_version_minor",
+          "brief": "Minor version number",
+          "byte_offset": 10,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "fw_version_patch",
+          "brief": "Patch version number",
+          "byte_offset": 12,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "fw_actuator_id",
+          "brief": "Actuator identifier",
+          "byte_offset": 14,
+          "byte_size": 2
+        },
+        {
+          "type": "long unsigned int",
+          "name": "sma_lib_version",
+          "brief": "SHA1 hash of the SMA Servo Library",
+          "byte_offset": 16,
+          "byte_size": 4
+        },
+        {
+          "type": "long unsigned int",
+          "name": "sma_config_version",
+          "brief": "SHA1 hash of the SMA Servo Library Configuration",
+          "byte_offset": 20,
+          "byte_size": 4
+        },
+        {
+          "type": "long unsigned int",
+          "name": "fw_date",
+          "brief": "Date in YYYYMMDD format (binary-coded decimal)",
+          "byte_offset": 24,
+          "byte_size": 4
+        },
+        {
+          "type": "long unsigned int",
+          "name": "fw_time",
+          "brief": "Timestamp in 00HHMMSS format (binary-coded decimal, right-aligned)",
+          "byte_offset": 28,
+          "byte_size": 4
+        },
+        {
+          "type": "unsigned short",
+          "name": "RESERVED1",
+          "array_count": 4,
+          "byte_offset": 32,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "status",
+          "brief": "Status of the topcode firmware. 0x0000 no operation, 0x1001 OIS on, 0x1002 servo on, 0x1000 servo off, 0x2000 calibrating gyro offset, 0x2001 gyro offset calibrated, 0x6000 saving calibration, 0x6001 calibration saved, 0x7000 erasing calibration, 0x7001 calibration erased, 0x8000 loading calibration, 0x8001 calibration loaded.",
+          "byte_offset": 40,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "active",
+          "brief": "Set to 1 to run the processor.",
+          "byte_offset": 42,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "control_mode",
+          "brief": "Control Commands for the firmware",
+          "value_enum": "control_mode",
+          "byte_offset": 44,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "bmi_ex",
+          "brief": "Disable Bosch/ST gyro for power saving. Set to 0x0060 to disable and 0x0006 to re-enable. The firmware then sets this register to 0x0050 disable or 0x0005 enable.",
+          "byte_offset": 46,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "gyfilt_update",
+          "brief": "Gyro filter update command. Set to 0x8000 to apply the value of registers under coeff_x/y/z structs such as GYRO_FILTER_COEFF_X/Y/Z registers.",
+          "byte_offset": 48,
+          "byte_size": 2
+        },
+        {
+          "type": "short",
+          "name": "fall_prot_flag",
+          "brief": "Free fall protection flag. Set to 0 for normal operation and 1 when free fall is detected.",
+          "byte_offset": 50,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "select_clk",
+          "brief": "Select clk source. 0 = Build Default, 1 = Internal, 2 = 19.2MHz, 3 = 24MHz",
+          "byte_offset": 52,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "RESERVED2",
+          "array_count": 5,
+          "byte_offset": 54,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "RESERVED3",
+          "array_count": 2,
+          "byte_offset": 64,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned char",
+          "name": "siggen_regs",
+          "brief": "TODO",
+          "array_count": 12,
+          "byte_offset": 68,
+          "byte_size": 1
+        },
+        {
+          "type": "unsigned char",
+          "name": "siggen_params",
+          "brief": "TODO",
+          "array_count": 48,
+          "byte_offset": 80,
+          "byte_size": 1
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "ram",
+      "brief": "ram",
+      "address": 39808,
+      "byte_size": 640,
+      "members": [
+        {
+          "type": "struct",
+          "name": "ax",
+          "brief": "",
+          "array_count": 3,
+          "byte_offset": 0,
+          "byte_size": 4,
+          "members": [
+            {
+              "type": "short",
+              "name": "gyro_raw",
+              "brief": "TODO",
+              "byte_offset": 0,
+              "byte_size": 2
+            },
+            {
+              "type": "short",
+              "name": "gyro_out",
+              "brief": "TODO",
+              "byte_offset": 2,
+              "byte_size": 2
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "acc_ax",
+          "brief": "",
+          "array_count": 3,
+          "byte_offset": 12,
+          "byte_size": 4,
+          "members": [
+            {
+              "type": "short",
+              "name": "acc_raw",
+              "brief": "TODO",
+              "byte_offset": 0,
+              "byte_size": 2
+            },
+            {
+              "type": "short",
+              "name": "acc_out",
+              "brief": "TODO",
+              "byte_offset": 2,
+              "byte_size": 2
+            }
+          ]
+        },
+        {
+          "type": "short",
+          "name": "RESERVED",
+          "array_count": 84,
+          "byte_offset": 24,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned char",
+          "name": "reserved_for_bss2",
+          "array_count": 340,
+          "byte_offset": 192,
+          "byte_size": 1
+        },
+        {
+          "type": "short",
+          "name": "RESERVED3",
+          "array_count": 1,
+          "byte_offset": 532,
+          "byte_size": 2
+        },
+        {
+          "type": "short",
+          "name": "RESERVED5",
+          "array_count": 4,
+          "byte_offset": 534,
+          "byte_size": 2
+        },
+        {
+          "type": "short",
+          "name": "RESERVED4",
+          "array_count": 5,
+          "byte_offset": 542,
+          "byte_size": 2
+        },
+        {
+          "type": "short",
+          "name": "RESERVED2",
+          "array_count": 44,
+          "byte_offset": 552,
+          "byte_size": 2
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "cal_rom",
+      "brief": "cal_rom",
+      "address": 40448,
+      "byte_size": 512,
+      "members": [
+        {
+          "type": "struct",
+          "name": "GyFilt",
+          "brief": "",
+          "byte_offset": 0,
+          "byte_size": 224,
+          "members": [
+            {
+              "type": "struct",
+              "name": "com",
+              "brief": "",
+              "byte_offset": 0,
+              "byte_size": 48,
+              "members": [
+                {
+                  "type": "unsigned short",
+                  "name": "versionInfo",
+                  "brief": "",
+                  "byte_offset": 0,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "motion_flag",
+                  "brief": "",
+                  "byte_offset": 2,
+                  "byte_size": 2
+                },
+                {
+                  "type": "short",
+                  "name": "param1",
+                  "brief": "",
+                  "byte_offset": 4,
+                  "byte_size": 2
+                },
+                {
+                  "type": "short",
+                  "name": "fall_prot_thres",
+                  "brief": "",
+                  "byte_offset": 6,
+                  "byte_size": 2
+                },
+                {
+                  "type": "short",
+                  "name": "fall_prot_check_time",
+                  "brief": "",
+                  "byte_offset": 8,
+                  "byte_size": 2
+                },
+                {
+                  "type": "short",
+                  "name": "fall_prot_limit_num",
+                  "brief": "",
+                  "byte_offset": 10,
+                  "byte_size": 2
+                },
+                {
+                  "type": "short",
+                  "name": "fall_time_out",
+                  "brief": "",
+                  "byte_offset": 12,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "param2",
+                  "brief": "",
+                  "array_count": 5,
+                  "byte_offset": 14,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "set_imu",
+                  "brief": "",
+                  "byte_offset": 24,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "tripod_thres",
+                  "brief": "",
+                  "byte_offset": 26,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "tripod_time",
+                  "brief": "",
+                  "byte_offset": 28,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "medium_thres",
+                  "brief": "",
+                  "byte_offset": 30,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "medium_time",
+                  "brief": "",
+                  "byte_offset": 32,
+                  "byte_size": 2
+                },
+                {
+                  "type": "short",
+                  "name": "param3",
+                  "brief": "",
+                  "array_count": 7,
+                  "byte_offset": 34,
+                  "byte_size": 2
+                }
+              ]
+            },
+            {
+              "type": "struct",
+              "name": "gy",
+              "brief": "",
+              "array_count": 3,
+              "byte_offset": 48,
+              "byte_size": 16,
+              "members": [
+                {
+                  "type": "short",
+                  "name": "param1",
+                  "brief": "",
+                  "array_count": 6,
+                  "byte_offset": 0,
+                  "byte_size": 2
+                },
+                {
+                  "type": "short",
+                  "name": "gyro_phase",
+                  "brief": "",
+                  "byte_offset": 12,
+                  "byte_size": 2
+                },
+                {
+                  "type": "short",
+                  "name": "param2",
+                  "brief": "",
+                  "byte_offset": 14,
+                  "byte_size": 2
+                }
+              ]
+            },
+            {
+              "type": "short",
+              "name": "param",
+              "brief": "",
+              "array_count": 64,
+              "byte_offset": 96,
+              "byte_size": 2
+            }
+          ]
+        },
+        {
+          "type": "short",
+          "name": "gyro_ofs_status",
+          "brief": "Gyro Offset calibration status.",
+          "byte_offset": 224,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "gyro_gain",
+          "brief": "Gyro Gain, one per axis (X, Y and Z axes). Q format is unsigned Q3.13.",
+          "array_enum": "axes",
+          "array_count": 2,
+          "byte_offset": 226,
+          "byte_size": 2
+        },
+        {
+          "type": "short",
+          "name": "gyro_offset",
+          "brief": "Gyro offset from the gyro filter, one per axis (X,Y and Z axes).",
+          "array_enum": "axes",
+          "array_count": 2,
+          "byte_offset": 230,
+          "byte_size": 2
+        },
+        {
+          "type": "short",
+          "name": "gyro_rot_mat_cos",
+          "brief": "Gyro rotation matrix (X and Y cosine theta). Q format is signed Q1.15.",
+          "array_enum": "axes",
+          "array_count": 2,
+          "byte_offset": 234,
+          "byte_size": 2
+        },
+        {
+          "type": "short",
+          "name": "gyro_rot_mat_sin",
+          "brief": "Gyro rotation matrix (-X and Y sine theta). Q format is signed Q1.15.",
+          "array_enum": "axes",
+          "array_count": 2,
+          "byte_offset": 238,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "gyro_orientation_sel",
+          "brief": "Gyro orientation selection.",
+          "value_enum": "gyro_orientation",
+          "byte_offset": 242,
+          "byte_size": 2
+        },
+        {
+          "type": "short",
+          "name": "gyro_gain_pol",
+          "brief": "Applies polarity to gyro gain. Negative value(-1) for negative gyro gain, positive value(+1) for positive gyro gain.",
+          "array_enum": "axes",
+          "array_count": 2,
+          "byte_offset": 244,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "output_limit",
+          "brief": "",
+          "array_count": 2,
+          "byte_offset": 248,
+          "byte_size": 2
+        },
+        {
+          "type": "struct",
+          "name": "gyro_filter_axis",
+          "brief": "",
+          "byte_offset": 252,
+          "byte_size": 72,
+          "members": [
+            {
+              "type": "struct",
+              "name": "gy",
+              "array_count": 3,
+              "byte_offset": 0,
+              "byte_size": 24,
+              "members": [
+                {
+                  "type": "struct",
+                  "name": "phase",
+                  "array_count": 3,
+                  "byte_offset": 0,
+                  "byte_size": 8,
+                  "members": [
+                    {
+                      "type": "long int",
+                      "name": "coeff",
+                      "array_count": 2,
+                      "byte_offset": 0,
+                      "byte_size": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "short",
+          "name": "unused_gyro_offset_z",
+          "brief": "",
+          "byte_offset": 324,
+          "byte_size": 2
+        },
+        {
+          "type": "short",
+          "name": "RESERVED1",
+          "byte_offset": 326,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "sma_calib",
+          "brief": "SMA Factory calibration data area",
+          "array_count": 16,
+          "byte_offset": 328,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "intercept_mode",
+          "brief": "Selects whether the device should use SPI Intercept mode instead of the default SPI Master mode. This register should be set before the MCU is activated. A value of 1 enables SPI Intercept mode, 0 sets Master mode.",
+          "access": "public",
+          "byte_offset": 360,
+          "byte_size": 2
+        },
+        {
+          "type": "short",
+          "name": "RESERVED2",
+          "array_count": 74,
+          "byte_offset": 362,
+          "byte_size": 2
+        },
+        {
+          "type": "unsigned short",
+          "name": "gyro_default_flag",
+          "brief": "",
+          "byte_offset": 510,
+          "byte_size": 2
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "cml_params",
+      "brief": "cml_params",
+      "address": 38780,
+      "byte_size": 332,
+      "members": [
+        {
+          "type": "struct",
+          "name": "cml_params_common",
+          "byte_offset": 0,
+          "byte_size": 80,
+          "members": [
+            {
+              "type": "unsigned int",
+              "name": "pwm_frequency",
+              "brief": "Target PWM frequency in Hz",
+              "byte_offset": 0,
+              "byte_size": 4
+            },
+            {
+              "type": "struct",
+              "name": "protection_config",
+              "byte_offset": 4,
+              "byte_size": 14,
+              "members": [
+                {
+                  "type": "unsigned short",
+                  "name": "temp_adc_min",
+                  "brief": "Minimum input ADC value to limit the polynomial fit result",
+                  "byte_offset": 0,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "temp_adc_max",
+                  "brief": "Maximum input ADC value to limit the polynomial fit result",
+                  "byte_offset": 2,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "wb_adc_min",
+                  "brief": "ADC threshold used in wire break detection. Minimum threshold below which a short circuit is indicated",
+                  "byte_offset": 4,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "wb_adc_max",
+                  "brief": "ADC threshold used in wire break detection. Maximum threshold above which an open circuit is indicated",
+                  "byte_offset": 6,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "disable_protection",
+                  "brief": "When set to 1, power will not be disabled when temperature, resistance or supply voltage limits are exceeded. Default setting is 0 i.e. power will be disabled when limits are exceeded.",
+                  "byte_offset": 8,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "vm_millivolt_min",
+                  "brief": "Minimum input value for actuator supply voltage, specified in mV",
+                  "byte_offset": 10,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "vm_millivolt_max",
+                  "brief": "Maximum input value for actuator supply voltage, specified in mV",
+                  "byte_offset": 12,
+                  "byte_size": 2
+                }
+              ]
+            },
+            {
+              "type": "unsigned char",
+              "name": "vsync_enable",
+              "brief": "Flag to enable Vsync",
+              "byte_offset": 18,
+              "byte_size": 1
+            },
+            {
+              "type": "unsigned char",
+              "name": "reserved_cml_params",
+              "array_count": 5,
+              "byte_offset": 19,
+              "byte_size": 1
+            },
+            {
+              "type": "struct",
+              "name": "pdu_params",
+              "byte_offset": 24,
+              "byte_size": 40,
+              "members": [
+                {
+                  "type": "unsigned short",
+                  "name": "pdu_mid_res",
+                  "brief": "ADC to resistance middle resistance value",
+                  "byte_offset": 0,
+                  "byte_size": 2
+                },
+                {
+                  "type": "short",
+                  "name": "pdu_iref_sel",
+                  "byte_offset": 2,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "pdu_res_amp_gain",
+                  "brief": "Resistance amplifier gain",
+                  "byte_offset": 4,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "pdu_temp_amp_gain",
+                  "brief": "Temperature amplifier gain",
+                  "byte_offset": 6,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "pdu_res_dac_offset",
+                  "brief": "Resistance DAC offset",
+                  "byte_offset": 8,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "pdu_temp_dac_offset",
+                  "brief": "Temperature DAC offset",
+                  "byte_offset": 10,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "pdu_slew_ctrl",
+                  "brief": "Slew control register",
+                  "byte_offset": 12,
+                  "byte_size": 2
+                },
+                {
+                  "type": "int",
+                  "name": "pdu_adc2temp_c0",
+                  "brief": "The coefficient C0 in the polynomial fit",
+                  "byte_offset": 16,
+                  "byte_size": 4
+                },
+                {
+                  "type": "int",
+                  "name": "pdu_adc2temp_c1",
+                  "brief": "The coefficient C1 in the polynomial fit",
+                  "byte_offset": 20,
+                  "byte_size": 4
+                },
+                {
+                  "type": "int",
+                  "name": "pdu_adc2temp_c2",
+                  "brief": "The coefficient C2 in the polynomial fit",
+                  "byte_offset": 24,
+                  "byte_size": 4
+                },
+                {
+                  "type": "int",
+                  "name": "pdu_adc2temp_c3",
+                  "brief": "The coefficient C3 in the polynomial fit",
+                  "byte_offset": 28,
+                  "byte_size": 4
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "pdu_adc2temp_shift",
+                  "brief": "Right bit shift amount used in the polynomial fit calculation",
+                  "byte_offset": 32,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "pdu_adc2temp_adc_min",
+                  "brief": "Minimum input ADC value to limit the polynomial fit result",
+                  "byte_offset": 34,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "pdu_adc2temp_adc_max",
+                  "brief": "Maximum input ADC value to limit the polynomial fit result",
+                  "byte_offset": 36,
+                  "byte_size": 2
+                }
+              ]
+            },
+            {
+              "type": "struct",
+              "name": "fra_params",
+              "byte_offset": 64,
+              "byte_size": 14,
+              "members": [
+                {
+                  "type": "unsigned short",
+                  "name": "fra_enable",
+                  "brief": "FRA Enable Register. Write 1 to Enable FRA.",
+                  "byte_offset": 0,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "fra_run",
+                  "brief": "FRA Control and Status Register. Write 1 = Update params and start FRA. Read 0 = FRA Finished.",
+                  "byte_offset": 2,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "fra_skiptime",
+                  "brief": "Warm up period to skip for FRA measurement in milliseconds",
+                  "byte_offset": 4,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "fra_meastime",
+                  "brief": "FRA measurement period in milliseconds",
+                  "byte_offset": 6,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "fra_amp",
+                  "brief": "FRA Stimulus Amplitude",
+                  "byte_offset": 8,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "fra_freq",
+                  "brief": "FRA Stimulus Frequency",
+                  "byte_offset": 10,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "fra_dof",
+                  "brief": "Dof on which FRA measurement is performed. 0 => X, 1 => Y, 2 => Z.",
+                  "byte_offset": 12,
+                  "byte_size": 2
+                }
+              ]
+            },
+            {
+              "type": "short",
+              "name": "gyro_filter_scaling",
+              "brief": "Parameter used to scale the output of the gyro filter for Super OIS. Signed Q1.14",
+              "byte_offset": 78,
+              "byte_size": 2
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "ssl_params",
+          "byte_offset": 80,
+          "byte_size": 252,
+          "members": [
+            {
+              "type": "struct",
+              "name": "persist",
+              "byte_offset": 0,
+              "byte_size": 232,
+              "members": [
+                {
+                  "type": "struct",
+                  "name": "pub",
+                  "byte_offset": 0,
+                  "byte_size": 72,
+                  "members": [
+                    {
+                      "type": "struct",
+                      "name": "tempest_params",
+                      "byte_offset": 0,
+                      "byte_size": 36,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "tempest_offset",
+                          "brief": "Parameter C0 of the Temperature Estimation Model",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "tempest_grad",
+                          "brief": "Parameter C1 of the Temperature Estimation Model",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "tempest_timecoeff",
+                          "brief": "Average decay constant for a given actuator. Q0.16",
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "int",
+                          "name": "tempest_terr_gain",
+                          "brief": "Determines the gradient of the TERR term. Signed Q13.18",
+                          "array_count": 2,
+                          "byte_offset": 8,
+                          "byte_size": 4
+                        },
+                        {
+                          "type": "short",
+                          "name": "tempest_terr_offset",
+                          "brief": "Determines the offset of the TERR term. Signed Q6.9",
+                          "array_count": 2,
+                          "byte_offset": 16,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "tempest_terr_cutoff",
+                          "brief": "Cutoff temperature for function fitting of TERR_0 (1/10 C)",
+                          "byte_offset": 20,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "int",
+                          "name": "tempest_terr_cutoff_offset",
+                          "brief": "Offset for TERR_0 when above the cutoff temperature. Signed Q6.9",
+                          "array_count": 2,
+                          "byte_offset": 24,
+                          "byte_size": 4
+                        },
+                        {
+                          "type": "short",
+                          "name": "tempest_rslack_ref",
+                          "brief": "The reference slack value found from a batch of actuators",
+                          "byte_offset": 32,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "centring_model_4w_params",
+                      "byte_offset": 36,
+                      "byte_size": 12,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "centring_mode",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "warmup_timeout",
+                          "brief": "The number of servo loops to apply bias for during warmup. If this value is 0 it will default to a 200ms warmup time",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "rmid_cal",
+                          "brief": "Calibrated centre of resistance used by PosEst",
+                          "array_count": 4,
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "scm_params",
+                      "byte_offset": 48,
+                      "byte_size": 24,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "scm_matrix_values",
+                          "brief": "Sensitivity calibration matrix values, in Q3.12",
+                          "array_count": 4,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "scm_ffx_matrix_values",
+                          "brief": "Sensitivity calibration matrix values for hybrid drive, in Q3.12",
+                          "array_count": 4,
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "scm_inverse_matrix_values",
+                          "brief": "Inversed sensitivity calibration matrix, in Q3.12",
+                          "array_count": 4,
+                          "byte_offset": 16,
+                          "byte_size": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "struct",
+                  "name": "prv",
+                  "byte_offset": 72,
+                  "byte_size": 160,
+                  "members": [
+                    {
+                      "type": "struct",
+                      "name": "ctrl_params",
+                      "byte_offset": 0,
+                      "byte_size": 16,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "ctrl_features_4ws",
+                          "brief": "Bit field used to enable or disable some of the Control features.",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "ctrl_prop_gain_d",
+                          "brief": "Proportional gain of the control loop in Q8.8 format",
+                          "array_count": 2,
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "ctrl_poffset_d",
+                          "brief": "PDELTA Offset",
+                          "array_count": 2,
+                          "byte_offset": 6,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "ctrl_manual_limit",
+                          "brief": "Is the `limit^2` term (in `deltaX^2 + deltaY^2 < limit^2`) for setting the minimum allowed step size in manual mode",
+                          "byte_offset": 10,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "ctrl_ffp_gain",
+                          "brief": "Proportional signed gain of Linear Gain Module of the FF path",
+                          "byte_offset": 12,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "ctrl_pad",
+                          "brief": "Padding to ensure that the ctrl structs are a multiple of 4 bytes.",
+                          "byte_offset": 14,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "pos_params",
+                      "byte_offset": 16,
+                      "byte_size": 8,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "pos_features",
+                          "brief": "Enable features in the position estimation model",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "pos_filtcoef",
+                          "brief": "Filter coefficient for position model. 0 is pass-through while 65536 corresponds to the lowest cut-off frequency.",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "pos_gain_correction",
+                          "brief": "Gain shortfall correction after the pos estimate filter. In Q2.14",
+                          "array_count": 2,
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "btm_params",
+                      "byte_offset": 24,
+                      "byte_size": 16,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "btm_base",
+                          "brief": "Parameter BASE of the Bias Temperature Model",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "btm_win",
+                          "brief": "Parameter PWIN of the Bias Temperature Model",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "btm_grad",
+                          "brief": "Parameter GRADIENT of the Bias Temperature Model",
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "btm_tempinit",
+                          "brief": "Parameter TEMPERATURE_INIT of the Bias Temperature Model",
+                          "byte_offset": 6,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "btm_tempwd",
+                          "brief": "Parameter TEMPERATURE_WINDDOWN of the Bias Temperature Model",
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "btm_biasmax",
+                          "brief": "The maximum value that BTM_BIAS is permitted to reach to ensure the power window remains open",
+                          "byte_offset": 10,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "btm_w_temp_max",
+                          "brief": "user-defined max wire temperature in mW",
+                          "byte_offset": 12,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "btm_max_allowed_power",
+                          "brief": "user-defined max bias power. Must not be lower than BTM_BIASMAX.",
+                          "byte_offset": 14,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "rtm_params",
+                      "byte_offset": 40,
+                      "byte_size": 12,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "rtm_grad",
+                          "brief": "Parameter GRADIENT of the Resistance Temperature Model",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rtm_curv",
+                          "brief": "Parameter CURVATURE of the Resistance Temperature Model",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rtm_tempinit",
+                          "brief": "Reference temperature at which RTM_BASE is the effective RSC (unaffected by gradients)",
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rtm_thermalres",
+                          "brief": "Parameter THERMAL_RESISTANCE of the Resistance Temperature Model",
+                          "byte_offset": 6,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "rtm_base",
+                          "brief": "Parameter BASE of the Resistance Temperature Model",
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "rtm_pad",
+                          "brief": "Padding to ensure 32bits alignement of following structs",
+                          "byte_offset": 10,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "dlf_params",
+                      "byte_offset": 52,
+                      "byte_size": 12,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "dlf_hotzone",
+                          "brief": "Resistance range in which the Firmware cannot be out of control",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "dlf_timeout",
+                          "brief": "Threshold number of cycles of being in the out of control state before Limit finding is applied",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "dlf_vellim",
+                          "brief": "Threshold filtered RDelta velocity above which the Firmware will not be considered in the out of control state.",
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "dlf_errlim",
+                          "brief": "Threshold value of DLF_Err below which the Firmware will be considered in the out of control state.",
+                          "byte_offset": 6,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "dlf_backoff",
+                          "brief": "How much maximum Resistance demand will be clipped in a Limit finding event",
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "dlf_pad",
+                          "brief": "Ensure 32bits alignment of next struct",
+                          "byte_offset": 10,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "clh_params",
+                      "brief": "Parameters for the 4W Closed Loop Hysteresis model",
+                      "byte_offset": 64,
+                      "byte_size": 24,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "clh_features",
+                          "brief": "Flags to control 4W Closed Loop hysteresis features",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "clh_pir",
+                          "brief": "Prandtl-Ishliskii (PI) backlash bandwidth",
+                          "array_count": 4,
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "clh_piweight",
+                          "brief": "Prandtl-Ishliskii (PI) backlash weight, in Q4.11",
+                          "array_count": 4,
+                          "byte_offset": 10,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "clh_gain_sf_factor_a",
+                          "brief": "Gain shortfall hysteresis scaling factor. Format is Q1.15 fixed point.",
+                          "array_count": 2,
+                          "byte_offset": 18,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "clh_hyst_pad",
+                          "brief": "Padding to ensure 32bits alignment of next struct.",
+                          "byte_offset": 22,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "ffh_params",
+                      "byte_offset": 88,
+                      "byte_size": 20,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "ffh_features",
+                          "brief": "Bit field to control feed forward hysteresis feature",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "ffh_pir",
+                          "brief": "Prandtl-Ishliskii (PI) backlash bandwidth",
+                          "array_count": 4,
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "ffh_piweight",
+                          "brief": "Prandtl-Ishliskii (PI) backlash weight, in Q4.11",
+                          "array_count": 4,
+                          "byte_offset": 10,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "ffh_hyst_pad",
+                          "brief": "Padding to ensure 32bits alignment of next struct.",
+                          "byte_offset": 18,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "htm_params",
+                      "brief": "Closed loop hysteresis thermal model",
+                      "byte_offset": 108,
+                      "byte_size": 8,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "hys_htmmin",
+                          "brief": "Minimum wire temperature below which output consists solely of hysteresis compensated rdelta demands",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "hys_htmmax",
+                          "brief": "Maximum wire temperature above which output consists solely of uncompensated rdelta demands",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "hys_htmgrad",
+                          "brief": "Mixing grad to determine a combination of hysteresis compensated and uncompensated rdelta demands",
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "hys_pad",
+                          "brief": "Padding for 32bits alignment of next struct.",
+                          "byte_offset": 6,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "arc_params",
+                      "byte_offset": 116,
+                      "byte_size": 8,
+                      "members": [
+                        {
+                          "type": "unsigned int",
+                          "name": "arc_denom",
+                          "brief": "This register is used to set the nominal resistance for the ARC model. DENOM = 4294967296 / RN.",
+                          "byte_offset": 0,
+                          "byte_size": 4
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "arc_features",
+                          "brief": "Enable features in the ARC model",
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "arc_arc_params_reserved",
+                          "byte_offset": 6,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "stm_params",
+                      "byte_offset": 124,
+                      "byte_size": 8,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "stm_base",
+                          "brief": "Parameter BASE of the Stroke Temperature Model",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "stm_gradlow",
+                          "brief": "Parameter GRADIENT_LOW of the Stroke Temperature Model",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "stm_gradhigh",
+                          "brief": "Parameter GRADIENT_HIGH of the Stroke Temperature Model",
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "stm_tempref",
+                          "brief": "Parameter reference temperature at which STM_BASE is the effective SWIN (unaffected by gradients)",
+                          "byte_offset": 6,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "ffd_params",
+                      "byte_offset": 132,
+                      "byte_size": 8,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "ffd_features",
+                          "brief": "Bit field to control feed forward dynamic feature",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "ffd_alpha_model",
+                          "brief": "The alpha model term for the ffd module. In unsigned Q0.16. Maximum value is 0.04 (in floating point)",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "ffd_beta_model",
+                          "brief": "The beta model term for the ffd module. Integer resolution unsigned. Maximum value is 400",
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "ffd_pad",
+                          "brief": "Padding to ensure 32bits alignment of next struct.",
+                          "byte_offset": 6,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "wire_scalar_to_dof_4ws",
+                      "byte_offset": 140,
+                      "byte_size": 4,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "wire_scalar_to_dof_d",
+                          "brief": "scalar coefficient for converting quantity in wire space to dof space",
+                          "array_count": 2,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "rlm_params",
+                      "byte_offset": 144,
+                      "byte_size": 12,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "rlm_rate",
+                          "brief": "RLM filter rate in units if [1/cycle]. Q0.16",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "rlm_phase_scale",
+                          "brief": "Phase scaling for the resistance delta [mW / mOhm]. Q0.8",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rlm_scale_base",
+                          "brief": "RLM temperature model BASE scaling [mOhm / mW]. Q7.8",
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rlm_scale_grad",
+                          "brief": "Parameter BASE of the Resistance Length Model [1 / mW]. Q0.16",
+                          "byte_offset": 6,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rlm_scale_curv",
+                          "brief": "Parameter CURVATURE of the Resistance Length Model [1 / mW^2]. Q0.24",
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "rlm_pad",
+                          "brief": "Padding register to ensure 32 bit alignment of next struct",
+                          "byte_offset": 10,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "pwin_params",
+                      "byte_offset": 156,
+                      "byte_size": 2,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "pwin_beta",
+                          "brief": "The scaling term for calculating the return power when P_BOOST_RETURN is active. Integer resolution.",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "ssl_debug",
+                      "byte_offset": 158,
+                      "byte_size": 2,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "ssl_debug_flags",
+                          "brief": "Bit field that can be used to enable debug features for SSL",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "struct",
+              "name": "pwrnorm_config",
+              "byte_offset": 232,
+              "byte_size": 20,
+              "members": [
+                {
+                  "type": "unsigned int",
+                  "name": "pwrnorm_g0",
+                  "brief": "Coefficient of S(fpwm) in the PWRNORM_GAIN power normalisation calculation.",
+                  "byte_offset": 0,
+                  "byte_size": 4
+                },
+                {
+                  "type": "int",
+                  "name": "pwrnorm_o0",
+                  "brief": "Coefficient of S(fpwm) in the PWRNORM_OFFSET power normalisation calculation.",
+                  "byte_offset": 4,
+                  "byte_size": 4
+                },
+                {
+                  "type": "int",
+                  "name": "pwrnorm_o1",
+                  "brief": "Coefficient of S(fpwm) in the PWRNORM_OFFSET power normalisation calculation. In signed Q11.20",
+                  "byte_offset": 8,
+                  "byte_size": 4
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "pwrnorm_c_same_comm",
+                  "brief": "Gain Coefficient for overlapping wire duties on the same common. In unsigned Q1.15",
+                  "byte_offset": 12,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "pwrnorm_c_opp_comm",
+                  "brief": "Gain Coefficient for overlapping wire duties on opposing common. In unsigned Q1.15",
+                  "byte_offset": 14,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "pwrnorm_nom_supply_voltage",
+                  "brief": "The expected actuator supply voltage. In millivolts. Only valid for DW9787",
+                  "byte_offset": 16,
+                  "byte_size": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "cml_regs",
+      "brief": "cml_regs",
+      "address": 39280,
+      "byte_size": 312,
+      "members": [
+        {
+          "type": "struct",
+          "name": "cml_regs_common",
+          "byte_offset": 0,
+          "byte_size": 80,
+          "members": [
+            {
+              "type": "unsigned short",
+              "name": "lib_major",
+              "brief": "Major version number of CML library as in <major>.<minor>.<patch>-<branch>.<release>",
+              "byte_offset": 0,
+              "byte_size": 2
+            },
+            {
+              "type": "unsigned short",
+              "name": "lib_minor",
+              "brief": "Minor version number of CML library as in <major>.<minor>.<patch>-<branch>.<release>",
+              "byte_offset": 2,
+              "byte_size": 2
+            },
+            {
+              "type": "unsigned short",
+              "name": "lib_patch",
+              "brief": "Patch version number of CML library as in <major>.<minor>.<patch>-<branch>.<release>",
+              "byte_offset": 4,
+              "byte_size": 2
+            },
+            {
+              "type": "unsigned short",
+              "name": "lib_branch",
+              "brief": "Branch version number of CML library as in <major>.<minor>.<patch>-<branch>.<release>",
+              "byte_offset": 6,
+              "byte_size": 2
+            },
+            {
+              "type": "unsigned short",
+              "name": "lib_release",
+              "brief": "Branch version number of CML library as in <major>.<minor>.<patch>-<branch>.<release>",
+              "byte_offset": 8,
+              "byte_size": 2
+            },
+            {
+              "type": "unsigned short",
+              "name": "lib_buildid",
+              "brief": "Build identifier for CML library",
+              "byte_offset": 10,
+              "byte_size": 2
+            },
+            {
+              "type": "unsigned int",
+              "name": "lib_revision",
+              "brief": "Git sha1 of CML library",
+              "byte_offset": 12,
+              "byte_size": 4
+            },
+            {
+              "type": "unsigned int",
+              "name": "params_uid",
+              "brief": "Unique identifier for the parameter file.",
+              "byte_offset": 16,
+              "byte_size": 4
+            },
+            {
+              "type": "unsigned short",
+              "name": "actuator_id",
+              "brief": "Identify the actuator type.",
+              "byte_offset": 20,
+              "byte_size": 2
+            },
+            {
+              "type": "unsigned short",
+              "name": "chip_check",
+              "brief": "readback to indicate chip check status",
+              "byte_offset": 22,
+              "byte_size": 2
+            },
+            {
+              "type": "struct",
+              "name": "protection_readbacks",
+              "access": "public",
+              "byte_offset": 24,
+              "byte_size": 6,
+              "members": [
+                {
+                  "type": "unsigned short",
+                  "name": "wb_break_flag",
+                  "brief": "Wire break flags, indicating whether an open/closed circuit was detected for each wire triggering a power down.",
+                  "byte_offset": 0,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "tv_err_flag",
+                  "brief": "Temperature validation flag, indicating if an invalid temperature triggered a power down.",
+                  "byte_offset": 2,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "vv_err_flag",
+                  "brief": "Supply voltage validation flag, indicating if an invalid actuator supply voltage triggered a power down.",
+                  "byte_offset": 4,
+                  "byte_size": 2
+                }
+              ]
+            },
+            {
+              "type": "struct",
+              "name": "pdu_regs",
+              "byte_offset": 30,
+              "byte_size": 12,
+              "members": [
+                {
+                  "type": "unsigned short",
+                  "name": "adc",
+                  "brief": "ADC measurements",
+                  "array_count": 4,
+                  "byte_offset": 0,
+                  "byte_size": 2
+                },
+                {
+                  "type": "unsigned short",
+                  "name": "reserved_pdu_regs",
+                  "array_count": 2,
+                  "byte_offset": 8,
+                  "byte_size": 2
+                }
+              ]
+            },
+            {
+              "type": "struct",
+              "name": "fra_regs",
+              "byte_offset": 44,
+              "byte_size": 32,
+              "members": [
+                {
+                  "type": "unsigned int",
+                  "name": "fra_real_lo_axis",
+                  "brief": "Accumulator real - Lower 4 bytes",
+                  "array_count": 2,
+                  "byte_offset": 0,
+                  "byte_size": 4
+                },
+                {
+                  "type": "unsigned int",
+                  "name": "fra_real_hi_axis",
+                  "brief": "Accumulator real - Upper 4 bytes",
+                  "array_count": 2,
+                  "byte_offset": 8,
+                  "byte_size": 4
+                },
+                {
+                  "type": "unsigned int",
+                  "name": "fra_imag_lo_axis",
+                  "brief": "Accumulator imaginary - Lower 4 bytes",
+                  "array_count": 2,
+                  "byte_offset": 16,
+                  "byte_size": 4
+                },
+                {
+                  "type": "unsigned int",
+                  "name": "fra_imag_hi_axis",
+                  "brief": "Accumulator imaginary - Upper 4 bytes",
+                  "array_count": 2,
+                  "byte_offset": 24,
+                  "byte_size": 4
+                }
+              ]
+            },
+            {
+              "type": "unsigned short",
+              "name": "params_mode",
+              "brief": "Bitfield to select different param mode of operation",
+              "byte_offset": 76,
+              "byte_size": 2
+            },
+            {
+              "type": "unsigned short",
+              "name": "sma_supply_voltage",
+              "brief": "The measured SMA actuator supply voltage. Only valid for DW9787.",
+              "byte_offset": 78,
+              "byte_size": 2
+            }
+          ]
+        },
+        {
+          "type": "struct",
+          "name": "ssl_regs",
+          "byte_offset": 80,
+          "byte_size": 232,
+          "members": [
+            {
+              "type": "struct",
+              "name": "nonpersist",
+              "byte_offset": 0,
+              "byte_size": 228,
+              "members": [
+                {
+                  "type": "struct",
+                  "name": "pub",
+                  "byte_offset": 0,
+                  "byte_size": 56,
+                  "members": [
+                    {
+                      "type": "struct",
+                      "name": "input_4ws",
+                      "byte_offset": 0,
+                      "byte_size": 12,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "input_ctrl_4ws",
+                          "brief": "Bit field that can be used to enable special debug features",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "input_ctrl_pad",
+                          "brief": "Padding to ensure so it is easier to write to INPUT_CTRL without overwriting following registers on S10.",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "input_pos_d",
+                          "brief": "Position Demand used by the library in position units",
+                          "array_count": 2,
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "input_temp",
+                          "brief": "Temperature received by the library.",
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "input_pad",
+                          "brief": "Padding to ensure 32bits alignment of next struct.",
+                          "byte_offset": 10,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "tempest_readbacks",
+                      "byte_offset": 12,
+                      "byte_size": 12,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "tempest_filtmeas",
+                          "brief": "Filtered temperature from the measurement device (1/10 C)",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "int",
+                          "name": "tempest_adj",
+                          "brief": "Temperature offset between the thermometer and the actuator as calculated by the Temperature Estimation Model (1/10 C). In Q15.16",
+                          "byte_offset": 4,
+                          "byte_size": 4
+                        },
+                        {
+                          "type": "short",
+                          "name": "tempest_tempamb",
+                          "brief": "Temperature of the actuator as calculated by the Temperature Estimation Model (1/10 C)",
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "pos_readbacks",
+                      "byte_offset": 24,
+                      "byte_size": 4,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "pos_est",
+                          "brief": "Estimated Lens Position",
+                          "array_count": 2,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "lim_readbacks",
+                      "byte_offset": 28,
+                      "byte_size": 4,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "lim_est",
+                          "brief": "Position estimation of DLF limits",
+                          "array_count": 2,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "centring_model_4w_readbacks",
+                      "byte_offset": 32,
+                      "byte_size": 24,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "rmid_w",
+                          "brief": "Centre of Resistance as calculated by Centre Calibration algorithm (mOhms)",
+                          "array_count": 4,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rslack_avg",
+                          "brief": "Slack resistance metric averaged over all wires",
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "rslack_pad",
+                          "brief": "Padding for 32bits alignment of next registers",
+                          "byte_offset": 10,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rslack_w",
+                          "brief": "Slack resistance metric",
+                          "array_count": 4,
+                          "byte_offset": 12,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rmid_warmupoffset_d",
+                          "brief": "The offset between turn on power centre and the persisted RMIDs. This value is used as a compensation offset into the FF chain.",
+                          "array_count": 2,
+                          "byte_offset": 20,
+                          "byte_size": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "struct",
+                  "name": "prv",
+                  "byte_offset": 56,
+                  "byte_size": 172,
+                  "members": [
+                    {
+                      "type": "struct",
+                      "name": "ctrl_readbacks",
+                      "byte_offset": 0,
+                      "byte_size": 48,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "status",
+                          "brief": "Control status",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "res_w",
+                          "brief": "Wire resistance",
+                          "array_count": 4,
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rdelta_d",
+                          "brief": "Delta wire resistance in DOF space",
+                          "array_count": 2,
+                          "byte_offset": 10,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rdeltademandoutput_d",
+                          "brief": "Delta resistance demands - output of DLA block",
+                          "array_count": 2,
+                          "byte_offset": 14,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rdeltaerr_d",
+                          "brief": "Delta Resistance Error in dof space",
+                          "array_count": 2,
+                          "byte_offset": 18,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "pdelta_d",
+                          "brief": "Delta Power in DOF space",
+                          "array_count": 2,
+                          "byte_offset": 22,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "pwr_w",
+                          "brief": "Power applied",
+                          "array_count": 4,
+                          "byte_offset": 26,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "enable_pwr_4ws",
+                          "brief": "Status of power output enabled/disabled for each wire",
+                          "byte_offset": 34,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "duty_w",
+                          "brief": "Duty applied",
+                          "array_count": 4,
+                          "byte_offset": 36,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "ctrl_ffp_pdelta_d",
+                          "brief": "Linear Gain Module for FFP output, per DOF",
+                          "array_count": 2,
+                          "byte_offset": 44,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "counters_readbacks",
+                      "byte_offset": 48,
+                      "byte_size": 4,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "counter_main",
+                          "brief": "Counter incremented each time the main loop is executed",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "counter_pos",
+                          "brief": "Counter incremented each time a new position is provided to the library",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "btm_readbacks",
+                      "byte_offset": 52,
+                      "byte_size": 8,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "btm_bias",
+                          "brief": "Power bias applied on all the wires (power units)",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "btm_window",
+                          "brief": "Power window applied on the forward path (power units)",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "btm_power_max",
+                          "brief": "max power calulated with given max allowed wire temperature and input temperature",
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "btm_temp_in_power",
+                          "brief": "Ambient temperature in mW equivalent units",
+                          "byte_offset": 6,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "htm_readbacks",
+                      "byte_offset": 60,
+                      "byte_size": 4,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "hys_htmeff",
+                          "brief": "Mixing factor of rdelta demand and rdelta hysteresis in Q0.16",
+                          "array_count": 2,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "dlf4w_readbacks",
+                      "byte_offset": 64,
+                      "byte_size": 16,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "dlf_minpdr",
+                          "brief": "Minimum resistance delta applied on an axis (mOhms). This is updated every time a limit finding event is found.",
+                          "array_count": 2,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "dlf_maxpdr",
+                          "brief": "Maximum resistance delta applied on an axis (mOhms). This is updated every time a limit finding event is found.",
+                          "array_count": 2,
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "dlf_err",
+                          "brief": "Filtered RDELTA_ERROR (mOhms). Whilst this is below DLF_ERRLIM Firmware is considered in control",
+                          "array_count": 2,
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "dlf_vel",
+                          "brief": "Filtered RDELTA_VELOCITY (mOhms/cycle). Whilst this is above DLF_VELLIM Firmware is considered in control",
+                          "array_count": 2,
+                          "byte_offset": 12,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "centring4w_readbacks",
+                      "byte_offset": 80,
+                      "byte_size": 4,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "centre_adj",
+                          "brief": "Resistance delta in mOhms by which resistance demands are adjusted due to centering from DLF",
+                          "array_count": 2,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "clh_readbacks_4w",
+                      "byte_offset": 84,
+                      "byte_size": 8,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "clh_rdelta_hyst_a",
+                          "brief": "Hysteresis adjusted rdelta demand, per axis.",
+                          "array_count": 2,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "clh_adj_a",
+                          "brief": "Hysteresis adjustment value, combination of delta applied across the hysteresis block and the gain shortfall corrected delta accross the inverted PI model, per axis.",
+                          "array_count": 2,
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "ffh_readbacks_4w",
+                      "byte_offset": 92,
+                      "byte_size": 4,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "ffh_rdelta_hyst_a",
+                          "brief": "Hysteresis adjusted rdelta demand, per axis.",
+                          "array_count": 2,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "rtm_readbacks",
+                      "byte_offset": 96,
+                      "byte_size": 6,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "rtm_tempwire",
+                          "brief": "Temperature of the wires as calculated by the Resistance Temperature Model (1/10 C)",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "rtm_rsceff",
+                          "brief": "Scaling factor between TARGET0..1 and RDELTA_DEMAND0..1 as calculated by the Resistance Temperature Model (mOhms per Position Demand unit, in Q8.8 fixed-point)",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "rtm_rsceff_inv",
+                          "brief": "Inverse of RTM_RSCEFF, in Q8.8 fixed-point",
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "stm_readbacks",
+                      "byte_offset": 102,
+                      "byte_size": 4,
+                      "members": [
+                        {
+                          "type": "unsigned short",
+                          "name": "stm_swineff",
+                          "brief": "Stroke window as calculated by the Stoke Temperature Model (Position Demand units)",
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "stm_rdeltawineff",
+                          "brief": "SWIN_EFF multiplied by RSC_EFF",
+                          "byte_offset": 2,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "scm_readbacks",
+                      "byte_offset": 106,
+                      "byte_size": 8,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "scm_transform_applied",
+                          "brief": "Centered position with transformation matrix applied",
+                          "array_count": 2,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "scm_ffx_transform_applied",
+                          "brief": "Centered position with transformation matrix applied for hybrid drive",
+                          "array_count": 2,
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "ffd_readbacks_4w",
+                      "byte_offset": 116,
+                      "byte_size": 12,
+                      "members": [
+                        {
+                          "type": "int",
+                          "name": "ffd_alpha_history",
+                          "brief": "History of the ffd alpha model, used in a feedback loop. In signed Q10.8",
+                          "array_count": 2,
+                          "byte_offset": 0,
+                          "byte_size": 4
+                        },
+                        {
+                          "type": "short",
+                          "name": "ffd_pdelta_a",
+                          "brief": "Output of the FFD module per axis in power units.",
+                          "array_count": 2,
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "ffwin_readbacks_2dof",
+                      "byte_offset": 128,
+                      "byte_size": 8,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "ffwin_summed_output",
+                          "brief": "The output of the module that is the two feedback paths summed together",
+                          "array_count": 2,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "ffwin_btm_win_dof",
+                          "brief": "Power window applied on the forward path (power units) in dof space",
+                          "array_count": 2,
+                          "byte_offset": 4,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "arc_readbacks_4w",
+                      "byte_offset": 136,
+                      "byte_size": 12,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "arc_pdelta_w",
+                          "brief": "Delta powers calculated by ARC",
+                          "array_count": 4,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "arc_axis_comp_d",
+                          "brief": "Axis compensation applied by Arc on all axes.",
+                          "array_count": 2,
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        }
+                      ]
+                    },
+                    {
+                      "type": "struct",
+                      "name": "rlm_4w_readbacks",
+                      "byte_offset": 148,
+                      "byte_size": 22,
+                      "members": [
+                        {
+                          "type": "short",
+                          "name": "rlm_temp_w",
+                          "brief": "Power correction per wire (correlated to wire temperature) [mW]",
+                          "array_count": 4,
+                          "byte_offset": 0,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "unsigned short",
+                          "name": "rlm_res_w",
+                          "brief": "Corrected wire resistance used for position feedback",
+                          "array_count": 4,
+                          "byte_offset": 8,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rlm_temp_w_avg",
+                          "brief": "Average wire temperature",
+                          "byte_offset": 16,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rlm_temp_w_max",
+                          "brief": "max temperature among all wires",
+                          "byte_offset": 18,
+                          "byte_size": 2
+                        },
+                        {
+                          "type": "short",
+                          "name": "rlm_scale_eff",
+                          "brief": "Corrected RLM Scale using the average wire temperature",
+                          "byte_offset": 20,
+                          "byte_size": 2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "struct",
+              "name": "pwrnorm_readbacks",
+              "byte_offset": 228,
+              "byte_size": 4,
+              "members": [
+                {
+                  "type": "unsigned short",
+                  "name": "pwrnorm_gain",
+                  "brief": "Gain Coefficient for converting power to duty. In unsigned Q3.13",
+                  "byte_offset": 0,
+                  "byte_size": 2
+                },
+                {
+                  "type": "short",
+                  "name": "pwrnorm_offset",
+                  "brief": "Gain Coefficient for converting power to duty. In signed Q6.9",
+                  "byte_offset": 2,
+                  "byte_size": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "control_mode",
+      "brief": "Control Commands for the firmware",
+      "enumerators": [
+        {
+          "name": "STANDBY",
+          "value": 0
+        },
+        {
+          "name": "OIS_CONTROL",
+          "value": 1
+        },
+        {
+          "name": "GYRO_OFS_CAL",
+          "value": 2
+        },
+        {
+          "name": "CMD_CAL_STORE",
+          "value": 3
+        },
+        {
+          "name": "CMD_CAL_ERASE",
+          "value": 4
+        },
+        {
+          "name": "CMD_CAL_LOAD",
+          "value": 5
+        }
+      ]
+    },
+    {
+      "name": "gyro_orientation",
+      "brief": "Gyro orientation selection",
+      "enumerators": [
+        {
+          "name": "ROT_0_DEGREES",
+          "value": 0
+        },
+        {
+          "name": "ROT_90_DEGREES",
+          "value": 1
+        },
+        {
+          "name": "ROT_180_DEGREES",
+          "value": 2
+        },
+        {
+          "name": "ROT_270_DEGREES",
+          "value": 3
+        },
+        {
+          "name": "ROT_0_DEGREES_BACK",
+          "value": 4
+        },
+        {
+          "name": "ROT_90_DEGREES_BACK",
+          "value": 5
+        },
+        {
+          "name": "ROT_180_DEGREES_BACK",
+          "value": 6
+        },
+        {
+          "name": "ROT_270_DEGREES_BACK",
+          "value": 7
+        },
+        {
+          "name": "ROT_OTHER_DEGREES",
+          "value": 8
+        }
+      ]
+    },
+    {
+      "name": "servo_status",
+      "enumerators": [
+        {
+          "name": "NOT_INITIALISED",
+          "value": 0
+        },
+        {
+          "name": "INIT_IN_PROGRESS",
+          "value": 1
+        },
+        {
+          "name": "IDLE",
+          "value": 2
+        },
+        {
+          "name": "RUNNING",
+          "value": 3
+        }
+      ]
+    },
+    {
+      "name": "axes",
+      "enumerators": [
+        {
+          "name": "X",
+          "value": 0
+        },
+        {
+          "name": "Y",
+          "value": 1
+        },
+        {
+          "name": "Z",
+          "value": 2
+        }
+      ]
+    }
+  ]
+}

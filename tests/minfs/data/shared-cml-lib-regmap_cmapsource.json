@@ -1,0 +1,1212 @@
+{
+    "scheme": {
+        "major": 1,
+        "minor": 0
+    },
+    "version": {
+        "project": "topcode",
+        "uid": "0123ABC",
+        "version": "1.2.3-4567.8-9-gABCDEF",
+        "config_name": "CONFIG_NAME",
+        "config_id": 10,
+        "timestamp": "2022-09-13T12:26:02+00:00",
+        "git_versions": []
+    },
+    "regmap": {
+        "children": [
+            {
+                "name": "cml_params",
+                "type": "struct",
+                "addr": 0,
+                "size": 216,
+                "struct": {
+                    "children": [
+                        {
+                            "name": "pwm_frequency",
+                            "type": "register",
+                            "addr": 0,
+                            "size": 4,
+                            "register": {
+                                "ctype": "uint32"
+                            },
+                            "offset": 0,
+                            "access": "private"
+                        },
+                        {
+                            "name": "reserved_cml_params",
+                            "type": "register",
+                            "addr": 4,
+                            "size": 1,
+                            "register": {
+                                "ctype": "uint8"
+                            },
+                            "repeat_for": [
+                                {
+                                    "count": 28,
+                                    "offset": 1
+                                }
+                            ],
+                            "offset": 4,
+                            "access": "private"
+                        },
+                        {
+                            "name": "ssl_params",
+                            "type": "struct",
+                            "addr": 32,
+                            "size": 184,
+                            "struct": {
+                                "children": [
+                                    {
+                                        "name": "fourwire_persist",
+                                        "type": "struct",
+                                        "addr": 32,
+                                        "size": 184,
+                                        "struct": {
+                                            "children": [
+                                                {
+                                                    "name": "fourwire_persist_public",
+                                                    "type": "struct",
+                                                    "addr": 32,
+                                                    "size": 38,
+                                                    "struct": {
+                                                        "children": [
+                                                            {
+                                                                "name": "tempest_params",
+                                                                "type": "struct",
+                                                                "addr": 32,
+                                                                "size": 4,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "tempest_offset",
+                                                                            "type": "register",
+                                                                            "addr": 32,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "tempest_grad",
+                                                                            "type": "register",
+                                                                            "addr": 34,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 0,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "centring_model_4w_params",
+                                                                "type": "struct",
+                                                                "addr": 36,
+                                                                "size": 10,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "centring_mode",
+                                                                            "type": "register",
+                                                                            "addr": 36,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16",
+                                                                                "states": [
+                                                                                    {
+                                                                                        "name": "power_centre",
+                                                                                        "value": 0
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "abs_resistance_centre",
+                                                                                        "value": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "rel_resistance_centre",
+                                                                                        "value": 2
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "rmid_cal",
+                                                                            "type": "register",
+                                                                            "addr": 38,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 4,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "scm_params",
+                                                                "type": "struct",
+                                                                "addr": 46,
+                                                                "size": 24,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "scm_matrix_values",
+                                                                            "type": "register",
+                                                                            "addr": 46,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "scm_ffx_matrix_values",
+                                                                            "type": "register",
+                                                                            "addr": 54,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 8,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "scm_inverse_matrix_values",
+                                                                            "type": "register",
+                                                                            "addr": 62,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 16,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 14,
+                                                                "access": "private"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "offset": 0,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "fourwire_persist_private",
+                                                    "type": "struct",
+                                                    "addr": 72,
+                                                    "size": 144,
+                                                    "struct": {
+                                                        "children": [
+                                                            {
+                                                                "name": "ctrl_params",
+                                                                "type": "struct",
+                                                                "addr": 72,
+                                                                "size": 10,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "ctrl_features",
+                                                                            "type": "register",
+                                                                            "addr": 72,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16",
+                                                                                "bitfields": [
+                                                                                    {
+                                                                                        "name": "auto_limiting",
+                                                                                        "position": 0,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "auto_centring",
+                                                                                        "position": 1,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "reserved_s4h_5",
+                                                                                        "position": 4,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "wirebreak",
+                                                                                        "position": 5,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "break_loop",
+                                                                                        "position": 6,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "temp_valid",
+                                                                                        "position": 7,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "persisted_rmids",
+                                                                                        "position": 8,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "ctrl_persisted_rmids",
+                                                                                        "position": 9,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "reserved_4wire_11",
+                                                                                        "position": 10,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "reserved_4wire_12",
+                                                                                        "position": 11,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "reserved_4wire_13",
+                                                                                        "position": 12,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "reserved_4wire_14",
+                                                                                        "position": 13,
+                                                                                        "num_bits": 1
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "ctrl_gain_a",
+                                                                            "type": "register",
+                                                                            "addr": 74,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2,
+                                                                                    "aliases": [
+                                                                                        "x",
+                                                                                        "y"
+                                                                                    ]
+                                                                                }
+                                                                            ],
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "ctrl_poffset",
+                                                                            "type": "register",
+                                                                            "addr": 78,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2,
+                                                                                    "aliases": [
+                                                                                        "x",
+                                                                                        "y"
+                                                                                    ]
+                                                                                }
+                                                                            ],
+                                                                            "offset": 6,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 0,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "pos_4w_params",
+                                                                "type": "struct",
+                                                                "addr": 82,
+                                                                "size": 8,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "pos_features",
+                                                                            "type": "register",
+                                                                            "addr": 82,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16",
+                                                                                "bitfields": [
+                                                                                    {
+                                                                                        "name": "pos_enable",
+                                                                                        "position": 0,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "filter_en",
+                                                                                        "position": 1,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "centring_en",
+                                                                                        "position": 2,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "hyst_en",
+                                                                                        "position": 3,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "pos_adj_en",
+                                                                                        "position": 4,
+                                                                                        "num_bits": 1
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "pos_filtcoef",
+                                                                            "type": "register",
+                                                                            "addr": 84,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "pos_gain_correction",
+                                                                            "type": "register",
+                                                                            "addr": 86,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2,
+                                                                                    "aliases": [
+                                                                                        "x",
+                                                                                        "y"
+                                                                                    ]
+                                                                                }
+                                                                            ],
+                                                                            "offset": 4,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 10,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "btm_params",
+                                                                "type": "struct",
+                                                                "addr": 90,
+                                                                "size": 14,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "btm_base",
+                                                                            "type": "register",
+                                                                            "addr": 90,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "btm_win",
+                                                                            "type": "register",
+                                                                            "addr": 92,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "btm_grad",
+                                                                            "type": "register",
+                                                                            "addr": 94,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 4,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "btm_tempinit",
+                                                                            "type": "register",
+                                                                            "addr": 96,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 6,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "btm_tempwd",
+                                                                            "type": "register",
+                                                                            "addr": 98,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 8,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "btm_biasmax",
+                                                                            "type": "register",
+                                                                            "addr": 100,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 10,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "btm_w_temp_max",
+                                                                            "type": "register",
+                                                                            "addr": 102,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 12,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 18,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "rtm_params",
+                                                                "type": "struct",
+                                                                "addr": 104,
+                                                                "size": 10,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "rtm_base",
+                                                                            "type": "register",
+                                                                            "addr": 104,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "rtm_grad",
+                                                                            "type": "register",
+                                                                            "addr": 106,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "rtm_curv",
+                                                                            "type": "register",
+                                                                            "addr": 108,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 4,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "rtm_tempinit",
+                                                                            "type": "register",
+                                                                            "addr": 110,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 6,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "rtm_thermalres",
+                                                                            "type": "register",
+                                                                            "addr": 112,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 8,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 32,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "dlf_4w_params",
+                                                                "type": "struct",
+                                                                "addr": 114,
+                                                                "size": 10,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "dlf_hotzone",
+                                                                            "type": "register",
+                                                                            "addr": 114,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "dlf_timeout",
+                                                                            "type": "register",
+                                                                            "addr": 116,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "dlf_vellim",
+                                                                            "type": "register",
+                                                                            "addr": 118,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 4,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "dlf_errlim",
+                                                                            "type": "register",
+                                                                            "addr": 120,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 6,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "dlf_backoff",
+                                                                            "type": "register",
+                                                                            "addr": 122,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 8,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 42,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "clh_params",
+                                                                "type": "struct",
+                                                                "addr": 124,
+                                                                "size": 22,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "clh_features",
+                                                                            "type": "register",
+                                                                            "addr": 124,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16",
+                                                                                "bitfields": [
+                                                                                    {
+                                                                                        "name": "clh_enable",
+                                                                                        "position": 0,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "clh_htm_enable",
+                                                                                        "position": 1,
+                                                                                        "num_bits": 1
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "clh_pir",
+                                                                            "type": "register",
+                                                                            "addr": 126,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "clh_piweight",
+                                                                            "type": "register",
+                                                                            "addr": 134,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 10,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "clh_gain_sf_factor_a",
+                                                                            "type": "register",
+                                                                            "addr": 142,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 18,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 52,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "ffh_params",
+                                                                "type": "struct",
+                                                                "addr": 146,
+                                                                "size": 18,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "ffh_features",
+                                                                            "type": "register",
+                                                                            "addr": 146,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16",
+                                                                                "bitfields": [
+                                                                                    {
+                                                                                        "name": "ffh_enable",
+                                                                                        "position": 0,
+                                                                                        "num_bits": 1
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "ffh_pir",
+                                                                            "type": "register",
+                                                                            "addr": 148,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "ffh_piweight",
+                                                                            "type": "register",
+                                                                            "addr": 156,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 4,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 10,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 74,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "htm_params",
+                                                                "type": "struct",
+                                                                "addr": 164,
+                                                                "size": 6,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "htmmin",
+                                                                            "type": "register",
+                                                                            "addr": 164,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "htmmax",
+                                                                            "type": "register",
+                                                                            "addr": 166,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "htmgrad",
+                                                                            "type": "register",
+                                                                            "addr": 168,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 4,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 92,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "wb_params",
+                                                                "type": "struct",
+                                                                "addr": 170,
+                                                                "size": 6,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "wb_resmin",
+                                                                            "type": "register",
+                                                                            "addr": 170,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "wb_resmax",
+                                                                            "type": "register",
+                                                                            "addr": 172,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "wb_errlim",
+                                                                            "type": "register",
+                                                                            "addr": 174,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 4,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 98,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "limest_4ws_params",
+                                                                "type": "struct",
+                                                                "addr": 176,
+                                                                "size": 2,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "lim_features",
+                                                                            "type": "register",
+                                                                            "addr": 176,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16",
+                                                                                "bitfields": [
+                                                                                    {
+                                                                                        "name": "lim_enable",
+                                                                                        "position": 0,
+                                                                                        "num_bits": 1
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 104,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "arc_params",
+                                                                "type": "struct",
+                                                                "addr": 180,
+                                                                "size": 8,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "arc_denom",
+                                                                            "type": "register",
+                                                                            "addr": 180,
+                                                                            "size": 4,
+                                                                            "register": {
+                                                                                "ctype": "uint32"
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "arc_features",
+                                                                            "type": "register",
+                                                                            "addr": 184,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16",
+                                                                                "bitfields": [
+                                                                                    {
+                                                                                        "name": "axis_comp",
+                                                                                        "position": 0,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "rot_comp",
+                                                                                        "position": 1,
+                                                                                        "num_bits": 1
+                                                                                    },
+                                                                                    {
+                                                                                        "name": "post_warmup_axis_compensation",
+                                                                                        "position": 2,
+                                                                                        "num_bits": 1
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "offset": 4,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "arc_params_reserved",
+                                                                            "type": "register",
+                                                                            "addr": 186,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 6,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 108,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "tv_params",
+                                                                "type": "struct",
+                                                                "addr": 188,
+                                                                "size": 2,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "tv_errlim",
+                                                                            "type": "register",
+                                                                            "addr": 188,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 116,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "stm_params",
+                                                                "type": "struct",
+                                                                "addr": 190,
+                                                                "size": 8,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "stm_base",
+                                                                            "type": "register",
+                                                                            "addr": 190,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "stm_gradlow",
+                                                                            "type": "register",
+                                                                            "addr": 192,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "stm_gradhigh",
+                                                                            "type": "register",
+                                                                            "addr": 194,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 4,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "stm_tempref",
+                                                                            "type": "register",
+                                                                            "addr": 196,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "offset": 6,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 118,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "ffp_params_4w",
+                                                                "type": "struct",
+                                                                "addr": 198,
+                                                                "size": 6,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "ffp_features",
+                                                                            "type": "register",
+                                                                            "addr": 198,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16",
+                                                                                "bitfields": [
+                                                                                    {
+                                                                                        "name": "ffp_enable",
+                                                                                        "position": 0,
+                                                                                        "num_bits": 1
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "ffp_kprop",
+                                                                            "type": "register",
+                                                                            "addr": 200,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "int16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 126,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "ffd_legacy_params",
+                                                                "type": "struct",
+                                                                "addr": 204,
+                                                                "size": 10,
+                                                                "struct": {
+                                                                    "children": [
+                                                                        {
+                                                                            "name": "ffd_features",
+                                                                            "type": "register",
+                                                                            "addr": 204,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16",
+                                                                                "bitfields": [
+                                                                                    {
+                                                                                        "name": "ffd_enable",
+                                                                                        "position": 0,
+                                                                                        "num_bits": 1
+                                                                                    }
+                                                                                ]
+                                                                            },
+                                                                            "offset": 0,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "ffd_kdyn",
+                                                                            "type": "register",
+                                                                            "addr": 206,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 2,
+                                                                            "access": "private"
+                                                                        },
+                                                                        {
+                                                                            "name": "ffd_tc",
+                                                                            "type": "register",
+                                                                            "addr": 210,
+                                                                            "size": 2,
+                                                                            "register": {
+                                                                                "ctype": "uint16"
+                                                                            },
+                                                                            "repeat_for": [
+                                                                                {
+                                                                                    "count": 2,
+                                                                                    "offset": 2
+                                                                                }
+                                                                            ],
+                                                                            "offset": 6,
+                                                                            "access": "private"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 132,
+                                                                "access": "private"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "offset": 40,
+                                                    "access": "private"
+                                                }
+                                            ]
+                                        },
+                                        "offset": 0,
+                                        "access": "private"
+                                    }
+                                ]
+                            },
+                            "offset": 32,
+                            "access": "private"
+                        }
+                    ]
+                },
+                "offset": 0,
+                "access": "private"
+            }
+        ]
+    }
+}

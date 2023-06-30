@@ -1,0 +1,10 @@
+{
+  "format" : 1,
+  "data":
+  [
+    {
+      "register": "BUT_FEATURES1",
+      "flags": ["BUT_INCORRECT_FLAG"]
+    }
+  ]
+}

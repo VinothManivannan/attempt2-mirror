@@ -1,0 +1,51 @@
+{
+    "scheme": {
+        "major": 1,
+        "minor": 0
+    },
+    "version": {
+        "project": "example-project-name",
+        "uid": "12cd6f3d",
+        "version": "1.2.3",
+        "config_name": "example-config-name",
+        "config_id": 1,
+        "timestamp": "2022-10-19T11:24:01+00:00",
+        "git_versions": []
+    },
+    "regmap": {
+        "children": [
+            {
+                "name": "ray",
+                "addr": 2048,
+                "size": 1,
+                "brief": "A drop of golden sun",
+                "namespace": "ray1",
+                "offset": 0,
+                "access": "private",
+                "type": "register",
+                "register": {
+                    "ctype": "int8",
+                    "format": "Q2",
+                    "states": [
+                        {
+                            "name": "ray_off",
+                            "value": 0
+                        },
+                        {
+                            "name": "ray_low",
+                            "value": 1
+                        },
+                        {
+                            "name": "ray_mid",
+                            "value": 2
+                        },
+                        {
+                            "name": "ray_high",
+                            "value": 128
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

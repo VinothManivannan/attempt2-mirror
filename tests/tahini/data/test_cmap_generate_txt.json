@@ -1,0 +1,421 @@
+{
+    "scheme": {
+        "major": 1,
+        "minor": 0
+    },
+    "version": {
+        "project": "example-project-name",
+        "uid": "12cd6f3d",
+        "version": "1.2.3",
+        "config_name": "example-config-name",
+        "config_id": 1,
+        "timestamp": "2022-10-19T11:24:01+00:00",
+        "git_versions": []
+    },
+    "regmap": {
+        "children": [
+            {
+                "name": "cal_rom",
+                "type": "struct",
+                "addr": 40448,
+                "size": 512,
+                "brief": "cal_rom",
+                "struct": {
+                    "children": [
+                        {
+                            "name": "gyfilt",
+                            "type": "struct",
+                            "addr": 40448,
+                            "size": 224,
+                            "brief": "",
+                            "struct": {
+                                "children": [
+                                    {
+                                        "name": "com",
+                                        "type": "struct",
+                                        "addr": 40448,
+                                        "size": 48,
+                                        "brief": "Gyro Filter Parameters",
+                                        "struct": {
+                                            "children": [
+                                                {
+                                                    "name": "versioninfo",
+                                                    "type": "register",
+                                                    "addr": 40448,
+                                                    "size": 2,
+                                                    "brief": "Version Info of the Gyro Filter library",
+                                                    "register": {
+                                                        "ctype": "uint16"
+                                                    },
+                                                    "offset": 0,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "motion_flag",
+                                                    "type": "struct",
+                                                    "addr": 40450,
+                                                    "size": 2,
+                                                    "brief": "motion_flag",
+                                                    "struct": {
+                                                        "children": [
+                                                            {
+                                                                "name": "bits",
+                                                                "type": "register",
+                                                                "addr": 40450,
+                                                                "size": 2,
+                                                                "register": {
+                                                                    "ctype": "uint16"
+                                                                },
+                                                                "offset": 0,
+                                                                "access": "private"
+                                                            },
+                                                            {
+                                                                "name": "bitfields",
+                                                                "type": "register",
+                                                                "addr": 40450,
+                                                                "size": 2,
+                                                                "brief": "Bit field members.",
+                                                                "register": {
+                                                                    "ctype": "uint16",
+                                                                    "bitfields": [
+                                                                        {
+                                                                            "name": "medium_flag",
+                                                                            "position": 3,
+                                                                            "num_bits": 1,
+                                                                            "brief": "Tripod mode medium shake detected."
+                                                                        },
+                                                                        {
+                                                                            "name": "tripod_flag",
+                                                                            "position": 2,
+                                                                            "num_bits": 1,
+                                                                            "brief": "Tripod mode low shake detected."
+                                                                        },
+                                                                        {
+                                                                            "name": "pan_tilt_flag",
+                                                                            "position": 1,
+                                                                            "num_bits": 1,
+                                                                            "brief": "Pan-tilt motion detected."
+                                                                        },
+                                                                        {
+                                                                            "name": "ois_flag",
+                                                                            "position": 0,
+                                                                            "num_bits": 1,
+                                                                            "brief": "Normal OIS motion detected."
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                "offset": 0,
+                                                                "access": "private"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "offset": 2,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "param1",
+                                                    "type": "register",
+                                                    "addr": 40452,
+                                                    "size": 2,
+                                                    "register": {
+                                                        "ctype": "int16"
+                                                    },
+                                                    "offset": 4,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "fall_prot_thres",
+                                                    "type": "register",
+                                                    "addr": 40454,
+                                                    "size": 2,
+                                                    "brief": "For free fall protection against wire break. Average acceleration value above which freefall may be detected (FALL_PROT_FLAG may be set to 1).",
+                                                    "register": {
+                                                        "ctype": "int16"
+                                                    },
+                                                    "offset": 6,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "fall_prot_check_time",
+                                                    "type": "register",
+                                                    "addr": 40456,
+                                                    "size": 2,
+                                                    "brief": "For free fall protection against wire break. Time window during which the average acceleration value is compared to FALL_PROT_THRESH (0.8ms per bit).",
+                                                    "register": {
+                                                        "ctype": "int16"
+                                                    },
+                                                    "offset": 8,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "fall_prot_limit_num",
+                                                    "type": "register",
+                                                    "addr": 40458,
+                                                    "size": 2,
+                                                    "brief": "For free fall protection against wire break. Number of samples (within FALL_PROT_CHECK_TIME) for which the average acceleration must exceed FALL_PROT_THRESH for freefall to be detected.",
+                                                    "register": {
+                                                        "ctype": "int16"
+                                                    },
+                                                    "offset": 10,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "fall_time_out",
+                                                    "type": "register",
+                                                    "addr": 40460,
+                                                    "size": 2,
+                                                    "brief": "For free fall protection against wire break. Continuous time for which the freefall conditions must be false (average acceleration is below FALL_PROT_THRESH) for freefall condition to be cleared and normal operation resumed (0.8ms per bit).",
+                                                    "register": {
+                                                        "ctype": "int16"
+                                                    },
+                                                    "offset": 12,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "param2",
+                                                    "type": "register",
+                                                    "addr": 40462,
+                                                    "size": 2,
+                                                    "register": {
+                                                        "ctype": "uint16"
+                                                    },
+                                                    "repeat_for": [
+                                                        {
+                                                            "count": 5,
+                                                            "offset": 2
+                                                        }
+                                                    ],
+                                                    "offset": 14,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "set_imu",
+                                                    "type": "register",
+                                                    "addr": 40472,
+                                                    "size": 2,
+                                                    "brief": "Select IMU type and protocol.",
+                                                    "register": {
+                                                        "ctype": "uint16",
+                                                        "states": [
+                                                            {
+                                                                "name": "ICM_20690",
+                                                                "value": 0
+                                                            },
+                                                            {
+                                                                "name": "ST_LSM6DSM",
+                                                                "value": 2
+                                                            },
+                                                            {
+                                                                "name": "ICM42631_BE",
+                                                                "value": 5
+                                                            },
+                                                            {
+                                                                "name": "BMI_260",
+                                                                "value": 6
+                                                            },
+                                                            {
+                                                                "name": "ICM42631_LE",
+                                                                "value": 7
+                                                            },
+                                                            {
+                                                                "name": "ST_LSM6DSV32X",
+                                                                "value": 10
+                                                            }
+                                                        ]
+                                                    },
+                                                    "offset": 24,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "tripod_thres",
+                                                    "type": "register",
+                                                    "addr": 40474,
+                                                    "size": 2,
+                                                    "register": {
+                                                        "ctype": "uint16"
+                                                    },
+                                                    "offset": 26,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "tripod_time",
+                                                    "type": "register",
+                                                    "addr": 40476,
+                                                    "size": 2,
+                                                    "register": {
+                                                        "ctype": "uint16"
+                                                    },
+                                                    "offset": 28,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "medium_thres",
+                                                    "type": "register",
+                                                    "addr": 40478,
+                                                    "size": 2,
+                                                    "register": {
+                                                        "ctype": "uint16"
+                                                    },
+                                                    "offset": 30,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "medium_time",
+                                                    "type": "register",
+                                                    "addr": 40480,
+                                                    "size": 2,
+                                                    "register": {
+                                                        "ctype": "uint16"
+                                                    },
+                                                    "offset": 32,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "param3",
+                                                    "type": "register",
+                                                    "addr": 40482,
+                                                    "size": 2,
+                                                    "register": {
+                                                        "ctype": "int16"
+                                                    },
+                                                    "repeat_for": [
+                                                        {
+                                                            "count": 7,
+                                                            "offset": 2
+                                                        }
+                                                    ],
+                                                    "offset": 34,
+                                                    "access": "private"
+                                                }
+                                            ]
+                                        },
+                                        "offset": 0,
+                                        "access": "private"
+                                    },
+                                    {
+                                        "name": "gy",
+                                        "type": "struct",
+                                        "addr": 40496,
+                                        "size": 16,
+                                        "struct": {
+                                            "children": [
+                                                {
+                                                    "name": "param4",
+                                                    "type": "register",
+                                                    "addr": 40496,
+                                                    "size": 2,
+                                                    "register": {
+                                                        "ctype": "int16"
+                                                    },
+                                                    "repeat_for": [
+                                                        {
+                                                            "count": 3,
+                                                            "offset": 16
+                                                        },
+                                                        {
+                                                            "count": 6,
+                                                            "offset": 2
+                                                        }
+                                                    ],
+                                                    "offset": 0,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "gyro_phase",
+                                                    "type": "register",
+                                                    "addr": 40508,
+                                                    "size": 2,
+                                                    "brief": "Gyro filter phase select for axis in half degree units. Q format is signed Q1.15. Check app note for your actuator's settings.",
+                                                    "register": {
+                                                        "ctype": "int16"
+                                                    },
+                                                    "offset": 12,
+                                                    "access": "private"
+                                                },
+                                                {
+                                                    "name": "param5",
+                                                    "type": "register",
+                                                    "addr": 40510,
+                                                    "size": 2,
+                                                    "register": {
+                                                        "ctype": "int16"
+                                                    },
+                                                    "offset": 14,
+                                                    "access": "private"
+                                                }
+                                            ]
+                                        },
+                                        "repeat_for": [
+                                            {
+                                                "count": 3,
+                                                "offset": 16
+                                            }
+                                        ],
+                                        "offset": 48,
+                                        "access": "private"
+                                    },
+                                    {
+                                        "name": "param",
+                                        "type": "register",
+                                        "addr": 40544,
+                                        "size": 2,
+                                        "register": {
+                                            "ctype": "int16"
+                                        },
+                                        "repeat_for": [
+                                            {
+                                                "count": 64,
+                                                "offset": 2
+                                            }
+                                        ],
+                                        "offset": 96,
+                                        "access": "private"
+                                    }
+                                ]
+                            },
+                            "offset": 0,
+                            "access": "private"
+                        },
+                        {
+                            "name": "gyro_ofs_status",
+                            "type": "register",
+                            "addr": 40672,
+                            "size": 2,
+                            "brief": "Gyro Offset calibration status.",
+                            "register": {
+                                "ctype": "int16"
+                            },
+                            "offset": 224,
+                            "access": "private"
+                        },
+                        {
+                            "name": "gyro_gain",
+                            "type": "register",
+                            "addr": 40674,
+                            "size": 2,
+                            "brief": "Gyro Gain, one per axis (X, Y and Z axes). Q format is unsigned Q3.13.",
+                            "register": {
+                                "ctype": "uint16"
+                            },
+                            "repeat_for": [
+                                {
+                                    "count": 3,
+                                    "offset": 2,
+                                    "aliases": [
+                                        "x",
+                                        "y",
+                                        "z"
+                                    ]
+                                }
+                            ],
+                            "offset": 226,
+                            "access": "private"
+                        }
+                    ]
+                },
+                "offset": 0,
+                "access": "private"
+            }
+        ]
+    }
+}

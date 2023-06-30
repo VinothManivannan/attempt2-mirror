@@ -1,0 +1,61 @@
+{
+    "project": "topcode",
+    "uid": "0123ABC",
+    "version": "1.2.3-4567.8-9-gABCDEF",
+    "config_name": "CONFIG_NAME",
+    "config_id": 10,
+    "timestamp": "2022-09-13T12:26:02+00:00",
+    "git_versions": [
+        {
+            "name": "topcode_project",
+            "last_tag": {
+                "major": 1,
+                "minor": 2,
+                "patch": 3,
+                "branch_id": null,
+                "release_num": null,
+                "commit_num": 10
+            },
+            "branch_ids": [
+                "FW-1234",
+                "FW-2345",
+                "FW-3456",
+                "FW-4567",
+                "FW-5678",
+                "FW-6789",
+                "FW-7890"
+            ],
+            "commit_id": "123ABCD"
+        },
+        {
+            "name": "submodule1",
+            "last_tag": {
+                "major": 4,
+                "minor": 5,
+                "patch": 6,
+                "branch_id": null,
+                "release_num": null,
+                "commit_num": 20
+            },
+            "branch_ids": [
+                "FW-4321",
+                "FW-8765",
+                "FW-2109"
+            ],
+            "commit_id": "345CDEF"
+        },
+        {
+            "name": "submodule2",
+            "last_tag": {
+                "major": null,
+                "minor": null,
+                "patch": null,
+                "branch_id": null,
+                "release_num": null,
+                "commit_num": null
+            },
+            "branch_ids": [],
+            "commit_id": "567EFAB"
+        }
+    ]
+}

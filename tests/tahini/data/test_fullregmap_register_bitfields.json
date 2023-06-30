@@ -1,0 +1,90 @@
+{
+    "scheme": {
+        "major": 1,
+        "minor": 0
+    },
+    "version": {
+        "project": "example-project-name",
+        "uid": "12cd6f3d",
+        "version": "1.2.3",
+        "config_name": "example-config-name",
+        "config_id": 1,
+        "timestamp": "2022-10-19T11:24:01+00:00",
+        "git_versions": []
+    },
+    "regmap": {
+        "children": [
+            {
+                "name": "note",
+                "addr": 6144,
+                "size": 1,
+                "brief": "Each note",
+                "namespace": null,
+                "offset": 0,
+                "access": "private",
+                "repeat_for": null,
+                "type": "register",
+                "register": {
+                    "ctype": "uint8",
+                    "format": null,
+                    "min": null,
+                    "max": null,
+                    "units": null,
+                    "bitfields": [
+                        {
+                            "position": 7,
+                            "num_bits": 1,
+                            "name": "a",
+                            "brief": null,
+                            "states": null
+                        },
+                        {
+                            "position": 6,
+                            "num_bits": 1,
+                            "name": "b",
+                            "brief": null,
+                            "states": null
+                        },
+                        {
+                            "position": 5,
+                            "num_bits": 1,
+                            "name": "c",
+                            "brief": null,
+                            "states": null
+                        },
+                        {
+                            "position": 4,
+                            "num_bits": 1,
+                            "name": "d",
+                            "brief": null,
+                            "states": null
+                        },
+                        {
+                            "position": 3,
+                            "num_bits": 1,
+                            "name": "e",
+                            "brief": null,
+                            "states": null
+                        },
+                        {
+                            "position": 2,
+                            "num_bits": 1,
+                            "name": "f",
+                            "brief": null,
+                            "states": null
+                        },
+                        {
+                            "position": 1,
+                            "num_bits": 1,
+                            "name": "g",
+                            "brief": null,
+                            "states": null
+                        }
+                    ],
+                    "states": null
+                },
+                "struct": null
+            }
+        ]
+    }
+}

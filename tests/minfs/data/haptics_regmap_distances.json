@@ -1,0 +1,38 @@
+{
+  "format" : 1,
+  "data":
+  [
+    {
+      "register": "ACTION_EVENTID0",
+      "value": 10
+    },
+    {
+      "register": "ACTION_WAVEFORMID0",
+      "value": 2
+    },
+    {
+      "register": "ACTION_ACTUATORID0",
+      "value": 3
+    },
+    {
+      "register": "ACTION_EVENTID1",
+      "value": 10
+    },
+    {
+      "register": "ACTION_WAVEFORMID1",
+      "value": 2
+    },
+    {
+      "register": "ACTION_ACTUATORID1",
+      "value": 3
+    },
+    {
+      "register": "WF_PULSES0",
+      "value": 5
+    },
+    {
+      "register": "WF_DELAY0_0",
+      "value": 2
+    }
+  ]
+}

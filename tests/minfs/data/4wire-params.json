@@ -1,0 +1,99 @@
+{
+    "Persist_Name": ["cml_params"],
+    
+    "Reg": {
+        "TEMPEST_OFFSET": {
+            "reset": 11
+        },
+        "TEMPEST_GRAD": {
+            "reset": 12
+        },
+        "PWM_FREQUENCY": {
+            "reset": 2880093114
+        },
+        "BTM_BASE": {
+            "reset": 81
+        }, 
+        "BTM_BIASMAX": {
+            "reset": 200
+        }, 
+        "BTM_GRAD": {
+            "reset": -40
+        }, 
+        "BTM_TEMPINIT": {
+            "reset": 500
+        }, 
+        "BTM_TEMPWD": {
+            "reset": 500
+        }, 
+        "BTM_WIN": {
+            "reset": 98
+        }, 
+        "BTM_W_TEMP_MAX": {
+            "reset": 1500
+        }, 
+        "SCM_MATRIX_VALUES0": {
+            "reset": 4096
+        },
+        "SCM_MATRIX_VALUES1": {
+            "reset": 0
+        },
+        "SCM_MATRIX_VALUES2": {
+            "reset": 0
+        },
+        "SCM_MATRIX_VALUES3": {
+            "reset": 4096
+        },
+        "SCM_INVERSE_MATRIX_VALUES0": {
+            "reset": 4096
+        },
+        "SCM_INVERSE_MATRIX_VALUES1": {
+            "reset": 0
+        },
+        "SCM_INVERSE_MATRIX_VALUES2": {
+            "reset": 0
+        },
+        "SCM_INVERSE_MATRIX_VALUES3": {
+            "reset": 4096
+        },
+        "TV_ERRLIM":{
+            "reset": 2222
+        },
+        "STM_BASE":{
+            "reset": 260
+        },
+        "STM_GRADLOW":{
+            "reset": 261
+        },
+        "STM_GRADHIGH":{
+            "reset": 1111
+        },
+        "STM_TEMPREF":{
+            "reset": 222
+        },
+        "FFP_FEATURES":{
+            "reset": 1
+        },
+        "FFP_KPROP0":{
+            "reset": 100
+        },
+        "FFP_KPROP1":{
+            "reset": 250
+        },
+        "FFD_FEATURES":{
+            "reset": 1
+        },
+        "FFD_KDYN0":{
+            "reset": 444
+        },
+        "FFD_KDYN1":{
+            "reset": 231
+        },
+        "FFD_TC0":{
+            "reset": 305
+        },
+        "FFD_TC1":{
+            "reset": 212
+        }
+    }
+}

@@ -12,6 +12,7 @@ struct far {
 // @regmap brief: "A long long way to run"
 // @regmap address: 16384
 // @regmap access: "private"
+// @regmap hif_access: true
 volatile struct far far;
 
 int main(void)

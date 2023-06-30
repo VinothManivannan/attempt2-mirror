@@ -381,6 +381,7 @@ class TahiniCmap():
             child.brief = input_regmap.brief
             child.namespace = input_regmap.namespace
             child.access = CmapVisibilityOptions.from_input_enum(input_regmap.access)
+            child.hif_access = input_regmap.hif_access
 
             # Register or struct is an array?
             context.add_index(TahiniCmap._cmap_repeat_for_from_input_regmap(input_regmap, input_enum_by_name))

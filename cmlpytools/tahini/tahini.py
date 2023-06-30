@@ -8,7 +8,6 @@ from .tahini_cmap import TahiniCmap
 from .tahini_crc import TahiniCrc
 from .tahini_gimli import TahiniGimli
 from .tahini_version import TahiniVersion
-from .tahini_generate_legacy_regmap import GenerateLegacyRegmap
 from .legacy_json_converter import legacy_json_to_input_regmap
 from .tahini_generate_flat_txt import GenerateFlatTxt
 from .tahini_generate_appnote_csv import GenerateAppnoteCSV
@@ -171,30 +170,6 @@ class Tahini():
             sys.stdout = sys.stdout.buffer
 
         TahiniCrc.main(args.input_file, args.verbose)
-
-        if args.output is not None:
-            sys.stdout.close()
-        sys.stdout = stdout
-        # pylint: enable=consider-using-with
-
-    def regmap(self):
-        """Generate a legacy regmap file from a cmapsource
-        """
-        parser = argparse.ArgumentParser(
-            description="Generate legacy regmap ",
-            usage="tahini regmap <cmap_json_path> [--output=<file-path>]")
-        parser.add_argument('command', help=argparse.SUPPRESS)
-        parser.add_argument("cmap_json_path", help="Input Json path")
-        parser.add_argument("--output", required=False,
-                            help="Write the result into the file specified instead of the standard output.")
-        args = parser.parse_args()
-
-        # pylint: disable=consider-using-with
-        stdout = sys.stdout
-        if args.output is not None:
-            sys.stdout = open(args.output, "w", encoding="UTF-8")
-
-        sys.stdout.write(GenerateLegacyRegmap.create_legacy_regmap(args.cmap_json_path))
 
         if args.output is not None:
             sys.stdout.close()

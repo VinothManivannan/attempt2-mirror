@@ -26,7 +26,7 @@ setup(
     author_email="electronicsgroup@cambridgemechatronics.com",
     url="http://gitlab.cm.local/devops/cmlpytools",
     description="CML Python tools used in our Firmware build system",
-    install_requires=["marshmallow_dataclass", "marshmallow_enum", "crcmod", "future", "pythonnet"],
+    install_requires=["marshmallow_dataclass", "marshmallow_enum", "crcmod", "future"],
     entry_points={
         'console_scripts': [
             'tahini=cmlpytools.tahini.tahini:main',

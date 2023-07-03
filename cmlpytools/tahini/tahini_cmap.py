@@ -351,7 +351,7 @@ class TahiniCmap():
                 return None
 
             child = CmapRegisterOrStruct(name="temp", type=CmapType.STRUCT, addr=0, size=0, brief=None,
-                                         offset=0, access=CmapVisibilityOptions.PRIVATE, repeat_for=None,
+                                         offset=0, access=None, hif_access=None, repeat_for=None,
                                          namespace=None, struct=CmapStruct(children=[]), register=None)
 
             if input_regmap.byte_offset is not None:
@@ -376,12 +376,30 @@ class TahiniCmap():
                         f"'{input_regmap.cref}' which is '{input_regmap_by_name[input_regmap.cref].byte_size}' bytes")
                 input_regmap = input_regmap_by_name[input_regmap.cref]
 
+            if input_regmap.access is not None:
+                # Specified value
+                child.access = CmapVisibilityOptions.from_input_enum(input_regmap.access)
+            elif parent is not None:
+                # Inherited value
+                child.access = parent.access
+            else:
+                # Default value
+                child.access = CmapVisibilityOptions.PRIVATE
+
+            if input_regmap.hif_access is not None:
+                # Specified value
+                child.hif_access = input_regmap.hif_access
+            elif parent is not None:
+                # Inherited value
+                child.hif_access = parent.hif_access
+            else:
+                # Default value
+                child.hif_access = False
+
             child.name = input_regmap.get_cmap_name()
             child.size = input_regmap.byte_size
             child.brief = input_regmap.brief
             child.namespace = input_regmap.namespace
-            child.access = CmapVisibilityOptions.from_input_enum(input_regmap.access)
-            child.hif_access = input_regmap.hif_access
 
             # Register or struct is an array?
             context.add_index(TahiniCmap._cmap_repeat_for_from_input_regmap(input_regmap, input_enum_by_name))

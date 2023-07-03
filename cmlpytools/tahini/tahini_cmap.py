@@ -396,10 +396,16 @@ class TahiniCmap():
                 # Default value
                 child.hif_access = False
 
+            if input_regmap.namespace is not None:
+                # Specified value
+                child.namespace = input_regmap.namespace
+            elif parent is not None:
+                # Inherited value
+                child.namespace = parent.namespace
+
             child.name = input_regmap.get_cmap_name()
             child.size = input_regmap.byte_size
             child.brief = input_regmap.brief
-            child.namespace = input_regmap.namespace
 
             # Register or struct is an array?
             context.add_index(TahiniCmap._cmap_repeat_for_from_input_regmap(input_regmap, input_enum_by_name))

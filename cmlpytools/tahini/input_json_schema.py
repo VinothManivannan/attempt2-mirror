@@ -93,7 +93,8 @@ class InputRegmap:
     array_count: Optional[int] = None
     mask_enum: Optional[str] = None
     cref: Optional[str] = None
-    access: VisibilityOptions = field(default=VisibilityOptions.PRIVATE, metadata={"by_value": True})
+    access: VisibilityOptions = field(default=None, metadata={"by_value": True})
+    hif_access: Optional[bool] = None
 
     def get_cmap_name(self) -> str:
         """Get name to be used in the cmapsource file: Use in priority the property `cmap_name` if defined,

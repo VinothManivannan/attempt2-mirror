@@ -75,6 +75,7 @@
               "type": "struct",
               "addr": 39688,
               "size": 8,
+              "access": "private",
               "repeat_for": [
                 {
                   "count": 2,
@@ -93,6 +94,7 @@
                       "ctype": "uint16"
                     },
                     "offset": 8,
+                    "access": "private",
                     "repeat_for": [
                       {
                         "count": 2,

@@ -44,6 +44,118 @@ class TestToCMapSourceMethod(unittest.TestCase):
             _ = TahiniCmap.cmap_regmap_from_input_json_path(INVALID_CMAP_PATH)
             warnings.filterwarnings(action="default", category=DeprecationWarning)
 
+    def test_struct_children_inherit_access_params(self):
+        """Check that the children of the FullRegmap correctly inherit access parameters.
+        """
+        input_regmap = InputJson(
+            regmap=[
+                InputRegmap(
+                    address=2,
+                    type=InputType.STRUCT[0],
+                    name="buz",
+                    byte_size=8,
+                    access=VisibilityOptions.PUBLIC,
+                    hif_access=True,
+                    members=[
+                        InputRegmap(
+                            type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                            name="zoo",
+                            byte_size=2,
+                            byte_offset=0
+                        ),
+                        InputRegmap(
+                            access=VisibilityOptions.PRIVATE,
+                            hif_access=True,
+                            type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                            name="kah",
+                            byte_size=2,
+                            byte_offset=2
+                        ),
+                        InputRegmap(
+                            access=VisibilityOptions.PUBLIC,
+                            type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                            name="ooz",
+                            byte_size=2,
+                            byte_offset=4
+                        ),
+                        InputRegmap(
+                            hif_access=False,
+                            type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                            name="hak",
+                            byte_size=2,
+                            byte_offset=6
+                        )
+                    ]
+                )
+            ],
+            enums=[]
+        )
+
+        cmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+        self.assertEqual("buz", cmap.children[0].name)
+
+        self.assertEqual("zoo", cmap.children[0].struct.children[0].name)
+        self.assertEqual(VisibilityOptions.PUBLIC, cmap.children[0].struct.children[0].access)
+        self.assertEqual(True, cmap.children[0].struct.children[0].hif_access)
+
+        self.assertEqual("kah", cmap.children[0].struct.children[1].name)
+        self.assertEqual(VisibilityOptions.PRIVATE, cmap.children[0].struct.children[1].access)
+        self.assertEqual(True, cmap.children[0].struct.children[1].hif_access)
+
+        self.assertEqual("ooz", cmap.children[0].struct.children[2].name)
+        self.assertEqual(VisibilityOptions.PUBLIC, cmap.children[0].struct.children[2].access)
+        self.assertEqual(True, cmap.children[0].struct.children[2].hif_access)
+
+        self.assertEqual("hak", cmap.children[0].struct.children[3].name)
+        self.assertEqual(VisibilityOptions.PUBLIC, cmap.children[0].struct.children[3].access)
+        self.assertEqual(False, cmap.children[0].struct.children[3].hif_access)
+        self.assertEqual(None, cmap.children[0].struct.children[3].namespace)
+
+    def test_struct_children_inherit_namespace(self):
+        """Check that the children of the FullRegmap correctly inherit parent namespace.
+        """
+        input_regmap = InputJson(
+            regmap=[
+                InputRegmap(
+                    namespace="spaceman",
+                    address=2,
+                    type=InputType.STRUCT[0],
+                    name="buz",
+                    byte_size=8,
+                    members=[
+                        InputRegmap(
+                            type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                            name="foo",
+                            byte_size=2,
+                            byte_offset=0
+                        ),
+                        InputRegmap(
+                            namespace="rocketman",
+                            type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                            name="bar",
+                            byte_size=2,
+                            byte_offset=2
+                        )
+                    ]
+                )
+            ],
+            enums=[]
+        )
+
+        cmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+        self.assertEqual("buz", cmap.children[0].name)
+        self.assertEqual("spaceman", cmap.children[0].namespace)
+
+        self.assertEqual("foo", cmap.children[0].struct.children[0].name)
+        self.assertEqual(VisibilityOptions.PRIVATE, cmap.children[0].struct.children[0].access)
+        self.assertEqual("spaceman", cmap.children[0].struct.children[0].namespace)
+
+        self.assertEqual("bar", cmap.children[0].struct.children[1].name)
+        self.assertEqual(VisibilityOptions.PRIVATE, cmap.children[0].struct.children[1].access)
+        self.assertEqual("rocketman", cmap.children[0].struct.children[1].namespace)
+
     def test_regmap_children_are_sorted_by_address(self):
         """Check that the children of the FullRegmap are correctly sorted by address.
         """

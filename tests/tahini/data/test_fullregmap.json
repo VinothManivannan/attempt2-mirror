@@ -137,6 +137,7 @@
                             "register": {
                                 "ctype": "uint16"
                             },
+                            "namespace": "far1",
                             "offset": 0,
                             "access": "private"
                         },
@@ -149,6 +150,7 @@
                             "register": {
                                 "ctype": "int32"
                             },
+                            "namespace": "far1",
                             "offset": 4,
                             "access": "private"
                         }

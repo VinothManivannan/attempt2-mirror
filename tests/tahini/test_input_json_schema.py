@@ -55,6 +55,7 @@ class TestInputJson(unittest.TestCase):
         self.assertEqual('unsigned short', data1_children.type, "Required type is not matched")
         self.assertEqual(2048, data1_children.address, "Required address is not matched")
         self.assertEqual('private', data1_children.access.value, "Required visibility is not matched")
+        self.assertEqual(True, data1_children.hif_access, "Required indirect access is not matched")
 
     def test_valid_array_base_type(self):
         """Test if the repeat for properties of regmap are defined and converted correctly

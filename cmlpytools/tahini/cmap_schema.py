@@ -377,7 +377,8 @@ class RegisterOrStruct:
     namespace: Optional[str] = None
     repeat_for: Optional[List[ArrayIndex]] = None
     offset: int = 0
-    access: VisibilityOptions = field(default=VisibilityOptions.PRIVATE, metadata={"by_value": True})
+    access: VisibilityOptions = field(default=None, metadata={"by_value": True})
+    hif_access: Optional[bool] = None
 
     def __post_init__(self):
         """Fields to check validity of struct field

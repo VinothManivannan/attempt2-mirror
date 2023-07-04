@@ -9,6 +9,7 @@
       "address": 2048,
       "value_enum": "RAY",
       "byte_size": 2,
+      "access": "private",
       "hif_access": true
     }
   ],

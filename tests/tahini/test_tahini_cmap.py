@@ -146,15 +146,14 @@ class TestToCMapSourceMethod(unittest.TestCase):
         cmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
 
         self.assertEqual("buz", cmap.children[0].name)
+        self.assertEqual("spaceman", cmap.children[0].namespace)
 
         self.assertEqual("foo", cmap.children[0].struct.children[0].name)
         self.assertEqual(VisibilityOptions.PRIVATE, cmap.children[0].struct.children[0].access)
-        self.assertEqual(False, cmap.children[0].struct.children[0].hif_access)
         self.assertEqual("spaceman", cmap.children[0].struct.children[0].namespace)
 
         self.assertEqual("bar", cmap.children[0].struct.children[1].name)
         self.assertEqual(VisibilityOptions.PRIVATE, cmap.children[0].struct.children[1].access)
-        self.assertEqual(False, cmap.children[0].struct.children[1].hif_access)
         self.assertEqual("rocketman", cmap.children[0].struct.children[1].namespace)
 
     def test_regmap_children_are_sorted_by_address(self):

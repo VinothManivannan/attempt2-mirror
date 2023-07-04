@@ -392,9 +392,6 @@ class TahiniCmap():
             elif parent is not None:
                 # Inherited value
                 child.hif_access = parent.hif_access
-            else:
-                # Default value
-                child.hif_access = False
 
             if input_regmap.namespace is not None:
                 # Specified value

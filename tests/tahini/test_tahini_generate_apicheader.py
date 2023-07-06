@@ -5,7 +5,6 @@ import unittest
 from io import StringIO
 import datetime
 from cmlpytools.tahini.tahini_generate_api_cheader import GenerateApiCheader
-from cmlpytools.tahini.cmap_schema import ArrayIndex as CmapArrayIndex
 from cmlpytools.tahini.cmap_schema import CType as CmapCtype
 from cmlpytools.tahini.cmap_schema import Register as CmapRegister
 from cmlpytools.tahini.cmap_schema import RegisterOrStruct as CmapRegisterOrStruct

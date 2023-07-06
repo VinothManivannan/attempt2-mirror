@@ -3,11 +3,9 @@
 from io import TextIOWrapper
 import datetime
 import os
-from typing import List
 from .cmap_schema import FullRegmap as CmapFullRegmap
 from .cmap_schema import Regmap as CmapRegmap
 from .cmap_schema import Type as CmapType
-from .cmap_schema import State as CmapState
 from .cmap_schema import RegisterOrStruct as CmapRegisterOrStruct
 from .cmap_schema import VisibilityOptions as CmapVisibilityOptions
 

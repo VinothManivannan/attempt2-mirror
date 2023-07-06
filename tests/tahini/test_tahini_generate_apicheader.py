@@ -79,7 +79,7 @@ extern "C" {
 
         self.assertEqual(len(expected_lines), len(lines), "The number of lines is not the same.")
 
-    def test_simple_register(self):
+    def test_register_simple(self):
         """Test that we can output a single register
         """
         cmapsource = CmapRegmap(
@@ -99,6 +99,88 @@ extern "C" {
 
         expected_body = """\
 #define ALPHA                               0x100
+"""
+        self.run_test(cmapsource, expected_body)
+
+    def test_register_with_hif_access(self):
+        """Test that registers with hif access have the correct address
+        """
+        cmapsource = CmapRegmap(
+            children=[
+                CmapRegisterOrStruct(
+                    name="alpha",
+                    type=CmapType.REGISTER,
+                    addr=0x24fc,
+                    size=2,
+                    register=CmapRegister(
+                        ctype=CmapCtype.UINT16
+                    ),
+                    access=CmapVisibilityOptions.PUBLIC,
+                    hif_access=True
+                ),
+                CmapRegisterOrStruct(
+                    name="beta",
+                    type=CmapType.REGISTER,
+                    addr=0x6b14,
+                    size=2,
+                    register=CmapRegister(
+                        ctype=CmapCtype.UINT16
+                    ),
+                    access=CmapVisibilityOptions.PUBLIC,
+                    hif_access=True
+                )
+            ]
+        )
+
+        expected_body = """\
+#define ALPHA                             0x404fc
+#define BETA                           0x40006b14
+"""
+        self.run_test(cmapsource, expected_body)
+
+    def test_register_with_customer_alias(self):
+        """Test that we can output a single register
+        """
+        cmapsource = CmapRegmap(
+            children=[
+                CmapRegisterOrStruct(
+                    name="alpha",
+                    type=CmapType.REGISTER,
+                    addr=256,
+                    size=2,
+                    register=CmapRegister(
+                        ctype=CmapCtype.UINT16,
+                        customer_alias="beta"
+                    ),
+                    access=CmapVisibilityOptions.PUBLIC
+                )
+            ]
+        )
+
+        expected_body = """\
+#define BETA                                0x100
+"""
+        self.run_test(cmapsource, expected_body)
+
+    def test_private_register_is_not_output(self):
+        """Test that private registers are not included in the output
+        """
+        cmapsource = CmapRegmap(
+            children=[
+                CmapRegisterOrStruct(
+                    name="alpha",
+                    type=CmapType.REGISTER,
+                    addr=256,
+                    size=2,
+                    register=CmapRegister(
+                        ctype=CmapCtype.UINT16
+                    ),
+                    access=CmapVisibilityOptions.PRIVATE
+                )
+            ]
+        )
+
+        expected_body = """\
 """
         self.run_test(cmapsource, expected_body)
 

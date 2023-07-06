@@ -12,7 +12,7 @@ After a release has been deployed it can be installed using the following comman
 pip install --find-links="%PYPIPATH%" --no-index cmlpytools
 ```
 
-Where `PYPIPATH` should be a system variable set to `\\ws-fs1\company\Technical\Utilities\Continuous_Integration\python_packages`
+Where `PYPIPATH` should be a system variable set to `\\cm.local\data\company\Technical\Utilities\Continuous_Integration\python_packages`
 
 ### Using pip.ini
 Alternatively, users can also add the look-up path permanently to their `pip.ini` file in `C:/Users/%USER%/pip`.

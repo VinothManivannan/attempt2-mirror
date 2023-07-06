@@ -1,5 +1,5 @@
 variables:
-    PY_RELEASE_FOLDER: \\ws-fs1\Company\Technical\Utilities\Continuous_Integration\python_packages
+    PY_RELEASE_FOLDER: \\cm.local\data\Company\Technical\Utilities\Continuous_Integration\python_packages
     GIT_SUBMODULE_STRATEGY: recursive
 
 # Template for docker windows jobs

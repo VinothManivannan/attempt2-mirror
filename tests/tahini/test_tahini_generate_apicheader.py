@@ -14,6 +14,7 @@ from cmlpytools.tahini.cmap_schema import Struct as CmapStruct
 from cmlpytools.tahini.cmap_schema import Type as CmapType
 from cmlpytools.tahini.cmap_schema import VisibilityOptions as CmapVisibilityOptions
 from cmlpytools.tahini.cmap_schema import Bitfield as CmapBitfield
+from cmlpytools.tahini.cmap_schema import State as CmapState
 
 
 class TestGenerateApiCHeader(unittest.TestCase):
@@ -47,6 +48,19 @@ extern "C" {
 #endif /* API_HEADER_H */
 """
 
+    def run_test(self, cmapsource: CmapRegmap, expected_body: str) -> None:
+        """Run test to compare a cmapsource with expected body
+
+        Args:
+            cmapsource (CmapRegmap): Cmapsource object to be tested
+            expected_body (str): Body of expected result
+        """
+        output = StringIO()
+        GenerateApiCheader.from_cmapsource(cmapsource, output, "api_header.h")
+
+        output.seek(0)
+        self.compare_outputs(expected_body, output)
+
     def compare_outputs(self, expected_body: str, output: StringIO) -> None:
         """Compare 2 files and provide detailed information about the differences
 
@@ -66,7 +80,7 @@ extern "C" {
         self.assertEqual(len(expected_lines), len(lines), "The number of lines is not the same.")
 
     def test_simple_register(self):
-        """Test if the txt file is generated as expected
+        """Test that we can output a single register
         """
         cmapsource = CmapRegmap(
             children=[
@@ -86,15 +100,10 @@ extern "C" {
         expected_body = """\
 #define ALPHA                               0x100
 """
-
-        output = StringIO()
-        GenerateApiCheader.from_cmapsource(cmapsource, output, "api_header.h")
-
-        output.seek(0)
-        self.compare_outputs(expected_body, output)
+        self.run_test(cmapsource, expected_body)
 
     def test_register_nested_in_private_struct(self):
-        """Test if the txt file is generated as expected
+        """Test we can output a public register nested in a private struct
         """
         cmapsource = CmapRegmap(
             children=[
@@ -126,8 +135,79 @@ extern "C" {
 #define BETA                                0x200
 """
 
-        output = StringIO()
-        GenerateApiCheader.from_cmapsource(cmapsource, output, "api_header.h")
+        self.run_test(cmapsource, expected_body)
 
-        output.seek(0)
-        self.compare_outputs(expected_body, output)
+    def test_state_in_register(self):
+        """Test we can output a state nested in a register
+        """
+        cmapsource = CmapRegmap(
+            children=[
+                CmapRegisterOrStruct(
+                    name="alpha_register",
+                    type=CmapType.REGISTER,
+                    addr=256,
+                    size=2,
+                    register=CmapRegister(
+                        ctype=CmapCtype.UINT16,
+                        states=[
+                            CmapState(
+                                name="beta_state",
+                                value=0x123
+                            )
+                        ]
+                    ),
+                    access=CmapVisibilityOptions.PUBLIC
+                )
+            ]
+        )
+
+        expected_body = """\
+#define ALPHA_REGISTER                      0x100
+    #define BETA_STATE                          0x123 /* State */
+"""
+
+        self.run_test(cmapsource, expected_body)
+
+    def test_state_in_bitfield_in_register(self):
+        """Test we can output a state nested in a bitfield nested in a register
+        """
+        cmapsource = CmapRegmap(
+            children=[
+                CmapRegisterOrStruct(
+                    name="alpha_register",
+                    type=CmapType.REGISTER,
+                    addr=256,
+                    size=2,
+                    register=CmapRegister(
+                        ctype=CmapCtype.UINT16,
+                        bitfields=[
+                            CmapBitfield(
+                                name="beta_bitfield",
+                                num_bits=4,
+                                position=4,
+                                states=[
+                                    CmapState(
+                                        name="gamma_state",
+                                        value=1
+                                    ),
+                                    CmapState(
+                                        name="delta_state",
+                                        value=2
+                                    )
+                                ]
+                            )
+                        ]
+                    ),
+                    access=CmapVisibilityOptions.PUBLIC
+                )
+            ]
+        )
+
+        expected_body = """\
+#define ALPHA_REGISTER                      0x100
+    #define BETA_BITFIELD                        0xf0 /* Bitfield */
+        #define GAMMA_STATE                          0x10 /* Bitfield state */
+        #define DELTA_STATE                          0x20 /* Bitfield state */
+"""
+
+        self.run_test(cmapsource, expected_body)

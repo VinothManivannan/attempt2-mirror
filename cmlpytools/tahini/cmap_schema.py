@@ -156,6 +156,7 @@ class Bitfield:
     num_bits: int
     brief: Optional[str] = None
     states: Optional[list[State]] = None
+    customer_alias: Optional[str] = None
 
     def __post_init__(self):
         """Fields to check validity of bitfields field
@@ -175,6 +176,16 @@ class Bitfield:
                 if bit_length > self.num_bits:
                     raise InvalidBitfieldsError("Values in states exceed num_bits in bitfield {self.name}")
 
+    def get_mask(self) -> int:
+        """Get the mask value associated with the bitfield
+        """
+        mask = 0
+        for i in range(self.num_bits):
+            mask += 1 << i
+        mask <<= self.position
+
+        return mask
+
 
 @dataclass
 class Register:
@@ -187,6 +198,7 @@ class Register:
     units: Optional[str] = None
     bitfields: Optional[list[Bitfield]] = None
     states: Optional[list[State]] = None
+    customer_alias: Optional[str] = None
 
     def _post_init_register_check(self):
         """Register properies check
@@ -453,6 +465,14 @@ class RegisterOrStruct:
         assert self.repeat_for is not None, "This element is not part of an array"
 
         return self._get_instances([RegisterOrStruct.ArrayInstance(self.addr, [], [])], depth=0)
+
+    def get_customer_name(self) -> str:
+        """ Get name to be used with customers. Only relevant for registers.
+        """
+        if self.register.customer_alias is not None:
+            return self.register.customer_alias
+
+        return self.name
 
 
 @dataclass

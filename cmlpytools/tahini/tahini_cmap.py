@@ -17,7 +17,7 @@ from .cmap_schema import Type as CmapType
 from .cmap_schema import VisibilityOptions as CmapVisibilityOptions
 from .cmap_schema import Scheme as CmapScheme
 from .input_json_schema import (InputEnum, InputJson, InputJsonParserError,
-                                      InputRegmap, InputType, VisibilityOptions)
+                                InputRegmap, InputType, VisibilityOptions)
 from .tahini_version import TahiniVersion
 from .version_schema import ExtendedVersionInfo
 
@@ -418,7 +418,8 @@ class TahiniCmap():
                     max=input_regmap.max,
                     units=input_regmap.units,
                     bitfields=TahiniCmap._cmap_bitfields_from_input_regmap(input_regmap, input_enum_by_name),
-                    states=TahiniCmap._cmap_states_from_input_regmap(input_regmap, input_enum_by_name))
+                    states=TahiniCmap._cmap_states_from_input_regmap(input_regmap, input_enum_by_name),
+                    customer_alias=input_regmap.customer_alias)
                 child.struct = None
             elif input_regmap.type in InputType.STRUCT:
                 for next_data in input_regmap.members:

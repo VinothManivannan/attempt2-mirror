@@ -72,20 +72,20 @@ class GenerateApiCheader():
         # Output register states
         if register.register.states:
             for state in register.register.states:
-                output.write(f"    #define {state.name.upper():<30} {state.value:>#10x} /* State */\n")
+                output.write(f"    #define {state.get_customer_name().upper():<30} {state.value:>#10x} /* State */\n")
 
         # Output register bitfields
         if register.register.bitfields:
             for bitfield in register.register.bitfields:
                 output.write(
-                    f"    #define {bitfield.name.upper():<30} {bitfield.get_mask():>#10x} /* Bitfield */\n")
+                    f"    #define {bitfield.get_customer_name().upper():<30} {bitfield.get_mask():>#10x} /* Bitfield */\n")
 
                 # Output states associated to this bitfield
                 if bitfield.states:
                     for state in bitfield.states:
                         state_mask = state.value << bitfield.position
                         output.write(
-                            f"        #define {state.name.upper():<30} {state_mask:>#10x} /* Bitfield state */\n")
+                            f"        #define {state.get_customer_name().upper():<30} {state_mask:>#10x} /* Bitfield state */\n")
 
     @staticmethod
     def from_cmapsource_path(cmapsource_path: str, output_txt_path: str) -> None:

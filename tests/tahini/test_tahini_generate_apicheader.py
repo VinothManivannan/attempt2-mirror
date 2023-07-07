@@ -292,3 +292,76 @@ extern "C" {
 """
 
         self.run_test(cmapsource, expected_body)
+
+    def test_state_with_customer_alias(self):
+        """Test customer aliases are used as expected when outputing states
+        """
+        cmapsource = CmapRegmap(
+            children=[
+                CmapRegisterOrStruct(
+                    name="alpha_register",
+                    type=CmapType.REGISTER,
+                    addr=256,
+                    size=2,
+                    register=CmapRegister(
+                        ctype=CmapCtype.UINT16,
+                        states=[
+                            CmapState(
+                                name="beta_state",
+                                value=0x123,
+                                customer_alias="alias_beta_state"
+                            )
+                        ]
+                    ),
+                    access=CmapVisibilityOptions.PUBLIC
+                )
+            ]
+        )
+
+        expected_body = """\
+#define ALPHA_REGISTER                      0x100
+    #define ALIAS_BETA_STATE                    0x123 /* State */
+"""
+
+        self.run_test(cmapsource, expected_body)
+
+    def test_bitfield_with_customer_alias(self):
+        """Test customer aliases are used as expected when outputing bitfields
+        """
+        cmapsource = CmapRegmap(
+            children=[
+                CmapRegisterOrStruct(
+                    name="alpha_register",
+                    type=CmapType.REGISTER,
+                    addr=256,
+                    size=2,
+                    register=CmapRegister(
+                        ctype=CmapCtype.UINT16,
+                        bitfields=[
+                            CmapBitfield(
+                                name="beta_bitfield",
+                                customer_alias="beta_bitfield_alias",
+                                num_bits=4,
+                                position=4,
+                                states=[
+                                    CmapState(
+                                        name="gamma_state",
+                                        value=1,
+                                        customer_alias="gamma_state_alias"
+                                    )
+                                ]
+                            )
+                        ]
+                    ),
+                    access=CmapVisibilityOptions.PUBLIC
+                )
+            ]
+        )
+
+        expected_body = """\
+#define ALPHA_REGISTER                      0x100
+    #define BETA_BITFIELD_ALIAS                  0xf0 /* Bitfield */
+        #define GAMMA_STATE_ALIAS                    0x10 /* Bitfield state */
+"""
+
+        self.run_test(cmapsource, expected_body)

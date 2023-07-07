@@ -148,6 +148,14 @@ class State:
         if re.compile(r"^[a-z_]([a-z0-9_]+)?$").match(self.name) is None:
             raise InvalidStatesError(f"Invalid name: {self.name}")
 
+    def get_customer_name(self):
+        """Get name to be used for customer-facing documentation and files
+
+        Returns:
+            str: Name to be used with customers
+        """
+        return self.customer_alias if self.customer_alias else self.name
+
 
 @dataclass
 class Bitfield:
@@ -188,6 +196,14 @@ class Bitfield:
         mask <<= self.position
 
         return mask
+
+    def get_customer_name(self) -> str:
+        """Get name to be used for customer-facing documentation and files
+
+        Returns:
+            str: Name to be used with customers
+        """
+        return self.customer_alias if self.customer_alias else self.name
 
 
 @dataclass
@@ -469,7 +485,10 @@ class RegisterOrStruct:
         return self._get_instances([RegisterOrStruct.ArrayInstance(self.addr, [], [])], depth=0)
 
     def get_customer_name(self) -> str:
-        """ Get name to be used with customers. Only relevant for registers.
+        """Get name to be used for customer-facing documentation and files
+
+        Returns:
+            str: Name to be used with customers
         """
         return self.customer_alias if self.customer_alias is not None else self.name
 

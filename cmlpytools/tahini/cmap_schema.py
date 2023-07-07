@@ -139,6 +139,8 @@ class State:
     name: str
     value: int
     brief: Optional[str] = None
+    customer_alias: Optional[str] = None
+    access: VisibilityOptions = field(default=None, metadata={"by_value": True})
 
     def __post_init__(self):
         """Fields to check validity of states field
@@ -157,6 +159,7 @@ class Bitfield:
     brief: Optional[str] = None
     states: Optional[list[State]] = None
     customer_alias: Optional[str] = None
+    access: VisibilityOptions = field(default=None, metadata={"by_value": True})
 
     def __post_init__(self):
         """Fields to check validity of bitfields field
@@ -198,7 +201,6 @@ class Register:
     units: Optional[str] = None
     bitfields: Optional[list[Bitfield]] = None
     states: Optional[list[State]] = None
-    customer_alias: Optional[str] = None
 
     def _post_init_register_check(self):
         """Register properies check
@@ -378,7 +380,6 @@ class Struct:
 class RegisterOrStruct:
     """Represents the properties in a struct or register
     """
-
     name: str
     type: Type = field(metadata={"by_value": True})
     addr: int
@@ -391,6 +392,7 @@ class RegisterOrStruct:
     offset: int = 0
     access: VisibilityOptions = field(default=None, metadata={"by_value": True})
     hif_access: Optional[bool] = None
+    customer_alias: Optional[str] = None
 
     def __post_init__(self):
         """Fields to check validity of struct field
@@ -469,10 +471,7 @@ class RegisterOrStruct:
     def get_customer_name(self) -> str:
         """ Get name to be used with customers. Only relevant for registers.
         """
-        if self.register.customer_alias is not None:
-            return self.register.customer_alias
-
-        return self.name
+        return self.customer_alias if self.customer_alias is not None else self.name
 
 
 @dataclass

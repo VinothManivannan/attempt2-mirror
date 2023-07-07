@@ -156,6 +156,8 @@ class InputEnum:
         name: str
         value: int
         brief: Optional[str] = None
+        customer_alias: Optional[str] = None
+        access: VisibilityOptions = field(default=None, metadata={"by_value": True})
 
     name: str
     enumerators: list[InputEnumChild]

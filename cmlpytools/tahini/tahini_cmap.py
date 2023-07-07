@@ -125,7 +125,9 @@ class TahiniCmap():
             input_enum_children.append(InputEnum.InputEnumChild(
                 name=child_name,
                 brief=input_enum_child.brief,
-                value=input_enum_child.value
+                value=input_enum_child.value,
+                access=input_enum_child.access,
+                customer_alias=input_enum_child.customer_alias.lower() if input_enum_child.customer_alias else None
             ))
 
         return InputEnum(
@@ -162,13 +164,15 @@ class TahiniCmap():
 
     @staticmethod
     def _cmap_bitfields_from_input_regmap(register: InputRegmap,
-                                          input_enum_by_name: Dict[str, InputEnum]
+                                          input_enum_by_name: Dict[str, InputEnum],
+                                          parent: CmapRegisterOrStruct
                                           ) -> Optional[List[CmapBitfield]]:
         """Construct Cmap 'Bitfield' array from an input register.
 
         Args:
             register (InputRegmap): A register definition from an input json file
             input_enum_by_name (Dict[str, InputEnum]): List of enum definitions found in the input json
+            parent (CmapRegisterOrStruct): Instance of register the state belongs to
 
         Returns:
             Optional[List[CmapBitfield]]: List of bitfields associated with the register, or None if there aren't any.
@@ -190,7 +194,7 @@ class TahiniCmap():
         while enum_child is not None:
             field_match = field_pattern.match(enum_child.name)
 
-            if field_match is None:
+            if field_match is None or enum_child.access == VisibilityOptions.NONE:
                 enum_child = next(enum_children, None)
                 continue
 
@@ -199,6 +203,8 @@ class TahiniCmap():
             field_brief = enum_child.brief
             state_pattern = re.compile(f"^{field_name}_(?P<state_name>[a-z_0-9]*)(?<!(MASK))$", re.IGNORECASE)
             field_pos, field_length = _mask_to_bits(field_mask)
+            field_access = enum_child.access if enum_child.access is not None else parent.access
+            field_customer_name = enum_child.customer_alias
 
             # Loop used to find all the states associated with the bitfield. The states **MUST** be
             # following the initial mask declaration.
@@ -210,6 +216,9 @@ class TahiniCmap():
                     # Go back to the bitfield loop and see if this matches the bitfield pattern instead
                     break
 
+                if enum_child.access == VisibilityOptions.NONE:
+                    continue
+
                 state_name = state_match["state_name"]
 
                 # Verify that the state value found fits the associated mask
@@ -218,7 +227,15 @@ class TahiniCmap():
                                           f"found for field '{field_name}' with mask {field_mask}.")
 
                 state_value = enum_child.value >> field_pos
-                field_states.append(CmapState(name=state_name.lower(), value=state_value, brief=enum_child.brief))
+
+                state_access = enum_child.access if enum_child.access is not None else field_access
+
+                field_states.append(CmapState(
+                    name=state_name.lower(),
+                    value=state_value,
+                    brief=enum_child.brief,
+                    access=state_access,
+                    customer_alias=enum_child.customer_alias))
 
             # Order states by value
             field_states.sort(key=lambda state: state.value)
@@ -227,7 +244,9 @@ class TahiniCmap():
                                           position=field_pos,
                                           num_bits=field_length,
                                           brief=field_brief,
-                                          states=field_states if len(field_states) > 0 else None))
+                                          states=field_states if len(field_states) > 0 else None,
+                                          access=field_access,
+                                          customer_alias=field_customer_name))
 
         # Order bitfields by bit position
         bitfields.sort(key=lambda bitfield: bitfield.position)
@@ -235,33 +254,44 @@ class TahiniCmap():
         return bitfields if len(bitfields) > 0 else None
 
     @ staticmethod
-    def _cmap_state_from_input_enumerator(input_enumerator: InputEnum.InputEnumChild) -> CmapState:
+    def _cmap_state_from_input_enumerator(input_enumerator: InputEnum.InputEnumChild,
+                                          parent: CmapRegisterOrStruct) -> Optional[CmapState]:
         """Construct Cmap 'State' from an enum constant
 
         Args:
             input_enumerator (InputEnum.InputEnumChild): Enum constant
+            parent (CmapRegisterOrStruct): Instance of register the state belongs to
 
         Returns:
             CmapState: Cmap state generated
         """
+        if input_enumerator.access == VisibilityOptions.NONE:
+            return None
+
+        access = input_enumerator.access if input_enumerator.access is not None else parent.access
         return CmapState(
             brief=input_enumerator.brief,
             name=input_enumerator.name.lower(),
-            value=input_enumerator.value)
+            value=input_enumerator.value,
+            access=access
+        )
 
     @ staticmethod
-    def _cmap_states_from_input_enum(input_enum: InputEnum) -> List[CmapState]:
+    def _cmap_states_from_input_enum(input_enum: InputEnum, parent: CmapRegisterOrStruct) -> List[CmapState]:
         """Construct Cmap 'State' array from an enum definition
 
         Args:
             input_enum (InputEnum): Enum definition to be converted
+            parent (CmapRegisterOrStruct): Instance of register the state belongs to
 
         Returns:
             List[CmapState]: List of states extracted from the enum definition
         """
         states = []
         for enumerator in input_enum.enumerators:
-            states.append(TahiniCmap._cmap_state_from_input_enumerator(enumerator))
+            new_state = TahiniCmap._cmap_state_from_input_enumerator(enumerator, parent)
+            if new_state is not None:
+                states.append(new_state)
 
         # Sort states by values
         states.sort(key=lambda state: state.value)
@@ -270,21 +300,23 @@ class TahiniCmap():
 
     @ staticmethod
     def _cmap_states_from_input_regmap(input_regmap: InputRegmap,
-                                       input_enum_by_name: Dict[str, InputEnum]
+                                       input_enum_by_name: Dict[str, InputEnum],
+                                       parent: CmapRegisterOrStruct
                                        ) -> Optional[List[CmapState]]:
         """Construct Cmap 'State' array from an input regmap object
 
         Args:
             input_regmap (InputRegmap): InputRegmap node to extract states from
             input_enum_by_name (Dict[str, InputEnum]): Set of enum definitions indexed by name
+            parent (CmapRegisterOrStruct): Instance of register the state belongs to
 
         Returns:
             Optional[List[CmapState]]: Array of Cmap states, or None if empty
         """
-        states = None
         if input_regmap.value_enum is not None:
-            states = TahiniCmap._cmap_states_from_input_enum(input_enum_by_name[input_regmap.value_enum])
-        return states
+            states = TahiniCmap._cmap_states_from_input_enum(input_enum_by_name[input_regmap.value_enum], parent)
+            return states if len(states) > 0 else None
+        return None
 
     @ staticmethod
     def _cmap_ctype_from_input_regmap(input_regmap: InputRegmap) -> CmapCtype:
@@ -403,6 +435,7 @@ class TahiniCmap():
             child.name = input_regmap.get_cmap_name()
             child.size = input_regmap.byte_size
             child.brief = input_regmap.brief
+            child.customer_alias = input_regmap.customer_alias
 
             # Register or struct is an array?
             context.add_index(TahiniCmap._cmap_repeat_for_from_input_regmap(input_regmap, input_enum_by_name))
@@ -417,9 +450,8 @@ class TahiniCmap():
                     min=input_regmap.min,
                     max=input_regmap.max,
                     units=input_regmap.units,
-                    bitfields=TahiniCmap._cmap_bitfields_from_input_regmap(input_regmap, input_enum_by_name),
-                    states=TahiniCmap._cmap_states_from_input_regmap(input_regmap, input_enum_by_name),
-                    customer_alias=input_regmap.customer_alias)
+                    bitfields=TahiniCmap._cmap_bitfields_from_input_regmap(input_regmap, input_enum_by_name, child),
+                    states=TahiniCmap._cmap_states_from_input_regmap(input_regmap, input_enum_by_name, child))
                 child.struct = None
             elif input_regmap.type in InputType.STRUCT:
                 for next_data in input_regmap.members:

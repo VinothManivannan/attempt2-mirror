@@ -148,10 +148,10 @@ extern "C" {
                     addr=256,
                     size=2,
                     register=CmapRegister(
-                        ctype=CmapCtype.UINT16,
-                        customer_alias="beta"
+                        ctype=CmapCtype.UINT16
                     ),
-                    access=CmapVisibilityOptions.PUBLIC
+                    access=CmapVisibilityOptions.PUBLIC,
+                    customer_alias="beta"
                 )
             ]
         )

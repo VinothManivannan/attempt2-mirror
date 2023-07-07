@@ -8,7 +8,7 @@ from cmlpytools.tahini.cmap_schema import FullRegmap as CmapFullRegmap
 from cmlpytools.tahini.cmap_schema import Type as CmapType
 from cmlpytools.tahini.cmap_schema import ArrayIndex as CmapArrayIndex
 from cmlpytools.tahini.input_json_schema import (InputJsonParserError, InputJson, InputRegmap,
-                                      InputType, VisibilityOptions, InputEnum)
+                                                 InputType, VisibilityOptions, InputEnum)
 from cmlpytools.tahini.tahini_cmap import TahiniCmap, TahiniCmapError
 
 PATH_TO_DATA = "./tests/tahini/data"
@@ -675,6 +675,60 @@ class TestToCMapSourceMethod(unittest.TestCase):
 
         with self.assertRaises(TahiniCmapError):
             _ = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+    def test_states_with_access_none_are_skipped(self):
+        """Check that if a state access is specified as "none" then it is not included in the resulting cmap
+        """
+        input_regmap = InputJson(
+            regmap=[
+                InputRegmap(
+                    address=0,
+                    type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                    name="foo",
+                    byte_size=2,
+                    value_enum="bar"
+                )
+            ],
+            enums=[
+                InputEnum(
+                    name="bar",
+                    enumerators=[
+                        InputEnum.InputEnumChild(name="BAR_VALUE_B", value=1, access=VisibilityOptions.NONE)
+                    ]
+                )
+            ]
+        )
+
+        regmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+        self.assertEqual(None, regmap.children[0].register.states)
+
+    def test_bitfields_with_access_none_are_skipped(self):
+        """Check that if a bitfield access is specified as "none" then it is not included in the resulting cmap
+        """
+        input_regmap = InputJson(
+            regmap=[
+                InputRegmap(
+                    address=0,
+                    type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                    name="foo",
+                    byte_size=2,
+                    mask_enum="bar"
+                )
+            ],
+            enums=[
+                InputEnum(
+                    name="bar",
+                    enumerators=[
+                        InputEnum.InputEnumChild(name="BAR_FIELD_MASK", value=0x0f, access=VisibilityOptions.NONE)
+                    ]
+                )
+            ]
+        )
+
+        regmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+        self.assertEqual(None, regmap.children[0].register.bitfields)
 
 
 if __name__ == '__main__':

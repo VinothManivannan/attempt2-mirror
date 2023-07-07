@@ -768,6 +768,69 @@ class TestToCMapSourceMethod(unittest.TestCase):
         self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.bitfields[2].states[1].access)
         self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[2].states[2].access)
 
+    def test_customer_alias_is_applied_correctly_to_states(self):
+        """Check that the customer alias is applied correctly to states
+        """
+        input_regmap = InputJson(
+            regmap=[
+                InputRegmap(
+                    address=0,
+                    type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                    name="foo",
+                    byte_size=2,
+                    value_enum="bar"
+                )
+            ],
+            enums=[
+                InputEnum(
+                    name="bar",
+                    enumerators=[
+                        InputEnum.InputEnumChild(name="value1", value=0x02, customer_alias="value1_alias"),
+                        InputEnum.InputEnumChild(name="value2", value=0x04)
+                    ]
+                )
+            ]
+        )
+
+        regmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+        self.assertEqual("value1_alias", regmap.children[0].register.states[0].customer_alias)
+        self.assertIsNone(regmap.children[0].register.states[1].customer_alias)
+
+    def test_customer_alias_is_applied_correctly_to_bitfields(self):
+        """Check that the customer alias is applied correctly to bitfields
+        """
+        input_regmap = InputJson(
+            regmap=[
+                InputRegmap(
+                    address=0,
+                    type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                    name="foo",
+                    byte_size=2,
+                    mask_enum="bar",
+                    access=VisibilityOptions.PUBLIC
+                )
+            ],
+            enums=[
+                InputEnum(
+                    name="bar",
+                    enumerators=[
+                        InputEnum.InputEnumChild(name="field1_mask", value=0x0f, customer_alias="field1_alias"),
+                        InputEnum.InputEnumChild(name="field2_mask", value=0xf0),
+                        InputEnum.InputEnumChild(name="field2_value1", value=0x10, customer_alias="value1_alias"),
+                        InputEnum.InputEnumChild(name="field2_value2", value=0x20)
+                    ]
+                )
+            ]
+        )
+
+        regmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+        self.assertEqual("field1_alias", regmap.children[0].register.bitfields[0].customer_alias)
+        self.assertIsNone(regmap.children[0].register.bitfields[1].customer_alias)
+        self.assertEqual("value1_alias", regmap.children[0].register.bitfields[1].states[0].customer_alias)
+        self.assertIsNone(regmap.children[0].register.bitfields[1].states[1].customer_alias)
+
 
 if __name__ == '__main__':
     unittest.main()

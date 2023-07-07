@@ -273,7 +273,8 @@ class TahiniCmap():
             brief=input_enumerator.brief,
             name=input_enumerator.name.lower(),
             value=input_enumerator.value,
-            access=access
+            access=access,
+            customer_alias=input_enumerator.customer_alias
         )
 
     @ staticmethod

@@ -123,4 +123,4 @@ class TestLegacyConverter(unittest.TestCase):
 
         _ = TahiniCmap.cmap_regmap_from_input_json(input_json)
 
-        self.assertIn("ctrl_8ws_params_dof", input_json.enums[0].name)
+        self.assertEqual("ctrl_8ws_params_dof", input_json.enums[0].name)

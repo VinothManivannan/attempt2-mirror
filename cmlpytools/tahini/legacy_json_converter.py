@@ -2,7 +2,6 @@
 """
 from dataclasses import dataclass
 import json
-from re import sub
 from copy import deepcopy
 from typing import Any, Optional, Dict, List, Tuple
 from .input_json_schema import InputEnum, InputJson, InputRegmap, InputType
@@ -13,14 +12,15 @@ class _ControlContext:
     indexes as we recursively traverse the json nodes.
     """
 
-    _spaces_stack = []
-    _indexes_stack = []
-    _prefix_stack = []
-    spaces: Dict[str, List[str]] = {}
-    indexes: Dict[str, int] = {}
-    register_prefix: str = ""
-    enums_by_local_name: Dict[str, InputEnum] = {}
-    all_enums = []
+    def __init__(self):
+        self._spaces_stack = []
+        self._indexes_stack = []
+        self._prefix_stack = []
+        self.spaces: Dict[str, List[str]] = {}
+        self.indexes: Dict[str, int] = {}
+        self.register_prefix: str = ""
+        self.enums_by_local_name: Dict[str, InputEnum] = {}
+        self.all_enums = []
 
     def add_enum(self, local_name: str, enum: InputEnum) -> None:
         """Add a new enum to be included in the input json
@@ -37,6 +37,7 @@ class _ControlContext:
 
         Args:
             node (Any): Json node
+            node_name (str): Name of the json node
         """
 
         if "controlindexes" in node:

@@ -1,0 +1,148 @@
+{
+  "Module": {
+    "Bias Model": {
+      "children": [
+        [
+          "Struct",
+          "btm_params"
+        ],
+        [
+          "Struct",
+          "btm_readbacks"
+        ]
+      ],
+      "description": "The bias thermal model changes the bias power based on ambient temperature.",
+      "initvalues": {
+        "btm_shift": 8
+      }
+    }
+  },
+  "Reg": {
+    "BTM_ADJUSTDEC": {
+      "brief": "Units to decrease bias by per control cycle when P_WIN_EFF not exceeded for BTM_ADJUSTWAIT cycles"
+    },
+    "BTM_ADJUSTINC": {
+      "brief": "Units to increase bias by per control cycle when P_WIN_EFF exceeded by demand, but P_WIN not exceedeed."
+    },
+    "BTM_ADJUSTMAX": {
+      "brief": "Maximum bias units by which power reduction can reduce bias."
+    },
+    "BTM_ADJUSTWAIT": {
+      "brief": "NOT IMPLEMENTED YET Number of control loop cycles for which power reduction conditions must be met before power starts to reduce."
+    },
+    "BTM_BASE": {
+      "brief": "Parameter BASE of the Bias Temperature Model",
+      "reset": "PBIAS_DEFAULT"
+    },
+    "BTM_BIAS": {
+      "brief": "Power bias applied on all the wires (power units)"
+    },
+    "BTM_GRAD": {
+      "brief": "Parameter GRADIENT of the Bias Temperature Model",
+      "reset": "BTM_GRAD",
+      "signed": true
+    },
+    "BTM_TEMPINIT": {
+      "brief": "Parameter TEMPERATURE_INIT of the Bias Temperature Model",
+      "reset": "BTM_TEMPINIT",
+      "signed": true
+    },
+    "BTM_TEMPWD": {
+      "brief": "Parameter TEMPERATURE_WINDDOWN of the Bias Temperature Model",
+      "reset": "BTM_TEMPWD",
+      "signed": true
+    },
+    "BTM_BIASMAX": {
+        "brief": "The maximum value that BTM_BIAS is permitted to reach to ensure the power window remains open",
+        "bytes": 2,
+        "signed": false
+    },
+    "BTM_WIN": {
+      "brief": "Parameter PWIN of the Bias Temperature Model",
+      "reset": "P_RANGE_MAX"
+    },
+    "BTM_WINDOW": {
+      "brief": "Power window applied on the forward path (power units)"
+    },
+    "BTM_W_TEMP_MAX": {
+      "brief": "user-defined max wire temperature in mW"
+    },
+    "BTM_MAX_ALLOWED_POWER": {
+      "brief": "user-defined max bias power. Must not be lower than BTM_BIASMAX.",
+      "signed": false
+    },
+    "BTM_POWER_MAX": {
+      "brief": "max power calulated with given max allowed wire temperature and input temperature"
+    },
+    "BTM_TEMP_IN_POWER": {
+      "brief": "Ambient temperature in mW equivalent units",
+      "signed": true,
+      "bytes": 2
+    }
+  },
+  "Struct": {
+    "btm_params": {
+      "protocol": "btm_v2_2",
+      "children": [
+        [
+          "Reg",
+          "BTM_BASE"
+        ],
+        [
+          "Reg",
+          "BTM_WIN"
+        ],
+        [
+          "Reg",
+          "BTM_GRAD"
+        ],
+        [
+          "Reg",
+          "BTM_TEMPINIT"
+        ],
+        [
+          "Reg",
+          "BTM_TEMPWD"
+        ],
+        [
+          "Reg",
+          "BTM_BIASMAX"
+        ],
+        [
+          "Reg",
+          "BTM_W_TEMP_MAX"
+        ],
+        [
+          "Reg",
+          "BTM_MAX_ALLOWED_POWER"
+        ]
+      ],
+      "cname": "btm",
+      "prefix": "BTM"
+    },
+    "btm_readbacks": {
+      "protocol": "btm_v2_3",
+      "children": [
+        [
+          "Reg",
+          "BTM_BIAS"
+        ],
+        [
+          "Reg",
+          "BTM_WINDOW"
+        ],
+        [
+          "Reg",
+          "BTM_POWER_MAX"
+        ],
+        [
+          "Reg",
+          "BTM_TEMP_IN_POWER"
+        ]
+      ],
+      "cname": "btm",
+      "prefix": "BTM",
+      "writeable": false
+    }
+  }
+}

@@ -2,6 +2,7 @@
 """
 from dataclasses import dataclass
 import json
+from re import sub
 from copy import deepcopy
 from typing import Any, Optional, Dict, List, Tuple
 from .input_json_schema import InputEnum, InputJson, InputRegmap, InputType
@@ -18,9 +19,20 @@ class _ControlContext:
     spaces: Dict[str, List[str]] = {}
     indexes: Dict[str, int] = {}
     register_prefix: str = ""
-    enums: Dict[str, InputEnum] = {}
+    enums_by_local_name: Dict[str, InputEnum] = {}
+    all_enums = []
 
-    def read_control_indexes_and_spaces(self, node: Any) -> None:
+    def add_enum(self, local_name: str, enum: InputEnum) -> None:
+        """Add a new enum to be included in the input json
+
+        Args:
+            local_name (str): Local name of the enum in the current json context
+            enum (InputEnum): Enum to be created
+        """
+        self.enums_by_local_name[local_name] = enum
+        self.all_enums.append(enum)
+
+    def read_control_indexes_and_spaces(self, node: Any, node_name: str) -> None:
         """Read control spaces and indexes from a given json node
 
         Args:
@@ -33,10 +45,11 @@ class _ControlContext:
         if "controlspaces" in node:
             self.spaces.update(node["controlspaces"])
             for name, aliases in node["controlspaces"].items():
-                self.enums[name] = InputEnum(
-                    name=name,
+                new_enum = InputEnum(
+                    name=f"{node_name}_{name}",  # Generate an unique name using parent node name as prefix
                     enumerators=[InputEnum.InputEnumChild(aliases[i], i) for i in range(len(aliases))]
                 )
+                self.add_enum(name, new_enum)
 
         self.register_prefix = str(node["prefix"]) if "prefix" in node else ""
 
@@ -54,7 +67,7 @@ class _ControlContext:
                 value=int(state[2])
             ))
 
-        self.enums[value_enum] = InputEnum(name=value_enum, enumerators=enumerators)
+        self.add_enum(value_enum, InputEnum(name=value_enum, enumerators=enumerators))
 
     def add_enum_from_flags_node(self, mask_enum: str, flags_node: List[List[Any]]) -> None:
         """Add a new enum to be generated in the Input Regmap using legacy flags
@@ -70,7 +83,7 @@ class _ControlContext:
                 value=int(flag[2])
             ))
 
-        self.enums[mask_enum] = InputEnum(name=mask_enum, enumerators=enumerators)
+        self.add_enum(mask_enum, InputEnum(name=mask_enum, enumerators=enumerators))
 
     def push(self) -> None:
         """Save the current state of control indexes and spaces
@@ -172,8 +185,8 @@ def _get_array_size(node: Any, context: _ControlContext) -> Tuple[Optional[int],
         if node["repeatfor"] in context.indexes:
             array_count = context.indexes[node["repeatfor"]]
         elif node["repeatfor"] in context.spaces:
-            array_enum = node["repeatfor"]
-            array_count = len(context.spaces[array_enum])
+            array_enum = context.enums_by_local_name[node["repeatfor"]].name
+            array_count = len(context.spaces[node["repeatfor"]])
         else:
             raise Exception(f"Repeatfor definition of '{node['repeatfor']}' was not found in current context.")
 
@@ -312,7 +325,7 @@ def _create_struct(json_data: Any,
     struct = json_data["Struct"][name]
 
     context.push()
-    context.read_control_indexes_and_spaces(struct)
+    context.read_control_indexes_and_spaces(struct, name)
 
     members = []
     offset = 0
@@ -387,7 +400,7 @@ def legacy_to_input_json(json_data: Any) -> InputJson:
 
     entry_node = entry_node[next(iter(entry_node.keys()))]
 
-    context.read_control_indexes_and_spaces(entry_node)
+    context.read_control_indexes_and_spaces(entry_node, "")
 
     # Generate members
     next_address = 0
@@ -411,7 +424,7 @@ def legacy_to_input_json(json_data: Any) -> InputJson:
         members.append(new_member.input_regmap)
 
     # Generate enums
-    enums = context.enums.values()
+    enums = context.all_enums
 
     return InputJson(
         regmap=members,

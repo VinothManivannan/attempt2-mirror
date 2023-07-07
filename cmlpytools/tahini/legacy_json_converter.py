@@ -376,17 +376,23 @@ def legacy_to_input_json(json_data: Any) -> InputJson:
     Returns:
         InputJson: Converted data
     """
-
-    regmap = json_data["RegMap"]
-    regmap = regmap[next(iter(regmap.keys()))]
+    members = []
 
     context = _ControlContext()
-    context.read_control_indexes_and_spaces(regmap)
+
+    if "RegMap" in json_data:
+        entry_node = json_data["RegMap"]
+    elif "Module" in json_data:
+        entry_node = json_data["Module"]
+
+    entry_node = entry_node[next(iter(entry_node.keys()))]
+
+    context.read_control_indexes_and_spaces(entry_node)
 
     # Generate members
     next_address = 0
-    members = []
-    for child in regmap["children"]:
+
+    for child in entry_node["children"]:
         if len(child) == 3:
             next_address = int(child[2])
 
@@ -397,6 +403,8 @@ def legacy_to_input_json(json_data: Any) -> InputJson:
                 address=next_address,
                 context=context)
             next_address += new_member.input_regmap.byte_size
+        elif child[0] == "Reg":
+            new_member = _create_reg(json_data, name=child[1], byte_offset=next_address, context=context)
         else:
             raise Exception(f"Invalid type: {child[0]}")
 

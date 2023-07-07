@@ -15,6 +15,8 @@ from cmlpytools.tahini.cmap_schema import VisibilityOptions as CmapVisibilityOpt
 from cmlpytools.tahini.cmap_schema import Bitfield as CmapBitfield
 from cmlpytools.tahini.cmap_schema import State as CmapState
 
+# pylint: disable=duplicate-code
+
 
 class TestGenerateApiCHeader(unittest.TestCase):
     """ Test class for the GenerateTxt class

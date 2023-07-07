@@ -676,8 +676,8 @@ class TestToCMapSourceMethod(unittest.TestCase):
         with self.assertRaises(TahiniCmapError):
             _ = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
 
-    def test_states_with_access_none_are_skipped(self):
-        """Check that if a state access is specified as "none" then it is not included in the resulting cmap
+    def test_visibility_is_applied_correctly_to_states(self):
+        """Check that visibility options are applied correctly to states
         """
         input_regmap = InputJson(
             regmap=[
@@ -686,14 +686,18 @@ class TestToCMapSourceMethod(unittest.TestCase):
                     type=InputType.CTYPE_UNSIGNED_SHORT[0],
                     name="foo",
                     byte_size=2,
-                    value_enum="bar"
+                    value_enum="bar",
+                    access=VisibilityOptions.PUBLIC
                 )
             ],
             enums=[
                 InputEnum(
                     name="bar",
                     enumerators=[
-                        InputEnum.InputEnumChild(name="BAR_VALUE_B", value=1, access=VisibilityOptions.NONE)
+                        InputEnum.InputEnumChild(name="BAR_VALUE1", value=0x01, access=VisibilityOptions.NONE),
+                        InputEnum.InputEnumChild(name="BAR_VALUE2", value=0x02, access=VisibilityOptions.PUBLIC),
+                        InputEnum.InputEnumChild(name="BAR_VALUE3", value=0x04, access=VisibilityOptions.PRIVATE),
+                        InputEnum.InputEnumChild(name="BAR_VALUE4", value=0x08)
                     ]
                 )
             ]
@@ -701,10 +705,15 @@ class TestToCMapSourceMethod(unittest.TestCase):
 
         regmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
 
-        self.assertEqual(None, regmap.children[0].register.states)
+        self.assertEqual("value2", regmap.children[0].register.states[0].name)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.states[0].access)
+        self.assertEqual("value3", regmap.children[0].register.states[1].name)
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.states[1].access)
+        self.assertEqual("value4", regmap.children[0].register.states[2].name)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.states[2].access)
 
-    def test_bitfields_with_access_none_are_skipped(self):
-        """Check that if a bitfield access is specified as "none" then it is not included in the resulting cmap
+    def test_visibility_is_applied_correctly_to_bitfields(self):
+        """Check that visibility options are applied correctly to bitfields
         """
         input_regmap = InputJson(
             regmap=[
@@ -713,14 +722,30 @@ class TestToCMapSourceMethod(unittest.TestCase):
                     type=InputType.CTYPE_UNSIGNED_SHORT[0],
                     name="foo",
                     byte_size=2,
-                    mask_enum="bar"
+                    mask_enum="bar",
+                    access=VisibilityOptions.PUBLIC
                 )
             ],
             enums=[
                 InputEnum(
                     name="bar",
                     enumerators=[
-                        InputEnum.InputEnumChild(name="BAR_FIELD_MASK", value=0x0f, access=VisibilityOptions.NONE)
+                        InputEnum.InputEnumChild(name="FIELD1_MASK", value=0x0f, access=VisibilityOptions.NONE),
+                        InputEnum.InputEnumChild(name="FIELD2_MASK", value=0xf0, access=VisibilityOptions.PRIVATE),
+                        InputEnum.InputEnumChild(name="FIELD2_VALUE1", value=0x10, access=VisibilityOptions.NONE),
+                        InputEnum.InputEnumChild(name="FIELD2_VALUE2", value=0x20, access=VisibilityOptions.PUBLIC),
+                        InputEnum.InputEnumChild(name="FIELD2_VALUE3", value=0x30, access=VisibilityOptions.PRIVATE),
+                        InputEnum.InputEnumChild(name="FIELD2_VALUE4", value=0x40),
+                        InputEnum.InputEnumChild(name="FIELD3_MASK", value=0xf00, access=VisibilityOptions.PUBLIC),
+                        InputEnum.InputEnumChild(name="FIELD3_VALUE1", value=0x100, access=VisibilityOptions.NONE),
+                        InputEnum.InputEnumChild(name="FIELD3_VALUE2", value=0x200, access=VisibilityOptions.PUBLIC),
+                        InputEnum.InputEnumChild(name="FIELD3_VALUE3", value=0x300, access=VisibilityOptions.PRIVATE),
+                        InputEnum.InputEnumChild(name="FIELD3_VALUE4", value=0x400),
+                        InputEnum.InputEnumChild(name="FIELD4_MASK", value=0xf000),
+                        InputEnum.InputEnumChild(name="FIELD4_VALUE1", value=0x1000, access=VisibilityOptions.NONE),
+                        InputEnum.InputEnumChild(name="FIELD4_VALUE2", value=0x2000, access=VisibilityOptions.PUBLIC),
+                        InputEnum.InputEnumChild(name="FIELD4_VALUE3", value=0x3000, access=VisibilityOptions.PRIVATE),
+                        InputEnum.InputEnumChild(name="FIELD4_VALUE4", value=0x4000),
                     ]
                 )
             ]
@@ -728,7 +753,20 @@ class TestToCMapSourceMethod(unittest.TestCase):
 
         regmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
 
-        self.assertEqual(None, regmap.children[0].register.bitfields)
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.bitfields[0].access)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[0].states[0].access)
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.bitfields[0].states[1].access)
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.bitfields[0].states[2].access)
+
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[1].access)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[1].states[0].access)
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.bitfields[1].states[1].access)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[1].states[2].access)
+
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[2].access)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[2].states[0].access)
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.bitfields[2].states[1].access)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[2].states[2].access)
 
 
 if __name__ == '__main__':

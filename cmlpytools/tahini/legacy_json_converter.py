@@ -7,6 +7,12 @@ from typing import Any, Optional, Dict, List, Tuple
 from .input_json_schema import InputEnum, InputJson, InputRegmap, InputType
 
 
+def _to_camelcase(name: str) -> str:
+    """Helper function to convert a name into camel-case
+    """
+    return name.title().replace("_", "")
+
+
 class _ControlContext:
     """This class is used to manage and store the local contexts for control spaces and
     indexes as we recursively traverse the json nodes.
@@ -47,7 +53,8 @@ class _ControlContext:
             self.spaces.update(node["controlspaces"])
             for name, aliases in node["controlspaces"].items():
                 new_enum = InputEnum(
-                    name=f"{node_name}_{name}",  # Generate an unique name using parent node name as prefix
+                    # Generate an unique name using parent node name as prefix
+                    name=_to_camelcase(f"{node_name}_{name}"),
                     enumerators=[InputEnum.InputEnumChild(aliases[i], i) for i in range(len(aliases))]
                 )
                 self.add_enum(name, new_enum)
@@ -217,13 +224,13 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
     array_count, array_enum = _get_array_size(reg, context)
 
     if "children" in reg and reg["children"][0][0] == "State":
-        value_enum = f"{name}States"
+        value_enum = _to_camelcase(f"{name}_States")
         context.add_enum_from_states_node(value_enum=value_enum, states_node=reg["children"])
     else:
         value_enum = None
 
     if "children" in reg and reg["children"][0][0] == "Flag":
-        mask_enum = f"{name}Flags"
+        mask_enum = _to_camelcase(f"{name}_Flags")
         context.add_enum_from_flags_node(mask_enum=mask_enum, flags_node=reg["children"])
     else:
         mask_enum = None
@@ -236,7 +243,7 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
 
     return _InputRegmapResult(
         input_regmap=InputRegmap(
-            name=name,
+            name=name.lower(),
             byte_size=reg_size,
             byte_offset=byte_offset,
             type=reg_type,
@@ -398,6 +405,12 @@ def legacy_to_input_json(json_data: Any) -> InputJson:
         entry_node = json_data["RegMap"]
     elif "Module" in json_data:
         entry_node = json_data["Module"]
+    elif "Chain" in json_data:
+        entry_node = json_data["Chain"]
+    elif "Actuator" in json_data:
+        entry_node = json_data["Actuator"]
+    else:
+        raise Exception("Legacy converter not found!")
 
     entry_node = entry_node[next(iter(entry_node.keys()))]
 
@@ -420,9 +433,11 @@ def legacy_to_input_json(json_data: Any) -> InputJson:
         elif child[0] == "Reg":
             new_member = _create_reg(json_data, name=child[1], byte_offset=next_address, context=context)
         else:
-            raise Exception(f"Invalid type: {child[0]}")
+            # Module, Chain, Actuator...
+            new_member = None
 
-        members.append(new_member.input_regmap)
+        if new_member:
+            members.append(new_member.input_regmap)
 
     # Generate enums
     enums = context.all_enums

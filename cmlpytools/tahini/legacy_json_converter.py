@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import json
 from copy import deepcopy
 from typing import Any, Optional, Dict, List, Tuple
-from .input_json_schema import InputEnum, InputJson, InputRegmap, InputType
+from .input_json_schema import InputEnum, InputJson, InputRegmap, InputType, VisibilityOptions
 
 
 def _to_camelcase(name: str) -> str:
@@ -241,6 +241,8 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
     if not name.startswith(context.register_prefix):
         name = f"{context.register_prefix}_{name}"
 
+    hif_access = False if "host_access" in reg and reg["host_access"] == "direct" else True
+
     return _InputRegmapResult(
         input_regmap=InputRegmap(
             name=name.lower(),
@@ -250,7 +252,13 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
             array_count=array_count,
             array_enum=array_enum,
             value_enum=value_enum,
-            mask_enum=mask_enum),
+            mask_enum=mask_enum,
+            brief=reg["brief"] if "brief" in reg else None,
+            min=reg["min"] if "min" in reg else None,
+            max=reg["max"] if "max" in reg else None,
+            format=reg["format"] if "format" in reg else None,
+            units=reg["units"] if "units" in reg else None,
+            hif_access=hif_access),
         next_offset=next_offset,
         alignment=alignment)
 
@@ -281,12 +289,13 @@ def _create_reserved_reg(json_data: Any, name: str, byte_offset: int, context: _
 
     return _InputRegmapResult(
         input_regmap=InputRegmap(
-            name=name,
+            name=name.lower(),
             byte_size=reg_size,
             byte_offset=byte_offset,
             type=reg_type,
             array_count=array_count,
-            array_enum=array_enum),
+            array_enum=array_enum,
+            access=VisibilityOptions.NONE),
         next_offset=next_offset,
         alignment=alignment)
 
@@ -372,6 +381,8 @@ def _create_struct(json_data: Any,
         next_offset = byte_offset
     next_offset += byte_size * (array_count if array_count is not None else 1)
 
+    hif_access = False if "host_access" in struct and struct["host_access"] == "direct" else True
+
     context.pop()
 
     return _InputRegmapResult(
@@ -383,7 +394,8 @@ def _create_struct(json_data: Any,
             address=address,
             members=members,
             array_count=array_count,
-            array_enum=array_enum),
+            array_enum=array_enum,
+            hif_access=hif_access),
         next_offset=next_offset,
         alignment=alignment)
 

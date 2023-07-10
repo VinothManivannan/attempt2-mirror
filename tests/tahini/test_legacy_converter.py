@@ -126,3 +126,15 @@ class TestLegacyConverter(unittest.TestCase):
 
         self.assertEqual("Ctrl8WsParamsDof", input_json.enums[0].name)
         self.assertEqual("CtrlFeatures8WsFlags", input_json.enums[1].name)
+
+    def test_host_access_and_reserved_regs(self):
+        """Example with many enums for flags and arrays
+        """
+        input_json = self.import_legacy_json("input_common.caef.json")
+
+        _ = TahiniCmap.cmap_regmap_from_input_json(input_json)
+
+        self.assertEqual(False, input_json.regmap[0].hif_access)
+        self.assertEqual(True, input_json.regmap[0].members[0].hif_access)
+        self.assertEqual("input_ctrl_pad", input_json.regmap[0].members[1].name)
+        self.assertEqual("none", input_json.regmap[0].members[1].access)

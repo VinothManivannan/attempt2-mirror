@@ -61,10 +61,11 @@ class _ControlContext:
 
         self.register_prefix = str(node["prefix"]) if "prefix" in node else ""
 
-    def add_enum_from_states_node(self, value_enum: str, states_node: List[List[Any]]) -> None:
+    def add_enum_from_states_node(self, json_data: Any, value_enum: str, states_node: List[List[Any]]) -> None:
         """Add a new enum to be generated in the Input Regmap using legacy states
 
         Args:
+            json_data (Any): Toplevel json node containing all the data 
             value_enum (str): Name of the enum to be generated in the Input Regmap
             states_node (List[List[Any]]): Json node containing the list of states for a given register
         """
@@ -72,15 +73,18 @@ class _ControlContext:
         for state in states_node:
             enumerators.append(InputEnum.InputEnumChild(
                 name=str(state[1]),
-                value=int(state[2])
+                value=int(state[2]),
+                brief=json_data["State"][state[1]
+                                         ]["brief"] if json_data["State"][state[1]] is not None and "brief" in json_data["State"][state[1]] else None
             ))
 
         self.add_enum(value_enum, InputEnum(name=value_enum, enumerators=enumerators))
 
-    def add_enum_from_flags_node(self, mask_enum: str, flags_node: List[List[Any]]) -> None:
+    def add_enum_from_flags_node(self, json_data: Any, mask_enum: str, flags_node: List[List[Any]]) -> None:
         """Add a new enum to be generated in the Input Regmap using legacy flags
 
         Args:
+            json_data (Any): Toplevel json node containing all the data 
             mask_enum (str): Name of the enum to be generated in the Input Regmap
             flags_node (List[List[Any]]): Json node containing the list of flags for a given register
         """
@@ -88,7 +92,9 @@ class _ControlContext:
         for flag in flags_node:
             enumerators.append(InputEnum.InputEnumChild(
                 name=f"{str(flag[1])}_MASK",
-                value=int(flag[2])
+                value=int(flag[2]),
+                brief=json_data["Flag"][flag[1]
+                                        ]["brief"] if json_data["Flag"][flag[1]] is not None and "brief" in json_data["Flag"][flag[1]] else None
             ))
 
         self.add_enum(mask_enum, InputEnum(name=mask_enum, enumerators=enumerators))
@@ -225,13 +231,13 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
 
     if "children" in reg and reg["children"][0][0] == "State":
         value_enum = _to_camelcase(f"{name}_States")
-        context.add_enum_from_states_node(value_enum=value_enum, states_node=reg["children"])
+        context.add_enum_from_states_node(json_data, value_enum=value_enum, states_node=reg["children"])
     else:
         value_enum = None
 
     if "children" in reg and reg["children"][0][0] == "Flag":
         mask_enum = _to_camelcase(f"{name}_Flags")
-        context.add_enum_from_flags_node(mask_enum=mask_enum, flags_node=reg["children"])
+        context.add_enum_from_flags_node(json_data, mask_enum=mask_enum, flags_node=reg["children"])
     else:
         mask_enum = None
 
@@ -242,6 +248,12 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
         name = f"{context.register_prefix}_{name}"
 
     hif_access = False if "host_access" in reg and reg["host_access"] == "direct" else True
+
+    access = None
+    if "access" in reg and reg["access"] == "public":
+        access = VisibilityOptions.PUBLIC
+    elif "access" in reg and reg["access"] == "private":
+        access = VisibilityOptions.PRIVATE
 
     return _InputRegmapResult(
         input_regmap=InputRegmap(
@@ -258,7 +270,8 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
             max=reg["max"] if "max" in reg else None,
             format=reg["format"] if "format" in reg else None,
             units=reg["units"] if "units" in reg else None,
-            hif_access=hif_access),
+            hif_access=hif_access,
+            access=access),
         next_offset=next_offset,
         alignment=alignment)
 
@@ -383,6 +396,12 @@ def _create_struct(json_data: Any,
 
     hif_access = False if "host_access" in struct and struct["host_access"] == "direct" else True
 
+    access = None
+    if "access" in struct and struct["access"] == "public":
+        access = VisibilityOptions.PUBLIC
+    elif "access" in struct and struct["access"] == "private":
+        access = VisibilityOptions.PRIVATE
+
     context.pop()
 
     return _InputRegmapResult(
@@ -395,7 +414,9 @@ def _create_struct(json_data: Any,
             members=members,
             array_count=array_count,
             array_enum=array_enum,
-            hif_access=hif_access),
+            hif_access=hif_access,
+            brief=struct["brief"] if "brief" in struct else None,
+            access=access),
         next_offset=next_offset,
         alignment=alignment)
 

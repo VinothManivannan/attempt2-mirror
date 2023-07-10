@@ -1,0 +1,141 @@
+{
+    "Module": {
+        "Temperature Estimation Model": {
+            "children": [
+                [
+                    "Struct",
+                    "tempest_params"
+                ],
+                [
+                    "Struct",
+                    "tempest_readbacks"
+                ]
+            ],
+            "initvalues": {
+                "tempest_q": 4
+            }
+        }
+    },
+    "Reg": {
+        "TEMPEST_ADJ": {
+            "access": "private",
+            "brief": "Temperature offset between the thermometer and the actuator as calculated by the Temperature Estimation Model (1/10 C). In Q15.16",
+            "bytes": 4,
+            "signed": true
+        },
+        "TEMPEST_FILTMEAS": {
+            "brief": "Filtered temperature from the measurement device (1/10 C)",
+            "host_access": "indirect",
+            "signed": true
+        },
+        "TEMPEST_GRAD": {
+            "brief": "Parameter C1 of the Temperature Estimation Model",
+            "signed": true
+        },
+        "TEMPEST_OFFSET": {
+            "access": "public",
+            "brief": "Parameter C0 of the Temperature Estimation Model",
+            "signed": true
+        },
+        "TEMPEST_TEMPAMB": {
+            "access": "private",
+            "brief": "Temperature of the actuator as calculated by the Temperature Estimation Model (1/10 C)",
+            "signed": true
+        },
+        "TEMPEST_TIMECOEFF": {
+            "brief": "Average decay constant for a given actuator. Q0.16",
+            "bytes": 2,
+            "signed": false
+        },
+        "TERR_GAIN": {
+            "brief": "Determines the gradient of the TERR term. Signed Q13.18",
+            "count": 2,
+            "bytes": 4,
+            "signed": true
+        },
+        "TERR_OFFSET": {
+            "brief": "Determines the offset of the TERR term. Signed Q6.9",
+            "count": 2,
+            "bytes": 2,
+            "signed": true
+        },
+        "TERR_CUTOFF": {
+            "brief": "Cutoff temperature for function fitting of TERR_0 (1/10 C)",
+            "bytes": 2,
+            "signed": true
+        },
+        "TERR_CUTOFF_OFFSET": {
+            "brief": "Offset for TERR_0 when above the cutoff temperature. Signed Q6.9",
+            "bytes": 4,
+            "count": 2,
+            "signed": true
+        },
+        "RSLACK_REF": {
+            "brief": "The reference slack value found from a batch of actuators",
+            "bytes": 2,
+            "signed": true
+        }
+    },
+    "Struct": {
+        "tempest_params": {
+            "access": "private",
+            "protocol": "tempest_v2_0",
+            "children": [
+                [
+                    "Reg",
+                    "TEMPEST_OFFSET"
+                ],
+                [
+                    "Reg",
+                    "TEMPEST_GRAD"
+                ],
+                [
+                    "Reg",
+                    "TEMPEST_TIMECOEFF"
+                ],
+                [
+                    "Reg",
+                    "TERR_GAIN"
+                ],
+                [
+                    "Reg",
+                    "TERR_OFFSET"
+                ],
+                [
+                    "Reg",
+                    "TERR_CUTOFF"
+                ],
+                [
+                    "Reg",
+                    "TERR_CUTOFF_OFFSET"
+                ],
+                [
+                    "Reg",
+                    "RSLACK_REF"
+                ]
+            ],
+            "cname": "tempest",
+            "prefix": "TEMPEST"
+        },
+        "tempest_readbacks": {
+            "protocol": "tempest_v2_0",
+            "children": [
+                [
+                    "Reg",
+                    "TEMPEST_FILTMEAS"
+                ],
+                [
+                    "Reg",
+                    "TEMPEST_ADJ"
+                ],
+                [
+                    "Reg",
+                    "TEMPEST_TEMPAMB"
+                ]
+            ],
+            "cname": "tempest",
+            "prefix": "TEMPEST",
+            "writeable": false
+        }
+    }
+}

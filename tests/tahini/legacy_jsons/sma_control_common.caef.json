@@ -150,12 +150,12 @@
                     "CTRL_FFP_ENTHALPY_GAIN"
                 ],
                 [
-                	"Reg",
-                	"TG0_4WS_DRIVE_POS_ADJ"
+                    "Reg",
+                    "TG0_4WS_DRIVE_POS_ADJ"
                 ],
                 [
-                	"Reg",
-                	"TG1_4WS_DRIVE_POS_ADJ"
+                    "Reg",
+                    "TG1_4WS_DRIVE_POS_ADJ"
                 ]
             ]
         },
@@ -290,12 +290,12 @@
                     "CTRL_FFP_ENTHALPY_GAIN"
                 ],
                 [
-                	"Reg",
-                	"TG0_4WS_DRIVE_POS_ADJ"
+                    "Reg",
+                    "TG0_4WS_DRIVE_POS_ADJ"
                 ],
                 [
-                	"Reg",
-                	"TG1_4WS_DRIVE_POS_ADJ"
+                    "Reg",
+                    "TG1_4WS_DRIVE_POS_ADJ"
                 ]
             ]
         },
@@ -398,12 +398,12 @@
                     "CTRL_FFP_ENTHALPY_PDELTA_W"
                 ],
                 [
-                	"Reg",
-                	"XTALK_COMPENSATED_FEEDBACK_D"
+                    "Reg",
+                    "XTALK_COMPENSATED_FEEDBACK_D"
                 ],
                 [
-                	"Reg",
-                	"XTALK_COMPENSATED_FEEDFORWARD_D"
+                    "Reg",
+                    "XTALK_COMPENSATED_FEEDFORWARD_D"
                 ]
             ]
         },
@@ -610,8 +610,8 @@
             ]
         },
         "ctrl_4ws_params": {
-            "prefix": "CTRL", 
-            "cname": "ctrl_params", 
+            "prefix": "CTRL",
+            "cname": "ctrl_params",
             "protocol": "ctrl_4ws_v5_0",
             "controlindexes": {
                 "wires": 4
@@ -624,7 +624,7 @@
             },
             "children": [
                 [
-                    "Reg", 
+                    "Reg",
                     "CTRL_FEATURES_4WS"
                 ],
                 [
@@ -632,11 +632,11 @@
                     "CTRL_PROP_GAIN_PAD"
                 ],
                 [
-                    "Reg", 
+                    "Reg",
                     "CTRL_PROP_GAIN_D"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "CTRL_POFFSET_D"
                 ],
                 [
@@ -647,11 +647,11 @@
                     "ReservedReg",
                     "CTRL_PAD"
                 ]
-            ], 
+            ],
             "ctype": "Ctrl4WsParameters"
         },
         "ctrl_4ws_readbacks": {
-            "writeable": false, 
+            "writeable": false,
             "protocol": "ctrl_4ws_v5_0",
             "ctype": "Ctrl4WsReadbacks",
             "cname": "ctrl_readbacks",
@@ -666,7 +666,7 @@
             },
             "children": [
                 [
-                    "Reg", 
+                    "Reg",
                     "STATUS"
                 ],
                 [
@@ -674,27 +674,27 @@
                     "READBACKS_RES_PAD"
                 ],
                 [
-                    "Reg", 
+                    "Reg",
                     "RES_W"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "RDELTA_D"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "RDELTADEMANDOUTPUT_D"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "RDELTAERR_D"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "PDELTA_D"
                 ],
                 [
-                    "Reg", 
+                    "Reg",
                     "PWR_W"
                 ],
                 [
@@ -716,8 +716,8 @@
             ]
         },
         "ctrl_sma_vs_spring_params": {
-            "prefix": "CTRL", 
-            "cname": "ctrl_params", 
+            "prefix": "CTRL",
+            "cname": "ctrl_params",
             "protocol": "ctrl_sma_vs_spring_v1_0",
             "controlindexes": {
                 "wires": 1
@@ -729,15 +729,15 @@
             },
             "children": [
                 [
-                    "Reg", 
+                    "Reg",
                     "CTRL_FEATURES_SMA_VS_SPRING"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "CTRL_PROP_GAIN_W"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "CTRL_DIFFERENTIAL_GAIN_W"
                 ],
                 [
@@ -755,7 +755,7 @@
             ]
         },
         "ctrl_sma_vs_spring_readbacks": {
-            "writeable": false, 
+            "writeable": false,
             "protocol": "ctrl_sma_vs_spring_v1_0",
             "cname": "ctrl_readbacks",
             "controlindexes": {
@@ -768,31 +768,31 @@
             },
             "children": [
                 [
-                    "Reg", 
+                    "Reg",
                     "STATUS"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "RES_W"
                 ],
                 [
                     "Reg",
                     "RDELTAERR_W"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "RDELTA_W"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "RDELTADEMANDOUTPUT_W"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "RDELTAERR_DIFF_W"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "PDELTA_W"
                 ],
                 [
@@ -800,7 +800,7 @@
                     "PDELTA_INT_W"
                 ],
                 [
-                    "Reg", 
+                    "Reg",
                     "PWR_W"
                 ],
                 [
@@ -818,9 +818,9 @@
             ]
         },
         "ctrl_vrg_params": {
-            "prefix": "CTRL", 
+            "prefix": "CTRL",
             "ctype": "CtrlVrgParams",
-            "cname": "ctrl_params", 
+            "cname": "ctrl_params",
             "protocol": "ctrl_4ws_v5_0",
             "controlindexes": {
                 "wires": 2
@@ -832,15 +832,15 @@
             },
             "children": [
                 [
-                    "Reg", 
+                    "Reg",
                     "CTRL_FEATURES_VRG"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "CTRL_PROP_GAIN_W"
-                ], 
+                ],
                 [
-                    "Reg", 
+                    "Reg",
                     "CTRL_POFFSET_W"
                 ],
                 [
@@ -854,7 +854,7 @@
             ]
         },
         "ctrl_vrg_readbacks": {
-            "writeable": false, 
+            "writeable": false,
             "protocol": "ctrl_vrg_v1_0",
             "ctype": "CtrlVrgReadbacks",
             "cname": "ctrl_readbacks",
@@ -869,7 +869,7 @@
             },
             "children": [
                 [
-                    "Reg", 
+                    "Reg",
                     "PDELTA_W"
                 ],
                 [
@@ -877,7 +877,7 @@
                     "RES_W"
                 ],
                 [
-                    "Reg", 
+                    "Reg",
                     "PWR_W"
                 ],
                 [
@@ -1256,26 +1256,26 @@
             "signed": true,
             "repeatfor": "wires"
         },
-        "RDELTA_D":  {
+        "RDELTA_D": {
             "brief": "Delta wire resistance in DOF space",
             "signed": true,
             "repeatfor": "dof"
-        },        
+        },
         "RDELTADEMAND_W": {
             "brief": "Delta resistance demand",
             "signed": true,
             "repeatfor": "wires"
         },
         "RDELTADEMANDOUTPUT_D": {
-            "brief": "Delta resistance demands - output of DLA block", 
-            "signed": true, 
+            "brief": "Delta resistance demands - output of DLA block",
+            "signed": true,
             "repeatfor": "dof"
-        }, 
+        },
         "RDELTADEMANDOUTPUT_W": {
-            "brief": "Delta resistance demands - output of DLA block", 
-            "signed": true, 
+            "brief": "Delta resistance demands - output of DLA block",
+            "signed": true,
             "repeatfor": "wires"
-        }, 
+        },
         "RDELTAERR_INT_D": {
             "brief": "Integral delta Resistance Error",
             "signed": true,
@@ -1651,7 +1651,7 @@
                     "Flag",
                     "AUTO_CENTRING",
                     2
-                ],              
+                ],
                 [
                     "Flag",
                     "RESERVED_3",
@@ -1791,7 +1791,7 @@
                     "Flag",
                     "AUTO_CENTRING",
                     2
-                ],              
+                ],
                 [
                     "Flag",
                     "RESERVED_3",
@@ -1868,8 +1868,8 @@
             "brief": "Differential gain of the control loop in Q8.8 format",
             "repeatfor": "wires"
         },
-        "CTRL_PRESSURE_ANGLE":{
-        	"brief": "Pressure angle for sma motor, 512 = pi radians",
+        "CTRL_PRESSURE_ANGLE": {
+            "brief": "Pressure angle for sma motor, 512 = pi radians",
             "signed": true
         },
         "CTRL_POFFSET_D": {
@@ -1962,25 +1962,25 @@
             "brief": "Proportional gain of Linear Gain Module for FFP Enthalpy",
             "signed": true
         },
-        "CTRL_FFP_PDELTA_W" :{
+        "CTRL_FFP_PDELTA_W": {
             "brief": "Linear Gain Module for FFP output, per channel",
             "signed": true,
-            "repeatfor":"wires"
+            "repeatfor": "wires"
         },
-        "CTRL_FFP_ENTHALPY_PDELTA_W" :{
+        "CTRL_FFP_ENTHALPY_PDELTA_W": {
             "brief": "Linear Gain Module for FFP Enthalpy output, per channel",
             "signed": true,
             "repeatfor": "wires"
         },
         "XTALK_COMPENSATED_FEEDBACK_D": {
-        	"brief": "The rdeltademand compensated for the feedback xtalk",
-        	"signed": true,
-        	"repeatfor": "dof"
+            "brief": "The rdeltademand compensated for the feedback xtalk",
+            "signed": true,
+            "repeatfor": "dof"
         },
         "XTALK_COMPENSATED_FEEDFORWARD_D": {
-        	"brief": "The rdeltademand compensated for the feedforward xtalk",
-        	"signed": true,
-        	"repeatfor": "dof"
+            "brief": "The rdeltademand compensated for the feedforward xtalk",
+            "signed": true,
+            "repeatfor": "dof"
         },
         "TG0_4WS_DRIVE_POS_ADJ": {
             "brief": "The Z, RX and RY position adjust registers for running in 4w drive with tension group 0",
@@ -2014,7 +2014,9 @@
         }
     },
     "Flag": {
-        "WIRE0_ENABLED": null,
+        "WIRE0_ENABLED": {
+            "brief": "Wire 0 is enabled"
+        },
         "WIRE1_ENABLED": null,
         "WIRE2_ENABLED": null,
         "WIRE3_ENABLED": null,
@@ -2043,13 +2045,29 @@
         "OCTAGONAL_DEMLIM": null
     },
     "State": {
-        "SMASTATUS_SERVO_OFF": {"brief": "Servo is off, actuator is idle"}, 
-        "SMASTATUS_RUNNING": {"brief": "Controller ON"},
-        "SMASTATUS_SSLDEBUG": {"brief": "For power/duty control, no chain running"},
-        "SMASTATUS_POWERUP": {"brief": "For ZHP only, the actuator is being powered up"}, 
-        "SMASTATUS_POWERDOWN": {"brief": "For ZHP only, the actuator is being powered down"},
-        "SMASTATUS_ZEROPOWER": {"brief": "For ZHP only, the actuator is not powered"},
-        "SMASTATUS_WARMINGUP": {"brief": "Actuator is warming up"},
-        "SMASTATUS_WARMINGDOWN": {"brief": "Actuator is cooling off"}
+        "SMASTATUS_SERVO_OFF": {
+            "brief": "Servo is off, actuator is idle"
+        },
+        "SMASTATUS_RUNNING": {
+            "brief": "Controller ON"
+        },
+        "SMASTATUS_SSLDEBUG": {
+            "brief": "For power/duty control, no chain running"
+        },
+        "SMASTATUS_POWERUP": {
+            "brief": "For ZHP only, the actuator is being powered up"
+        },
+        "SMASTATUS_POWERDOWN": {
+            "brief": "For ZHP only, the actuator is being powered down"
+        },
+        "SMASTATUS_ZEROPOWER": {
+            "brief": "For ZHP only, the actuator is not powered"
+        },
+        "SMASTATUS_WARMINGUP": {
+            "brief": "Actuator is warming up"
+        },
+        "SMASTATUS_WARMINGDOWN": {
+            "brief": "Actuator is cooling off"
+        }
     }
 }

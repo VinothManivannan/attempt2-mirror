@@ -138,3 +138,24 @@ class TestLegacyConverter(unittest.TestCase):
         self.assertEqual(True, input_json.regmap[0].members[0].hif_access)
         self.assertEqual("input_ctrl_pad", input_json.regmap[0].members[1].name)
         self.assertEqual("none", input_json.regmap[0].members[1].access)
+
+    def test_briefs_are_populated_for_flags_and_states(self):
+        """Example with many enums for flags and arrays
+        """
+        input_json = self.import_legacy_json("sma_control_common.caef.json")
+
+        _ = TahiniCmap.cmap_regmap_from_input_json(input_json)
+
+        self.assertEqual("Wire 0 is enabled", input_json.enums[5].enumerators[0].brief)
+        self.assertEqual("Servo is off, actuator is idle", input_json.enums[32].enumerators[0].brief)
+
+    def test_public_private_is_populated(self):
+        """Example to check that private and public registers are marked as expected
+        """
+        input_json = self.import_legacy_json("temperature_estimation_model.caef.json")
+
+        _ = TahiniCmap.cmap_regmap_from_input_json(input_json)
+
+        self.assertEqual("public", input_json.regmap[0].members[0].access)
+        self.assertEqual(None, input_json.regmap[0].members[1].access)
+        self.assertEqual("private", input_json.regmap[1].members[2].access)

@@ -159,3 +159,12 @@ class TestLegacyConverter(unittest.TestCase):
         self.assertEqual("public", input_json.regmap[0].members[0].access)
         self.assertEqual(None, input_json.regmap[0].members[1].access)
         self.assertEqual("private", input_json.regmap[1].members[2].access)
+
+    def test_public_for_ctype(self):
+        """Example to check that ctype is used for struct names
+        """
+        input_json = self.import_legacy_json("sma_control_common.caef.json")
+
+        _ = TahiniCmap.cmap_regmap_from_input_json(input_json)
+
+        self.assertEqual("Ctrl4WsParameters", input_json.regmap[7].name)

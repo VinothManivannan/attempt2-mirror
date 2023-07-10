@@ -406,7 +406,7 @@ def _create_struct(json_data: Any,
 
     return _InputRegmapResult(
         input_regmap=InputRegmap(
-            name=name,
+            name=struct["ctype"] if "ctype" in struct else name,
             byte_size=byte_size,
             byte_offset=byte_offset,
             type=InputType.STRUCT[0],

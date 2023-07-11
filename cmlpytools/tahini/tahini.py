@@ -12,6 +12,7 @@ from .legacy_json_converter import legacy_json_to_input_regmap
 from .tahini_generate_flat_txt import GenerateFlatTxt
 from .tahini_generate_appnote_csv import GenerateAppnoteCSV
 from .tahini_generate_txt import GenerateTxt
+from .tahini_generate_api_cheader import GenerateApiCheader
 
 
 class Tahini():
@@ -207,7 +208,7 @@ class Tahini():
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
-                            help="Write the result into the file specified instead of the standard output.")
+                            help="Write the result into the file specified.")
 
         args = parser.parse_args()
         GenerateFlatTxt.create_flat_from_cmap_path(args.cmap_path, args.output)
@@ -218,11 +219,11 @@ class Tahini():
         """
         parser = argparse.ArgumentParser(
             description="Generate csv file",
-            usage="tahini csv <cmap-path> [--output=<flat-txt-path>]")
+            usage="tahini csv <cmap-path> [--output=<csv-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
-                            help="Write the result into the file specified instead of the standard output.")
+                            help="Write the result into the file specified.")
 
         args = parser.parse_args()
         GenerateAppnoteCSV.create_csv_from_cmap_path(args.cmap_path, args.output)
@@ -233,14 +234,29 @@ class Tahini():
         """
         parser = argparse.ArgumentParser(
             description="Generate txt file",
-            usage="tahini txt <cmap-path> [--output=<flat-txt-path>]")
+            usage="tahini txt <cmap-path> [--output=<txt-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
-                            help="Write the result into the file specified instead of the standard output.")
+                            help="Write the result into the file specified.")
 
         args = parser.parse_args()
         GenerateTxt.create_txt_from_cmap_path(args.cmap_path, args.output)
+
+    def apicheader(self):
+        """
+        Generate an API C Header from a cmap source file
+        """
+        parser = argparse.ArgumentParser(
+            description="Generate api c header file",
+            usage="tahini apicheader <cmap-path> [--output=<flat-txt-path>]")
+        parser.add_argument('command', help=argparse.SUPPRESS)
+        parser.add_argument("cmap_path", help="Path to the CmapSource json file")
+        parser.add_argument("--output", required=True,
+                            help="Write the result into the file specified.")
+
+        args = parser.parse_args()
+        GenerateApiCheader.from_cmapsource_path(args.cmap_path, args.output)
 
 
 def main():

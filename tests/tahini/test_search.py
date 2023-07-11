@@ -11,6 +11,8 @@ from cmlpytools.tahini.cmap_schema import Struct as CmapStruct
 from cmlpytools.tahini.cmap_schema import Type as CmapType
 from cmlpytools.tahini.search import search
 
+# pylint: disable=duplicate-code
+
 
 class TestSearch(unittest.TestCase):
     """Tests for the search function

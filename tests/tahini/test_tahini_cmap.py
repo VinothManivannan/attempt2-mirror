@@ -8,7 +8,7 @@ from cmlpytools.tahini.cmap_schema import FullRegmap as CmapFullRegmap
 from cmlpytools.tahini.cmap_schema import Type as CmapType
 from cmlpytools.tahini.cmap_schema import ArrayIndex as CmapArrayIndex
 from cmlpytools.tahini.input_json_schema import (InputJsonParserError, InputJson, InputRegmap,
-                                      InputType, VisibilityOptions, InputEnum)
+                                                 InputType, VisibilityOptions, InputEnum)
 from cmlpytools.tahini.tahini_cmap import TahiniCmap, TahiniCmapError
 
 PATH_TO_DATA = "./tests/tahini/data"
@@ -675,6 +675,161 @@ class TestToCMapSourceMethod(unittest.TestCase):
 
         with self.assertRaises(TahiniCmapError):
             _ = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+    def test_visibility_is_applied_correctly_to_states(self):
+        """Check that visibility options are applied correctly to states
+        """
+        input_regmap = InputJson(
+            regmap=[
+                InputRegmap(
+                    address=0,
+                    type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                    name="foo",
+                    byte_size=2,
+                    value_enum="bar",
+                    access=VisibilityOptions.PUBLIC
+                )
+            ],
+            enums=[
+                InputEnum(
+                    name="bar",
+                    enumerators=[
+                        InputEnum.InputEnumChild(name="BAR_VALUE1", value=0x01, access=VisibilityOptions.NONE),
+                        InputEnum.InputEnumChild(name="BAR_VALUE2", value=0x02, access=VisibilityOptions.PUBLIC),
+                        InputEnum.InputEnumChild(name="BAR_VALUE3", value=0x04, access=VisibilityOptions.PRIVATE),
+                        InputEnum.InputEnumChild(name="BAR_VALUE4", value=0x08)
+                    ]
+                )
+            ]
+        )
+
+        regmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+        self.assertEqual("value2", regmap.children[0].register.states[0].name)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.states[0].access)
+        self.assertEqual("value3", regmap.children[0].register.states[1].name)
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.states[1].access)
+        self.assertEqual("value4", regmap.children[0].register.states[2].name)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.states[2].access)
+
+    def test_visibility_is_applied_correctly_to_bitfields(self):
+        """Check that visibility options are applied correctly to bitfields
+        """
+        input_regmap = InputJson(
+            regmap=[
+                InputRegmap(
+                    address=0,
+                    type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                    name="foo",
+                    byte_size=2,
+                    mask_enum="bar",
+                    access=VisibilityOptions.PUBLIC
+                )
+            ],
+            enums=[
+                InputEnum(
+                    name="bar",
+                    enumerators=[
+                        InputEnum.InputEnumChild(name="FIELD1_MASK", value=0x0f, access=VisibilityOptions.NONE),
+                        InputEnum.InputEnumChild(name="FIELD2_MASK", value=0xf0, access=VisibilityOptions.PRIVATE),
+                        InputEnum.InputEnumChild(name="FIELD2_VALUE1", value=0x10, access=VisibilityOptions.NONE),
+                        InputEnum.InputEnumChild(name="FIELD2_VALUE2", value=0x20, access=VisibilityOptions.PUBLIC),
+                        InputEnum.InputEnumChild(name="FIELD2_VALUE3", value=0x30, access=VisibilityOptions.PRIVATE),
+                        InputEnum.InputEnumChild(name="FIELD2_VALUE4", value=0x40),
+                        InputEnum.InputEnumChild(name="FIELD3_MASK", value=0xf00, access=VisibilityOptions.PUBLIC),
+                        InputEnum.InputEnumChild(name="FIELD3_VALUE1", value=0x100, access=VisibilityOptions.NONE),
+                        InputEnum.InputEnumChild(name="FIELD3_VALUE2", value=0x200, access=VisibilityOptions.PUBLIC),
+                        InputEnum.InputEnumChild(name="FIELD3_VALUE3", value=0x300, access=VisibilityOptions.PRIVATE),
+                        InputEnum.InputEnumChild(name="FIELD3_VALUE4", value=0x400),
+                        InputEnum.InputEnumChild(name="FIELD4_MASK", value=0xf000),
+                        InputEnum.InputEnumChild(name="FIELD4_VALUE1", value=0x1000, access=VisibilityOptions.NONE),
+                        InputEnum.InputEnumChild(name="FIELD4_VALUE2", value=0x2000, access=VisibilityOptions.PUBLIC),
+                        InputEnum.InputEnumChild(name="FIELD4_VALUE3", value=0x3000, access=VisibilityOptions.PRIVATE),
+                        InputEnum.InputEnumChild(name="FIELD4_VALUE4", value=0x4000),
+                    ]
+                )
+            ]
+        )
+
+        regmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.bitfields[0].access)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[0].states[0].access)
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.bitfields[0].states[1].access)
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.bitfields[0].states[2].access)
+
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[1].access)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[1].states[0].access)
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.bitfields[1].states[1].access)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[1].states[2].access)
+
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[2].access)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[2].states[0].access)
+        self.assertEqual(VisibilityOptions.PRIVATE, regmap.children[0].register.bitfields[2].states[1].access)
+        self.assertEqual(VisibilityOptions.PUBLIC, regmap.children[0].register.bitfields[2].states[2].access)
+
+    def test_customer_alias_is_applied_correctly_to_states(self):
+        """Check that the customer alias is applied correctly to states
+        """
+        input_regmap = InputJson(
+            regmap=[
+                InputRegmap(
+                    address=0,
+                    type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                    name="foo",
+                    byte_size=2,
+                    value_enum="bar"
+                )
+            ],
+            enums=[
+                InputEnum(
+                    name="bar",
+                    enumerators=[
+                        InputEnum.InputEnumChild(name="value1", value=0x02, customer_alias="value1_alias"),
+                        InputEnum.InputEnumChild(name="value2", value=0x04)
+                    ]
+                )
+            ]
+        )
+
+        regmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+        self.assertEqual("value1_alias", regmap.children[0].register.states[0].customer_alias)
+        self.assertIsNone(regmap.children[0].register.states[1].customer_alias)
+
+    def test_customer_alias_is_applied_correctly_to_bitfields(self):
+        """Check that the customer alias is applied correctly to bitfields
+        """
+        input_regmap = InputJson(
+            regmap=[
+                InputRegmap(
+                    address=0,
+                    type=InputType.CTYPE_UNSIGNED_SHORT[0],
+                    name="foo",
+                    byte_size=2,
+                    mask_enum="bar",
+                    access=VisibilityOptions.PUBLIC
+                )
+            ],
+            enums=[
+                InputEnum(
+                    name="bar",
+                    enumerators=[
+                        InputEnum.InputEnumChild(name="field1_mask", value=0x0f, customer_alias="field1_alias"),
+                        InputEnum.InputEnumChild(name="field2_mask", value=0xf0),
+                        InputEnum.InputEnumChild(name="field2_value1", value=0x10, customer_alias="value1_alias"),
+                        InputEnum.InputEnumChild(name="field2_value2", value=0x20)
+                    ]
+                )
+            ]
+        )
+
+        regmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+
+        self.assertEqual("field1_alias", regmap.children[0].register.bitfields[0].customer_alias)
+        self.assertIsNone(regmap.children[0].register.bitfields[1].customer_alias)
+        self.assertEqual("value1_alias", regmap.children[0].register.bitfields[1].states[0].customer_alias)
+        self.assertIsNone(regmap.children[0].register.bitfields[1].states[1].customer_alias)
 
 
 if __name__ == '__main__':

@@ -95,6 +95,7 @@ class InputRegmap:
     cref: Optional[str] = None
     access: VisibilityOptions = field(default=None, metadata={"by_value": True})
     hif_access: Optional[bool] = None
+    customer_alias: Optional[str] = None
 
     def get_cmap_name(self) -> str:
         """Get name to be used in the cmapsource file: Use in priority the property `cmap_name` if defined,
@@ -155,6 +156,8 @@ class InputEnum:
         name: str
         value: int
         brief: Optional[str] = None
+        customer_alias: Optional[str] = None
+        access: VisibilityOptions = field(default=None, metadata={"by_value": True})
 
     name: str
     enumerators: list[InputEnumChild]

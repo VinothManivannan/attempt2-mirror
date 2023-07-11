@@ -82,19 +82,23 @@
                     "states": [
                         {
                             "name": "off",
-                            "value": 0
+                            "value": 0,
+                            "access": "private"
                         },
                         {
                             "name": "low",
-                            "value": 1
+                            "value": 1,
+                            "access": "private"
                         },
                         {
                             "name": "mid",
-                            "value": 2
+                            "value": 2,
+                            "access": "private"
                         },
                         {
                             "name": "high",
-                            "value": 3
+                            "value": 3,
+                            "access": "private"
                         }
                     ]
                 },
@@ -290,37 +294,44 @@
                         {
                             "name": "g",
                             "position": 1,
-                            "num_bits": 1
+                            "num_bits": 1,
+                            "access": "private"
                         },
                         {
                             "name": "f",
                             "position": 2,
-                            "num_bits": 1
+                            "num_bits": 1,
+                            "access": "private"
                         },
                         {
                             "name": "e",
                             "position": 3,
-                            "num_bits": 1
+                            "num_bits": 1,
+                            "access": "private"
                         },
                         {
                             "name": "d",
                             "position": 4,
-                            "num_bits": 1
+                            "num_bits": 1,
+                            "access": "private"
                         },
                         {
                             "name": "c",
                             "position": 5,
-                            "num_bits": 1
+                            "num_bits": 1,
+                            "access": "private"
                         },
                         {
                             "name": "b",
                             "position": 6,
-                            "num_bits": 1
+                            "num_bits": 1,
+                            "access": "private"
                         },
                         {
                             "name": "a",
                             "position": 7,
-                            "num_bits": 1
+                            "num_bits": 1,
+                            "access": "private"
                         }
                     ]
                 },

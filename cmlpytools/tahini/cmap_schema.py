@@ -139,12 +139,22 @@ class State:
     name: str
     value: int
     brief: Optional[str] = None
+    customer_alias: Optional[str] = None
+    access: VisibilityOptions = field(default=None, metadata={"by_value": True})
 
     def __post_init__(self):
         """Fields to check validity of states field
         """
         if re.compile(r"^[a-z_]([a-z0-9_]+)?$").match(self.name) is None:
             raise InvalidStatesError(f"Invalid name: {self.name}")
+
+    def get_customer_name(self):
+        """Get name to be used for customer-facing documentation and files
+
+        Returns:
+            str: Name to be used with customers
+        """
+        return self.customer_alias if self.customer_alias else self.name
 
 
 @dataclass
@@ -156,6 +166,8 @@ class Bitfield:
     num_bits: int
     brief: Optional[str] = None
     states: Optional[list[State]] = None
+    customer_alias: Optional[str] = None
+    access: VisibilityOptions = field(default=None, metadata={"by_value": True})
 
     def __post_init__(self):
         """Fields to check validity of bitfields field
@@ -174,6 +186,24 @@ class Bitfield:
                     bit_length += 1
                 if bit_length > self.num_bits:
                     raise InvalidBitfieldsError("Values in states exceed num_bits in bitfield {self.name}")
+
+    def get_mask(self) -> int:
+        """Get the mask value associated with the bitfield
+        """
+        mask = 0
+        for i in range(self.num_bits):
+            mask += 1 << i
+        mask <<= self.position
+
+        return mask
+
+    def get_customer_name(self) -> str:
+        """Get name to be used for customer-facing documentation and files
+
+        Returns:
+            str: Name to be used with customers
+        """
+        return self.customer_alias if self.customer_alias else self.name
 
 
 @dataclass
@@ -366,7 +396,6 @@ class Struct:
 class RegisterOrStruct:
     """Represents the properties in a struct or register
     """
-
     name: str
     type: Type = field(metadata={"by_value": True})
     addr: int
@@ -379,6 +408,7 @@ class RegisterOrStruct:
     offset: int = 0
     access: VisibilityOptions = field(default=None, metadata={"by_value": True})
     hif_access: Optional[bool] = None
+    customer_alias: Optional[str] = None
 
     def __post_init__(self):
         """Fields to check validity of struct field
@@ -453,6 +483,14 @@ class RegisterOrStruct:
         assert self.repeat_for is not None, "This element is not part of an array"
 
         return self._get_instances([RegisterOrStruct.ArrayInstance(self.addr, [], [])], depth=0)
+
+    def get_customer_name(self) -> str:
+        """Get name to be used for customer-facing documentation and files
+
+        Returns:
+            str: Name to be used with customers
+        """
+        return self.customer_alias if self.customer_alias is not None else self.name
 
 
 @dataclass

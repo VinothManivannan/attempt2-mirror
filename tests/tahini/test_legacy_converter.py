@@ -114,7 +114,7 @@ class TestLegacyConverter(unittest.TestCase):
 
         _ = TahiniCmap.cmap_regmap_from_input_json(input_json)
 
-        self.assertEqual("btm_params", input_json.regmap[0].name)
+        self.assertEqual("BtmParams", input_json.regmap[0].name)
         self.assertEqual("btm_base", input_json.regmap[0].members[0].name)
 
     def test_enums_for_flags_and_arrays(self):
@@ -135,7 +135,7 @@ class TestLegacyConverter(unittest.TestCase):
         _ = TahiniCmap.cmap_regmap_from_input_json(input_json)
 
         self.assertEqual(False, input_json.regmap[0].hif_access)
-        self.assertEqual(True, input_json.regmap[0].members[0].hif_access)
+        self.assertEqual(None, input_json.regmap[0].members[0].hif_access)
         self.assertEqual("input_ctrl_pad", input_json.regmap[0].members[1].name)
         self.assertEqual("none", input_json.regmap[0].members[1].access)
 

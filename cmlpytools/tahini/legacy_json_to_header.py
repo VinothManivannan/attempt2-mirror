@@ -149,6 +149,7 @@ def _json_actuator_to_cheader(json_data: Any, description: str, header_contents:
     header_contents += CONSTANTS_TYPES_TITLE
 
     # Parse the top level public and private regmap structures after recursively parsing their member structures
+    # pylint: disable=too-many-nested-blocks
     for actuator_struct_id in actuator_struct_list:
         caef_actuator_structs = json_data["Struct"][actuator_struct_id]
 
@@ -238,18 +239,18 @@ def _convert_integer_type(int_type: str) -> str:
     """
     if int_type == "unsigned long":
         return "uint32_t"
-    elif int_type == "signed long" or int_type == "long":
+    if int_type in ("signed long", int_type == "long"):
         return "int32_t"
-    elif int_type == "unsigned short":
+    if int_type == "unsigned short":
         return "uint16_t"
-    elif int_type == "signed short" or int_type == "short":
+    if int_type in ("signed short", int_type == "short"):
         return "int16_t"
-    elif int_type == "unsigned char":
+    if int_type == "unsigned char":
         return "uint8_t"
-    elif int_type == "signed char" or int_type == "char":
+    if int_type in ("signed char", int_type == "char"):
         return "int8_t"
-    else:
-        return int_type
+
+    return int_type
 
 
 def _process_input_enum(input_enum: InputEnum) -> str:

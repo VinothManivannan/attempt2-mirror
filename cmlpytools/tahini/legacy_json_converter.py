@@ -74,8 +74,10 @@ class _ControlContext:
             enumerators.append(InputEnum.InputEnumChild(
                 name=str(state[1]),
                 value=int(state[2]),
-                brief=json_data["State"][state[1]
-                                         ]["brief"] if json_data["State"][state[1]] is not None and "brief" in json_data["State"][state[1]] else None
+                brief=json_data["State"][state[1]]["brief"]
+                        if json_data["State"][state[1]] is not None and
+                           "brief" in json_data["State"][state[1]] 
+                        else None
             ))
 
         self.add_enum(value_enum, InputEnum(name=value_enum, enumerators=enumerators))
@@ -93,8 +95,10 @@ class _ControlContext:
             enumerators.append(InputEnum.InputEnumChild(
                 name=f"{str(flag[1])}_MASK",
                 value=int(flag[2]),
-                brief=json_data["Flag"][flag[1]
-                                        ]["brief"] if json_data["Flag"][flag[1]] is not None and "brief" in json_data["Flag"][flag[1]] else None
+                brief=json_data["Flag"][flag[1]]["brief"]
+                        if json_data["Flag"][flag[1]] is not None and
+                           "brief" in json_data["Flag"][flag[1]]
+                        else None
             ))
 
         self.add_enum(mask_enum, InputEnum(name=mask_enum, enumerators=enumerators))
@@ -247,7 +251,12 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
     if not name.startswith(context.register_prefix):
         name = f"{context.register_prefix}_{name}"
 
-    hif_access = False if "host_access" in reg and reg["host_access"] == "direct" else True
+    hif_access = None
+    if "host_access" in reg:
+        if reg["host_access"] == "direct":
+            hif_access = False
+        elif reg["host_access"] == "indirect":
+            hif_access = True
 
     access = None
     if "access" in reg and reg["access"] == "public":
@@ -394,7 +403,12 @@ def _create_struct(json_data: Any,
         next_offset = byte_offset
     next_offset += byte_size * (array_count if array_count is not None else 1)
 
-    hif_access = False if "host_access" in struct and struct["host_access"] == "direct" else True
+    hif_access = None
+    if "host_access" in struct:
+        if struct["host_access"] == "direct":
+            hif_access = False
+        elif struct["host_access"] == "indirect":
+            hif_access = True
 
     access = None
     if "access" in struct and struct["access"] == "public":
@@ -406,7 +420,7 @@ def _create_struct(json_data: Any,
 
     return _InputRegmapResult(
         input_regmap=InputRegmap(
-            name=struct["ctype"] if "ctype" in struct else name,
+            name=struct["ctype"] if "ctype" in struct else _to_camelcase(name),
             byte_size=byte_size,
             byte_offset=byte_offset,
             type=InputType.STRUCT[0],

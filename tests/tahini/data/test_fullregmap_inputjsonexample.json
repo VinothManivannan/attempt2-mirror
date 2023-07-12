@@ -1,24 +1,24 @@
 {
   "regmap": [
     {
-      "type": "unsigned short",
+      "type": "unsigned long long",
       "name": "doe",
       "brief": "A deer, a female deer",
-      "format": "Q10.5",
+      "format": "Q59.5",
       "min": 10.0,
       "max": 100.0,
       "address": 1024,
-      "byte_size": 2
+      "byte_size": 8
     },
     {
-      "type": "unsigned short",
+      "type": "signed long long",
       "name": "ray",
       "brief": "A drop of golden sun",
       "format": "Q2",
       "namespace": "ray1",
       "address": 2048,
       "value_enum": "RAY",
-      "byte_size": 2
+      "byte_size": 8
     },
     {
       "type": "unsigned short",

@@ -362,9 +362,13 @@ class TestDataPacking(unittest.TestCase):
         self.assertEqual(bytes([0x12]), CmapRegister(ctype=CType.UINT8).pack_value(0x12))
         self.assertEqual(bytes([0x34, 0x12]), CmapRegister(ctype=CType.UINT16).pack_value(0x1234))
         self.assertEqual(bytes([0x78, 0x56, 0x34, 0x12]), CmapRegister(ctype=CType.UINT32).pack_value(0x12345678))
+        self.assertEqual(bytes([0xF0, 0xDE, 0xBC, 0x9A, 0x78, 0x56, 0x34, 0x12]), CmapRegister(
+            ctype=CType.UINT64).pack_value(0x123456789ABCDEF0))
         self.assertEqual(bytes([0xFE]), CmapRegister(ctype=CType.INT8).pack_value(-2))
         self.assertEqual(bytes([0xFE, 0xFF]), CmapRegister(ctype=CType.INT16).pack_value(-2))
         self.assertEqual(bytes([0xFE, 0xFF, 0xFF, 0xFF]), CmapRegister(ctype=CType.INT32).pack_value(-2))
+        self.assertEqual(bytes([0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]),
+                         CmapRegister(ctype=CType.INT64).pack_value(-2))
         self.assertEqual(bytes([0xCD, 0xCC, 0xCC, 0x3D]), CmapRegister(ctype=CType.FLOAT).pack_value(0.1))
 
     def test_pack_value_by_state(self):

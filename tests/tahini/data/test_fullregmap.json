@@ -59,11 +59,11 @@
                 "name": "doe",
                 "type": "register",
                 "addr": 1024,
-                "size": 2,
+                "size": 8,
                 "brief": "A deer, a female deer",
                 "register": {
-                    "ctype": "uint16",
-                    "format": "Q10.5",
+                    "ctype": "uint64",
+                    "format": "Q59.5",
                     "min": 10.0,
                     "max": 100.0
                 },
@@ -74,10 +74,10 @@
                 "name": "ray",
                 "type": "register",
                 "addr": 2048,
-                "size": 2,
+                "size": 8,
                 "brief": "A drop of golden sun",
                 "register": {
-                    "ctype": "uint16",
+                    "ctype": "int64",
                     "format": "Q2",
                     "states": [
                         {

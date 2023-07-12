@@ -147,6 +147,10 @@ def _get_register_type(reg: Any, size: int) -> str:
         return InputType.CTYPE_UNSIGNED_LONG[0]
     if (size, signed) == (4, True):
         return InputType.CTYPE_SIGNED_LONG[0]
+    if (size, signed) == (8, False):
+        return InputType.CTYPE_UNSIGNED_LONG_LONG[0]
+    if (size, signed) == (8, True):
+        return InputType.CTYPE_SIGNED_LONG_LONG[0]
 
     raise Exception(f"Could not validate InputType of register: {reg}")
 

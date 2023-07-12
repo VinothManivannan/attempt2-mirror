@@ -67,6 +67,14 @@ class InputType:
     ]
     CTYPE_UNSIGNED_INT = ["unsigned int", "int unsigned"]
     CTYPE_SIGNED_INT = ["signed int", "int signed", "int"]
+    CTYPE_UNSIGNED_LONG_LONG = [
+        "long long unsigned int", "unsigned long long int", "long long int unsigned",
+        "unsigned long long", "long long unsigned"
+    ]
+    CTYPE_SIGNED_LONG_LONG = [
+        "signed long long int", "long signed long int", "long long int signed",
+        "signed long long", "long long signed", "long long int", "long long"
+    ]
 
 
 @dataclass(frozen=True)
@@ -136,6 +144,10 @@ class InputRegmap:
         elif self.type in InputType.CTYPE_UNSIGNED_LONG:
             pass
         elif self.type in InputType.CTYPE_SIGNED_LONG:
+            pass
+        elif self.type in InputType.CTYPE_UNSIGNED_LONG_LONG:
+            pass
+        elif self.type in InputType.CTYPE_SIGNED_LONG_LONG:
             pass
         elif self.type in InputType.FLOAT:
             pass

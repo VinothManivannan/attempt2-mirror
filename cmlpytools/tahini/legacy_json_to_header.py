@@ -6,7 +6,6 @@ import json
 import os
 import datetime
 from typing import Any, Dict, List
-from cmlpytools.tahini import legacy_json_to_input_regmap
 from .input_json_schema import InputJson, InputRegmap, InputEnum
 
 C_HEADER_BOILERPLATE = \
@@ -366,6 +365,7 @@ def legacy_json_to_c_header(legacy_path: str) -> str:
     Returns:
         str: C header text
     """
+    from cmlpytools.tahini import legacy_json_to_input_regmap
 
     # Determine the unique file name and derive some text that will go in the output
     filename = os.path.basename(legacy_path)

@@ -224,15 +224,15 @@ def _convert_integer_type(int_type: str) -> str:
     """
     if int_type == "unsigned long":
         return "uint32_t"
-    if int_type in ("signed long", "long"):
+    if int_type in {"signed long", "long"}:
         return "int32_t"
     if int_type == "unsigned short":
         return "uint16_t"
-    if int_type in ("signed short", "short"):
+    if int_type in {"signed short", "short"}:
         return "int16_t"
     if int_type == "unsigned char":
         return "uint8_t"
-    if int_type in ("signed char", "char"):
+    if int_type in {"signed char", "char"}:
         return "int8_t"
 
     return int_type

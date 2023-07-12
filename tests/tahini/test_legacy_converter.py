@@ -146,8 +146,8 @@ class TestLegacyConverter(unittest.TestCase):
 
         _ = TahiniCmap.cmap_regmap_from_input_json(input_json)
 
-        self.assertEqual("Wire 0 is enabled", input_json.enums[5].enumerators[0].brief)
-        self.assertEqual("Servo is off, actuator is idle", input_json.enums[32].enumerators[0].brief)
+        self.assertEqual("Wire 0 is enabled", input_json.enums[4].enumerators[0].brief)
+        self.assertEqual("Servo is off, actuator is idle", input_json.enums[16].enumerators[0].brief)
 
     def test_public_private_is_populated(self):
         """Example to check that private and public registers are marked as expected

@@ -8,8 +8,8 @@ from .tahini_cmap import TahiniCmap
 from .tahini_crc import TahiniCrc
 from .tahini_gimli import TahiniGimli
 from .tahini_version import TahiniVersion
-from .legacy_json_converter import legacy_json_to_input_regmap
 from .legacy_json_to_header import legacy_json_to_c_header
+from .legacy_json_converter import legacy_json_to_input_regmap
 from .tahini_generate_flat_txt import GenerateFlatTxt
 from .tahini_generate_appnote_csv import GenerateAppnoteCSV
 from .tahini_generate_txt import GenerateTxt

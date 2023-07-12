@@ -35,8 +35,14 @@ class _ControlContext:
             local_name (str): Local name of the enum in the current json context
             enum (InputEnum): Enum to be created
         """
+        add = True
         self.enums_by_local_name[local_name] = enum
-        self.all_enums.append(enum)
+        for existing_enum in self.all_enums:
+            if enum.name == existing_enum.name:
+                add = False
+                break
+        if add:
+            self.all_enums.append(enum)
 
     def read_control_indexes_and_spaces(self, node: Any, node_name: str) -> None:
         """Read control spaces and indexes from a given json node

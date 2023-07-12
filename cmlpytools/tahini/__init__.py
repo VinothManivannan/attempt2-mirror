@@ -19,3 +19,4 @@ from .input_json_schema import InputJsonParserError
 from .tahini_cmap import TahiniCmap
 from .search import search
 from .legacy_json_converter import legacy_json_to_input_regmap
+from .legacy_json_to_header import legacy_json_to_c_header

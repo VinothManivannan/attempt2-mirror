@@ -4,7 +4,13 @@ from dataclasses import dataclass
 import json
 from copy import deepcopy
 from typing import Any, Optional, Dict, List, Tuple
-from .input_json_schema import InputEnum, InputJson, InputRegmap, InputType
+from .input_json_schema import InputEnum, InputJson, InputRegmap, InputType, VisibilityOptions
+
+
+def _to_camelcase(name: str) -> str:
+    """Helper function to convert a name into camel-case
+    """
+    return name.title().replace("_", "")
 
 
 class _ControlContext:
@@ -12,19 +18,38 @@ class _ControlContext:
     indexes as we recursively traverse the json nodes.
     """
 
-    _spaces_stack = []
-    _indexes_stack = []
-    _prefix_stack = []
-    spaces: Dict[str, List[str]] = {}
-    indexes: Dict[str, int] = {}
-    register_prefix: str = ""
-    enums: Dict[str, InputEnum] = {}
+    def __init__(self):
+        self._spaces_stack = []
+        self._indexes_stack = []
+        self._prefix_stack = []
+        self.spaces: Dict[str, List[str]] = {}
+        self.indexes: Dict[str, int] = {}
+        self.register_prefix: str = ""
+        self.enums_by_local_name: Dict[str, InputEnum] = {}
+        self.all_enums = []
 
-    def read_control_indexes_and_spaces(self, node: Any) -> None:
+    def add_enum(self, local_name: str, enum: InputEnum) -> None:
+        """Add a new enum to be included in the input json
+
+        Args:
+            local_name (str): Local name of the enum in the current json context
+            enum (InputEnum): Enum to be created
+        """
+        add = True
+        self.enums_by_local_name[local_name] = enum
+        for existing_enum in self.all_enums:
+            if enum.name == existing_enum.name:
+                add = False
+                break
+        if add:
+            self.all_enums.append(enum)
+
+    def read_control_indexes_and_spaces(self, node: Any, node_name: str) -> None:
         """Read control spaces and indexes from a given json node
 
         Args:
             node (Any): Json node
+            node_name (str): Name of the json node
         """
 
         if "controlindexes" in node:
@@ -33,17 +58,20 @@ class _ControlContext:
         if "controlspaces" in node:
             self.spaces.update(node["controlspaces"])
             for name, aliases in node["controlspaces"].items():
-                self.enums[name] = InputEnum(
-                    name=name,
+                new_enum = InputEnum(
+                    # Generate an unique name using parent node name as prefix
+                    name=_to_camelcase(f"{node_name}_{name}"),
                     enumerators=[InputEnum.InputEnumChild(aliases[i], i) for i in range(len(aliases))]
                 )
+                self.add_enum(name, new_enum)
 
         self.register_prefix = str(node["prefix"]) if "prefix" in node else ""
 
-    def add_enum_from_states_node(self, value_enum: str, states_node: List[List[Any]]) -> None:
+    def add_enum_from_states_node(self, json_data: Any, value_enum: str, states_node: List[List[Any]]) -> None:
         """Add a new enum to be generated in the Input Regmap using legacy states
 
         Args:
+            json_data (Any): Toplevel json node containing all the data 
             value_enum (str): Name of the enum to be generated in the Input Regmap
             states_node (List[List[Any]]): Json node containing the list of states for a given register
         """
@@ -51,15 +79,20 @@ class _ControlContext:
         for state in states_node:
             enumerators.append(InputEnum.InputEnumChild(
                 name=str(state[1]),
-                value=int(state[2])
+                value=int(state[2]),
+                brief=json_data["State"][state[1]]["brief"]
+                        if json_data["State"][state[1]] is not None and
+                           "brief" in json_data["State"][state[1]] 
+                        else None
             ))
 
-        self.enums[value_enum] = InputEnum(name=value_enum, enumerators=enumerators)
+        self.add_enum(value_enum, InputEnum(name=value_enum, enumerators=enumerators))
 
-    def add_enum_from_flags_node(self, mask_enum: str, flags_node: List[List[Any]]) -> None:
+    def add_enum_from_flags_node(self, json_data: Any, mask_enum: str, flags_node: List[List[Any]]) -> None:
         """Add a new enum to be generated in the Input Regmap using legacy flags
 
         Args:
+            json_data (Any): Toplevel json node containing all the data 
             mask_enum (str): Name of the enum to be generated in the Input Regmap
             flags_node (List[List[Any]]): Json node containing the list of flags for a given register
         """
@@ -67,10 +100,14 @@ class _ControlContext:
         for flag in flags_node:
             enumerators.append(InputEnum.InputEnumChild(
                 name=f"{str(flag[1])}_MASK",
-                value=int(flag[2])
+                value=int(flag[2]),
+                brief=json_data["Flag"][flag[1]]["brief"]
+                        if json_data["Flag"][flag[1]] is not None and
+                           "brief" in json_data["Flag"][flag[1]]
+                        else None
             ))
 
-        self.enums[mask_enum] = InputEnum(name=mask_enum, enumerators=enumerators)
+        self.add_enum(mask_enum, InputEnum(name=mask_enum, enumerators=enumerators))
 
     def push(self) -> None:
         """Save the current state of control indexes and spaces
@@ -176,8 +213,8 @@ def _get_array_size(node: Any, context: _ControlContext) -> Tuple[Optional[int],
         if node["repeatfor"] in context.indexes:
             array_count = context.indexes[node["repeatfor"]]
         elif node["repeatfor"] in context.spaces:
-            array_enum = node["repeatfor"]
-            array_count = len(context.spaces[array_enum])
+            array_enum = context.enums_by_local_name[node["repeatfor"]].name
+            array_count = len(context.spaces[node["repeatfor"]])
         else:
             raise Exception(f"Repeatfor definition of '{node['repeatfor']}' was not found in current context.")
 
@@ -207,14 +244,14 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
     array_count, array_enum = _get_array_size(reg, context)
 
     if "children" in reg and reg["children"][0][0] == "State":
-        value_enum = f"{name}States"
-        context.add_enum_from_states_node(value_enum=value_enum, states_node=reg["children"])
+        value_enum = _to_camelcase(f"{name}_States")
+        context.add_enum_from_states_node(json_data, value_enum=value_enum, states_node=reg["children"])
     else:
         value_enum = None
 
     if "children" in reg and reg["children"][0][0] == "Flag":
-        mask_enum = f"{name}Flags"
-        context.add_enum_from_flags_node(mask_enum=mask_enum, flags_node=reg["children"])
+        mask_enum = _to_camelcase(f"{name}_Flags")
+        context.add_enum_from_flags_node(json_data, mask_enum=mask_enum, flags_node=reg["children"])
     else:
         mask_enum = None
 
@@ -224,16 +261,36 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
     if not name.startswith(context.register_prefix):
         name = f"{context.register_prefix}_{name}"
 
+    hif_access = None
+    if "host_access" in reg:
+        if reg["host_access"] == "direct":
+            hif_access = False
+        elif reg["host_access"] == "indirect":
+            hif_access = True
+
+    access = None
+    if "access" in reg and reg["access"] == "public":
+        access = VisibilityOptions.PUBLIC
+    elif "access" in reg and reg["access"] == "private":
+        access = VisibilityOptions.PRIVATE
+
     return _InputRegmapResult(
         input_regmap=InputRegmap(
-            name=name,
+            name=name.lower(),
             byte_size=reg_size,
             byte_offset=byte_offset,
             type=reg_type,
             array_count=array_count,
             array_enum=array_enum,
             value_enum=value_enum,
-            mask_enum=mask_enum),
+            mask_enum=mask_enum,
+            brief=reg["brief"] if "brief" in reg else None,
+            min=reg["min"] if "min" in reg else None,
+            max=reg["max"] if "max" in reg else None,
+            format=reg["format"] if "format" in reg else None,
+            units=reg["units"] if "units" in reg else None,
+            hif_access=hif_access,
+            access=access),
         next_offset=next_offset,
         alignment=alignment)
 
@@ -264,12 +321,13 @@ def _create_reserved_reg(json_data: Any, name: str, byte_offset: int, context: _
 
     return _InputRegmapResult(
         input_regmap=InputRegmap(
-            name=name,
+            name=name.lower(),
             byte_size=reg_size,
             byte_offset=byte_offset,
             type=reg_type,
             array_count=array_count,
-            array_enum=array_enum),
+            array_enum=array_enum,
+            access=VisibilityOptions.NONE),
         next_offset=next_offset,
         alignment=alignment)
 
@@ -316,7 +374,7 @@ def _create_struct(json_data: Any,
     struct = json_data["Struct"][name]
 
     context.push()
-    context.read_control_indexes_and_spaces(struct)
+    context.read_control_indexes_and_spaces(struct, name)
 
     members = []
     offset = 0
@@ -355,18 +413,34 @@ def _create_struct(json_data: Any,
         next_offset = byte_offset
     next_offset += byte_size * (array_count if array_count is not None else 1)
 
+    hif_access = None
+    if "host_access" in struct:
+        if struct["host_access"] == "direct":
+            hif_access = False
+        elif struct["host_access"] == "indirect":
+            hif_access = True
+
+    access = None
+    if "access" in struct and struct["access"] == "public":
+        access = VisibilityOptions.PUBLIC
+    elif "access" in struct and struct["access"] == "private":
+        access = VisibilityOptions.PRIVATE
+
     context.pop()
 
     return _InputRegmapResult(
         input_regmap=InputRegmap(
-            name=name,
+            name=struct["ctype"] if "ctype" in struct else _to_camelcase(name),
             byte_size=byte_size,
             byte_offset=byte_offset,
             type=InputType.STRUCT[0],
             address=address,
             members=members,
             array_count=array_count,
-            array_enum=array_enum),
+            array_enum=array_enum,
+            hif_access=hif_access,
+            brief=struct["brief"] if "brief" in struct else None,
+            access=access),
         next_offset=next_offset,
         alignment=alignment)
 
@@ -380,17 +454,29 @@ def legacy_to_input_json(json_data: Any) -> InputJson:
     Returns:
         InputJson: Converted data
     """
-
-    regmap = json_data["RegMap"]
-    regmap = regmap[next(iter(regmap.keys()))]
+    members = []
 
     context = _ControlContext()
-    context.read_control_indexes_and_spaces(regmap)
+
+    if "RegMap" in json_data:
+        entry_node = json_data["RegMap"]
+    elif "Module" in json_data:
+        entry_node = json_data["Module"]
+    elif "Chain" in json_data:
+        entry_node = json_data["Chain"]
+    elif "Actuator" in json_data:
+        entry_node = json_data["Actuator"]
+    else:
+        raise Exception("Legacy converter not found!")
+
+    entry_node = entry_node[next(iter(entry_node.keys()))]
+
+    context.read_control_indexes_and_spaces(entry_node, "")
 
     # Generate members
     next_address = 0
-    members = []
-    for child in regmap["children"]:
+
+    for child in entry_node["children"]:
         if len(child) == 3:
             next_address = int(child[2])
 
@@ -401,13 +487,17 @@ def legacy_to_input_json(json_data: Any) -> InputJson:
                 address=next_address,
                 context=context)
             next_address += new_member.input_regmap.byte_size
+        elif child[0] == "Reg":
+            new_member = _create_reg(json_data, name=child[1], byte_offset=next_address, context=context)
         else:
-            raise Exception(f"Invalid type: {child[0]}")
+            # Module, Chain, Actuator...
+            new_member = None
 
-        members.append(new_member.input_regmap)
+        if new_member:
+            members.append(new_member.input_regmap)
 
     # Generate enums
-    enums = context.enums.values()
+    enums = context.all_enums
 
     return InputJson(
         regmap=members,

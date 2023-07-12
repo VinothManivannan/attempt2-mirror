@@ -8,6 +8,7 @@ from .tahini_cmap import TahiniCmap
 from .tahini_crc import TahiniCrc
 from .tahini_gimli import TahiniGimli
 from .tahini_version import TahiniVersion
+from .legacy_json_to_header import legacy_json_to_c_header
 from .legacy_json_converter import legacy_json_to_input_regmap
 from .tahini_generate_flat_txt import GenerateFlatTxt
 from .tahini_generate_appnote_csv import GenerateAppnoteCSV
@@ -25,14 +26,15 @@ class Tahini():
                                          formatter_class=argparse.RawDescriptionHelpFormatter,
                                          epilog=textwrap.dedent('''\
         Available commands:
-            gimli      tahini gimli <firmware-file> ... outputs an Input JSON File to stdout
-            version    tahini version <project-path> <build-config-name> <build-config-id> outputs a Version Information to stdout
-            cmap       tahini cmap <project-path> <version-info-file> <input-json-path> outputs a Cmapsource File to stdout
-            crc        tahini crc <firmware-file> outputs a CRC-appended firmware binary file to stdout
-            regmap     tahini regmap <project-path> <cmap-path> outputs legacy .regmap to stdout
-            flattxt    tahini flattxt <cmap-json-path> <flat-txt-path> outputs
-            csv        tahini csv <cmap-json-path> <flat-txt-path> outputs
-            txt        tahini txt <cmap-json-path> <flat-txt-path> outputs
+            gimli         tahini gimli <firmware-file> ... outputs an Input JSON File to stdout
+            version       tahini version <project-path> <build-config-name> <build-config-id> outputs a Version Information to stdout
+            cmap          tahini cmap <project-path> <version-info-file> <input-json-path> outputs a Cmapsource File to stdout
+            crc           tahini crc <firmware-file> outputs a CRC-appended firmware binary file to stdout
+            regmap        tahini regmap <project-path> <cmap-path> outputs legacy .regmap to stdout
+            flattxt       tahini flattxt <cmap-json-path> <flat-txt-path> outputs
+            csv           tahini csv <cmap-json-path> <flat-txt-path> outputs
+            txt           tahini txt <cmap-json-path> <flat-txt-path> outputs
+            legacycheader tahini legacycheader <legacy-json-path> outputs
         For more detailed help, type "tahini <command> -h" '''))
 
         parser.add_argument('command', help='tahini subcommand', nargs=1)
@@ -197,6 +199,27 @@ class Tahini():
                 output.write(input_json)
         else:
             print(input_json)
+
+    def legacycheader(self):
+        """
+        Generate a C header file from a legacy json file
+        """
+        parser = argparse.ArgumentParser(
+            description="Generate a C header file from a legacy json file",
+            usage="tahini legacycheader <legacy-json-path> [--output=<input-json-path>]")
+        parser.add_argument('command', help=argparse.SUPPRESS)
+        parser.add_argument("legacy_json_path", help="Path to the Legacy json file")
+        parser.add_argument("--output", required=False,
+                            help="Write the result into the file specified instead of the standard output.")
+        args = parser.parse_args()
+
+        header_file = legacy_json_to_c_header(args.legacy_json_path)
+
+        if args.output is not None:
+            with open(args.output, "w", encoding="utf-8") as output:
+                output.write(header_file)
+        else:
+            print(header_file)
 
     def flattxt(self):
         """

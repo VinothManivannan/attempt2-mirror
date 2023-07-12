@@ -1,0 +1,439 @@
+{
+    "Module": {
+        "Input Common": {
+            "children": [
+                [
+                    "Struct",
+                    "input_8ws"
+                ],
+                [
+                    "Struct",
+                    "input_six_axis"
+                ],
+                [
+                    "Struct",
+                    "input_sesh"
+                ],
+                [
+                    "Struct",
+                    "input_4ws"
+                ],
+                [
+                    "Struct",
+                    "input_2w"
+                ],
+                [
+                    "Struct",
+                    "input_vrg"
+                ],
+                [
+                    "Struct",
+                    "input_sma_vs_spring"
+                ]
+            ],
+            "description": "Contain structures and registers related to the input controls."
+        }
+    },
+    "Struct": {
+        "input_8ws": {
+            "protocol": "input_8w_v3_0",
+            "host_access": "direct",
+            "ctype": "Input8Ws",
+            "controlspaces": {
+                "dof": [
+                    "rx",
+                    "ry",
+                    "rz",
+                    "x",
+                    "y",
+                    "z"
+                ]
+            },
+            "children": [
+                [
+                    "Reg",
+                    "INPUT_CTRL_8WS"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_CTRL_PAD"
+                ],
+                [
+                    "Reg",
+                    "INPUT_POS_D"
+                ],
+                [
+                    "Reg",
+                    "INPUT_TEMP"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_PAD"
+                ]
+            ],
+            "prefix": "INPUT"
+        },
+        "input_six_axis": {
+            "protocol": "input_six_axis_v1_0",
+            "ctype": "InputSixAxis",
+            "controlspaces": {
+                "dof": [
+                    "rx",
+                    "ry",
+                    "rz",
+                    "x",
+                    "y",
+                    "z"
+                ]
+            },
+            "children": [
+                [
+                    "Reg",
+                    "INPUT_CTRL_SIX_AXIS"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_CTRL_PAD"
+                ],
+                [
+                    "Reg",
+                    "INPUT_POS_D"
+                ],
+                [
+                    "Reg",
+                    "INPUT_TEMP"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_PAD"
+                ]
+            ],
+            "prefix": "INPUT"
+        },
+        "input_sesh": {
+            "protocol": "input_sesh_v3_0",
+            "host_access": "direct",
+            "controlspaces": {
+                "dof": [
+                    "rz",
+                    "x",
+                    "y"
+                ]
+            },
+            "ctype": "InputSesh",
+            "children": [
+                [
+                    "Reg",
+                    "INPUT_CTRL_SESH"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_CTRL_PAD"
+                ],
+                [
+                    "Reg",
+                    "INPUT_POS_D"
+                ],
+                [
+                    "Reg",
+                    "INPUT_TEMP"
+                ]
+            ],
+            "prefix": "INPUT"
+        },
+        "input_4ws": {
+            "prefix": "INPUT",
+            "protocol": "input_4ws_v2_0",
+            "controlspaces": {
+                "dof": [
+                    "x",
+                    "y"
+                ]
+            },
+            "children": [
+                [
+                    "Reg",
+                    "INPUT_CTRL_4WS"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_CTRL_PAD"
+                ],
+                [
+                    "Reg",
+                    "INPUT_POS_D"
+                ],
+                [
+                    "Reg",
+                    "INPUT_TEMP"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_PAD"
+                ]
+            ],
+            "ctype": "Input4Ws"
+        },
+        "input_2w": {
+            "protocol": "input_2ws_v3_0",
+            "ctype": "Input2Ws",
+            "children": [
+                [
+                    "Reg",
+                    "INPUT_CTRL_2W"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_CTRL_PAD"
+                ],
+                [
+                    "Reg",
+                    "INPUT_POS_D"
+                ],
+                [
+                    "Reg",
+                    "INPUT_TEMP"
+                ]
+            ],
+            "prefix": "INPUT",
+            "controlspaces": {
+                "dof": [
+                    "z"
+                ]
+            }
+        },
+        "input_vrg": {
+            "prefix": "INPUT",
+            "protocol": "input_vrg_v1_0",
+            "ctype": "InputVrg",
+            "controlindexes": {
+                "wires": 2
+            },
+            "children": [
+                [
+                    "Reg",
+                    "INPUT_CTRL_VRG"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_CTRL_PAD"
+                ],
+                [
+                    "Reg",
+                    "INPUT_POS_W"
+                ],
+                [
+                    "Reg",
+                    "INPUT_TEMP"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_PAD"
+                ]
+            ]
+        },
+        "input_sma_vs_spring": {
+            "prefix": "INPUT",
+            "protocol": "input_sma_vs_spring_v2_0",
+            "ctype": "InputSMAvsSpring",
+            "controlindexes": {
+                "wires": 1
+            },
+            "children": [
+                [
+                    "Reg",
+                    "INPUT_CTRL_SMA_VS_SPRING"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_CTRL_PAD"
+                ],
+                [
+                    "Reg",
+                    "INPUT_POS_W"
+                ],
+                [
+                    "Reg",
+                    "INPUT_TEMP"
+                ],
+                [
+                    "ReservedReg",
+                    "INPUT_PAD"
+                ]
+            ]
+        }
+    },
+    "Reg": {
+        "INPUT_CTRL_SESH": {
+            "brief": "Bit field that can be used to enable special debug features",
+            "children": [
+                [
+                    "Flag",
+                    "MANUAL_TEMP",
+                    1
+                ],
+                [
+                    "Flag",
+                    "MANUAL_POSITION",
+                    2
+                ],
+                [
+                    "Flag",
+                    "OPEN_LOOP",
+                    4
+                ]
+            ]
+        },
+        "INPUT_CTRL_8WS": {
+            "brief": "Bit field that can be used to enable special debug features",
+            "children": [
+                [
+                    "Flag",
+                    "MANUAL_TEMP",
+                    1
+                ],
+                [
+                    "Flag",
+                    "MANUAL_POSITION",
+                    2
+                ],
+                [
+                    "Flag",
+                    "OPEN_LOOP",
+                    4
+                ]
+            ]
+        },
+        "INPUT_CTRL_SIX_AXIS": {
+            "brief": "Bit field that can be used to enable special debug features",
+            "children": [
+                [
+                    "Flag",
+                    "MANUAL_TEMP",
+                    1
+                ],
+                [
+                    "Flag",
+                    "MANUAL_POSITION",
+                    2
+                ],
+                [
+                    "Flag",
+                    "OPEN_LOOP",
+                    4
+                ]
+            ]
+        },
+        "INPUT_CTRL_4WS": {
+            "brief": "Bit field that can be used to enable special debug features",
+            "children": [
+                [
+                    "Flag",
+                    "MANUAL_TEMP",
+                    1
+                ],
+                [
+                    "Flag",
+                    "MANUAL_POSITION",
+                    2
+                ],
+                [
+                    "Flag",
+                    "OPEN_LOOP",
+                    4
+                ]
+            ]
+        },
+        "INPUT_CTRL_2W": {
+            "brief": "Bit field that can be used to enable special debug features",
+            "children": [
+                [
+                    "Flag",
+                    "MANUAL_TEMP",
+                    1
+                ],
+                [
+                    "Flag",
+                    "MANUAL_POSITION",
+                    2
+                ],
+                [
+                    "Flag",
+                    "OPEN_LOOP",
+                    4
+                ]
+            ]
+        },
+        "INPUT_CTRL_VRG": {
+            "brief": "Bit field that can be used to enable special debug features",
+            "children": [
+                [
+                    "Flag",
+                    "MANUAL_TEMP",
+                    1
+                ],
+                [
+                    "Flag",
+                    "MANUAL_POSITION",
+                    2
+                ],
+                [
+                    "Flag",
+                    "OPEN_LOOP",
+                    4
+                ]
+            ]
+        },
+        "INPUT_CTRL_SMA_VS_SPRING": {
+            "brief": "Bit field that can be used to enable special debug features",
+            "children": [
+                [
+                    "Flag",
+                    "MANUAL_TEMP",
+                    1
+                ],
+                [
+                    "Flag",
+                    "MANUAL_POSITION",
+                    2
+                ]
+            ]
+        },
+        "INPUT_POS_D": {
+            "brief": "Position Demand used by the library in position units",
+            "repeatfor": "dof",
+            "signed": true,
+            "writeable": true
+        },
+        "INPUT_POS_W": {
+            "brief": "Position Demand used by the library in position units",
+            "repeatfor": "wires",
+            "signed": true,
+            "writeable": true
+        },
+        "INPUT_TEMP": {
+            "access": "private",
+            "brief": "Temperature received by the library.",
+            "reset": "DEFAULT_TEMP",
+            "signed": true,
+            "writeable": true
+        }
+    },
+    "ReservedReg": {
+        "INPUT_CTRL_PAD": {
+            "brief": "Padding to ensure so it is easier to write to INPUT_CTRL without overwriting following registers on S10.",
+            "bytes": 2
+        },
+        "INPUT_PAD": {
+            "brief": "Padding to ensure 32bits alignment of next struct.",
+            "bytes": 2
+        }
+    },
+    "Flag": {
+        "MANUAL_TEMP": {
+            "brief": "Control the position manually over IIC through the INPOT_POS_D registers"
+        },
+        "MANUAL_POSITION": null,
+        "OPEN_LOOP": null
+    }
+}

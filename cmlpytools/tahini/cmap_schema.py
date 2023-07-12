@@ -82,9 +82,11 @@ class CType(str, Enum):
     UINT8 = "uint8"
     UINT16 = "uint16"
     UINT32 = "uint32"
+    UINT64 = "uint64"
     INT8 = "int8"
     INT16 = "int16"
     INT32 = "int32"
+    INT64 = "int64"
     FLOAT = "float"
 
     @staticmethod
@@ -101,9 +103,11 @@ class CType(str, Enum):
             CType.UINT8: 8,
             CType.UINT16: 16,
             CType.UINT32: 32,
+            CType.UINT64: 64,
             CType.INT8: 8,
             CType.INT16: 16,
             CType.INT32: 32,
+            CType.INT64: 64,
             CType.FLOAT: 32,
         }.get(c_type)
 
@@ -334,6 +338,10 @@ class Register:
             format_string = "<l"
         elif self.ctype == CType.UINT32:
             format_string = "<L"
+        elif self.ctype == CType.INT64:
+            format_string = "<q"
+        elif self.ctype == CType.UINT64:
+            format_string = "<Q"
         else:
             raise Exception(f"Bytes conversion is not known for register type: {self.ctype}")
 

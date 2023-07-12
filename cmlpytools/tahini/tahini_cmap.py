@@ -341,6 +341,8 @@ class TahiniCmap():
             ctype = CmapCtype.UINT32
         elif input_regmap.type in InputType.CTYPE_UNSIGNED_LONG and input_regmap.byte_size == 4:
             ctype = CmapCtype.UINT32
+        elif input_regmap.type in InputType.CTYPE_UNSIGNED_LONG_LONG and input_regmap.byte_size == 8:
+            ctype = CmapCtype.UINT64
         elif input_regmap.type in InputType.CTYPE_SIGNED_CHAR and input_regmap.byte_size == 1:
             ctype = CmapCtype.INT8
         elif input_regmap.type in InputType.CTYPE_SIGNED_SHORT and input_regmap.byte_size == 2:
@@ -349,6 +351,8 @@ class TahiniCmap():
             ctype = CmapCtype.INT32
         elif input_regmap.type in InputType.CTYPE_SIGNED_LONG and input_regmap.byte_size == 4:
             ctype = CmapCtype.INT32
+        elif input_regmap.type in InputType.CTYPE_SIGNED_LONG_LONG and input_regmap.byte_size == 8:
+            ctype = CmapCtype.INT64
         elif input_regmap.type in InputType.FLOAT and input_regmap.byte_size == 4:
             ctype = CmapCtype.FLOAT
         else:

@@ -290,6 +290,7 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
             format=reg["format"] if "format" in reg else None,
             units=reg["units"] if "units" in reg else None,
             namespace=reg["namespace"] if "namespace" in reg else None,
+            cmap_name=reg["cmap_name"].lower() if "cmap_name" in reg else None,
             hif_access=hif_access,
             access=access),
         next_offset=next_offset,

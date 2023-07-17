@@ -570,14 +570,14 @@ class TahiniCmap():
 
         if extended_version_info_path is not None:
             cmap = CmapFullRegmap(
-                scheme=CmapScheme(1, 0),
+                scheme=CmapScheme(2, 0),
                 version=ExtendedVersionInfo.load_json(extended_version_info_path),
                 regmap=TahiniCmap.cmap_regmap_from_input_json(input_json)
             )
         else:
             assert project_path is not None, "Error: version_info_path was specified but not project_path"
             cmap = CmapFullRegmap(
-                scheme=CmapScheme(1, 0),
+                scheme=CmapScheme(2, 0),
                 version=TahiniVersion.create_extended_version_info(project_path, version_info_path),
                 regmap=TahiniCmap.cmap_regmap_from_input_json(input_json)
             )

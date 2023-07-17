@@ -388,6 +388,9 @@ def legacy_json_to_c_header(legacy_path: str) -> str:
 
     header_contents += INCLUDES_TITLE
 
+    if "Regmap" in json_data:
+        input_json = legacy_json_to_input_regmap(legacy_path)
+        header_contents = _json_module_to_c_header(input_json, json_data, caefname, header_contents)
     if "Module" in json_data:
         input_json = legacy_json_to_input_regmap(legacy_path)
         header_contents = _json_module_to_c_header(input_json, json_data, caefname, header_contents)

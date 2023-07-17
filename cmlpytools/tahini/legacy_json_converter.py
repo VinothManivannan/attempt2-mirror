@@ -289,20 +289,20 @@ def _create_reg(json_data: Any, name: str, byte_offset: int, context: _ControlCo
             max=reg["max"] if "max" in reg else None,
             format=reg["format"] if "format" in reg else None,
             units=reg["units"] if "units" in reg else None,
+            namespace=reg["namespace"] if "namespace" in reg else None,
             hif_access=hif_access,
             access=access),
         next_offset=next_offset,
         alignment=alignment)
 
 
-def _create_reserved_reg(json_data: Any, name: str, byte_offset: int, context: _ControlContext) -> _InputRegmapResult:
+def _create_reserved_reg(json_data: Any, name: str, byte_offset: int) -> _InputRegmapResult:
     """Create a new InputRegmap for a "ReservedReg" child node in a legacy json
 
     Args:
         json_data (Any): Json node representing a reserved register in Legacy json
         name (str): Name of the reserved register
         byte_offset (int): Offset in input regmap
-        context (_ControlContext): Object used to hold information about the current context
 
     Returns:
         _InputRegmapResult: Resulting input regmap object created
@@ -310,23 +310,20 @@ def _create_reserved_reg(json_data: Any, name: str, byte_offset: int, context: _
 
     reg = json_data["ReservedReg"][name]
     reg_size = reg["bytes"] if "bytes" in reg else 2
-    reg_type = _get_register_type(reg, reg_size)
+    reg_type = InputType.CTYPE_UNSIGNED_CHAR[0]
 
     alignment = reg_size
     byte_offset = _apply_alignment(byte_offset, alignment)
 
-    array_count, array_enum = _get_array_size(reg, context)
-
-    next_offset = byte_offset + reg_size * (array_count if array_count is not None else 1)
+    next_offset = byte_offset + reg_size
 
     return _InputRegmapResult(
         input_regmap=InputRegmap(
             name=name.lower(),
-            byte_size=reg_size,
+            byte_size=1,
             byte_offset=byte_offset,
             type=reg_type,
-            array_count=array_count,
-            array_enum=array_enum,
+            array_count=reg_size,
             access=VisibilityOptions.NONE),
         next_offset=next_offset,
         alignment=alignment)
@@ -383,7 +380,7 @@ def _create_struct(json_data: Any,
         if child[0] == "Reg":
             result = _create_reg(json_data, name=child[1], byte_offset=offset, context=context)
         elif child[0] == "ReservedReg":
-            result = _create_reserved_reg(json_data, name=child[1], byte_offset=offset, context=context)
+            result = _create_reserved_reg(json_data, name=child[1], byte_offset=offset)
         elif child[0] == "Struct":
             result = _create_struct(json_data, name=child[1], byte_offset=offset, context=context)
         else:
@@ -440,6 +437,7 @@ def _create_struct(json_data: Any,
             array_enum=array_enum,
             hif_access=hif_access,
             brief=struct["brief"] if "brief" in struct else None,
+            namespace=struct["namespace"] if "namespace" in struct else None,
             access=access),
         next_offset=next_offset,
         alignment=alignment)

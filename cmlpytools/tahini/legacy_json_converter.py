@@ -311,20 +311,22 @@ def _create_reserved_reg(json_data: Any, name: str, byte_offset: int) -> _InputR
 
     reg = json_data["ReservedReg"][name]
     reg_size = reg["bytes"] if "bytes" in reg else 2
-    reg_type = InputType.CTYPE_UNSIGNED_CHAR[0]
+    reg_type = _get_register_type(reg, reg_size)
 
     alignment = reg_size
     byte_offset = _apply_alignment(byte_offset, alignment)
 
-    next_offset = byte_offset + reg_size
+    reg_count = reg["count"] if "count" in reg else 1
+
+    next_offset = byte_offset + reg_size * reg_count
 
     return _InputRegmapResult(
         input_regmap=InputRegmap(
             name=name.lower(),
-            byte_size=1,
+            byte_size=reg_size,
             byte_offset=byte_offset,
             type=reg_type,
-            array_count=reg_size,
+            array_count=reg_count,
             access=VisibilityOptions.NONE),
         next_offset=next_offset,
         alignment=alignment)

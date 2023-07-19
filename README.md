@@ -9,7 +9,7 @@ This package contains a number of python tools used in our Firmware build proces
 After a release has been deployed it can be installed using the following command:
 
 ```
-pip install --find-links="%PYPIPATH%" --no-index cmlpytools
+pip install --find-links="%PYPIPATH%" cmlpytools
 ```
 
 Where `PYPIPATH` should be a system variable set to `\\cm.local\data\company\Technical\Utilities\Continuous_Integration\python_packages`

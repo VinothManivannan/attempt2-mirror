@@ -40,7 +40,7 @@ Build Gimli for Windows:
     - msys2_shell.cmd -defterm -here -no-start -mingw64 -lc 'cmake --build build-windows'
 
 Build Gimli for Linux:
-  <<: *windows-linux-job
+  <<: *linux-docker-job
   stage: build
   artifacts:
     paths:

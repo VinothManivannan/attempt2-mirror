@@ -27,8 +27,8 @@ class MockRepositoryMaster(Repository):
         if command == "git remote get-url origin":
             return "/topcode.git"
 
-        if command == "git rev-parse --short HEAD":
-            return "0123ABC"
+        if command == "git rev-parse HEAD":
+            return "0123ABCDEF"
 
         if command == "git describe --tags --first-parent --always --long":
             return "1.2.3-4567.8-9-gABCDEF"
@@ -180,7 +180,7 @@ class TestVersionInfo(unittest.TestCase):
         version_info = test_obj.get_basic_version()
 
         self.assertEqual(version_info.project, "topcode")
-        self.assertEqual(version_info.uid, "0123ABC")
+        self.assertEqual(version_info.uid, "0123ABCD")
         self.assertEqual(version_info.version, "1.2.3-4567.8-9-gABCDEF")
         self.assertEqual(version_info.config_name, "CONFIG_NAME")
         self.assertEqual(version_info.config_id, 10)
@@ -193,7 +193,7 @@ class TestVersionInfo(unittest.TestCase):
             "./tests/tahini/data/test_version.info.json")
 
         self.assertEqual(full_version_info.project, "topcode")
-        self.assertEqual(full_version_info.uid, "0123ABC")
+        self.assertEqual(full_version_info.uid, "0123ABCD")
         self.assertEqual(full_version_info.version, "1.2.3-4567.8-9-gABCDEF")
         self.assertEqual(full_version_info.config_name, "CONFIG_NAME")
         self.assertEqual(full_version_info.config_id, 10)

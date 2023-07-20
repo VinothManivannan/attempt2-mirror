@@ -16,7 +16,7 @@ variables:
 
 # Template for docker linux jobs
 .linux-docker-job: &linux-docker-job
-    image: python:3.9
+    image: $REGISTRY_URL/devops/fw-builder:22934aba395a63fecaf94321423cc799b8a34235
     interruptible: true
     tags:
         - linux-docker-exec
@@ -38,6 +38,19 @@ Build Gimli for Windows:
     - cd cmlpytools/tahini/gimli
     - msys2_shell.cmd -defterm -here -no-start -mingw64 -lc 'cmake -B build-windows -G Ninja'
     - msys2_shell.cmd -defterm -here -no-start -mingw64 -lc 'cmake --build build-windows'
+
+Build Gimli for Linux:
+  <<: *windows-linux-job
+  stage: build
+  artifacts:
+    paths:
+      - cmlpytools/tahini/gimli/build-windows
+  script:
+    - ln -s /usr/bin/clang-15 /usr/bin/clang
+    - ln -s /usr/bin/clang++-15 /usr/bin/clang++
+    - cd cmlpytools/tahini/gimli
+    - cmake -B build-linux -G Ninja -DCMAKE_SYSTEM_NAME=Linux
+    - cmake --build build-linux/
 
 unittests:
   <<: *windows-docker-job

@@ -324,8 +324,8 @@ class Repository():
         topcode_version = self.__find_top_level()
         basic_version.project = topcode_version.name
 
-        get_git_sha_cmd = 'git rev-parse --short HEAD'
-        basic_version.uid = str(self.run_command(get_git_sha_cmd)).rstrip()
+        get_git_sha_cmd = 'git rev-parse HEAD'
+        basic_version.uid = str(self.run_command(get_git_sha_cmd))[:8]
 
         get_version_cmd = 'git describe --tags --first-parent --always --long'
         basic_version.version = (

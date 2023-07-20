@@ -44,7 +44,7 @@ Build Gimli for Linux:
   stage: build
   artifacts:
     paths:
-      - cmlpytools/tahini/gimli/build-windows
+      - cmlpytools/tahini/gimli/build-linux
   script:
     - ln -s /usr/bin/clang-15 /usr/bin/clang
     - ln -s /usr/bin/clang++-15 /usr/bin/clang++

@@ -38,8 +38,7 @@ class TahiniGimli():
         if os_platform == "Windows":
             gimli_path = path.join(this_folder, r'gimli/build-windows/gimli.exe')
         else:
-            raise NotImplementedError(
-                f"No gimli implementation found for {platform.system()}")
+            gimli_path = path.join(this_folder, r'gimli/build-linux/gimli')
 
         full_command = [gimli_path]
         full_command.extend(args)

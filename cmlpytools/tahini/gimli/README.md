@@ -386,7 +386,9 @@ Gimli can be built from a Visual Studio Developer or MSYS shell ... the former c
 
 ## Getting Started [Linux]
 
-Gimli can be built from a debian docker container ... albeit newer than used by our CI pipelines.
+Gimli can be built from our latest fw-builder docker container. The complete toolchain is already there. You want to see the exact steps check `Dockerfile`.
+
+The guide below explains how to build Gimli using a clean demian:sid image.
 
 1. Open a `GIT`-aware shell, and type the following
 

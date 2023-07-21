@@ -16,7 +16,7 @@ variables:
 
 # Template for docker linux jobs
 .linux-docker-job: &linux-docker-job
-    image: $REGISTRY_URL/devops/fw-builder:5496da6abb31ff9bf65de7f5409961086b7ceb0e
+    image: $REGISTRY_URL/devops/fw-builder:3.0
     interruptible: true
     tags:
         - linux-docker-exec

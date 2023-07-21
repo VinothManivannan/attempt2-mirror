@@ -175,13 +175,14 @@ class TestVersionInfo(unittest.TestCase):
             while building from master
         """
         test_obj = MockRepositoryMaster(
-            "Mock/Path", "CONFIG_NAME", 10)
+            "Mock/Path", "DEVICE_TYPE", "CONFIG_NAME", 10)
 
         version_info = test_obj.get_basic_version()
 
         self.assertEqual(version_info.project, "topcode")
         self.assertEqual(version_info.uid, "0123ABCD")
         self.assertEqual(version_info.version, "1.2.3-4567.8-9-gABCDEF")
+        self.assertEqual(version_info.device_type, "DEVICE_TYPE")
         self.assertEqual(version_info.config_name, "CONFIG_NAME")
         self.assertEqual(version_info.config_id, 10)
         # The timstamp check is done only for date, not time as its genereated real time
@@ -195,6 +196,7 @@ class TestVersionInfo(unittest.TestCase):
         self.assertEqual(full_version_info.project, "topcode")
         self.assertEqual(full_version_info.uid, "0123ABCD")
         self.assertEqual(full_version_info.version, "1.2.3-4567.8-9-gABCDEF")
+        self.assertEqual(full_version_info.device_type, "DEV_TYPE")
         self.assertEqual(full_version_info.config_name, "CONFIG_NAME")
         self.assertEqual(full_version_info.config_id, 10)
         self.assertEqual(full_version_info.timestamp,
@@ -284,7 +286,7 @@ class TestVersionInfoBranch(unittest.TestCase):
             ExtendedVersionInfo class and its method while building from a branch
         """
         test_obj = MockRepositoryBranch(
-            None, "CONFIG_NAME", 3)
+            None, None, "CONFIG_NAME", 3)
 
         full_version_info = test_obj.get_full_version(
             "./tests/tahini/data/test_version.info.json")
@@ -309,7 +311,7 @@ class TestSerialization(unittest.TestCase):
         """
 
         test_obj = MockRepositoryMaster(
-            None, None, None)
+            None, None, None, None)
 
         full_version_info = test_obj.get_full_version(
             "./tests/tahini/data/test_version.info.json")
@@ -366,7 +368,7 @@ class TestDeserialization1(unittest.TestCase):
         """
 
         test_obj = MockRepositoryMaster(
-            None, "CONFIG_NAME", 10)
+            None, None, "CONFIG_NAME", 10)
 
         full_version_obj = test_obj.get_full_version(
             "./tests/tahini/data/test_version.info.json")
@@ -427,7 +429,7 @@ class TestDeserialization2(unittest.TestCase):
         """
 
         test_obj = MockRepositoryMaster(
-            None, "CONFIG_NAME", 10)
+            None, None, "CONFIG_NAME", 10)
 
         basic_version_obj = test_obj.get_basic_version()
 
@@ -462,10 +464,10 @@ class TestProjectPathValidity1(unittest.TestCase):
         """
 
         with self.assertRaises(InvalidArgumentError):
-            LiveRepository(None, None, None)
+            LiveRepository(None, None, None, None)
 
         with self.assertRaises(InvalidArgumentError):
-            LiveRepository("", None, None)
+            LiveRepository("", None, None, None)
 
 
 # Calls to setUp and tearDown are always made, disable the pylint suggestion to use 'with'
@@ -497,16 +499,16 @@ class TestProjectPathValidity2(unittest.TestCase):
         """
 
         with self.assertRaises(NotADirectoryError):
-            test_obj = LiveRepository("invalid/path", None, None)
+            test_obj = LiveRepository("invalid/path", None, None, None)
             test_obj.get_basic_version()
 
         with self.assertRaises(expected_exception=(InvalidArgumentError, InvalidProjectPathError)):
-            test_obj = LiveRepository(self.mock_file.name, None, None)
+            test_obj = LiveRepository(self.mock_file.name, None, None, None)
             test_obj.get_basic_version()
 
         with self.assertRaises(InvalidProjectPathError):
             test_obj = LiveRepository(
-                self.mock_directory.name, None, None)
+                self.mock_directory.name, None, None, None)
             test_obj.get_basic_version()
 
     def test_version_info_path_exists(self):
@@ -517,7 +519,7 @@ class TestProjectPathValidity2(unittest.TestCase):
 
         with self.assertRaises(FileNotFoundError):
             test_obj = MockRepositoryMaster(
-                self.mock_directory.name, None, None)
+                self.mock_directory.name, None, None, None)
             test_obj.get_full_version(
                 self.mock_directory.name + "invalid.file")
 

@@ -95,16 +95,21 @@ class Tahini():
 
         parser = argparse.ArgumentParser(
             description="Generate basic version info",
-            usage="tahini version <project-path> <build-config-name> <build-config-id> [--output=<file-path>]")
+            usage="\
+            tahini version <project-path> <device-type> <build-config-name> <build-config-id> [--output=<file-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
-        parser.add_argument("project_path", help="Firmware project path")
+        parser.add_argument("project_path", help="Firmware Project Path")
+        parser.add_argument("device_type", help="Device Type")
         parser.add_argument("config_name", help="Build Configuration Name")
         parser.add_argument("config_id", help="Build ID")
         parser.add_argument("--output", required=False,
                             help="Write the result into the file specified instead of the standard output.")
         args = parser.parse_args()
 
-        version_info = TahiniVersion.create_version_info(args.project_path, args.config_name, args.config_id)
+        version_info = TahiniVersion.create_version_info(args.project_path,
+                                                         args.device_type,
+                                                         args.config_name,
+                                                         args.config_id)
 
         # pylint: disable=consider-using-with
         stdout = sys.stdout

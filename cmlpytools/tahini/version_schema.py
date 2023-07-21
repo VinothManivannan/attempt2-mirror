@@ -113,8 +113,9 @@ class ExtendedVersionInfo(VersionInfo):
     """
     git_versions: list[GitVersion]
 
-    def __init__(self, config_name, config_id, project=None, uid=None, version=None, timestamp=None, git_versions=None):
-        VersionInfo.__init__(self, config_name,
+    def __init__(self, device_type, config_name, config_id,
+                 project=None, uid=None, version=None, timestamp=None, git_versions=None):
+        VersionInfo.__init__(self, device_type, config_name,
                              config_id, project, uid, version, timestamp)
         self.git_versions = git_versions
 

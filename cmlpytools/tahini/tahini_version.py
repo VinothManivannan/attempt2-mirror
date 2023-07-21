@@ -417,11 +417,12 @@ class Repository():
             version_file_path)
 
         full_version = ExtendedVersionInfo(
-            config_name=self.config_name, config_id=self.config_id)
+            device_type=self.device_type, config_name=self.config_name, config_id=self.config_id)
 
         full_version.project = version_info_obj.project
         full_version.uid = version_info_obj.uid
         full_version.version = version_info_obj.version
+        full_version.device_type = version_info_obj.device_type
         full_version.config_name = version_info_obj.config_name
         full_version.config_id = version_info_obj.config_id
         full_version.timestamp = version_info_obj.timestamp
@@ -565,6 +566,6 @@ class TahiniVersion():
 
         version_info = VersionInfo.load_json(version_info_path)
 
-        repo = LiveRepository(project_path, version_info.config_name, version_info.config_id)
+        repo = LiveRepository(project_path, version_info.device_type, version_info.config_name, version_info.config_id)
 
         return repo.get_full_version(version_info_path)

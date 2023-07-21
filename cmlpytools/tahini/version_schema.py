@@ -52,14 +52,16 @@ class VersionInfo():
     project: str
     uid: str
     version: str
+    device_type: Optional[str]
     config_name: Optional[str]
     config_id: Optional[int]
     timestamp: str
 
-    def __init__(self, config_name, config_id, project=None, uid=None, version=None, timestamp=None):
+    def __init__(self, device_type, config_name, config_id, project=None, uid=None, version=None, timestamp=None):
         self.project = project
         self.uid = uid
         self.version = version
+        self.device_type = device_type
         self.config_name = config_name
         self.config_id = config_id
         self.timestamp = timestamp

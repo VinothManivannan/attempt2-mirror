@@ -37,6 +37,7 @@ setup(
     package_data={'': [r'tahini/gimli/build-windows/gimli.exe',
                        r'tahini/gimli/build-windows/*.dll',
                        r'tahini/*.dll',
+                       r'tahini/gimli/build-linux/gimli',
                        r'minfs/lib_linux_x64/*.so',
                        r'minfs/lib_win_x64/*.dll',
                        r'*.dll']},

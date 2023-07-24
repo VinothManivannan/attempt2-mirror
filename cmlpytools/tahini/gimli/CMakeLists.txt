@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.23.0)
+cmake_minimum_required(VERSION 3.18.0)
 
 set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
@@ -33,9 +33,9 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 
   add_executable(gimli gimli.cpp)
 
-  target_include_directories(gimli PUBLIC /usr/lib/llvm-14/include)
+  target_include_directories(gimli PUBLIC /usr/lib/llvm-15/include)
 
-  link_directories(/usr/lib/llvm-14/lib)
+  link_directories(/usr/lib/llvm-15/lib)
 
   target_compile_features(gimli PUBLIC cxx_std_17)
   target_link_libraries(gimli LLVMDebugInfoDWARF)

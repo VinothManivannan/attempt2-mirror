@@ -190,7 +190,7 @@ class Repository():
 
         git_branch_log = self.run_command(branch_command)
 
-        if ('master' in git_branch_log) or ('main' in git_branch_log):
+        if ('master' in git_branch_log) or ('main' in git_branch_log) or ('stable' in git_branch_log):
             pass
         else:
             git_branch_list = re.findall(branch_regex, git_branch_log)

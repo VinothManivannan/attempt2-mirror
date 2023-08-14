@@ -534,16 +534,19 @@ class Regmap:
             struct_names = []
 
         for child in children:
+            child_unique_name = (child.namespace, child.name)
             if child.type == Type.REGISTER:
-                if child.name in register_names:
-                    raise InvalidRegisterStructError(f"Error: Register '{child.name}' is not unique.")
+                if child_unique_name in register_names:
+                    raise InvalidRegisterStructError(f"Error: Register '{child_unique_name[0]}'"
+                                                     " in namespace '{child_unique_name[1]}' is not unique.")
 
-                register_names.append(child.name)
+                register_names.append(child_unique_name)
             else:
-                if child.name in struct_names:
-                    raise InvalidRegisterStructError(f"Error: Struct '{child.name}' is not unique.")
+                if child_unique_name in struct_names:
+                    raise InvalidRegisterStructError(f"Error: Struct '{child_unique_name[0]}' "
+                                                     " in namespace '{child_unique_name[1]}' is not unique.")
 
-                struct_names.append(child.name)
+                struct_names.append(child_unique_name)
                 Regmap._check_no_duplicate_names(child.struct.children, register_names, struct_names)
 
 

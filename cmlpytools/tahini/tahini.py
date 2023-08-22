@@ -76,7 +76,7 @@ class Tahini():
         descr = "Extract C definitons from a firmware elf file and generate an input json file"
         parser = argparse.ArgumentParser(description=descr, usage=usage)
         parser.add_argument('command', help=argparse.SUPPRESS)
-        parser.add_argument("elf_path", 
+        parser.add_argument("elf_path",
             help=textwrap.dedent('''
                 Path to a compiled file to extract dwarf information from.
                 It can be `.elf`, `.o`, `.exe` or other formats.

@@ -269,19 +269,19 @@ class Register:
                 if item.value not in cup_1:
                     cup_1.append(item.value)
                 else:
-                    raise InvalidStatesError("States value should be unique")
+                    raise InvalidStatesError(f"States value should be unique. {item.name} is not unique")
                 if self.min is not None or self.max is not None:
                     if item.value < self.min:
-                        raise InvalidStatesError("States value should not be smaller than minimum value")
+                        raise InvalidStatesError(f"{item.name} error. States value should not be smaller than minimum value")
                     if item.value > self.max:
-                        raise InvalidStatesError("States value should not be larger than maximum value")
+                        raise InvalidStatesError(f"{item.name} error. States value should not be larger than maximum value")
                 if self.ctype.value[0] == 'u':
                     if item.value < 0:
-                        raise InvalidStatesError("Unsigned value should not be smaller than 0")
+                        raise InvalidStatesError(f"{item.name} error. Unsigned value should not be smaller than 0")
                     if item.value.bit_length() > CType.get_bit_size(self.ctype):
-                        raise InvalidStatesError("States value exceed the limit of unsigned ctype")
+                        raise InvalidStatesError(f"{item.name} error. States value exceed the limit of unsigned ctype")
                 elif item.value.bit_length() > CType.get_bit_size(self.ctype) - 1:
-                    raise InvalidStatesError("States value exceed the limit of signed ctype")
+                    raise InvalidStatesError(f"{item.name} error. States value exceed the limit of signed ctype")
 
     def _post_init_bitfields_check(self):
         """Bitfields properies check
@@ -293,7 +293,7 @@ class Register:
             cup_2 = []
             for item in self.bitfields:
                 if (item.position + item.num_bits) > CType.get_bit_size(self.ctype):
-                    raise InvalidBitfieldsError("Invalid position or num_bits to the ctype")
+                    raise InvalidBitfieldsError(f"{item.name} error. Invalid position or num_bits to the ctype")
                 index = item.position
                 items = 0
                 while items < len(range(item.num_bits)):
@@ -302,7 +302,7 @@ class Register:
                         index = index + 1
                         items = items + 1
                     else:
-                        raise InvalidBitfieldsError("Overlap bitfields detected")
+                        raise InvalidBitfieldsError(f"{item.name} Overlap bitfields detected")
 
     def __post_init__(self):
         """Fields to check validity of register field

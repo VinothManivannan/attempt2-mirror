@@ -248,7 +248,7 @@ class Tahini():
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
-                            help="Write the result into the file specified.")
+            help="Write the result into the file specified.")
 
         args = parser.parse_args()
         GenerateFlatTxt.create_flat_from_cmap_path(args.cmap_path, args.output)
@@ -263,7 +263,7 @@ class Tahini():
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
-                            help="Write the result into the file specified.")
+            help="Write the result into the file specified.")
 
         args = parser.parse_args()
         GenerateAppnoteCSV.create_csv_from_cmap_path(args.cmap_path, args.output)
@@ -278,7 +278,7 @@ class Tahini():
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
-                            help="Write the result into the file specified.")
+            help="Write the result into the file specified.")
 
         args = parser.parse_args()
         GenerateTxt.create_txt_from_cmap_path(args.cmap_path, args.output)
@@ -289,11 +289,11 @@ class Tahini():
         """
         parser = argparse.ArgumentParser(
             description="Generate api c header file for the API code",
-            usage="tahini apicheader <cmap-path> [--output=<flat-txt-path>]")
+            usage="tahini apicheader <api-c-header-path> [--output=<flat-txt-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
-                            help="Write the result into the file specified.")
+            help="Write the result into the file specified.")
 
         args = parser.parse_args()
         GenerateApiCheader.from_cmapsource_path(args.cmap_path, args.output)

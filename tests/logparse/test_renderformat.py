@@ -1,6 +1,5 @@
 import unittest
 from cmlpytools.logparse import LogTree
-from builtins import bytes
 
 
 class TestFilterLabels(unittest.TestCase):
@@ -13,7 +12,7 @@ class TestFilterLabels(unittest.TestCase):
 
         log_tree = LogTree(original)
 
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
     def test_multiple_eol_at_eof(self):
         """
@@ -24,7 +23,7 @@ class TestFilterLabels(unittest.TestCase):
 
         log_tree = LogTree(original)
 
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
     def test_multiple_eol(self):
         """
@@ -35,7 +34,7 @@ class TestFilterLabels(unittest.TestCase):
 
         log_tree = LogTree(original)
 
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
     def test_multiple_lines_entry(self):
         """
@@ -47,7 +46,7 @@ class TestFilterLabels(unittest.TestCase):
         log_tree = LogTree(original)
 
         self.assertEqual(1, len(log_tree.entries))
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
     def test_simple_text(self):
         """
@@ -58,7 +57,7 @@ class TestFilterLabels(unittest.TestCase):
 
         log_tree = LogTree(original)
 
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
     def test_list_multiple_levels(self):
         """
@@ -73,7 +72,7 @@ class TestFilterLabels(unittest.TestCase):
         log_tree = LogTree(original)
 
         self.assertEqual(3, len(log_tree.entries))
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
 
 if __name__ == '__main__':

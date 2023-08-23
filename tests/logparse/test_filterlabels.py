@@ -1,7 +1,6 @@
 import unittest
 from os import path
 from cmlpytools.logparse import LogTree
-from builtins import bytes
 
 DIR_PATH = path.dirname(path.realpath(__file__))
 
@@ -19,7 +18,7 @@ class TestFilterLabels(unittest.TestCase):
         log_tree = LogTree.from_file(path.join(DIR_PATH, "sample1/input.md"))
         expected = read_file(path.join(DIR_PATH, "sample1/output_all.md"))
 
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
     def test_filter_label_none(self):
         log_tree = LogTree.from_file(path.join(DIR_PATH, "sample1/input.md"))
@@ -27,7 +26,7 @@ class TestFilterLabels(unittest.TestCase):
 
         log_tree.filter_labels([])
 
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
     def test_filter_label_foo(self):
         log_tree = LogTree.from_file(path.join(DIR_PATH, "sample1/input.md"))
@@ -35,7 +34,7 @@ class TestFilterLabels(unittest.TestCase):
 
         log_tree.filter_labels(["Foo"])
 
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
     def test_filter_label_bar(self):
         log_tree = LogTree.from_file(path.join(DIR_PATH, "sample1/input.md"))
@@ -43,7 +42,7 @@ class TestFilterLabels(unittest.TestCase):
 
         log_tree.filter_labels(["Bar"])
 
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
     def test_filter_label_foo_bar(self):
         log_tree = LogTree.from_file(path.join(DIR_PATH, "sample1/input.md"))
@@ -51,7 +50,7 @@ class TestFilterLabels(unittest.TestCase):
 
         log_tree.filter_labels(["Foo", "Bar"])
 
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
     def test_filter_label_not_case_sensitive(self):
         log_tree = LogTree.from_file(path.join(DIR_PATH, "sample1/input.md"))
@@ -59,7 +58,7 @@ class TestFilterLabels(unittest.TestCase):
 
         log_tree.filter_labels(["FoO"])
 
-        self.assertEqual(bytes(expected, encoding='utf-8'), log_tree.render_as_string())
+        self.assertEqual(expected, log_tree.render_as_string())
 
 
 if __name__ == '__main__':

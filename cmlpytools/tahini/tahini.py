@@ -289,7 +289,7 @@ class Tahini():
         """
         parser = argparse.ArgumentParser(
             description="Generate api c header file for the API code",
-            usage="tahini apicheader <api-c-header-path> [--output=<api-c-header-path>]")
+            usage="tahini apicheader <cmap-path> [--output=<api-c-header-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,

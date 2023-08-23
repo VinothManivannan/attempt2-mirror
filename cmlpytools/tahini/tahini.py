@@ -37,7 +37,7 @@ class Tahini():
             flattxt       Generate flat txt regmap. 
                             Usage: tahini flattxt <cmap-json-path> --output <flat-txt-path.txt>
             csv           Generate csv regmap file (usually for appnotes).
-                            Usage: tahini csv <cmap-json-path> --output <flat-txt-path.txt>
+                            Usage: tahini csv <cmap-json-path> --output <csv-file.csv>
             txt           Generate human-readable regmap txt file
                             Usage: tahini txt <cmap-json-path> --output <txt-path.txt>
             legacycheader Generate old-style json header for compatipiliti with Tzatziki
@@ -289,7 +289,7 @@ class Tahini():
         """
         parser = argparse.ArgumentParser(
             description="Generate api c header file for the API code",
-            usage="tahini apicheader <api-c-header-path> [--output=<flat-txt-path>]")
+            usage="tahini apicheader <api-c-header-path> [--output=<api-c-header-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,

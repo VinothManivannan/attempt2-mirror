@@ -26,23 +26,23 @@ class Tahini():
                                          formatter_class=argparse.RawDescriptionHelpFormatter,
                                          epilog=textwrap.dedent('''\
         Available commands:
-            gimli         Generate a json input file from C definitons from a compiled file (elf, o, exe)        
+            gimli         Generate JSON input file from C definitions from a compiled file (elf, o, exe).
                             Usage: tahini gimli <firmware-file-path> --output <json-path.json>
-            version       Generate a version json file
+            version       Generate version json file
                             Usage: tahini version <device-type> <project-path> <build-config-name> <build-config-id> --output <version.info.json>
-            cmap          Generate a cmap source file. This file is a source for other interpretations of the regmap (txt, csv, etc...)
+            cmap          Generate cmap source file. This file is a source for other interpretations of the regmap (txt, csv, etc...)
                             Usage: tahini cmap <project-path> <version-info-file> <input-json-path> outputs a Cmapsource File to stdout
             crc           Create a CRC-appended ARM Cortex-M firmware binary
                             Usage: tahini crc <firmware-file.bin> --output <firmware-file.bin>
-            flattxt       Generate a flat txt regmap. 
+            flattxt       Generate flat txt regmap. 
                             Usage: tahini flattxt <cmap-json-path> --output <flat-txt-path.txt>
-            csv           Generate a csv regmap file (usually for appnotes).
+            csv           Generate csv regmap file (usually for appnotes).
                             Usage: tahini csv <cmap-json-path> --output <flat-txt-path.txt>
-            txt           Generate a human-readable regmap txt file
+            txt           Generate human-readable regmap txt file
                             Usage: tahini txt <cmap-json-path> --output <txt-path.txt>
-            legacycheader Generate an old-style json header for compatipiliti with Tzatziki
+            legacycheader Generate old-style json header for compatipiliti with Tzatziki
                             Usage: tahini legacycheader <legacy-json-path> --output <legacy-header.json>
-            apicheader    Generate an API c header for the API code
+            apicheader    Generate API c header for the API code
                             Usage: tahini apicheader <cmap-json-path> --output <c-header.h>
         All these commands can output the result to stdout if `--output` is not set.
         For more detailed help, type "tahini <command> -h" '''))

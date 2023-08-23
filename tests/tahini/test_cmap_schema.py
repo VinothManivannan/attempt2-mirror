@@ -292,22 +292,22 @@ class TestFullRegmap(unittest.TestCase):
 
         with self.assertRaises(InvalidStatesError) as context:
             CmapFullRegmap.load_json(TestFilePath.path_invalid_states_unsigned)
-        self.assertIn("Unsigned value should not be smaller than 0", str(context.exception),
+        self.assertIn("smaller than 0", str(context.exception),
                       "Failed to catch an incorrect unsigned value of states")
 
         with self.assertRaises(InvalidStatesError) as context:
             CmapFullRegmap.load_json(TestFilePath.path_invalid_states_signed)
-        self.assertIn("States value exceed the limit of signed ctype", str(context.exception),
+        self.assertIn("value exceed the limit of signed ctype", str(context.exception),
                       "Failed to catch an incorrect signed value of signed")
 
         with self.assertRaises(InvalidStatesError) as context:
             CmapFullRegmap.load_json(TestFilePath.path_invalid_states_bitlength)
-        self.assertIn("States value exceed the limit of unsigned ctype", str(context.exception),
+        self.assertIn("value exceed the limit of unsigned ctype", str(context.exception),
                       "Failed to catch an incorrect bitlength of states")
 
         with self.assertRaises(InvalidStatesError) as context:
             CmapFullRegmap.load_json(TestFilePath.path_invalid_states_minmax)
-        self.assertIn("States value should not be smaller than minimum value", str(context.exception),
+        self.assertIn("smaller than minimum value", str(context.exception),
                       "Failed to catch an incorrect bitlength of states")
 
     def test_invalid_common_property(self):

@@ -272,16 +272,16 @@ class Register:
                     raise InvalidStatesError(f"States value should be unique. {item.name} is not unique")
                 if self.min is not None or self.max is not None:
                     if item.value < self.min:
-                        raise InvalidStatesError(f"{item.name} error. States value should not be smaller than minimum value")
+                        raise InvalidStatesError(f"State {item.name}'s value is smaller than minimum value")
                     if item.value > self.max:
-                        raise InvalidStatesError(f"{item.name} error. States value should not be larger than maximum value")
+                        raise InvalidStatesError(f"State {item.name}'s value is larger than maximum value")
                 if self.ctype.value[0] == 'u':
                     if item.value < 0:
-                        raise InvalidStatesError(f"{item.name} error. Unsigned value should not be smaller than 0")
+                        raise InvalidStatesError(f"Unsigned value {item.name} is smaller than 0")
                     if item.value.bit_length() > CType.get_bit_size(self.ctype):
-                        raise InvalidStatesError(f"{item.name} error. States value exceed the limit of unsigned ctype")
+                        raise InvalidStatesError(f"State {item.name}'s value exceed the limit of unsigned ctype")
                 elif item.value.bit_length() > CType.get_bit_size(self.ctype) - 1:
-                    raise InvalidStatesError(f"{item.name} error. States value exceed the limit of signed ctype")
+                    raise InvalidStatesError(f"State {item.name}'s. value exceed the limit of signed ctype")
 
     def _post_init_bitfields_check(self):
         """Bitfields properies check

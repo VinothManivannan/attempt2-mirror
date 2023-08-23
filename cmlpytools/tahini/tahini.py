@@ -26,15 +26,25 @@ class Tahini():
                                          formatter_class=argparse.RawDescriptionHelpFormatter,
                                          epilog=textwrap.dedent('''\
         Available commands:
-            gimli         tahini gimli <firmware-file> ... outputs an Input JSON File to stdout
-            version       tahini version <project-path> <build-config-name> <build-config-id> outputs a Version Information to stdout
-            cmap          tahini cmap <project-path> <version-info-file> <input-json-path> outputs a Cmapsource File to stdout
-            crc           tahini crc <firmware-file> outputs a CRC-appended firmware binary file to stdout
-            regmap        tahini regmap <project-path> <cmap-path> outputs legacy .regmap to stdout
-            flattxt       tahini flattxt <cmap-json-path> <flat-txt-path> outputs
-            csv           tahini csv <cmap-json-path> <flat-txt-path> outputs
-            txt           tahini txt <cmap-json-path> <flat-txt-path> outputs
-            legacycheader tahini legacycheader <legacy-json-path> outputs
+            gimli         Generate JSON input file from C definitions from a compiled file (elf, o, exe).
+                            Usage: tahini gimli <firmware-file-path> --output <json-path.json>
+            version       Generate version json file
+                            Usage: tahini version <device-type> <project-path> <build-config-name> <build-config-id> --output <version.info.json>
+            cmap          Generate cmap source file. This file is a source for other interpretations of the regmap (txt, csv, etc...)
+                            Usage: tahini cmap <project-path> <version-info-file> <input-json-path> outputs a Cmapsource File to stdout
+            crc           Create a CRC-appended ARM Cortex-M firmware binary
+                            Usage: tahini crc <firmware-file.bin> --output <firmware-file.bin>
+            flattxt       Generate flat txt regmap. 
+                            Usage: tahini flattxt <cmap-json-path> --output <flat-txt-path.txt>
+            csv           Generate csv regmap file (usually for appnotes).
+                            Usage: tahini csv <cmap-json-path> --output <csv-file.csv>
+            txt           Generate human-readable regmap txt file
+                            Usage: tahini txt <cmap-json-path> --output <txt-path.txt>
+            legacycheader Generate old-style json header for compatipiliti with Tzatziki
+                            Usage: tahini legacycheader <legacy-json-path> --output <legacy-header.json>
+            apicheader    Generate API c header for the API code
+                            Usage: tahini apicheader <cmap-json-path> --output <c-header.h>
+        All these commands can output the result to stdout if `--output` is not set.
         For more detailed help, type "tahini <command> -h" '''))
 
         parser.add_argument('command', help='tahini subcommand', nargs=1)
@@ -58,22 +68,24 @@ class Tahini():
         Generate input json file
         """
 
-        usage = """
-- tahini gimli <firmware-binary-path> [--output=<file-path>]
-- tahini gimli <firmware-binary-path> <compile-unit-name.c> [--output=<file-path>]
-- tahini gimli <firmware-binary-path> <compile-unit-name.c> ... [--output=<file-path>]
-"""
-        parser = argparse.ArgumentParser(
-            description="Extract C definitons from a firmware elf file and generate an input json file",
-            usage=usage)
+        usage = textwrap.dedent('''
+            - tahini gimli <firmware-binary-path> [--output=<file-path>]
+            - tahini gimli <firmware-binary-path> <compile-unit-name.c> [--output=<file-path>]
+            - tahini gimli <firmware-binary-path> <compile-unit-name.c> ... [--output=<file-path>]
+            ''')
+        descr = "Extract C definitons from a firmware elf file and generate an input json file"
+        parser = argparse.ArgumentParser(description=descr, usage=usage)
         parser.add_argument('command', help=argparse.SUPPRESS)
-        parser.add_argument(
-            "elf_path", help="Firmware elf path to extract dwarf information from.")
+        parser.add_argument("elf_path",
+            help=textwrap.dedent('''
+                Path to a compiled file to extract dwarf information from.
+                It can be `.elf`, `.o`, `.exe` or other formats.
+            '''))
         parser.add_argument("compile_unit_names", nargs='*',
-                            help="Name(s) of compile unit(s). "
-                            + "This is derived from the <firmware-binary-path> if this argument is not specified.")
+            help="Name(s) of compile unit(s). "
+            + "This is derived from the <firmware-binary-path> if this argument is not specified.")
         parser.add_argument("--output", required=False,
-                            help="Write the input json file to the path specified instead of the standard output.")
+            help="Write the input json file to the path specified instead of the standard output.")
         args = parser.parse_args()
 
         # pylint: disable=consider-using-with
@@ -98,12 +110,12 @@ class Tahini():
             usage="\
             tahini version <project-path> <device-type> <build-config-name> <build-config-id> [--output=<file-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
-        parser.add_argument("project_path", help="Firmware Project Path")
-        parser.add_argument("device_type", help="Device Type")
-        parser.add_argument("config_name", help="Build Configuration Name")
-        parser.add_argument("config_id", help="Build ID")
+        parser.add_argument("project_path", help="Firmware Project Path. Example: path/to/stmh")
+        parser.add_argument("device_type", help="Device Type. Example: cm824_4ws")
+        parser.add_argument("config_name", help="Build Configuration Name. Example fw_cm8x4_4ws")
+        parser.add_argument("config_id", help="Build ID. Example: 9")
         parser.add_argument("--output", required=False,
-                            help="Write the result into the file specified instead of the standard output.")
+            help="Write the result into the file specified instead of the standard output.")
         args = parser.parse_args()
 
         version_info = TahiniVersion.create_version_info(args.project_path,
@@ -167,7 +179,7 @@ class Tahini():
         parser.add_argument("input_file", help="Input binary file")
         parser.add_argument('-v', '--verbose', action="store_true", help="Activate verbose output")
         parser.add_argument("--output", required=False,
-                            help="Write the result into the file specified instead of the standard output.")
+            help="Write the result into the file specified instead of the standard output.")
         args = parser.parse_args()
 
         # pylint: disable=consider-using-with
@@ -194,7 +206,7 @@ class Tahini():
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("legacy_json_path", help="Path to the Legacy json file")
         parser.add_argument("--output", required=False,
-                            help="Write the result into the file specified instead of the standard output.")
+            help="Write the result into the file specified instead of the standard output.")
         args = parser.parse_args()
 
         input_json = legacy_json_to_input_regmap(args.legacy_json_path).to_json()
@@ -215,7 +227,7 @@ class Tahini():
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("legacy_json_path", help="Path to the Legacy json file")
         parser.add_argument("--output", required=False,
-                            help="Write the result into the file specified instead of the standard output.")
+            help="Write the result into the file specified instead of the standard output.")
         args = parser.parse_args()
 
         header_file = legacy_json_to_c_header(args.legacy_json_path)
@@ -236,7 +248,7 @@ class Tahini():
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
-                            help="Write the result into the file specified.")
+            help="Write the result into the file specified.")
 
         args = parser.parse_args()
         GenerateFlatTxt.create_flat_from_cmap_path(args.cmap_path, args.output)
@@ -251,7 +263,7 @@ class Tahini():
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
-                            help="Write the result into the file specified.")
+            help="Write the result into the file specified.")
 
         args = parser.parse_args()
         GenerateAppnoteCSV.create_csv_from_cmap_path(args.cmap_path, args.output)
@@ -261,12 +273,12 @@ class Tahini():
         Generate a txt file from cmap source file
         """
         parser = argparse.ArgumentParser(
-            description="Generate txt file",
+            description="Generate a human-readable txt file",
             usage="tahini txt <cmap-path> [--output=<txt-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
-                            help="Write the result into the file specified.")
+            help="Write the result into the file specified.")
 
         args = parser.parse_args()
         GenerateTxt.create_txt_from_cmap_path(args.cmap_path, args.output)
@@ -276,12 +288,12 @@ class Tahini():
         Generate an API C Header from a cmap source file
         """
         parser = argparse.ArgumentParser(
-            description="Generate api c header file",
-            usage="tahini apicheader <cmap-path> [--output=<flat-txt-path>]")
+            description="Generate api c header file for the API code",
+            usage="tahini apicheader <cmap-path> [--output=<api-c-header-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
-                            help="Write the result into the file specified.")
+            help="Write the result into the file specified.")
 
         args = parser.parse_args()
         GenerateApiCheader.from_cmapsource_path(args.cmap_path, args.output)

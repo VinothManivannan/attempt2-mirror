@@ -89,7 +89,8 @@ class GenerateApiCheader():
                 if bitfield.states:
                     for state in bitfield.states:
                         state_mask = state.value << bitfield.position
-                        state_name = state.get_customer_name().upper()
+                        # Bitfield state name is prefixed with the Bitfield name for uniqueness
+                        state_name = bitfield_name + "_" + state.get_customer_name().upper()
                         output.write(
                             f"        #define {state_name:<30} {state_mask:>#10x} /* Bitfield state */\n")
 

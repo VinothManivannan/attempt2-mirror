@@ -367,7 +367,7 @@ extern "C" {
         expected_body = """\
 #define ALPHA_REGISTER                      0x100
     #define BETA_BITFIELD_ALIAS                  0xf0 /* Bitfield */
-        #define GAMMA_STATE_ALIAS                    0x10 /* Bitfield state */
+        #define BETA_BITFIELD_ALIAS_GAMMA_STATE_ALIAS                    0x10 /* Bitfield state */
 """
 
         self.run_test(cmapsource, expected_body)

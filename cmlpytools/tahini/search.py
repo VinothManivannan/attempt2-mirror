@@ -28,6 +28,7 @@ def _search_regmap(name: str,
         name (str): Name of the element to be looked-up
         cmap_type (CMapType): Type of the element
         regmap (CMapRegmap): Cmap regmap to look into
+        namespace (str): Namespace of the element
 
     Returns:
         Optional[SearchMatch]: Match object or None if no match
@@ -50,6 +51,7 @@ def _shallow_search(name: str,
         name (str): Name of the element to look-up
         cmap_type (CMapType): Type of the element to look-up
         node (CMapRegisterOrStruct): Cmap element to look into
+        namespace (str): Namespace of the element
 
     Returns:
         Optional[SearchMatch]: Match object or None if no match
@@ -113,6 +115,7 @@ def _search_struct_members(name: str,
         name (str): Name of the element to look-up
         cmap_type (CMapType): Type of the element to look-up
         struct (CMapRegisterOrStruct): Cmap struct to look into
+        namespace (str): Namespace of the element
 
     Returns:
         Optional[SearchMatch]: Perform a search on the members of a struct and returns the first match found.
@@ -138,6 +141,7 @@ def search(name: str,
         name (str): Name of the register or struct to be looked-up
         cmap_type (CMapType): Type of the node to be looked up (register or struct)
         node (Union[CMapFullRegmap, CMapRegisterOrStruct]): The regmap or node to look into.
+        namespace (str): Namespace of the element
 
     Returns:
         Optional[SearchMatch]: Match result if found, None otherwise.

@@ -61,7 +61,7 @@ def _shallow_search(name: str,
 
     if not name.lower().startswith(node.name.lower()):
         return None
-    
+
     if namespace is not None:
         if namespace.lower() != node.namespace.lower():
             return None

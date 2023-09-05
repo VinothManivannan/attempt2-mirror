@@ -18,14 +18,13 @@ def attach_namespace(data_list, namespace):
         namespace (str): namespace to add
     """
     for register in data_list:
-        data_list['namespace'] = namespace
+        register['namespace'] = namespace
     return data_list
 
 class RegmapCfgMergeFile(FileBase):
     """
     Class used to create merge regmap parameter files together
     """
-        
     def __init__(self, top_level_config: str, json_path: str):
         """ 
         Create a handle that can be used to merge together several regmap parameter file with
@@ -41,10 +40,10 @@ class RegmapCfgMergeFile(FileBase):
 
         if 'minfs' not in tl_json_data:
             raise Exception("minfs section is not found in the config file")
-        
+
         if 'regmap_params' not in tl_json_data['minfs']:
             raise Exception("regmap_params section is not found in the minfs section")
-        
+
         params_full_path = os.path.join(json_path, tl_json_data['minfs']['regmap_params']['path'])
         with open(params_full_path, 'r', encoding="UTF-8") as f_cfg:
             main_cfg_data = f_cfg.read()
@@ -59,7 +58,7 @@ class RegmapCfgMergeFile(FileBase):
         first_ns = tl_json_data['minfs']['regmap_params']['namespace']
 
         self._main_json_data['data'] = attach_namespace(self._main_json_data['data'], first_ns)
-        
+
         if len(tl_json_data['minfs']['regmap_params']) >1:
             for config_file in tl_json_data['minfs']['regmap_params'][1:]:
                 with open(config_file['path'], 'r', encoding="UTF-8") as f_cfg:
@@ -69,7 +68,7 @@ class RegmapCfgMergeFile(FileBase):
                 if 'struct' in json_data:
                     if json_data['struct'] != config_struct:
                         raise Exception("It is only possible to merge configs with the same offset")
-                    
+
                 namespace = tl_json_data['minfs']['regmap_params']['namespace']
                 self._main_json_data['data'].append(attach_namespace(json_data['data'],namespace))
 

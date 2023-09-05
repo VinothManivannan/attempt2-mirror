@@ -218,7 +218,7 @@ class TestFullRegmap(unittest.TestCase):
 
         with self.assertRaises(InvalidRegisterError) as context:
             CmapFullRegmap.load_json(TestFilePath.path_invalid_register_bitsize)
-        self.assertIn("The format is not support the ctype", str(context.exception),
+        self.assertIn("The format Qn.m total n+m is greater than the ctype", str(context.exception),
                       "Failed to catch an incorrect ctype of register")
 
         with self.assertRaises(InvalidRegisterError) as context:

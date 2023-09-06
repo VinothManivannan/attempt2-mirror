@@ -10,7 +10,7 @@ from .file_types import FileTypes
 from .file_base import FileBase
 import os
 
-def attach_namespace(data_list, namespace, cmap_source):
+def attach_namespace(data_list, namespace):
     """
     A function to add namespace to every register in the dict
     
@@ -65,14 +65,14 @@ class RegmapCfgMergeFile(object):
         for register in self._main_json_data['data']:
             match = tahini.search(name=register['register'], cmap_type=tahini.CmapType.REGISTER, 
                                   node=cmap_full_regmap)
-            if not match.result.namspace:
-                common_regs.extend(register)
+            if not match.result.namespace:
+                common_regs.append(register)
 
         for register in common_regs:
-            self._main_json_data.remove(register)
+            while register in self._main_json_data['data']:
+                self._main_json_data['data'].remove(register)
 
         self._main_json_data['data'] = attach_namespace(self._main_json_data['data'], first_ns)
-
         if len(tl_json_data['minfs']['regmap_params']) >1:
             for config_file in tl_json_data['minfs']['regmap_params'][1:]:
                 config_file_path = os.path.join(json_path, config_file['path'])
@@ -83,11 +83,11 @@ class RegmapCfgMergeFile(object):
                 if 'struct' in json_data:
                     if json_data['struct'] != config_struct:
                         raise Exception("It is only possible to merge configs with the same offset")
-                    
+
                 for register in json_data['data']:
                     match = tahini.search(name=register['register'], cmap_type=tahini.CmapType.REGISTER, 
                                           node=cmap_full_regmap)
-                    if not match.result.namspace:
+                    if not match.result.namespace:
                         register_found = 0
                         for common_reg in common_regs:
                             if register['register'] == common_reg['register']:
@@ -96,10 +96,12 @@ class RegmapCfgMergeFile(object):
                                 register_found = 1
                                 break
                         if register_found == 0:
-                            common_regs.extend(register)
+                            common_regs.append(register)
 
                 for register in common_regs:
-                    json_data['data'].remove(register)   
+                    while register in json_data['data']:
+                        json_data['data'].remove(register)
+
                 namespace = config_file['namespace']
                 self._main_json_data['data'].extend(attach_namespace(json_data['data'],namespace))
                 self._main_json_data['data'].extend(common_regs)

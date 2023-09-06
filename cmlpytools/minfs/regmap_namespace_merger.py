@@ -45,7 +45,8 @@ class RegmapCfgMergeFile(object):
         if 'regmap_params' not in tl_json_data['minfs']:
             raise Exception("regmap_params section is not found in the minfs section")
 
-        params_full_path = os.path.join(json_path, tl_json_data['minfs']['regmap_params']['path'])
+        params_full_path = os.path.join(json_path, 
+                                        tl_json_data['minfs']['regmap_params'][0]['path'])
         with open(params_full_path, 'r', encoding="UTF-8") as f_cfg:
             main_cfg_data = f_cfg.read()
 

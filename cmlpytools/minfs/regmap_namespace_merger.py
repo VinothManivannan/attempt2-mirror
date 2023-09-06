@@ -63,7 +63,8 @@ class RegmapCfgMergeFile(object):
 
         if len(tl_json_data['minfs']['regmap_params']) >1:
             for config_file in tl_json_data['minfs']['regmap_params'][1:]:
-                with open(config_file['path'], 'r', encoding="UTF-8") as f_cfg:
+                config_file_path = os.path.join(json_path, config_file['path'])
+                with open(config_file_path, 'r', encoding="UTF-8") as f_cfg:
                     cfg_data = f_cfg.read()
                 json_data = json.loads(cfg_data)
 

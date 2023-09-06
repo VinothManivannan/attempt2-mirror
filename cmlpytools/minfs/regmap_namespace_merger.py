@@ -73,7 +73,7 @@ class RegmapCfgMergeFile(object):
                         raise Exception("It is only possible to merge configs with the same offset")
 
                 namespace = config_file['namespace']
-                self._main_json_data['data'].append(attach_namespace(json_data['data'],namespace))
+                self._main_json_data['data'].extend(attach_namespace(json_data['data'],namespace))
 
     @property
     def merged_json(self) -> dict:

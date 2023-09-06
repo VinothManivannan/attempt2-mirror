@@ -123,7 +123,12 @@ class RegmapCfgFile(FileBase):
             offset = 0
 
         for reg_conf in json_data['data']:
-            match = tahini.search(name=reg_conf['register'], cmap_type=tahini.CmapType.REGISTER, node=cmap_node)
+            if 'namespace' in reg_conf:
+                namespace = reg_conf['namespace']
+            else:
+                namespace = None
+            match = tahini.search(name=reg_conf['register'], cmap_type=tahini.CmapType.REGISTER, node=cmap_node,
+                                  namespace=namespace)
 
             if not match:
                 raise RegmapCfgParseError(

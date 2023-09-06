@@ -10,7 +10,7 @@ from .file_types import FileTypes
 from .file_base import FileBase
 import os
 
-def attach_namespace(data_list, namespace):
+def attach_namespace(data_list, namespace, cmap_source):
     """
     A function to add namespace to every register in the dict
     
@@ -26,7 +26,7 @@ class RegmapCfgMergeFile(object):
     """
     Class used to create merge regmap parameter files together
     """
-    def __init__(self, top_level_config: str, json_path: str):
+    def __init__(self, top_level_config: str, json_path: str, cmap_source: str):
         """ 
         Create a handle that can be used to merge together several regmap parameter file with
         different namespaces
@@ -38,6 +38,8 @@ class RegmapCfgMergeFile(object):
         with open(top_level_config, 'r', encoding="UTF-8") as f_cfg:
             tl_cfg_data = f_cfg.read()
         tl_json_data = json.loads(tl_cfg_data)
+
+        cmap_full_regmap = tahini.CmapFullRegmap.load_json(cmap_source)
 
         if 'minfs' not in tl_json_data:
             raise Exception("minfs section is not found in the config file")
@@ -59,6 +61,16 @@ class RegmapCfgMergeFile(object):
 
         first_ns = tl_json_data['minfs']['regmap_params'][0]['namespace']
 
+        common_regs = []
+        for register in self._main_json_data:
+            match = tahini.search(name=register['register'], cmap_type=tahini.CmapType.REGISTER, 
+                                  node=cmap_full_regmap)
+            if not match.result.namspace:
+                common_regs.extend(register)
+
+        for register in common_regs:
+            self._main_json_data.remove(register)
+
         self._main_json_data['data'] = attach_namespace(self._main_json_data['data'], first_ns)
 
         if len(tl_json_data['minfs']['regmap_params']) >1:
@@ -71,9 +83,26 @@ class RegmapCfgMergeFile(object):
                 if 'struct' in json_data:
                     if json_data['struct'] != config_struct:
                         raise Exception("It is only possible to merge configs with the same offset")
+                    
+                for register in json_data['data']:
+                    match = tahini.search(name=register['register'], cmap_type=tahini.CmapType.REGISTER, 
+                                          node=cmap_full_regmap)
+                    if not match.result.namspace:
+                        register_found = 0
+                        for common_reg in common_regs:
+                            if register['register'] == common_reg['register']:
+                                if register['value'] != common_reg['value']:
+                                    raise Exception("Common register in config files contain different values")
+                                register_found = 1
+                                break
+                        if register_found == 0:
+                            common_regs.extend(register)
 
+                for register in common_regs:
+                    json_data['data'].remove(register)   
                 namespace = config_file['namespace']
                 self._main_json_data['data'].extend(attach_namespace(json_data['data'],namespace))
+                self._main_json_data['data'].extend(common_regs)
 
     @property
     def merged_json(self) -> dict:

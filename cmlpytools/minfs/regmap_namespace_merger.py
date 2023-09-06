@@ -21,7 +21,7 @@ def attach_namespace(data_list, namespace):
         register['namespace'] = namespace
     return data_list
 
-class RegmapCfgMergeFile(FileBase):
+class RegmapCfgMergeFile(object):
     """
     Class used to create merge regmap parameter files together
     """

@@ -73,7 +73,7 @@ class RegmapCfgMergeFile(object):
                 self._main_json_data['data'].remove(register)
 
         self._main_json_data['data'] = attach_namespace(self._main_json_data['data'], first_ns)
-        if len(tl_json_data['minfs']['regmap_params']) >1:
+        if len(tl_json_data['minfs']['regmap_params']) > 1:
             for config_file in tl_json_data['minfs']['regmap_params'][1:]:
                 config_file_path = os.path.join(json_path, config_file['path'])
                 with open(config_file_path, 'r', encoding="UTF-8") as f_cfg:
@@ -103,8 +103,9 @@ class RegmapCfgMergeFile(object):
                         json_data['data'].remove(register)
 
                 namespace = config_file['namespace']
-                self._main_json_data['data'].extend(attach_namespace(json_data['data'],namespace))
-                self._main_json_data['data'].extend(common_regs)
+                self._main_json_data['data'].extend(attach_namespace(json_data['data'], namespace))
+
+        self._main_json_data['data'].extend(common_regs)
 
     @property
     def merged_json(self) -> dict:

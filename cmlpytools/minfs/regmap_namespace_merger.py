@@ -62,7 +62,7 @@ class RegmapCfgMergeFile(object):
         first_ns = tl_json_data['minfs']['regmap_params'][0]['namespace']
 
         common_regs = []
-        for register in self._main_json_data:
+        for register in self._main_json_data['data']:
             match = tahini.search(name=register['register'], cmap_type=tahini.CmapType.REGISTER, 
                                   node=cmap_full_regmap)
             if not match.result.namspace:

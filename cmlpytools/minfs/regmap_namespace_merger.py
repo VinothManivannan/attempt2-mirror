@@ -57,7 +57,7 @@ class RegmapCfgMergeFile(object):
         else:
             config_struct = None
 
-        first_ns = tl_json_data['minfs']['regmap_params']['namespace']
+        first_ns = tl_json_data['minfs']['regmap_params'][0]['namespace']
 
         self._main_json_data['data'] = attach_namespace(self._main_json_data['data'], first_ns)
 
@@ -71,7 +71,7 @@ class RegmapCfgMergeFile(object):
                     if json_data['struct'] != config_struct:
                         raise Exception("It is only possible to merge configs with the same offset")
 
-                namespace = tl_json_data['minfs']['regmap_params']['namespace']
+                namespace = config_file['namespace']
                 self._main_json_data['data'].append(attach_namespace(json_data['data'],namespace))
 
     @property

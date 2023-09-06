@@ -8,6 +8,7 @@ from cmlpytools import tahini
 from .shared import RegmapFileWriter
 from .file_types import FileTypes
 from .file_base import FileBase
+import os
 
 def attach_namespace(data_list, namespace):
     """

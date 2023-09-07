@@ -1,0 +1,18 @@
+{
+    "actuator_id": 10,
+    "regmap": [
+        "test_fullregmap_dual_actl.cmapsource.json"
+    ],
+    "minfs": {
+        "regmap_params": [
+            {
+                "namespace": "act0",
+                "path": "test_dual_act_act0.json"
+            },
+            {
+                "namespace": "act1",
+                "path": "test_dual_act_actl_wrong_struct.json"
+            }
+        ]
+    }
+}

@@ -1,0 +1,42 @@
+{
+    "format": 1, 
+    "struct": "cml_params",
+    "data": [
+        {
+            "register": "RLM_RATE", 
+            "value": 400
+        },
+                {
+            "register": "RLM_SCALE_BASE", 
+            "value": -102
+        }, 
+        {
+            "register": "PWRNORM_G0",
+            "value": 50545
+        },
+        {
+            "register": "PWRNORM_O0",
+            "value": -35912
+        },
+        {
+            "register": "DLF_BACKOFF", 
+            "value": 0
+        }, 
+        {
+            "register": "DLF_ERRLIM", 
+            "value": 200
+        },
+        {
+            "register": "PDU_MID_RES",
+            "value": 17000
+        },
+        {
+            "register": "PDU_ADC2TEMP_C0",
+            "value": -42186
+        },
+        {
+            "register": "PDU_ADC2TEMP_C1",
+            "value": -6861
+        }
+    ]
+}

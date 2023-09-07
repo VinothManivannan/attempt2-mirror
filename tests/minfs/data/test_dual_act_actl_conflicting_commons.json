@@ -1,0 +1,43 @@
+{
+    "format" : 1,
+    "struct": "cml_params",
+    "data":
+    [
+        {
+            "register":  "RLM_RATE",
+            "value": 590
+        },
+        {
+            "register":  "RLM_SCALE_BASE",
+            "value": -102
+        },
+        {
+            "register": "PWRNORM_C_SAME_COMM",
+            "value": 32768
+        },
+        {
+            "register": "PWRNORM_C_OPP_COMM",
+            "value": 32768
+        },
+        {
+            "register":  "RTM_CURV",
+            "value": 0
+        },
+        {
+            "register":  "RTM_GRAD",
+            "value": 0
+        },
+        {
+            "register": "PDU_MID_RES",
+            "value": 16000
+        },
+        {
+            "register": "PDU_ADC2TEMP_C2",
+            "value": 22023935
+        },
+        {
+            "register": "PDU_ADC2TEMP_C3",
+            "value": 1204
+        }
+    ]
+}

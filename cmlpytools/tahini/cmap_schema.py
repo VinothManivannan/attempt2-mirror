@@ -230,19 +230,17 @@ class Register:
                 raise InvalidRegisterError("Format is wrong which should be: Qn.m, Qn")
             if re.compile(r"^Q\d+$").match(self.format) is not None:
                 num_format = self.format.split('Q')[1]
-                if int(num_format) > CType.get_bit_size(self.ctype):
-                    raise InvalidRegisterError("The format is not support the ctype")
                 if self.max is not None:
                     if self.ctype.value[0] == 'u':
-                        if 2 ** int(num_format) < self.max:
+                        if (2 ** CType.get_bit_size(self.ctype) - 1)/(2 ** int(num_format)) < self.max:
                             raise InvalidRegisterError("The unsigned max value exceeds the limit of format")
-                    elif 2 ** (int(num_format) - 1) < self.max:
+                    elif (2 ** (CType.get_bit_size(self.ctype) - 1) - 1)/(2 ** int(num_format)) < self.max:
                         raise InvalidRegisterError("The signed max value exceeds the limit of format")
             else:
                 num_1_format = self.format.split('.')[0].split('Q')[1]
                 num_2_format = self.format.split('.')[1]
                 if int(num_1_format) + int(num_2_format) > CType.get_bit_size(self.ctype):
-                    raise InvalidRegisterError("The format is not support the ctype")
+                    raise InvalidRegisterError("The format Qn.m total n+m is greater than the ctype")
                 if self.max is not None:
                     if self.ctype.value[0] == 'u':
                         if (2 ** int(num_1_format) + 1/(2 ** int(num_2_format))) < self.max:

@@ -73,7 +73,7 @@ class RegmapCfgMergeFile(object):
             if not match.result.namespace:
                 common_regs.append(register)
         for register in common_regs:
-            while register in self._main_json_data['data']:
+            if register in self._main_json_data['data']:
                 self._main_json_data['data'].remove(register)
 
         # Add nthe namespace to the first config file

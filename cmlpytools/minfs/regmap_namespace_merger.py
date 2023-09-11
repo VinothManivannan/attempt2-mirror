@@ -76,7 +76,7 @@ class RegmapCfgMergeFile(object):
             if register in self._main_json_data['data']:
                 self._main_json_data['data'].remove(register)
 
-        # Add nthe namespace to the first config file
+        # Add the namespace to the first config file
         self._main_json_data['data'] = attach_namespace(self._main_json_data['data'], first_ns)
 
         # Process all the subsequent config files

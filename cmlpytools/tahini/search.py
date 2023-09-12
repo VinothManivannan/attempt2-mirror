@@ -20,6 +20,7 @@ class SearchMatch:
 def _search_regmap(name: str,
                    cmap_type: CMapType,
                    regmap: CMapRegmap,
+                   namespace: str = None,
                    ) -> Optional[SearchMatch]:
     """Implementation of the search function when called using a fullregmap instance.
 
@@ -27,12 +28,13 @@ def _search_regmap(name: str,
         name (str): Name of the element to be looked-up
         cmap_type (CMapType): Type of the element
         regmap (CMapRegmap): Cmap regmap to look into
+        namespace (str): Namespace of the element
 
     Returns:
         Optional[SearchMatch]: Match object or None if no match
     """
     for node in regmap.children:
-        match = search(name, cmap_type, node)
+        match = search(name, cmap_type, node, namespace)
         if match:
             return match
     return None
@@ -41,6 +43,7 @@ def _search_regmap(name: str,
 def _shallow_search(name: str,
                     cmap_type: CMapType,
                     node: CMapRegisterOrStruct,
+                    namespace: str = None,
                     ) -> Optional[SearchMatch]:
     """Perform a non-recursive search on a node object (struct or register).
 
@@ -48,6 +51,7 @@ def _shallow_search(name: str,
         name (str): Name of the element to look-up
         cmap_type (CMapType): Type of the element to look-up
         node (CMapRegisterOrStruct): Cmap element to look into
+        namespace (str): Namespace of the element
 
     Returns:
         Optional[SearchMatch]: Match object or None if no match
@@ -57,6 +61,12 @@ def _shallow_search(name: str,
 
     if not name.lower().startswith(node.name.lower()):
         return None
+
+    if namespace is not None:
+        if node.namespace is None:
+            return None
+        if namespace.lower() != node.namespace.lower():
+            return None
 
     # Get suffix and convert into list of indexes.
     suffix = name[len(node.name):]
@@ -99,6 +109,7 @@ def _shallow_search(name: str,
 def _search_struct_members(name: str,
                            cmap_type: CMapType,
                            struct: CMapRegisterOrStruct,
+                           namespace: str = None,
                            ) -> Optional[SearchMatch]:
     """_summary_
 
@@ -106,6 +117,7 @@ def _search_struct_members(name: str,
         name (str): Name of the element to look-up
         cmap_type (CMapType): Type of the element to look-up
         struct (CMapRegisterOrStruct): Cmap struct to look into
+        namespace (str): Namespace of the element
 
     Returns:
         Optional[SearchMatch]: Perform a search on the members of a struct and returns the first match found.
@@ -113,7 +125,7 @@ def _search_struct_members(name: str,
 
     match = None
     for node in struct.struct.children:
-        match = search(name, cmap_type, node)
+        match = search(name, cmap_type, node, namespace)
         if match:
             break
 
@@ -123,6 +135,7 @@ def _search_struct_members(name: str,
 def search(name: str,
            cmap_type: CMapType,
            node: Union[CMapFullRegmap, CMapRegisterOrStruct],
+           namespace: str = None,
            ) -> Optional[SearchMatch]:
     """Search for a register or struct using its name in a full regmap or a node of.
 
@@ -130,22 +143,23 @@ def search(name: str,
         name (str): Name of the register or struct to be looked-up
         cmap_type (CMapType): Type of the node to be looked up (register or struct)
         node (Union[CMapFullRegmap, CMapRegisterOrStruct]): The regmap or node to look into.
+        namespace (str): Namespace of the element
 
     Returns:
         Optional[SearchMatch]: Match result if found, None otherwise.
     """
 
     if isinstance(node, CMapFullRegmap):
-        return _search_regmap(name, cmap_type, node.regmap)
+        return _search_regmap(name, cmap_type, node.regmap, namespace)
 
     if isinstance(node, CMapRegmap):
-        return _search_regmap(name, cmap_type, node)
+        return _search_regmap(name, cmap_type, node, namespace)
 
-    match = _shallow_search(name, cmap_type, node)
+    match = _shallow_search(name, cmap_type, node, namespace)
     if match:
         return match
 
     if node.type == CMapType.STRUCT:
-        return _search_struct_members(name, cmap_type, node)
+        return _search_struct_members(name, cmap_type, node, namespace)
 
     return None

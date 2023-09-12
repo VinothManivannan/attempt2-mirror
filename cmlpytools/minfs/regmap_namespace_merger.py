@@ -111,7 +111,7 @@ class RegmapCfgMergeFile(object):
                         if register_found == 0:
                             common_regs.append(register)
                 for register in common_regs:
-                    while register in json_data['data']:
+                    if register in json_data['data']:
                         json_data['data'].remove(register)
 
                 # attach namespace to the registers

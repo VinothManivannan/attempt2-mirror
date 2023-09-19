@@ -63,15 +63,28 @@ class GenerateApiCheader():
         if register.access is not CmapVisibilityOptions.PUBLIC:
             return
 
-        # Output register address
-        addr = register.addr
-        if register.hif_access:
-            # For registers with indirect access on CM8x4, we output the expected CPU address instead
-            if addr < 0x6000:
-                addr = addr + 0x3e000
-            else:
-                addr = addr + 0x40000000
-        output.write(f"#define {register.get_customer_name().upper():<30} {addr:>#10x}\n")
+        if register.repeat_for is None:
+            # Output register address
+            addr = register.addr
+            if register.hif_access:
+                # For registers with indirect access on CM8x4, we output the expected CPU address instead
+                if addr < 0x6000:
+                    addr = addr + 0x3e000
+                else:
+                    addr = addr + 0x40000000
+            output.write(f"#define {register.get_customer_name().upper():<30} {addr:>#10x}\n")
+        else:
+            for instance in register.get_instances():
+                # Output register address
+                addr = instance.addr
+                if register.hif_access:
+                    # For registers with indirect access on CM8x4, we output the expected CPU address instead
+                    if addr < 0x6000:
+                        addr = addr + 0x3e000
+                    else:
+                        addr = addr + 0x40000000
+                instance_name = register.get_customer_name() + instance.get_legacy_suffix()
+                output.write(f"#define {instance_name.upper():<30} {addr:>#10x}\n")
 
         # Output register states
         if register.register.states:

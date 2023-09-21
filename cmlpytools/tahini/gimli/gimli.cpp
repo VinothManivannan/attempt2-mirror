@@ -32,22 +32,27 @@ private:
      * @param  path The absolute file path
      * @return Array of lines, empty if file could not be found
      */
-    const vector<string>& fetchFile(string path) {     
+    const vector<string> &fetchFile(string path)
+    {
         vector<string> *file;
 
         std::map<string, unique_ptr<vector<string>>>::iterator it = cache.find(path);
 
         // In the cache?
-        if (it != cache.end()) {
+        if (it != cache.end())
+        {
             // Yes, iterator is pair<key, value>, so take the value!
-            file = it->second.get(); 
-        } else {
+            file = it->second.get();
+        }
+        else
+        {
             file = new vector<string>();
 
             // Push the file path as the 0'th line as line numbers are 1-based
             string line = path;
             ifstream stream = ifstream(path);
-            do {
+            do
+            {
                 file->push_back(line);
             } while (std::getline(stream, line));
 
@@ -55,7 +60,7 @@ private:
             cache[path] = unique_ptr<vector<string>>(file);
         }
 
-        return *file; 
+        return *file;
     }
 
     /**
@@ -99,8 +104,9 @@ private:
      * @param  re Regular expression for the separator
      * @return Array of string tokens
      */
-    inline vector<string> tokenizeRegmapAttribute(string line, const std::regex re) {
-        return vector<string>{ sregex_token_iterator(line.begin(), line.end(), re, -1), sregex_token_iterator() };
+    inline vector<string> tokenizeRegmapAttribute(string line, const std::regex re)
+    {
+        return vector<string>{sregex_token_iterator(line.begin(), line.end(), re, -1), sregex_token_iterator()};
     }
 
     /**
@@ -116,54 +122,83 @@ private:
      * @param  file Reference to array of file lines
      * @param  line_number Number of [declaring] line
      */
-    void decode(json::OStream& jos, const vector<string>& file, int64_t line_number)
+    void decode(json::OStream &jos, const vector<string> &file, int64_t line_number)
     {
         list<string> comment;
 
-        if (line_number < file.size()) {
+        if (line_number < file.size())
+        {
 
             bool within_block_comment = false;
-            
+
             // Collect @regmap attributes in "C/C++" single-line comments
-            while (line_number-- > 0) {
+            while (line_number-- > 0)
+            {
                 const string line = file[line_number];
 
-                if (isBlank(line)) {
+                if (isBlank(line))
+                {
                     // No action, blank line
-                } else if (within_block_comment && isBlockCommentEnd(line)) {
+                }
+                else if (within_block_comment && isBlockCommentEnd(line))
+                {
                     // No action
                     within_block_comment = false;
-                } else if (within_block_comment) {
+                }
+                else if (within_block_comment)
+                {
                     // No action
-                } else if (isBlockCommentBegin(line)) {
+                }
+                else if (isBlockCommentBegin(line))
+                {
                     // No action
                     within_block_comment = true;
-                } else if (containsRegmapAttribute(line)) {
+                }
+                else if (containsRegmapAttribute(line))
+                {
                     // Action, cache line in reverse order
                     comment.push_front(line);
-                } else {
+                }
+                else
+                {
                     // Action, matched comment open
                     break;
                 }
             }
         }
 
-        for (auto line : comment) {
+        for (auto line : comment)
+        {
             // If this is a regmap attribute, we'll have 2 tokens [ name, value ]
 
-            auto tokens = tokenizeRegmapAttribute( extractRegmapAttribute(line) );
+            auto tokens = tokenizeRegmapAttribute(extractRegmapAttribute(line));
 
-            if (tokens.size() < 2) {
-                // No action, too few tokens
-            } else if (tokens.size() > 2) {
-                // No action, too many tokens
-            } else if (auto value = json::parse(tokens[1])) {
-                Error error = value.takeError();
-                if (error) {
-                    errs() << "Could not parse comment, " << toString(std::move(error)) << "\n";
-                    exit(EXIT_FAILURE);
+            if (tokens.size() < 2)
+            {
+                errs() << "Regmap attribute " << tokens[0] << " is incomplete"
+                       << "\n";
+                exit(EXIT_FAILURE);
+            }
+            else
+            {
+                if (tokens.size() > 2)
+                {
+                    /* Combine strings accidentally separated due to colons */
+                    for (int i = 2; i < tokens.size(); i++)
+                    {
+                        tokens[1] += ":" + tokens[i];
+                    }
                 }
-                jos.attribute(tokens[0], value.get());
+                if (auto value = json::parse(tokens[1]))
+                {
+                    Error error = value.takeError();
+                    if (error)
+                    {
+                        errs() << "Could not parse comment, " << toString(std::move(error)) << "\n";
+                        exit(EXIT_FAILURE);
+                    }
+                    jos.attribute(tokens[0], value.get());
+                }
             }
         }
     }
@@ -179,7 +214,7 @@ public:
      * @param  decl_file Name of [declaring] file
      * @param  decl_line Number of [declaring] line
      */
-    void decode(json::OStream& jos, string decl_file, int64_t decl_line)
+    void decode(json::OStream &jos, string decl_file, int64_t decl_line)
     {
         decode(jos, fetchFile(decl_file), decl_line);
     }
@@ -192,7 +227,7 @@ public:
      * @param  decl_line Number of [declaring] line of the parent enum class belogs to
      * @param  name Name of the constant or enum member to decode
      */
-    void decodeEnum(json::OStream& jos, string decl_file, int64_t decl_line, string name)
+    void decodeEnum(json::OStream &jos, string decl_file, int64_t decl_line, string name)
     {
         // Enum members are no associated with a file or a line number by LLVM.
         // So some additional work is needed to find the exact declaration line from the
@@ -202,13 +237,16 @@ public:
         // Test each line until we find the one that contains the constant declaration
         auto regex_pattern = "[ \t]*" + name + "([ \t=\\},]|$).*";
         auto regex = std::regex(regex_pattern);
-        while (++decl_line < file.size()) {
-            if (regex_match(file[decl_line], regex)) {
+        while (++decl_line < file.size())
+        {
+            if (regex_match(file[decl_line], regex))
+            {
                 break;
             }
         }
 
-        if (decl_line < file.size()) {
+        if (decl_line < file.size())
+        {
             decode(jos, file, decl_line);
         }
     }
@@ -222,13 +260,15 @@ static BlockCommentDecoder decoder;
  * @param  jos Reference to a JSON output stream, all decoded output sent here
  * @param  die Reference to the DWARF debug-information-entry
  */
-void decodeBlockComment(json::OStream& jos, const DWARFDie &die)
+void decodeBlockComment(json::OStream &jos, const DWARFDie &die)
 {
-    if (die.getTag() == dwarf::DW_TAG_enumerator) {
+    if (die.getTag() == dwarf::DW_TAG_enumerator)
+    {
         auto parent = die.getParent();
         decoder.decodeEnum(jos, parent.getDeclFile(DILineInfoSpecifier::FileLineInfoKind::AbsoluteFilePath), parent.getDeclLine(), die.getShortName());
     }
-    else {
+    else
+    {
         decoder.decode(jos, die.getDeclFile(DILineInfoSpecifier::FileLineInfoKind::AbsoluteFilePath), die.getDeclLine());
     }
 }
@@ -238,16 +278,18 @@ void decodeBlockComment(json::OStream& jos, const DWARFDie &die)
  * @param  jos Reference to a JSON output stream, all decoded output sent here
  * @param  die Reference to the DWARF debug-information-entry
  */
-static void decodeEnum(json::OStream& jos, const DWARFDie &die)
+static void decodeEnum(json::OStream &jos, const DWARFDie &die)
 {
     DWARFDie enumeration_type;
 
     // Traverse the variable's type chain ...
     for (DWARFDie type = die.getAttributeValueAsReferencedDie(dwarf::DW_AT_type);
-        type;
-        type = type.getAttributeValueAsReferencedDie(dwarf::DW_AT_type)) {
+         type;
+         type = type.getAttributeValueAsReferencedDie(dwarf::DW_AT_type))
+    {
 
-        switch (type.getTag()) {
+        switch (type.getTag())
+        {
         case dwarf::DW_TAG_enumeration_type:
             enumeration_type = type;
             break;
@@ -257,7 +299,8 @@ static void decodeEnum(json::OStream& jos, const DWARFDie &die)
         }
     }
 
-    if (enumeration_type) {
+    if (enumeration_type)
+    {
         jos.objectBegin();
 
         // Decode enum-specifier identifier
@@ -273,12 +316,15 @@ static void decodeEnum(json::OStream& jos, const DWARFDie &die)
         jos.arrayBegin();
 
         // Iterate over enumeration 'type' DWARF debug-information-entry list
-        for (auto child : enumeration_type.children()) {
+        for (auto child : enumeration_type.children())
+        {
             // Is this an enumerator?
-            if (child.getTag() == dwarf::DW_TAG_enumerator) {
+            if (child.getTag() == dwarf::DW_TAG_enumerator)
+            {
 
                 auto value = child.find(dwarf::DW_AT_const_value);
-                if (value) {
+                if (value)
+                {
                     jos.objectBegin();
 
                     // Decode enumerator identifier
@@ -308,7 +354,7 @@ static void decodeEnum(json::OStream& jos, const DWARFDie &die)
  * @param  die Reference to the DWARF debug-information-entry
  * @param  depth Depth of parent in JSON object tree, 0 = uppermost
  */
-static void decodeBaseStructUnion(json::OStream& jos, const DWARFDie& die, unsigned int depth = 0)
+static void decodeBaseStructUnion(json::OStream &jos, const DWARFDie &die, unsigned int depth = 0)
 {
     DWARFDie array_type;
     DWARFDie base_type;
@@ -319,10 +365,12 @@ static void decodeBaseStructUnion(json::OStream& jos, const DWARFDie& die, unsig
 
     // Traverse the variable's type chain ...
     for (DWARFDie type = die.getAttributeValueAsReferencedDie(dwarf::DW_AT_type);
-        type;
-        type = type.getAttributeValueAsReferencedDie(dwarf::DW_AT_type)) {
+         type;
+         type = type.getAttributeValueAsReferencedDie(dwarf::DW_AT_type))
+    {
 
-        switch (type.getTag()) {
+        switch (type.getTag())
+        {
         case dwarf::DW_TAG_array_type:
             array_type = type;
             break;
@@ -342,16 +390,22 @@ static void decodeBaseStructUnion(json::OStream& jos, const DWARFDie& die, unsig
     }
 
     // Does the variable have base, struct or union type?
-    if (base_struct_union_type) {
+    if (base_struct_union_type)
+    {
 
         jos.objectBegin();
 
         // Decode type
-        if (base_type) {
+        if (base_type)
+        {
             jos.attribute("type", base_type.getShortName());
-        } else if (structure_type) {
+        }
+        else if (structure_type)
+        {
             jos.attribute("type", "struct");
-        } else if (union_type) {
+        }
+        else if (union_type)
+        {
             jos.attribute("type", "union");
         }
 
@@ -365,16 +419,19 @@ static void decodeBaseStructUnion(json::OStream& jos, const DWARFDie& die, unsig
 
         // Decode @regmap comments - attached to variable
         decodeBlockComment(jos, die);
-        
+
         // Decode array?
-        if (array_type) {
+        if (array_type)
+        {
 
             DWARFDie subrange_type;
 
             // Traverse the array_type's children ...
-            for (auto type : array_type.children()) {
+            for (auto type : array_type.children())
+            {
 
-                switch (type.getTag()) {
+                switch (type.getTag())
+                {
                 case dwarf::DW_TAG_subrange_type:
                     subrange_type = type;
                     break;
@@ -387,24 +444,30 @@ static void decodeBaseStructUnion(json::OStream& jos, const DWARFDie& die, unsig
             uint64_t value = 0;
 
             // Determine array count?
-            if (subrange_type) {
+            if (subrange_type)
+            {
 
                 auto count = subrange_type.find(dwarf::DW_AT_count);
                 auto upper_bound = subrange_type.find(dwarf::DW_AT_upper_bound);
 
                 // XXX - we can assume 'C' 0-based array indexing
-           
-                if (count) {
+
+                if (count)
+                {
                     // XXX - attempt to convert to non-zero value
                     value = dwarf::toUnsigned(count, 0);
-                } else if (upper_bound) {
+                }
+                else if (upper_bound)
+                {
                     // XXX - attempt to convert to non-zero value
                     value = dwarf::toUnsigned(upper_bound, -1) + 1;
                 }
             }
 
-            if (value == 0) {
-                errs() << "error: could not determine array count" << "\n";
+            if (value == 0)
+            {
+                errs() << "error: could not determine array count"
+                       << "\n";
                 exit(EXIT_FAILURE);
             }
 
@@ -412,14 +475,16 @@ static void decodeBaseStructUnion(json::OStream& jos, const DWARFDie& die, unsig
         }
 
         // Decode [byte] offset?
-        if (depth > 0) {
+        if (depth > 0)
+        {
             /*
-            * TODO - this needs more work, CHESSCC.exe output fails here and
-            * bitfields want something else too.
-            * Plus, it is just a crap bit of code.
-            */
+             * TODO - this needs more work, CHESSCC.exe output fails here and
+             * bitfields want something else too.
+             * Plus, it is just a crap bit of code.
+             */
             auto value = die.find(dwarf::DW_AT_data_member_location);
-            if (value) {
+            if (value)
+            {
                 jos.attribute("byte_offset", dwarf::toUnsigned(value));
             }
         }
@@ -427,36 +492,44 @@ static void decodeBaseStructUnion(json::OStream& jos, const DWARFDie& die, unsig
         // Decode [byte] size
         {
             auto value = base_struct_union_type.find(dwarf::DW_AT_byte_size);
-            if (value) {
+            if (value)
+            {
                 jos.attribute("byte_size", dwarf::toUnsigned(value));
             }
         }
 
         // Decode bit offset?
-        if (base_type) {
+        if (base_type)
+        {
             auto value = die.find(dwarf::DW_AT_bit_offset);
-            if (value) {
+            if (value)
+            {
                 jos.attribute("bit_offset", dwarf::toUnsigned(value));
             }
         }
 
         // Decode bit size?
-        if (base_type) {
+        if (base_type)
+        {
             auto value = die.find(dwarf::DW_AT_bit_size);
-            if (value) {
+            if (value)
+            {
                 jos.attribute("bit_size", dwarf::toUnsigned(value));
             }
         }
 
         // Decode struct or union members?
-        if (structure_type || union_type) {
+        if (structure_type || union_type)
+        {
             jos.attributeBegin("members");
             jos.arrayBegin();
 
             // Iterate over 'child' DWARF debug-information-entry list
-            for (auto child : base_struct_union_type.children()) {
+            for (auto child : base_struct_union_type.children())
+            {
                 // Is this a struct or union member?
-                if (child.getTag() == dwarf::DW_TAG_member) {
+                if (child.getTag() == dwarf::DW_TAG_member)
+                {
                     decodeBaseStructUnion(jos, child, depth + 1);
                 }
             }
@@ -499,37 +572,49 @@ int main(int argc, char **argv)
 
     InitLLVM library(argc, argv);
 
-    if (argc < 2) {
+    if (argc < 2)
+    {
         errs() << "\n";
-        errs() << "Usage:" << "\n";
-        errs() << "-\tgimli <firmware-binary-path>" << "\n";
-        errs() << "-\tgimli <firmware-binary-path> <compile-unit-name.c>" << "\n";
-        errs() << "-\tgimli <firmware-binary-path> <compile-unit-name.c> ..." << "\n";
+        errs() << "Usage:"
+               << "\n";
+        errs() << "-\tgimli <firmware-binary-path>"
+               << "\n";
+        errs() << "-\tgimli <firmware-binary-path> <compile-unit-name.c>"
+               << "\n";
+        errs() << "-\tgimli <firmware-binary-path> <compile-unit-name.c> ..."
+               << "\n";
         errs() << "\n";
-        errs() << "Notes:" << "\n";
-        errs() << "-\tThe <compile-unit-name.c> is optional, it is derived from the <firmware-binary-path> if not specified." << "\n";
-        errs() << "-\tThe ... represents 1 or more additional <compile-unit-name.c>." << "\n";
-        errs() << "-\tGimli outputs error messages to `stderr`." << "\n";
-        errs() << "-\tGimli outputs 'Input JSON File' formatted information to `stdout`." << "\n";
+        errs() << "Notes:"
+               << "\n";
+        errs() << "-\tThe <compile-unit-name.c> is optional, it is derived from the <firmware-binary-path> if not specified."
+               << "\n";
+        errs() << "-\tThe ... represents 1 or more additional <compile-unit-name.c>."
+               << "\n";
+        errs() << "-\tGimli outputs error messages to `stderr`."
+               << "\n";
+        errs() << "-\tGimli outputs 'Input JSON File' formatted information to `stdout`."
+               << "\n";
         errs() << "\n";
-        exit(EXIT_FAILURE);        
+        exit(EXIT_FAILURE);
     }
 
     auto path = argv[1];
 
     set<string> compile_unit_names;
 
-    for (int i = 2; i < argc; i++) {
+    for (int i = 2; i < argc; i++)
+    {
         compile_unit_names.emplace(argv[i]);
     }
 
 #if 1
-    if (compile_unit_names.empty()) {
+    if (compile_unit_names.empty())
+    {
         /*
          * XXX - we assume that the firmware binary (*.elf, *.exe, *xexe, etc) has a
          * similarily named 'main' compilation unit.
          */
-        compile_unit_names.emplace( filesystem::path(argv[1]).filename().replace_extension(".c").string() );
+        compile_unit_names.emplace(filesystem::path(argv[1]).filename().replace_extension(".c").string());
     }
 #endif
 
@@ -539,7 +624,8 @@ int main(int argc, char **argv)
     // Verify we have a valid file
     {
         Error error = errorCodeToError(file_or_error.getError());
-        if (error) {
+        if (error)
+        {
             errs() << path << ": " << toString(std::move(error)) << "\n";
             exit(EXIT_FAILURE);
         }
@@ -551,7 +637,8 @@ int main(int argc, char **argv)
     // Verify we have a valid binary
     {
         Error error = binary_or_error.takeError();
-        if (error) {
+        if (error)
+        {
             errs() << path << ": " << toString(std::move(error)) << "\n";
             exit(EXIT_FAILURE);
         }
@@ -561,9 +648,10 @@ int main(int argc, char **argv)
     auto *object_or_nullptr = dyn_cast<ObjectFile>(binary_or_error->get());
 
     // Verify we have a valid object file
-    if (object_or_nullptr == nullptr) {
+    if (object_or_nullptr == nullptr)
+    {
         errs() << "Could not obtain object file from " << path << "\n";
-        exit(EXIT_FAILURE);         
+        exit(EXIT_FAILURE);
     }
 
     // Create DWARF context for the 'firmware' object
@@ -572,33 +660,42 @@ int main(int argc, char **argv)
     vector<DWARFDie> dwarf_enums;
     vector<DWARFDie> dwarf_regmap;
 
-    for (std::unique_ptr<DWARFUnit> &unit : context->compile_units()) {
-        const DWARFDie& die = unit->getUnitDIE(false);
+    for (std::unique_ptr<DWARFUnit> &unit : context->compile_units())
+    {
+        const DWARFDie &die = unit->getUnitDIE(false);
 
         // Is a compile unit of interest?
-        if ( compile_unit_names.empty() || (compile_unit_names.find( filesystem::path(die.getShortName()).filename().string() ) != compile_unit_names.end()) ) {
-            
+        if (compile_unit_names.empty() || (compile_unit_names.find(filesystem::path(die.getShortName()).filename().string()) != compile_unit_names.end()))
+        {
+
             // Decode enum type'd variables...
-            for (DWARFDie child = die.getFirstChild(); child; child = child.getSibling()) {
-                if (child.getTag() == dwarf::DW_TAG_variable) {
+            for (DWARFDie child = die.getFirstChild(); child; child = child.getSibling())
+            {
+                if (child.getTag() == dwarf::DW_TAG_variable)
+                {
 
                     bool has_enumeration_type = false;
 
                     // Have a peek at the variable's type to determine if this is a 'C' enum or not
                     for (DWARFDie type = child.getAttributeValueAsReferencedDie(dwarf::DW_AT_type);
-                        type;
-                        type = type.getAttributeValueAsReferencedDie(dwarf::DW_AT_type)) {
+                         type;
+                         type = type.getAttributeValueAsReferencedDie(dwarf::DW_AT_type))
+                    {
 
-                        if (type.getTag() == dwarf::DW_TAG_enumeration_type) {
+                        if (type.getTag() == dwarf::DW_TAG_enumeration_type)
+                        {
                             has_enumeration_type = true;
                             break;
                         }
                     }
 
                     // Where is it to be cached?
-                    if (has_enumeration_type) {
+                    if (has_enumeration_type)
+                    {
                         dwarf_enums.push_back(child);
-                    } else {
+                    }
+                    else
+                    {
                         dwarf_regmap.push_back(child);
                     }
                 }
@@ -616,7 +713,8 @@ int main(int argc, char **argv)
         jos.attributeBegin("regmap");
         jos.arrayBegin();
 
-        for (auto die : dwarf_regmap) {
+        for (auto die : dwarf_regmap)
+        {
             decodeBaseStructUnion(jos, die);
         }
 
@@ -629,7 +727,8 @@ int main(int argc, char **argv)
         jos.attributeBegin("enums");
         jos.arrayBegin();
 
-        for (auto die : dwarf_enums) {
+        for (auto die : dwarf_enums)
+        {
             decodeEnum(jos, die);
         }
 

@@ -106,6 +106,12 @@ private:
      */
     inline vector<string> tokenizeRegmapAttribute(string line, const std::regex re)
     {
+        regex double_quotes("\"\"");
+        if (regex_search(line, double_quotes))
+        {
+            errs() << "A double \" has been written in " << line << "\n";
+            exit(EXIT_FAILURE);
+        }
         return vector<string>{sregex_token_iterator(line.begin(), line.end(), re, -1), sregex_token_iterator()};
     }
 

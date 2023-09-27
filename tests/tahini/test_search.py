@@ -312,7 +312,7 @@ class TestSearch(unittest.TestCase):
 
         self.assertIsNone(match)
 
-    def test_search_register_with_invalid_index(self):
+    def test_search_register_with_valid_index(self):
         """Check that we search for a register using an valid index, we get a match
         """
         match = search(name="omega2", cmap_type=CmapType.REGISTER, node=TestSearch._CMAP_REGMAP)

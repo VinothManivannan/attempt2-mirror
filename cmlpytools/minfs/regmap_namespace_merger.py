@@ -70,6 +70,8 @@ class RegmapCfgMergeFile(object):
         for register in self._main_json_data['data']:
             match = tahini.search(name=register['register'], cmap_type=tahini.CmapType.REGISTER, 
                                   node=cmap_full_regmap)
+            if match is None:
+                raise Exception(f"Register {register['register']} not found")
             if not match.result.namespace:
                 common_regs.append(register)
         for register in common_regs:
@@ -100,6 +102,8 @@ class RegmapCfgMergeFile(object):
                 for register in json_data['data']:
                     match = tahini.search(name=register['register'], cmap_type=tahini.CmapType.REGISTER, 
                                           node=cmap_full_regmap)
+                    if match is None:
+                        raise Exception(f"Register {register['register']} not found")
                     if not match.result.namespace:
                         register_found = 0
                         for common_reg in common_regs:

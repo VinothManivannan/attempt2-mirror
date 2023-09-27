@@ -84,6 +84,8 @@ def _shallow_search(name: str,
         try:
             # Try converting the suffix into an index
             index = int(index_or_alias)
+            if index >= repeat_for.count:
+                return None
 
         except ValueError:
             if repeat_for.aliases:

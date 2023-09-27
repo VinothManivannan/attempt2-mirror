@@ -115,6 +115,20 @@ class TestSearch(unittest.TestCase):
                                                 )
                                             ]
                                         )
+                                    ),
+                                    CmapRegisterOrStruct(
+                                        name="omega",
+                                        type=CmapType.REGISTER,
+                                        addr=530,
+                                        size=2,
+                                        register=CmapRegister(
+                                            ctype=CmapCtype.UINT16
+                                        ),
+                                        repeat_for=[CmapArrayIndex(
+                                            count=3,
+                                            aliases=None,
+                                            offset=2
+                                        )]
                                     )
                                 ]
                             )
@@ -290,3 +304,17 @@ class TestSearch(unittest.TestCase):
         match = search(name="thetarz_x", cmap_type=CmapType.REGISTER, node=TestSearch._CMAP_REGMAP)
 
         self.assertIsNone(match)
+
+    def test_search_register_with_invalid_index(self):
+        """Check that we search for a register using an invalid index, we don't get a match
+        """
+        match = search(name="omega3", cmap_type=CmapType.REGISTER, node=TestSearch._CMAP_REGMAP)
+
+        self.assertIsNone(match)
+
+    def test_search_register_with_valid_index(self):
+        """Check that we search for a register using an valid index, we get a match
+        """
+        match = search(name="omega2", cmap_type=CmapType.REGISTER, node=TestSearch._CMAP_REGMAP)
+
+        self.assertIsNotNone(match)

@@ -74,20 +74,9 @@ def _shallow_search(name: str,
         return SearchMatch(node, node.addr)
     indexes_or_aliases = suffix.split("_")
 
-    # if split resulted in more than one element then it means that the node name is not the correct
-    # one, but it is completely identical to a part of the name that we are looking for.
-    # Example: tempest_terr_cutoff and tempest_terr_cutoff_offset
-    if len(indexes_or_aliases) > 1:
+    # Check that the number of indices matches the number of dimensions
+    if node.repeat_for is None or len(indexes_or_aliases) is not len(node.repeat_for):
         return None
-
-    if node.repeat_for is not None:
-        if node.repeat_for[0].aliases is not None:
-            # if aliases exist then the suffix must be in it
-            if indexes_or_aliases[0].lower() not in node.repeat_for[0].aliases:
-                return None
-        elif int(indexes_or_aliases[0]) >= node.repeat_for[0].count:
-            # if the suffix is a number then it should be larger than the repeatfor count
-            return None
 
     indexes = []
     for index_or_alias, repeat_for in zip(indexes_or_aliases, node.repeat_for):
@@ -95,6 +84,8 @@ def _shallow_search(name: str,
         try:
             # Try converting the suffix into an index
             index = int(index_or_alias)
+            if index >= repeat_for.count:
+                return None
 
         except ValueError:
             if repeat_for.aliases:

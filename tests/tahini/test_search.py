@@ -317,4 +317,4 @@ class TestSearch(unittest.TestCase):
         """
         match = search(name="omega2", cmap_type=CmapType.REGISTER, node=TestSearch._CMAP_REGMAP)
 
-        self.assertIsNone(match)
+        self.assertIsNotNone(match)

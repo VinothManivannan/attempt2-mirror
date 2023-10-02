@@ -95,7 +95,7 @@ class GenerateApiCheader():
         # Output register bitfields
         if register.register.bitfields:
             for bitfield in register.register.bitfields:
-                bitfield_name = bitfield.get_customer_name().upper()
+                bitfield_name = register.name.upper() + "_" + bitfield.get_customer_name().upper()
                 output.write(
                     f"    #define {bitfield_name:<30} {bitfield.get_mask():>#10x} /* Bitfield */\n")
 

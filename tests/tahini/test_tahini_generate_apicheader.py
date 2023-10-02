@@ -250,7 +250,7 @@ extern "C" {
 
         expected_body = """\
 #define ALPHA_REGISTER                      0x100
-    #define ALPHA_REGISTER_BETA_STATE                          0x123 /* State */
+    #define ALPHA_REGISTER_BETA_STATE           0x123 /* State */
 """
 
         self.run_test(cmapsource, expected_body)
@@ -326,7 +326,7 @@ extern "C" {
 
         expected_body = """\
 #define ALPHA_REGISTER                      0x100
-    #define ALPHA_REGISTER_ALIAS_BETA_STATE                    0x123 /* State */
+    #define ALPHA_REGISTER_ALIAS_BETA_STATE      0x123 /* State */
 """
 
         self.run_test(cmapsource, expected_body)

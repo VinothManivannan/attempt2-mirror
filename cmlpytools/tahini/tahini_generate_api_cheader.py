@@ -89,7 +89,8 @@ class GenerateApiCheader():
         # Output register states
         if register.register.states:
             for state in register.register.states:
-                output.write(f"    #define {state.get_customer_name().upper():<30} {state.value:>#10x} /* State */\n")
+                state_name = register.name.upper() + "_" + state.get_customer_name().upper()
+                output.write(f"    #define {state_name:<30} {state.value:>#10x} /* State */\n")
 
         # Output register bitfields
         if register.register.bitfields:

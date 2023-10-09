@@ -49,10 +49,11 @@ def prepend_namespaces(register: CmapRegisterOrStruct, inst_name: str):
         register (CmapRegisterOrStruct): Cmap register or struct to process
         inst_name (str): register, bitfield or state name
     """
-    if register.namespace is None:
-        return register.namespace.upper() + "_" + inst_name
+    if register.namespace is not None:
+        new_name = register.namespace.upper() + "_" + inst_name
     else:
-        return inst_name
+        new_name = inst_name
+    return new_name
 
 class GenerateApiCheader():
     """Class for generating C header files used in customer Api code

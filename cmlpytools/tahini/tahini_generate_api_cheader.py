@@ -41,6 +41,18 @@ FOOTER_TEMPLATE = """
 #endif /* %%HEADER_GUARD%% */
 """
 
+def prepend_namespaces(register: CmapRegisterOrStruct, inst_name: str):
+    """
+    If the input register has a namespace property then prepend it to the string name
+
+    Args:
+        register (CmapRegisterOrStruct): Cmap register or struct to process
+        inst_name (str): register, bitfield or state name
+    """
+    if register.namespace is None:
+        return register.namespace.upper() + "_" + inst_name
+    else:
+        return inst_name
 
 class GenerateApiCheader():
     """Class for generating C header files used in customer Api code
@@ -72,7 +84,8 @@ class GenerateApiCheader():
                     addr = addr + 0x3e000
                 else:
                     addr = addr + 0x40000000
-            output.write(f"#define {register.get_customer_name().upper():<30} {addr:>#10x}\n")
+            instance_name = prepend_namespaces(register, register.get_customer_name().upper())
+            output.write(f"#define {instance_name:<30} {addr:>#10x}\n")
         else:
             for instance in register.get_instances():
                 # Output register address
@@ -84,18 +97,21 @@ class GenerateApiCheader():
                     else:
                         addr = addr + 0x40000000
                 instance_name = register.get_customer_name() + instance.get_legacy_suffix()
+                instance_name = prepend_namespaces(register, instance_name)
                 output.write(f"#define {instance_name.upper():<30} {addr:>#10x}\n")
 
         # Output register states
         if register.register.states:
             for state in register.register.states:
                 state_name = register.get_customer_name().upper() + "_" + state.get_customer_name().upper()
+                state_name = prepend_namespaces(register, state_name)
                 output.write(f"    #define {state_name:<30} {state.value:>#10x} /* State */\n")
 
         # Output register bitfields
         if register.register.bitfields:
             for bitfield in register.register.bitfields:
                 bitfield_name = register.get_customer_name().upper() + "_" + bitfield.get_customer_name().upper()
+                bitfield_name = prepend_namespaces(register, bitfield_name)
                 output.write(
                     f"    #define {bitfield_name:<30} {bitfield.get_mask():>#10x} /* Bitfield */\n")
 
@@ -105,6 +121,7 @@ class GenerateApiCheader():
                         state_mask = state.value << bitfield.position
                         # Bitfield state name is prefixed with the Bitfield name for uniqueness
                         state_name = bitfield_name + "_" + state.get_customer_name().upper()
+                        state_name = prepend_namespaces(register, state_name)
                         output.write(
                             f"        #define {state_name:<30} {state_mask:>#10x} /* Bitfield state */\n")
 

@@ -136,16 +136,19 @@ class GenerateApiCheader():
         cmapsource = CmapFullRegmap.load_json(cmapsource_path)
 
         with open(output_txt_path, 'w', encoding='utf-8') as output:
-            GenerateApiCheader.from_cmapsource(cmapsource.regmap, output, os.path.basename(output_txt_path), cmapsource.version)
+            GenerateApiCheader.from_cmapsource(cmapsource.regmap, output, os.path.basename(output_txt_path),
+                                               cmapsource.version)
 
     @staticmethod
-    def from_cmapsource(cmapsource: CmapRegmap, output: TextIOWrapper, filename: str, version: ExtendedVersionInfo) -> None:
+    def from_cmapsource(cmapsource: CmapRegmap, output: TextIOWrapper, filename: str,
+                        version: ExtendedVersionInfo) -> None:
         """Create txt output file from cmapsource file path
 
         Args:
             cmapsource (CmapFullRegmap): Cmapsource object to be converted
             output (TextIOWrapper): Text IO handle to write the output to. It must already be opened.
             filename (str): Name of the file to be created
+            version (ExtendedVersionInfo): firmware git tag and commit version information
         """
         year = datetime.date.today().year
         header_guard = filename.replace(".", "_").replace("-", "_").upper()

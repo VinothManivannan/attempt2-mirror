@@ -9,7 +9,6 @@ from .cmap_schema import Type as CmapType
 from .cmap_schema import RegisterOrStruct as CmapRegisterOrStruct
 from .cmap_schema import VisibilityOptions as CmapVisibilityOptions
 from .version_schema import ExtendedVersionInfo
-from .version_schema import GitVersion
 
 
 HEADER_TEMPLATE = \

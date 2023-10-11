@@ -56,9 +56,11 @@ extern "C" {
 #endif /* API_HEADER_H */
 """
 
-    _GITVERSIONS = GitVersion(commit_id="abcd1234", last_tag=LastTag(major="1", minor="3", patch="2", branch_id="6789", release_num="1"))
+    _GITVERSIONS = GitVersion(commit_id="abcd1234", last_tag=LastTag(major="1", minor="3", patch="2", branch_id="6789",
+                                                                    release_num="1"))
 
-    _VERSION = ExtendedVersionInfo(device_type="Don't Care", config_name="Don't Care", config_id="Don't Care", git_versions=[_GITVERSIONS])
+    _VERSION = ExtendedVersionInfo(device_type="Don't Care", config_name="Don't Care", config_id="Don't Care",
+                                   git_versions=[_GITVERSIONS])
 
     _EXPECTED_VERSION = """
 /**************************************************************************************************

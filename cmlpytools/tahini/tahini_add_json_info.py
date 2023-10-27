@@ -62,8 +62,8 @@ class CombineJsonFiles:
         """
 
         for idx, obj in enumerate(input_json_obj.regmap):
-            if obj.get_cmap_name() == additional_enum_object.name:
-                input_json_obj.enum[idx] = additional_enum_object
+            if obj.name == additional_enum_object.name:
+                input_json_obj.enums[idx] = additional_enum_object
                 break
         return input_json_obj
     

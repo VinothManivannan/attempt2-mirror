@@ -14,6 +14,7 @@ from .tahini_generate_flat_txt import GenerateFlatTxt
 from .tahini_generate_appnote_csv import GenerateAppnoteCSV
 from .tahini_generate_txt import GenerateTxt
 from .tahini_generate_api_cheader import GenerateApiCheader
+from .tahini_add_json_info import CombineJsonFiles
 
 
 class Tahini():

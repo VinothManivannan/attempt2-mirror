@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from typing import Optional, List
 from marshmallow_dataclass import class_schema
 import marshmallow.exceptions
-from .schema import Schema
+from schema import Schema
 
 
 class InvalidInputRegmapError(Exception):

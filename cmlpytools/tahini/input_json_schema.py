@@ -77,7 +77,7 @@ class InputType:
     ]
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=False)
 class InputRegmap:
     """Represents the properties shown in regmap field in input json
     """
@@ -157,11 +157,11 @@ class InputRegmap:
             raise InputJsonParserError("Invalid input json type")
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=False)
 class InputEnum:
     """Represents the properties shown in enums field in input json
     """
-    @dataclass(frozen=True)
+    @dataclass(frozen=False)
     class InputEnumChild:
         """Represents the name and value of each enum property in input Json
         """
@@ -186,7 +186,7 @@ class InputEnum:
                 raise InvalidInputEnumError("States name should be unique")
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=False)
 class InputJson:
     """
     An entry class to regulate the format from input json files

@@ -2,6 +2,7 @@
 This file is inteded to add json information to the gimli generated json file from the compiled code,
 """
 
+from ast import List
 import sys
 import os
 from input_json_schema import InputJson, InputRegmap, InputEnum
@@ -21,11 +22,11 @@ class CombineJsonFiles:
         additional_json_obj = InputJson.load_json(additional_json_path)
 
         for additional_regmap_object in additional_json_obj.regmap:
-            input_json_obj = CombineJsonFiles.replace_regmap_fields(input_json_obj, additional_regmap_object)
+            CombineJsonFiles.replace_regmap_fields(input_json_obj.regmap, additional_regmap_object)
 
         if additional_json_obj.enums[0].name != "None":
             for additional_enum_object in additional_json_obj.enums:
-                input_json_obj = CombineJsonFiles.replace_enum_fields(input_json_obj, additional_enum_object)
+                CombineJsonFiles.replace_enum_fields(input_json_obj, additional_enum_object)
 
         #struct needs to be supported too
 
@@ -46,15 +47,17 @@ class CombineJsonFiles:
             sys.stdout = stdout
 
     @staticmethod
-    def replace_regmap_fields(input_json_obj: InputJson, additional_regmap_object: InputRegmap) -> InputJson:
+    def replace_regmap_fields(input_json_obj: list[InputRegmap], additional_regmap_object: InputRegmap) -> list[InputRegmap]:
         """ Finds corresponding object in input json file regmap and replaces fields
         """
 
-        for idx, obj in enumerate(input_json_obj.regmap):
-            if obj.get_cmap_name() == additional_regmap_object.get_cmap_name():
-                input_json_obj.regmap[idx] = additional_regmap_object
-                break
-        return input_json_obj
+        for idx, obj in enumerate(input_json_obj):
+            if obj.type != "struct": #need to also add option for if additional regmap object is a struct (e.g just ading brief to it)
+                if obj.get_cmap_name() == additional_regmap_object.get_cmap_name():
+                    input_json_obj[idx] = additional_regmap_object
+                    break
+            else:
+                CombineJsonFiles.replace_regmap_fields(input_json_obj[idx].members, additional_regmap_object)
 
     @staticmethod
     def replace_enum_fields(input_json_obj: InputJson, additional_enum_object: InputEnum) -> InputJson:

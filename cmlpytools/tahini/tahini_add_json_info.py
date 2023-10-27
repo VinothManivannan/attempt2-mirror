@@ -30,7 +30,7 @@ class CombineJsonFiles:
         #struct needs to be supported too
 
         #last step: output json file after converting it back
-        combined_json = additional_json_obj.to_json(indent=4)
+        combined_json = input_json_obj.to_json(indent=4)
 
         output_path_trial = os.path.join(os.getcwd(), "json_try_output.json")
 

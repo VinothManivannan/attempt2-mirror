@@ -21,12 +21,13 @@ class CombineJsonFiles:
         input_json_obj = InputJson.load_json(input_json_path)
         additional_json_obj = InputJson.load_json(additional_json_path)
 
-        for additional_regmap_object in additional_json_obj.regmap:
-            CombineJsonFiles.replace_regmap_fields(input_json_obj.regmap, additional_regmap_object)
+        CombineJsonFiles.combine_regmap(input_json_obj.regmap, additional_json_obj.regmap)
+       
 
+        CombineJsonFiles.combine_enums(input_json_obj.regmap, additional_json_obj.regmap)
         if additional_json_obj.enums[0].name != "None":
             for additional_enum_object in additional_json_obj.enums:
-                CombineJsonFiles.replace_enum_fields(input_json_obj, additional_enum_object)
+                CombineJsonFiles.replace_enum_fields(input_json_obj.enums, additional_enum_object)
 
         #struct needs to be supported too
 
@@ -38,16 +39,19 @@ class CombineJsonFiles:
         stdout = sys.stdout
         if output_path_trial is not None:
             sys.stdout = open(output_path_trial, "w", encoding="UTF-8")
-
-        # probs delete everything that is currently there in this step
-
             sys.stdout.write(combined_json)
-
             sys.stdout.close()
             sys.stdout = stdout
 
     @staticmethod
-    def replace_regmap_fields(input_json_obj: list[InputRegmap], additional_regmap_object: InputRegmap) -> list[InputRegmap]:
+    def combine_regmap(input_json_regmap: list[InputRegmap], additional_regmap: InputRegmap):
+        """ Adds 
+        """
+        for additional_regmap_object in additional_json_obj.regmap:
+            CombineJsonFiles.replace_regmap_fields(input_json_obj.regmap, additional_regmap_object)
+
+    @staticmethod
+    def replace_regmap_fields(input_json_obj: list[InputRegmap], additional_regmap_object: InputRegmap):
         """ Finds corresponding object in input json file regmap and replaces fields
         """
 
@@ -60,13 +64,22 @@ class CombineJsonFiles:
                 CombineJsonFiles.replace_regmap_fields(input_json_obj[idx].members, additional_regmap_object)
 
     @staticmethod
-    def replace_enum_fields(input_json_obj: InputJson, additional_enum_object: InputEnum) -> InputJson:
+    def combine_enums(input_json_enums: list[InputEnum], additional_enums: InputEnum):
         """ Finds corresponding object in input json file enums and replaces fields
         """
 
-        for idx, obj in enumerate(input_json_obj.regmap):
-            if obj.name == additional_enum_object.name:
-                input_json_obj.enums[idx] = additional_enum_object
-                break
-        return input_json_obj
+    @staticmethod
+    def replace_enum_fields(input_json_obj: list[InputEnum], additional_enum_obj: InputEnum):
+        """ Finds corresponding object in input json file enums and replaces fields
+        """
+
+        for idx, obj in enumerate(input_json_obj):
+            if isinstance(obj, InputEnum.InputEnumChild): # not an enumerator
+                print(obj.name)
+                print(additional_enum_obj.name)
+                if obj.name == additional_enum_obj.name:
+                    input_json_obj[idx] = additional_enum_obj
+                    break
+            else:
+                CombineJsonFiles.replace_enum_fields(input_json_obj[idx].enumerators, additional_enum_obj)
     

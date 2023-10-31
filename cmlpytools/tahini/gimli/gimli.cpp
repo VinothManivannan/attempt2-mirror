@@ -125,7 +125,7 @@ private:
      * @param  file_name file name. For error messages
      * @return Array of string tokens
      */
-    inline vector<string> tokenizeRegmapAttribute(string line, int64_t line_number, string file_name) { return tokenizeRegmapAttribute(line, std::regex("[ \t]*:[ \t]*")); }
+    inline vector<string> tokenizeRegmapAttribute(string line, int64_t line_number, string file_name) { return tokenizeRegmapAttribute(line, line_number, file_name, std::regex("[ \t]*:[ \t]*"), ); }
 
     /**
      * @brief  Decode 'C/C++' single-line comments, and output any '<key>' '<value>' attibutes

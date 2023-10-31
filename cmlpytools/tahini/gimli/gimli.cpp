@@ -228,8 +228,9 @@ public:
      * @param  jos Reference to a JSON output stream, all decoded output sent here
      * @param  decl_file Name of [declaring] file
      * @param  decl_line Number of [declaring] line
+     * @param  file_name file name. For error messages
      */
-    void decode(json::OStream &jos, string decl_file, int64_t decl_line)
+    void decode(json::OStream &jos, string decl_file, int64_t decl_line, string file_name)
     {
         // Print lines here
         std::cout << " file name" << decl_file << " line" << decl_line << "\n";
@@ -264,7 +265,7 @@ public:
 
         if (decl_line < file.size())
         {
-            decode(jos, file, decl_line);
+            decode(jos, file, decl_line, decl_file);
         }
     }
 };

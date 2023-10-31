@@ -186,7 +186,7 @@ private:
         {
             // If this is a regmap attribute, we'll have 2 tokens [ name, value ]
 
-            auto tokens = tokenizeRegmapAttribute(extractRegmapAttribute(line), file_name, line_number);
+            auto tokens = tokenizeRegmapAttribute(extractRegmapAttribute(line), line_number, file_name);
 
             if (tokens.size() < 2)
             {

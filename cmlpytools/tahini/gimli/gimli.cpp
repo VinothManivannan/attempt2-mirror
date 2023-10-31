@@ -222,6 +222,8 @@ public:
      */
     void decode(json::OStream &jos, string decl_file, int64_t decl_line)
     {
+        // Print lines here
+        std::cout << " file name" << decl_file << " line" << decl_line << "\n";
         decode(jos, fetchFile(decl_file), decl_line);
     }
 

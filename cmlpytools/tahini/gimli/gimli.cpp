@@ -103,14 +103,16 @@ private:
      * @brief  Split into array of tokens
      * @param  line String representation (assumed UTF-8) of the line
      * @param  re Regular expression for the separator
+     * @param  line_number Number of [declaring] line
+     * @param  file_name file name. For error messages
      * @return Array of string tokens
      */
-    inline vector<string> tokenizeRegmapAttribute(string line, const std::regex re)
+    inline vector<string> tokenizeRegmapAttribute(string line, const std::regex re, int64_t line_number, string file_name)
     {
         regex double_quotes("\"\"");
         if (regex_search(line, double_quotes))
         {
-            errs() << "A double \" has been written in " << line << "\n";
+            errs() << "File: " << file_name << "Line: " << line_number << "A double \" has been written in " << line << "\n";
             exit(EXIT_FAILURE);
         }
         return vector<string>{sregex_token_iterator(line.begin(), line.end(), re, -1), sregex_token_iterator()};
@@ -119,17 +121,20 @@ private:
     /**
      * @brief  Split into array of tokens, separated by ( spaces|tabs + ':' + spaces|tabs )
      * @param  line String representation (assumed UTF-8) of the line
+     * @param  line_number Number of [declaring] line
+     * @param  file_name file name. For error messages
      * @return Array of string tokens
      */
-    inline vector<string> tokenizeRegmapAttribute(string line) { return tokenizeRegmapAttribute(line, std::regex("[ \t]*:[ \t]*")); }
+    inline vector<string> tokenizeRegmapAttribute(string line, int64_t line_number, string file_name) { return tokenizeRegmapAttribute(line, std::regex("[ \t]*:[ \t]*")); }
 
     /**
      * @brief  Decode 'C/C++' single-line comments, and output any '<key>' '<value>' attibutes
      * @param  jos Reference to a JSON output stream, all decoded output sent here
      * @param  file Reference to array of file lines
      * @param  line_number Number of [declaring] line
+     * @param  file_name file name. For error messages
      */
-    void decode(json::OStream &jos, const vector<string> &file, int64_t line_number)
+    void decode(json::OStream &jos, const vector<string> &file, int64_t line_number, string file_name)
     {
         list<string> comment;
 
@@ -178,7 +183,7 @@ private:
         {
             // If this is a regmap attribute, we'll have 2 tokens [ name, value ]
 
-            auto tokens = tokenizeRegmapAttribute(extractRegmapAttribute(line));
+            auto tokens = tokenizeRegmapAttribute(extractRegmapAttribute(line), file_name, line_number);
 
             if (tokens.size() < 2)
             {
@@ -225,7 +230,7 @@ public:
     {
         // Print lines here
         std::cout << " file name" << decl_file << " line" << decl_line << "\n";
-        decode(jos, fetchFile(decl_file), decl_line);
+        decode(jos, fetchFile(decl_file), decl_line, decl_file);
     }
 
     /**

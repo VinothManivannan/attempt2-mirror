@@ -287,7 +287,7 @@ void decodeBlockComment(json::OStream &jos, const DWARFDie &die)
     }
     else
     {
-        decoder.decode(jos, die.getDeclFile(DILineInfoSpecifier::FileLineInfoKind::AbsoluteFilePath), die.getDeclLine());
+        decoder.decode(jos, die.getDeclFile(DILineInfoSpecifier::FileLineInfoKind::AbsoluteFilePath), die.getDeclLine(), die.getDeclFile(DILineInfoSpecifier::FileLineInfoKind::AbsoluteFilePath));
     }
 }
 

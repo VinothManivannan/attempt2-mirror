@@ -9,7 +9,6 @@
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
-#include <iostream>
 #include <list>
 #include <regex>
 #include <set>
@@ -112,7 +111,7 @@ private:
         regex double_quotes("\"\"");
         if (regex_search(line, double_quotes))
         {
-            errs() << "File: " << file_name << "Line: " << line_number << "A double \" has been written in " << line << "\n";
+            errs() << "A double \" has been written in " << line << "\n In file: " << file_name << "\n: Line number:" << line_number << "\n";
             exit(EXIT_FAILURE);
         }
         return vector<string>{sregex_token_iterator(line.begin(), line.end(), re, -1), sregex_token_iterator()};

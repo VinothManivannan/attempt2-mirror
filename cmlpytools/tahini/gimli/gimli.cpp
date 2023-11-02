@@ -228,12 +228,9 @@ public:
      * @param  jos Reference to a JSON output stream, all decoded output sent here
      * @param  decl_file Name of [declaring] file
      * @param  decl_line Number of [declaring] line
-     * @param  file_name file name. For error messages
      */
-    void decode(json::OStream &jos, string decl_file, int64_t decl_line, string file_name)
+    void decode(json::OStream &jos, string decl_file, int64_t decl_line)
     {
-        // Print lines here
-        std::cout << " file name" << decl_file << " line" << decl_line << "\n";
         decode(jos, fetchFile(decl_file), decl_line, decl_file);
     }
 
@@ -287,7 +284,7 @@ void decodeBlockComment(json::OStream &jos, const DWARFDie &die)
     }
     else
     {
-        decoder.decode(jos, die.getDeclFile(DILineInfoSpecifier::FileLineInfoKind::AbsoluteFilePath), die.getDeclLine(), die.getDeclFile(DILineInfoSpecifier::FileLineInfoKind::AbsoluteFilePath));
+        decoder.decode(jos, die.getDeclFile(DILineInfoSpecifier::FileLineInfoKind::AbsoluteFilePath), die.getDeclLine());
     }
 }
 

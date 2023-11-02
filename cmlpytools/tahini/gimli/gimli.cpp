@@ -103,7 +103,7 @@ private:
      * @param  line String representation (assumed UTF-8) of the line
      * @param  re Regular expression for the separator
      * @param  line_number Number of [declaring] line
-     * @param  file_name file name. For error messages
+     * @param  file_name Name of [declaring] file. For error messages
      * @return Array of string tokens
      */
     inline vector<string> tokenizeRegmapAttribute(string line, const std::regex re, int64_t line_number, string file_name)
@@ -121,7 +121,7 @@ private:
      * @brief  Split into array of tokens, separated by ( spaces|tabs + ':' + spaces|tabs )
      * @param  line String representation (assumed UTF-8) of the line
      * @param  line_number Number of [declaring] line
-     * @param  file_name file name. For error messages
+     * @param  file_name Name of [declaring] file. For error messages
      * @return Array of string tokens
      */
     inline vector<string> tokenizeRegmapAttribute(string line, int64_t line_number, string file_name)
@@ -134,7 +134,7 @@ private:
      * @param  jos Reference to a JSON output stream, all decoded output sent here
      * @param  file Reference to array of file lines
      * @param  line_number Number of [declaring] line
-     * @param  file_name file name. For error messages
+     * @param  file_name Name of [declaring] file. For error messages
      */
     void decode(json::OStream &jos, const vector<string> &file, int64_t line_number, string file_name)
     {

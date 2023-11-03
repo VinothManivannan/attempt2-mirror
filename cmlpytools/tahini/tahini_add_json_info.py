@@ -1,16 +1,15 @@
 """
-This file is inteded to add json information to the gimli generated json file from the compiled code,
+This file is intended to add json information to the gimli generated json file from the compiled code,
 """
 
 import sys
-import os
 from input_json_schema import InputJson, InputRegmap, InputEnum
 
 class CombineJsonFiles:
     """Class contains the necessary definitions to combine 2 input json files
     """
     @staticmethod
-    def combine_json_files(input_json_path: str, additional_json_path: str):
+    def combine_json_files(input_json_path: str, additional_json_path: str, combined_json_path: str):
         """Combine input json file with additional one including extra documentation
         """
 
@@ -30,18 +29,16 @@ class CombineJsonFiles:
         #last step: output json file after converting it back
         combined_json = input_json_obj.to_json(indent=4)
 
-        output_path_trial = os.path.join(os.getcwd(), "json_try_output.json")
-
         stdout = sys.stdout
-        if output_path_trial is not None:
-            sys.stdout = open(output_path_trial, "w", encoding="UTF-8")
+        if combined_json_path is not None:
+            sys.stdout = open(combined_json_path, "w", encoding="UTF-8")
             sys.stdout.write(combined_json)
             sys.stdout.close()
             sys.stdout = stdout
 
     @staticmethod
     def combine_regmap(input_json_regmap: list[InputRegmap], additional_regmap_obj: InputRegmap):
-        """ Adds additonal information from extra json file to input json file 
+        """ Adds additonal information from extra json regmap entries to input json file 
         """
         if additional_regmap_obj.type != "struct":
             CombineJsonFiles.replace_regmap_fields(input_json_regmap, additional_regmap_obj)
@@ -67,14 +64,26 @@ class CombineJsonFiles:
         for idx, obj in enumerate(input_json_obj):
             if obj.type != "struct":
                 if obj.get_cmap_name() == additional_regmap_object.get_cmap_name():
-                    input_json_obj[idx] = additional_regmap_object
+                    # Replace fields in object with ones from additional json object
+                    for variable in vars(additional_regmap_object):
+                        additional_object_attr = getattr(additional_regmap_object, variable)
+                        input_json_object_attr = getattr(obj, variable)
+                        if additional_object_attr is not None:
+                            if input_json_object_attr is not None and variable != "brief":
+                                # Check if fields are equal, otherwise throw an error
+                                if additional_object_attr != input_json_object_attr:
+                                    #Throw error conflicting fields
+                                    pass
+                            else:
+                                setattr(obj, variable, additional_object_attr)
                     break
             else:
+                # Search for json object inside struct
                 CombineJsonFiles.replace_regmap_fields(input_json_obj[idx].members, additional_regmap_object)
 
     @staticmethod
     def combine_enums(input_json_enums: list[InputEnum], additional_enum: InputEnum):
-        """ Finds corresponding object in input json file enums and replaces fields
+        """ Adds additonal information from extra json enum entries to input json file 
         """
         if isinstance(additional_enum, InputEnum.InputEnumChild):
             CombineJsonFiles.replace_enum_child_fields(input_json_enums, additional_enum)
@@ -102,7 +111,18 @@ class CombineJsonFiles:
         for idx, obj in enumerate(input_json_obj):
             if isinstance(obj, InputEnum.InputEnumChild):
                 if obj.name == additional_enum_obj.name:
-                    input_json_obj[idx] = additional_enum_obj
+                    # Replace fields in object with ones from additional json object
+                    for variable in vars(additional_enum_obj):
+                        additional_object_attr = getattr(additional_enum_obj, variable)
+                        input_json_object_attr = getattr(obj, variable)
+                        if additional_object_attr is not None:
+                            if input_json_object_attr is not None and variable != "brief":
+                                # Check if fields are equal, otherwise throw an error
+                                if additional_object_attr != input_json_object_attr:
+                                    #Throw error conflicting fields
+                                    pass
+                            else:
+                                setattr(obj, variable, additional_object_attr)
                     break
             else:
-                CombineJsonFiles.replace_enum_fields(input_json_obj[idx].enumerators, additional_enum_obj)
+                CombineJsonFiles.replace_enum_child_fields(input_json_obj[idx].enumerators, additional_enum_obj)

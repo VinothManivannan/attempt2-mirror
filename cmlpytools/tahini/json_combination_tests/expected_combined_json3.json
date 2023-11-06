@@ -39,7 +39,6 @@
                             "cref": "CheckingCRef",
                             "customer_alias": "regmapCustomerAlias",
                             "namespace": "Namespace",
-                            "cmap_name": "OtherName",
                             "format": "Q7.9",
                             "address": 13345,
                             "bit_size": 3,
@@ -86,6 +85,7 @@
                 {
                     "name": "WB_SHORTCIRCUIT_WIRE_0_MASK",
                     "value": 2,
+                    "brief": "Brief already there",
                     "customer_alias": "regmapCustomerAlias",
                     "access": "public"
                 }

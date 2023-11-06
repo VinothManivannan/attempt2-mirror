@@ -5,6 +5,11 @@ This file is intended to add json information to the gimli generated json file f
 import sys
 from input_json_schema import InputJson, InputRegmap, InputEnum
 
+class ConflictingFieldsError(Exception):
+    """Class used to handle errors for conflicting fields
+    """
+    pass
+
 class CombineJsonFiles:
     """Class contains the necessary definitions to combine 2 input json files
     """
@@ -72,8 +77,9 @@ class CombineJsonFiles:
                             if input_json_object_attr is not None and variable != "brief":
                                 # Check if fields are equal, otherwise throw an error
                                 if additional_object_attr != input_json_object_attr:
-                                    #Throw error conflicting fields
-                                    pass
+                                    raise ConflictingFieldsError(f"Field \"{variable}\": \"{additional_object_attr}\""
+                                        f" from the additional json file doesn't match the existing one "
+                                        f"\"{variable}\":\"{input_json_object_attr}\"")
                             else:
                                 setattr(obj, variable, additional_object_attr)
                     break
@@ -119,8 +125,9 @@ class CombineJsonFiles:
                             if input_json_object_attr is not None and variable != "brief":
                                 # Check if fields are equal, otherwise throw an error
                                 if additional_object_attr != input_json_object_attr:
-                                    #Throw error conflicting fields
-                                    pass
+                                    raise ConflictingFieldsError(f"Field \"{variable}\": \"{additional_object_attr}\""
+                                        f" from the additional json file doesn't match the existing one "
+                                        f"\"{variable}\":\"{input_json_object_attr}\"")
                             else:
                                 setattr(obj, variable, additional_object_attr)
                     break

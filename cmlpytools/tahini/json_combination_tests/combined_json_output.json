@@ -22,7 +22,7 @@
                             "type": "unsigned char",
                             "name": "siggen_params_4dof",
                             "byte_size": 1,
-                            "brief": "Some",
+                            "brief": "None",
                             "byte_offset": 552,
                             "array_count": 36,
                             "cref": "SiggenParams4Dof"
@@ -31,12 +31,26 @@
                             "type": "unsigned char",
                             "name": "va_slv_addr",
                             "byte_size": 1,
+                            "namespace": "Namespace",
+                            "format": "Q7.9",
+                            "address": 13345,
                             "brief": "VA chip i2c slave address",
+                            "bit_size": 3,
+                            "bit_offset": 7,
                             "byte_offset": 0,
-                            "cref": "CheckingCRef"
+                            "min": 0.1,
+                            "max": 0.7,
+                            "units": "Units",
+                            "value_enum": "Value",
+                            "array_enum": "array",
+                            "array_count": 36,
+                            "mask_enum": "ENUM_MASK",
+                            "cref": "CheckingCRef",
+                            "access": "none",
+                            "hif_access": false,
+                            "customer_alias": "regmapCustomerAlias"
                         }
                     ],
-                    "brief": "Add brief to regmap struct",
                     "byte_offset": 4,
                     "hif_access": false
                 },
@@ -65,15 +79,17 @@
                 {
                     "name": "WB_OPENCIRCUIT_WIRE_0_MASK",
                     "value": 1,
-                    "brief": "Brief for enumerator"
+                    "brief": "Brief for enumerator",
+                    "access": "none"
                 },
                 {
                     "name": "WB_SHORTCIRCUIT_WIRE_0_MASK",
                     "value": 2,
-                    "brief": "Brief already there"
+                    "brief": "Brief already there",
+                    "customer_alias": "regmapCustomerAlias",
+                    "access": "public"
                 }
-            ],
-            "brief": "Brief for enum"
+            ]
         }
     ]
 }

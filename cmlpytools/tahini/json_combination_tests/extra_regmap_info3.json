@@ -16,7 +16,6 @@
             "cref": "CheckingCRef",
             "customer_alias": "regmapCustomerAlias",
             "namespace": "Namespace",
-            "cmap_name": "OtherName",
             "format": "Q7.9",
             "address": 13345,
             "bit_size": 3,

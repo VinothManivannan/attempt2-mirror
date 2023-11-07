@@ -9,7 +9,7 @@ Test 3 tests that every single field can be added and that if some fields are no
 import os
 import sys
 sys.path.append('../')
-from tahini_add_json_info import CombineJsonFiles
+from tahini_add_json_info import TahiniAddJsonInfo
 from input_json_schema import InputJson
 
 def main():
@@ -21,7 +21,19 @@ def main():
         combined_json_file = os.path.join(os.getcwd(), "combined_json_output.json")
         expected_combined_json_file = os.path.join(os.getcwd(), f"expected_combined_json{i}.json")
 
-        CombineJsonFiles.combine_json_files(input_json_file, additional_json_file, combined_json_file)
+        combined_json_output = TahiniAddJsonInfo.combine_json_files(input_json_file, additional_json_file)
+
+        # pylint: disable=consider-using-with
+        stdout = sys.stdout
+        if combined_json_file is not None:
+            sys.stdout = open(combined_json_file, "w", encoding="UTF-8")
+
+        sys.stdout.write(combined_json_output.to_json(indent=4))
+
+        if combined_json_file is not None:
+            sys.stdout.close()
+        sys.stdout = stdout
+        # pylint: enable=consider-using-with
 
         combined_json_obj = InputJson.load_json(combined_json_file)
         expected_combined_json_obj = InputJson.load_json(expected_combined_json_file)

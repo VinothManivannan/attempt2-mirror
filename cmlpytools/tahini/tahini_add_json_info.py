@@ -16,38 +16,33 @@ class ObjectNotFoundError(Exception):
     """
     pass
 
-class CombineJsonFiles:
+class TahiniAddJsonInfo:
     """Class contains the necessary definitions to combine 2 input json files
     """
     @staticmethod
-    def combine_json_files(input_json_path: str, additional_json_path: str, combined_json_path: str):
+    def combine_json_files(input_json_path: str, additional_json_path: str) -> InputJson:
         """Combine input json file with additional one including extra documentation
         """
 
         assert input_json_path is not None, "Error: input_json_path must be specified"
         assert additional_json_path is not None, "Error: additional_json_path must be specified"
-        assert combined_json_path is not None, "Error: combined_json_path must be specified"
 
         input_json_obj = InputJson.load_json(input_json_path)
         additional_json_obj = InputJson.load_json(additional_json_path)
 
-        if  additional_json_obj.regmap[0].name != "None": # Nothing to add
+        if additional_json_obj.regmap[0].name != "None": # Nothing to add
             for additional_regmap_obj in additional_json_obj.regmap:
-                CombineJsonFiles.combine_regmap(input_json_obj.regmap, additional_regmap_obj)
+                TahiniAddJsonInfo.combine_regmap(input_json_obj.regmap, additional_regmap_obj)
 
         if additional_json_obj.enums[0].name != "None": # Nothing to add
             for additional_enum in additional_json_obj.enums:
-                CombineJsonFiles.combine_enums(input_json_obj.enums, additional_enum)
+                TahiniAddJsonInfo.combine_enums(input_json_obj.enums, additional_enum)
 
-        #last step: output json file after converting it back
-        combined_json = input_json_obj.to_json(indent=4)
+        return input_json_obj
 
-        if combined_json_path is not None:
-            with open(combined_json_path, "w", encoding="UTF-8") as file_open:
-                file_open.write(combined_json)
 
     @staticmethod
-    def combine_regmap(input_json_regmap: list[InputRegmap], additional_regmap_obj: InputRegmap):
+    def combine_regmap(input_json_regmap: list[InputRegmap], additional_regmap_obj: InputRegmap) -> bool:
         """ Adds additonal information from extra json regmap entries to input json file 
         """
         object_found = False
@@ -57,23 +52,23 @@ class CombineJsonFiles:
                     if obj.get_cmap_name() == additional_regmap_obj.get_cmap_name():
                         object_found = True
                         # Replace fields in object with ones from additional json object
-                        CombineJsonFiles.replace_fields(obj, additional_regmap_obj, None)
+                        TahiniAddJsonInfo.replace_fields(obj, additional_regmap_obj, None)
                         break
                 # Search for json object inside struct
-                elif CombineJsonFiles.combine_regmap(obj.members, additional_regmap_obj):
+                elif TahiniAddJsonInfo.combine_regmap(obj.members, additional_regmap_obj):
                     object_found = True
         else:
             for input_json_obj in input_json_regmap:
                 if input_json_obj.get_cmap_name() == additional_regmap_obj.get_cmap_name():
-                    # Replace variables in struct with additional fields except members
-                    CombineJsonFiles.replace_fields(input_json_obj, additional_regmap_obj, "members")
+                    # Add additional fields in struct except members
+                    TahiniAddJsonInfo.replace_fields(input_json_obj, additional_regmap_obj, "members")
                     # Add information from members inside struct
                     for sub_additional_regmap in additional_regmap_obj.members:
-                        object_found = CombineJsonFiles.combine_regmap(input_json_obj.members, sub_additional_regmap)
+                        object_found = TahiniAddJsonInfo.combine_regmap(input_json_obj.members, sub_additional_regmap)
                     break
                 if input_json_obj.type == "struct":
                     # Look for struct inside struct to replace variables and members
-                    if CombineJsonFiles.combine_regmap(input_json_obj.members, additional_regmap_obj):
+                    if TahiniAddJsonInfo.combine_regmap(input_json_obj.members, additional_regmap_obj):
                         object_found = True
         if object_found is False:
             raise ObjectNotFoundError(f"Object with name {additional_regmap_obj.name} specified in the additional "
@@ -81,7 +76,7 @@ class CombineJsonFiles:
         return object_found
 
     @staticmethod
-    def combine_enums(input_json_enums: list[InputEnum], additional_enum: InputEnum):
+    def combine_enums(input_json_enums: list[InputEnum], additional_enum: InputEnum) -> bool:
         """ Adds additonal information from extra json enum entries to input json file 
         """
         object_found = False
@@ -91,23 +86,23 @@ class CombineJsonFiles:
                     if obj.name == additional_enum.name:
                         object_found = True
                         # Replace fields in object with ones from additional json object
-                        CombineJsonFiles.replace_fields(obj, additional_enum, None)
+                        TahiniAddJsonInfo.replace_fields(obj, additional_enum, None)
                         break
-                elif CombineJsonFiles.combine_enums(obj.enumerators, additional_enum):
+                elif TahiniAddJsonInfo.combine_enums(obj.enumerators, additional_enum):
                     object_found = True
         else:
             # If not enumChild, replace fields and then add information of enumerators within
             for input_json_enum in input_json_enums:
                 if input_json_enum.name == additional_enum.name:
                     # Replace fields
-                    CombineJsonFiles.replace_fields(input_json_enum, additional_enum, "enumerators")
+                    TahiniAddJsonInfo.replace_fields(input_json_enum, additional_enum, "enumerators")
                     # Add information from enumerators inside enum
                     for sub_additional_enum in additional_enum.enumerators:
-                        object_found = CombineJsonFiles.combine_enums(input_json_enum.enumerators, sub_additional_enum)
+                        object_found = TahiniAddJsonInfo.combine_enums(input_json_enum.enumerators, sub_additional_enum)
                     break
                 if isinstance(input_json_enum, InputEnum.InputEnumChild) is False:
                     # Look inside enumerator to replace variables
-                    if CombineJsonFiles.combine_enums(input_json_enum.enumerators, additional_enum):
+                    if TahiniAddJsonInfo.combine_enums(input_json_enum.enumerators, additional_enum):
                         object_found = True
         if object_found is False:
             raise ObjectNotFoundError(f"Object with name {additional_enum.name} specified in the additional "

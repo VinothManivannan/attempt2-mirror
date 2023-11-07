@@ -1,5 +1,6 @@
 """
-This file is intended to add json information to the gimli generated json file from the compiled code,
+This file contains methods to add json information, such as Cref, briefs... to the gimli generated 
+input json file from the compiled code
 """
 
 import sys
@@ -14,6 +15,7 @@ class ConflictingFieldsError(Exception):
 class ObjectNotFoundError(Exception):
     """Class used to handle errors for json objects missing
     """
+    pass
 
 class CombineJsonFiles:
     """Class contains the necessary definitions to combine 2 input json files

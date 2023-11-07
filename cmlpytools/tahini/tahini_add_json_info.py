@@ -11,6 +11,10 @@ class ConflictingFieldsError(Exception):
     """
     pass
 
+class ObjectNotFoundError(Exception):
+    """Class used to handle errors for json objects missing
+    """
+
 class CombineJsonFiles:
     """Class contains the necessary definitions to combine 2 input json files
     """
@@ -25,8 +29,9 @@ class CombineJsonFiles:
         input_json_obj = InputJson.load_json(input_json_path)
         additional_json_obj = InputJson.load_json(additional_json_path)
 
-        for additional_regmap_obj in additional_json_obj.regmap:
-            CombineJsonFiles.combine_regmap(input_json_obj.regmap, additional_regmap_obj)
+        if  additional_json_obj.regmap[0].name != "None": # Nothing to add
+            for additional_regmap_obj in additional_json_obj.regmap:
+                CombineJsonFiles.combine_regmap(input_json_obj.regmap, additional_regmap_obj)
 
         if additional_json_obj.enums[0].name != "None": # Nothing to add
             for additional_enum in additional_json_obj.enums:
@@ -46,42 +51,51 @@ class CombineJsonFiles:
     def combine_regmap(input_json_regmap: list[InputRegmap], additional_regmap_obj: InputRegmap):
         """ Adds additonal information from extra json regmap entries to input json file 
         """
+        object_found = False
         if additional_regmap_obj.type != "struct":
-            for idx, obj in enumerate(input_json_regmap):
+            for obj in input_json_regmap:
                 if obj.type != "struct":
                     if obj.get_cmap_name() == additional_regmap_obj.get_cmap_name():
+                        object_found = True
                         # Replace fields in object with ones from additional json object
                         CombineJsonFiles.replace_fields(obj, additional_regmap_obj, None)
                         break
-                else:
-                    # Search for json object inside struct
-                    CombineJsonFiles.combine_regmap(input_json_regmap[idx].members, additional_regmap_obj)
+                # Search for json object inside struct
+                elif CombineJsonFiles.combine_regmap(obj.members, additional_regmap_obj):
+                    object_found = True
         else:
             for input_json_obj in input_json_regmap:
                 if input_json_obj.get_cmap_name() == additional_regmap_obj.get_cmap_name():
                     # Replace variables in struct with additional fields except members
                     CombineJsonFiles.replace_fields(input_json_obj, additional_regmap_obj, "members")
                     # Add information from members inside struct
-                    for sub_additional_regmap_obj in additional_regmap_obj.members:
-                        CombineJsonFiles.combine_regmap(input_json_obj.members, sub_additional_regmap_obj)
+                    for sub_additional_regmap in additional_regmap_obj.members:
+                        object_found = CombineJsonFiles.combine_regmap(input_json_obj.members, sub_additional_regmap)
                     break
                 if input_json_obj.type == "struct":
                     # Look for struct inside struct to replace variables and members
-                    CombineJsonFiles.combine_regmap(input_json_obj.members, additional_regmap_obj)
+                    if CombineJsonFiles.combine_regmap(input_json_obj.members, additional_regmap_obj):
+                        object_found = True
+        if object_found is False:
+            raise ObjectNotFoundError(f"Object with name {additional_regmap_obj.name} specified in the additional "
+                "json file was not found in the input json regmap")
+        return object_found
 
     @staticmethod
     def combine_enums(input_json_enums: list[InputEnum], additional_enum: InputEnum):
         """ Adds additonal information from extra json enum entries to input json file 
         """
+        object_found = False
         if isinstance(additional_enum, InputEnum.InputEnumChild):
-            for idx, obj in enumerate(input_json_enums):
+            for obj in input_json_enums:
                 if isinstance(obj, InputEnum.InputEnumChild):
                     if obj.name == additional_enum.name:
+                        object_found = True
                         # Replace fields in object with ones from additional json object
                         CombineJsonFiles.replace_fields(obj, additional_enum, None)
                         break
-                else:
-                    CombineJsonFiles.combine_enums(input_json_enums[idx].enumerators, additional_enum)
+                elif CombineJsonFiles.combine_enums(obj.enumerators, additional_enum):
+                    object_found = True
         else:
             # If not enumChild, replace fields and then add information of enumerators within
             for input_json_enum in input_json_enums:
@@ -90,11 +104,16 @@ class CombineJsonFiles:
                     CombineJsonFiles.replace_fields(input_json_enum, additional_enum, "enumerators")
                     # Add information from enumerators inside enum
                     for sub_additional_enum in additional_enum.enumerators:
-                        CombineJsonFiles.combine_enums(input_json_enum.enumerators, sub_additional_enum)
+                        object_found = CombineJsonFiles.combine_enums(input_json_enum.enumerators, sub_additional_enum)
                     break
                 if isinstance(input_json_enum, InputEnum.InputEnumChild) is False:
                     # Look inside enumerator to replace variables
-                    CombineJsonFiles.combine_enums(input_json_enum.enumerators, additional_enum)
+                    if CombineJsonFiles.combine_enums(input_json_enum.enumerators, additional_enum):
+                        object_found = True
+        if object_found is False:
+            raise ObjectNotFoundError(f"Object with name {additional_enum.name} specified in the additional "
+                "json file was not found in the input json enums")
+        return object_found
 
     @staticmethod
     def replace_fields(input_json_obj: Union[InputRegmap, InputEnum],

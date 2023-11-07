@@ -15,7 +15,7 @@ from input_json_schema import InputJson
 def main():
     """Entry point for tests"""
     passed_tests = True
-    for i in range (1,4):
+    for i in range (1, 4):
         input_json_file = os.path.join(os.getcwd(), "input_json_example.json")
         additional_json_file = os.path.join(os.getcwd(), f"extra_regmap_info{i}.json")
         combined_json_file = os.path.join(os.getcwd(), "combined_json_output.json")

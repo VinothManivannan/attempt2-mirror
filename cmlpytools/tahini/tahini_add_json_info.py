@@ -3,7 +3,6 @@ This file contains methods to add json information, such as Cref, briefs... to t
 input json file from the compiled code
 """
 
-import sys
 from typing import Union, Optional
 from input_json_schema import InputJson, InputRegmap, InputEnum
 
@@ -43,12 +42,9 @@ class CombineJsonFiles:
         #last step: output json file after converting it back
         combined_json = input_json_obj.to_json(indent=4)
 
-        stdout = sys.stdout
         if combined_json_path is not None:
-            sys.stdout = open(combined_json_path, "w", encoding="UTF-8")
-            sys.stdout.write(combined_json)
-            sys.stdout.close()
-            sys.stdout = stdout
+            with open(combined_json_path, "w", encoding="UTF-8") as file_open:
+                file_open.write(combined_json)
 
     @staticmethod
     def combine_regmap(input_json_regmap: list[InputRegmap], additional_regmap_obj: InputRegmap):

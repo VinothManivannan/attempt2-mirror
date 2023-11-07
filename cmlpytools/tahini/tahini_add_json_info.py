@@ -4,7 +4,7 @@ input json file from the compiled code
 """
 
 from typing import Union, Optional
-from input_json_schema import InputJson, InputRegmap, InputEnum
+from .input_json_schema import InputJson, InputRegmap, InputEnum
 
 class ConflictingFieldsError(Exception):
     """Class used to handle errors for conflicting fields

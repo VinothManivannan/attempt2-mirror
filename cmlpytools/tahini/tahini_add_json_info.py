@@ -25,8 +25,9 @@ class CombineJsonFiles:
         """Combine input json file with additional one including extra documentation
         """
 
-        assert (input_json_path is not None or additional_json_path is not None),\
-            "Error: input_json_path or additional_json_path must be specified"
+        assert input_json_path is not None, "Error: input_json_path must be specified"
+        assert additional_json_path is not None, "Error: additional_json_path must be specified"
+        assert combined_json_path is not None, "Error: combined_json_path must be specified"
 
         input_json_obj = InputJson.load_json(input_json_path)
         additional_json_obj = InputJson.load_json(additional_json_path)

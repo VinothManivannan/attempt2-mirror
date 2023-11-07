@@ -10,7 +10,6 @@ from marshmallow_dataclass import class_schema
 import marshmallow.exceptions
 from .schema import Schema
 
-
 class InvalidInputRegmapError(Exception):
     """Class used to handle errors of regmap property
     """

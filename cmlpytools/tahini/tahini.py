@@ -106,9 +106,8 @@ class Tahini():
         """
         Combine input json and additional json files
         """
-
         parser = argparse.ArgumentParser(
-            description="Generate basic version info",
+            description="Combine gimli generated JSON input file with additional one with extra information",
             usage=
                 "tahini addjsoninfo <json-path.json> <additional-json-path.json> --output <json-path.json>")
         parser.add_argument('command', help=argparse.SUPPRESS)
@@ -119,12 +118,14 @@ class Tahini():
         args = parser.parse_args()
 
         combined_json_output = TahiniAddJsonInfo.combine_json_files(args.input_json_path,
-                                                              args.additional_json_path)
+                                                                    args.additional_json_path)
 
         # pylint: disable=consider-using-with
         stdout = sys.stdout
         if args.output is not None:
             sys.stdout = open(args.output, "w", encoding="UTF-8")
+        else:
+            sys.stdout = open(args.input_json_path, "w", encoding="UTF-8")
 
         sys.stdout.write(combined_json_output.to_json(indent=4))
 

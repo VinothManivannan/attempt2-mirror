@@ -29,7 +29,7 @@ class Tahini():
             gimli         Generate JSON input file from C definitions from a compiled file (elf, o, exe).
                             Usage: tahini gimli <firmware-file-path> --output <json-path.json>
             addjsoninfo   Combine gimli generated JSON input file with additional one with extra information when needed (e.g. Rumba S10)
-                            Usage: tahini combinejson <json-path.json> <additional-json-path.json> --output <json-path.json>
+                            Usage: tahini addjsoninfo <json-path.json> <additional-json-path.json> --output <json-path.json>
             version       Generate version json file
                             Usage: tahini version <device-type> <project-path> <build-config-name> <build-config-id> --output <version.info.json>
             cmap          Generate cmap source file. This file is a source for other interpretations of the regmap (txt, csv, etc...)

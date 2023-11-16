@@ -55,7 +55,7 @@ class TahiniAddJsonInfo:
         if additional_regmap_obj.type != "struct":
             for obj in input_json_regmap:
                 if obj.type != "struct":
-                    if obj.get_cmap_name() == additional_regmap_obj.get_cmap_name():
+                    if obj.name == additional_regmap_obj.name:
                         object_found = True
                         # Replace fields in object with ones from additional json object
                         TahiniAddJsonInfo.replace_fields(obj, additional_regmap_obj, None)
@@ -65,7 +65,7 @@ class TahiniAddJsonInfo:
                     object_found = True
         else:
             for input_json_obj in input_json_regmap:
-                if input_json_obj.get_cmap_name() == additional_regmap_obj.get_cmap_name():
+                if input_json_obj.name == additional_regmap_obj.name:
                     # Add additional fields in struct except members
                     TahiniAddJsonInfo.replace_fields(input_json_obj, additional_regmap_obj, "members")
                     object_found = True

@@ -1,0 +1,79 @@
+{
+    "regmap": [
+        {
+            "type": "struct",
+            "name": "SiggenParams4Dof",
+            "byte_size": 36,
+            "members": [
+                {
+                    "type": "unsigned int",
+                    "name": "pwm_frequency",
+                    "byte_size": 4,
+                    "brief": "Target PWM frequency in Hz",
+                    "byte_offset": 0,
+                    "access": "public"
+                },
+                {
+                    "type": "struct",
+                    "name": "protection_config",
+                    "byte_size": 20,
+                    "members": [
+                        {
+                            "type": "unsigned char",
+                            "name": "siggen_params_4dof",
+                            "byte_size": 1,
+                            "brief": "Some",
+                            "byte_offset": 552,
+                            "array_count": 36,
+                            "cref": "SiggenParams4Dof"
+                        },
+                        {
+                            "type": "unsigned char",
+                            "name": "va_slv_addr",
+                            "byte_size": 1,
+                            "brief": "VA chip i2c slave address",
+                            "byte_offset": 0,
+                            "cref": "CheckingCRef"
+                        }
+                    ],
+                    "brief": "Add brief to regmap struct",
+                    "byte_offset": 4,
+                    "hif_access": false
+                },
+                {
+                    "type": "unsigned int",
+                    "name": "flash_next_write_address",
+                    "byte_size": 4,
+                    "brief": "Flash command mode next write adress",
+                    "byte_offset": 232,
+                    "access": "private"
+                },
+                {
+                    "type": "unsigned int",
+                    "name": "flash_write_data",
+                    "byte_size": 4,
+                    "brief": "Flash write data port",
+                    "byte_offset": 236
+                }
+            ]
+        }
+    ],
+    "enums": [
+        {
+            "name": "WbBreakFlagFlags",
+            "enumerators": [
+                {
+                    "name": "WB_OPENCIRCUIT_WIRE_0_MASK",
+                    "value": 1,
+                    "brief": "Brief for enumerator"
+                },
+                {
+                    "name": "WB_SHORTCIRCUIT_WIRE_0_MASK",
+                    "brief": "Brief already there",
+                    "value": 2
+                }
+            ],
+            "brief": "Brief for enum"
+        }
+    ]
+}

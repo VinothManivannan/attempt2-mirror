@@ -14,7 +14,7 @@ from .tahini_generate_flat_txt import GenerateFlatTxt
 from .tahini_generate_appnote_csv import GenerateAppnoteCSV
 from .tahini_generate_txt import GenerateTxt
 from .tahini_generate_api_cheader import GenerateApiCheader
-
+from .tahini_add_json_info import TahiniAddJsonInfo
 
 class Tahini():
     """Class for Tahini Command Line implementation
@@ -28,6 +28,8 @@ class Tahini():
         Available commands:
             gimli         Generate JSON input file from C definitions from a compiled file (elf, o, exe).
                             Usage: tahini gimli <firmware-file-path> --output <json-path.json>
+            addjsoninfo   Combine gimli generated JSON input file with additional one with extra information when needed (e.g. Rumba S10)
+                            Usage: tahini addjsoninfo <json-path.json> <additional-json-path.json> --output <json-path.json>
             version       Generate version json file
                             Usage: tahini version <device-type> <project-path> <build-config-name> <build-config-id> --output <version.info.json>
             cmap          Generate cmap source file. This file is a source for other interpretations of the regmap (txt, csv, etc...)
@@ -94,6 +96,38 @@ class Tahini():
             sys.stdout = open(args.output, "w", encoding="UTF-8")
 
         TahiniGimli.main(args.elf_path, args.compile_unit_names)
+
+        if args.output is not None:
+            sys.stdout.close()
+        sys.stdout = stdout
+        # pylint: enable=consider-using-with
+
+    def addjsoninfo(self):
+        """
+        Combine input json and additional json files
+        """
+        parser = argparse.ArgumentParser(
+            description="Combine gimli generated JSON input file with additional one with extra information",
+            usage=
+                "tahini addjsoninfo <json-path.json> <additional-json-path.json> --output <json-path.json>")
+        parser.add_argument('command', help=argparse.SUPPRESS)
+        parser.add_argument("input_json_path", help="Path to gimli generated input json file. Example: path/to/stmh")
+        parser.add_argument("additional_json_path", help="Path to additional json file. Example: path/to/stmh")
+        parser.add_argument("--output", required=False,
+            help="Write the result into the file specified instead of the standard output.")
+        args = parser.parse_args()
+
+        combined_json_output = TahiniAddJsonInfo.combine_json_files(args.input_json_path,
+                                                                    args.additional_json_path)
+
+        # pylint: disable=consider-using-with
+        stdout = sys.stdout
+        if args.output is not None:
+            sys.stdout = open(args.output, "w", encoding="UTF-8")
+        else:
+            sys.stdout = open(args.input_json_path, "w", encoding="UTF-8")
+
+        sys.stdout.write(combined_json_output.to_json(indent=4))
 
         if args.output is not None:
             sys.stdout.close()

@@ -1,0 +1,48 @@
+{
+    "regmap": [
+        {
+            "type": "struct",
+            "name": "protection_config",
+            "brief": "Add brief to regmap struct",
+            "hif_access": false,
+            "byte_offset": 4,
+            "byte_size": 20,
+            "members": [
+                {
+                    "type": "unsigned char",
+                    "name": "siggen_params_4dof",
+                    "brief": "Some",
+                    "cref": "SiggenParams4Dof",
+                    "array_count": 36,
+                    "byte_offset": 552,
+                    "byte_size": 1
+                }
+            ]
+        },
+        {
+            "type": "unsigned char",
+            "name": "va_slv_addr",
+            "byte_size": 1,
+            "brief": "VA chip i2c slave address",
+            "byte_offset": 0,
+            "cref": "CheckingCRef"
+        }
+    ],
+    "enums": [
+        {
+            "name": "WbBreakFlagFlags",
+            "brief": "Brief for enum",
+            "enumerators": [
+                {
+                    "name": "WB_OPENCIRCUIT_WIRE_0_MASK",
+                    "brief": "Brief for enumerator",
+                    "value": 1
+                },
+                {
+                    "name": "WB_SHORTCIRCUIT_WIRE_0_MASK",
+                    "value": 2
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,52 @@
+{
+    "regmap": [
+        {
+            "type": "unsigned char",
+            "name": "siggen_params_4dof",
+            "brief": "None",
+            "byte_size": 1
+        },
+        {
+            "type": "unsigned char",
+            "name": "va_slv_addr",
+            "byte_size": 1,
+            "brief": "VA chip i2c slave address",
+            "byte_offset": 0,
+            "array_count": 36,
+            "cref": "CheckingCRef",
+            "customer_alias": "regmapCustomerAlias",
+            "namespace": "Namespace",
+            "format": "Q7.9",
+            "address": 13345,
+            "bit_size": 3,
+            "bit_offset": 7,
+            "min": 0.1,
+            "max": 0.7,
+            "units": "Units",
+            "value_enum": "Value",
+            "array_enum": "array",
+            "mask_enum": "ENUM_MASK",
+            "access": "none",
+            "hif_access": false
+        }
+    ],
+    "enums": [
+        {
+            "name": "WbBreakFlagFlags",
+            "enumerators": [
+                {
+                    "name": "WB_OPENCIRCUIT_WIRE_0_MASK",
+                    "brief": "Brief for enumerator",
+                    "value": 1,
+                    "access": "none"
+                },
+                {
+                    "name": "WB_SHORTCIRCUIT_WIRE_0_MASK",
+                    "value": 2,
+                    "customer_alias": "regmapCustomerAlias",
+                    "access": "public"
+                }
+            ]
+        }
+    ]
+}

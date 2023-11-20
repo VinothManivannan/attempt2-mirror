@@ -1,0 +1,20 @@
+{
+    "regmap": [
+        {
+            "type": "unsigned char",
+            "name": "None",
+            "byte_size": 0
+        }
+    ],
+    "enums": [
+        {
+            "name": "None",
+            "enumerators": [
+                {
+                    "name": "None",
+                    "value": 0
+                }
+            ]
+        }
+    ]
+}

@@ -10,7 +10,6 @@ from marshmallow_dataclass import class_schema
 import marshmallow.exceptions
 from .schema import Schema
 
-
 class InvalidInputRegmapError(Exception):
     """Class used to handle errors of regmap property
     """
@@ -77,13 +76,13 @@ class InputType:
     ]
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=False)
 class InputRegmap:
     """Represents the properties shown in regmap field in input json
     """
     type: str
     name: str
-    byte_size: int
+    byte_size: Optional[int] = None
     namespace: Optional[str] = None
     cmap_name: Optional[str] = None
     format: Optional[str] = None
@@ -157,11 +156,11 @@ class InputRegmap:
             raise InputJsonParserError("Invalid input json type")
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=False)
 class InputEnum:
     """Represents the properties shown in enums field in input json
     """
-    @dataclass(frozen=True)
+    @dataclass(frozen=False)
     class InputEnumChild:
         """Represents the name and value of each enum property in input Json
         """
@@ -186,7 +185,7 @@ class InputEnum:
                 raise InvalidInputEnumError("States name should be unique")
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=False)
 class InputJson:
     """
     An entry class to regulate the format from input json files

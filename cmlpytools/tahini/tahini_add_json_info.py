@@ -24,6 +24,13 @@ class TahiniAddJsonInfo:
     @staticmethod
     def combine_json_files(input_json_path: str, additional_json_path: str) -> InputJson:
         """Combine input json file with additional one including extra documentation
+
+        Args:
+            input_json_path (str): gimli generated input json
+            additional_json_path (str): json file with additional information (brief, cmap_name...)
+
+        Returns:
+            InputJson: InputJson object containing the combined json regmap information
         """
 
         assert input_json_path is not None, "Error: input_json_path must be specified"
@@ -50,6 +57,13 @@ class TahiniAddJsonInfo:
     @staticmethod
     def combine_regmap(input_json_regmap: list[InputRegmap], additional_regmap_obj: InputRegmap) -> bool:
         """ Adds additonal information from extra json regmap entries to input json file 
+
+        Args:
+            input_json_regmap (list[InputRegmap]): list of InputRegmap objects to replace information from
+            additional_regmap_obj (InputRegmap): InputRegmap object from which information is to be added
+
+        Returns:
+            bool: indicates whether the additional InputRegmap object has been found in the input json file
         """
         object_found = False
         if additional_regmap_obj.type != "struct":
@@ -84,6 +98,13 @@ class TahiniAddJsonInfo:
     @staticmethod
     def combine_enums(input_json_enums: list[InputEnum], additional_enum: InputEnum) -> bool:
         """ Adds additonal information from extra json enum entries to input json file 
+
+         Args:
+            input_json_enums (list[InputEnum]): list of InputEnum objects to replace information from
+            additional_enum (InputEnum): InputEnum object from which information is to be added
+
+        Returns:
+            bool: indicates whether the additional InputEnum object has been found in the input json file
         """
         object_found = False
         if isinstance(additional_enum, InputEnum.InputEnumChild):
@@ -119,6 +140,11 @@ class TahiniAddJsonInfo:
     def replace_fields(input_json_obj: Union[InputRegmap, InputEnum],
         additional_obj: Union[InputRegmap, InputEnum.InputEnumChild], not_to_replace: Optional[str]):
         """ Replaces fields in corresponding object in input_json_file
+
+         Args:
+            input_json_obj (Union[InputRegmap, InputEnum]): InputRegmap or InputEnum object to replace information from
+            additional_obj (Union[InputRegmap, InputEnum.InputEnumChild]): object with information to add/replace
+            not_to_replace (Optional[str]): which field should be ignored when replacing
         """
         for variable in vars(additional_obj):
             additional_obj_attr = getattr(additional_obj, variable)

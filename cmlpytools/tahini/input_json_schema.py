@@ -82,7 +82,7 @@ class InputRegmap:
     """
     type: str
     name: str
-    byte_size: int
+    byte_size: Optional[int] = None
     namespace: Optional[str] = None
     cmap_name: Optional[str] = None
     format: Optional[str] = None

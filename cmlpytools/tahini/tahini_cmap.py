@@ -606,18 +606,20 @@ class TahiniCmap():
                 regmap=TahiniCmap.cmap_regmap_from_input_json(input_json)
             )
 
+        # Now check for overlapping addresses in regmap
+
         all_instances = TahiniCmap._cmap_get_all_instances(cmap.regmap.children)
 
-        addresses = [[],[]]
+        addresses_and_names = [[],[]]
         for instance in all_instances:
             for i in range(0, instance[2]):
-                addresses[0].append(instance[0] + i)
-                addresses[1].append(instance[1])
+                addresses_and_names[0].append(instance[0] + i)
+                addresses_and_names[1].append(instance[1])
 
-        for address in addresses[0]:
-            if addresses[0].count(address) > 1:
-                indices = [i for i, x in enumerate(addresses[0]) if x == address]
-                registers = [addresses[1][idx] for idx in indices]
+        for address in addresses_and_names[0]:
+            if addresses_and_names[0].count(address) > 1:
+                repeated_address_idx = [i for i, x in enumerate(addresses_and_names[0]) if x == address]
+                registers = [addresses_and_names[1][idx] for idx in repeated_address_idx]
                 raise TahiniCmapError(f"Duplicate address {hex(address)} for register {registers}")
 
         return cmap

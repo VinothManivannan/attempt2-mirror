@@ -65,6 +65,13 @@ class GenerateFlatTxt():
                 output.write(f"{'address':*^20}\n")
                 all_instances = GenerateFlatTxt._get_all_instances(cmapsource_data.regmap.children)
 
+                addresses = [instance[0] for instance in all_instances]
+
+                for address in addresses:
+                    if addresses.count(address) > 1:
+                        registers = [instance[1] for instance in all_instances if instance[0] == address]
+                        raise TahiniGenerateFlatError(f"Duplicate address {hex(address)} for register {registers}")
+
                 # Ensure all instances are sorted by address: This is required to handle correctly repeated structs
                 all_instances.sort(key=lambda instance: instance[0])
 

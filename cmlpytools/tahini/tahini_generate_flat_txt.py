@@ -29,24 +29,24 @@ class GenerateFlatTxt():
             output.write(f"{instance[0]:>#6x} {instance[1]:<30}\n")
 
     @staticmethod
-    def _get_all_instances(field: List[CmapRegisterOrStruct]) -> List[Tuple[int, str]]:
+    def _get_all_instances(field: List[CmapRegisterOrStruct]) -> List[Tuple[int, str, int]]:
         """Recursively get address and name info from each register
 
         Args:
             field (List[CmapRegisterOrStruct]): List of regmap or structs to process
 
         Returns:
-            List[Tuple[int, str]]: List of tuples containing register address and name
+            List[Tuple[int, str, int]]: List of tuples containing register address, name and size
         """
         all_instances = []
         for item in field:
             if item.type == CmapType.REGISTER:
                 if item.repeat_for is None:
-                    all_instances.append((item.addr, item.name))
+                    all_instances.append((item.addr, item.name, item.size))
                 else:
                     for instance in item.get_instances():
                         instance_name = item.name + instance.get_legacy_suffix()
-                        all_instances.append((instance.addr, instance_name))
+                        all_instances.append((instance.addr, instance_name, item.size))
             elif item.type == CmapType.STRUCT:
                 all_instances.extend(GenerateFlatTxt._get_all_instances(item.struct.children))
 
@@ -65,7 +65,10 @@ class GenerateFlatTxt():
                 output.write(f"{'address':*^20}\n")
                 all_instances = GenerateFlatTxt._get_all_instances(cmapsource_data.regmap.children)
 
-                addresses = [instance[0] for instance in all_instances]
+                addresses = []
+                for instance in all_instances:
+                    for i in range(0, instance[2]):
+                        addresses.append(instance[0] + i)
 
                 for address in addresses:
                     if addresses.count(address) > 1:

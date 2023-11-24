@@ -198,7 +198,7 @@
                         {
                             "name": "thread",
                             "type": "struct",
-                            "addr": 5120,
+                            "addr": 5126,
                             "size": 6,
                             "brief": "Thread count by name",
                             "struct": {
@@ -206,7 +206,7 @@
                                     {
                                         "name": "red",
                                         "type": "register",
-                                        "addr": 5120,
+                                        "addr": 5126,
                                         "size": 1,
                                         "brief": "Number of red threads",
                                         "register": {
@@ -218,7 +218,7 @@
                                     {
                                         "name": "_reserved0",
                                         "type": "register",
-                                        "addr": 5121,
+                                        "addr": 5127,
                                         "size": 1,
                                         "register": {
                                             "ctype": "uint8"
@@ -229,7 +229,7 @@
                                     {
                                         "name": "green",
                                         "type": "register",
-                                        "addr": 5122,
+                                        "addr": 5128,
                                         "size": 1,
                                         "brief": "Number of green threads",
                                         "register": {
@@ -241,7 +241,7 @@
                                     {
                                         "name": "_reserved1",
                                         "type": "register",
-                                        "addr": 5123,
+                                        "addr": 5129,
                                         "size": 1,
                                         "register": {
                                             "ctype": "uint8"
@@ -252,7 +252,7 @@
                                     {
                                         "name": "blue",
                                         "type": "register",
-                                        "addr": 5124,
+                                        "addr": 5130,
                                         "size": 1,
                                         "brief": "Number of blue threads",
                                         "register": {
@@ -264,7 +264,7 @@
                                     {
                                         "name": "_reserved2",
                                         "type": "register",
-                                        "addr": 5125,
+                                        "addr": 5131,
                                         "size": 1,
                                         "register": {
                                             "ctype": "uint8"

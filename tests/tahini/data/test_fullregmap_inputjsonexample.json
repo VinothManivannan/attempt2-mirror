@@ -73,7 +73,7 @@
           "type": "struct",
           "name": "thread",
           "brief": "Thread count by name",
-          "byte_offset": 0,
+          "byte_offset": 6,
           "byte_size": 6,
           "members": [
             {

@@ -29,24 +29,24 @@ class GenerateFlatTxt():
             output.write(f"{instance[0]:>#6x} {instance[1]:<30}\n")
 
     @staticmethod
-    def _get_all_instances(field: List[CmapRegisterOrStruct]) -> List[Tuple[int, str, int]]:
+    def _get_all_instances(field: List[CmapRegisterOrStruct]) -> List[Tuple[int, str]]:
         """Recursively get address and name info from each register
 
         Args:
             field (List[CmapRegisterOrStruct]): List of regmap or structs to process
 
         Returns:
-            List[Tuple[int, str, int]]: List of tuples containing register address, name and size
+            List[Tuple[int, str]]: List of tuples containing register address and name
         """
         all_instances = []
         for item in field:
             if item.type == CmapType.REGISTER:
                 if item.repeat_for is None:
-                    all_instances.append((item.addr, item.name, item.size))
+                    all_instances.append((item.addr, item.name))
                 else:
                     for instance in item.get_instances():
                         instance_name = item.name + instance.get_legacy_suffix()
-                        all_instances.append((instance.addr, instance_name, item.size))
+                        all_instances.append((instance.addr, instance_name))
             elif item.type == CmapType.STRUCT:
                 all_instances.extend(GenerateFlatTxt._get_all_instances(item.struct.children))
 
@@ -64,18 +64,6 @@ class GenerateFlatTxt():
             with open(output_flat_path, 'w', encoding='utf-8') as output:
                 output.write(f"{'address':*^20}\n")
                 all_instances = GenerateFlatTxt._get_all_instances(cmapsource_data.regmap.children)
-
-                addresses = [[],[]]
-                for instance in all_instances:
-                    for i in range(0, instance[2]):
-                        addresses[0].append(instance[0] + i)
-                        addresses[1].append(instance[1])
-
-                for address in addresses[0]:
-                    if addresses[0].count(address) > 1:
-                        indices = [i for i, x in enumerate(addresses[0]) if x == address]
-                        registers = [addresses[1][idx] for idx in indices]
-                        raise TahiniGenerateFlatError(f"Duplicate address {hex(address)} for register {registers}")
 
                 # Ensure all instances are sorted by address: This is required to handle correctly repeated structs
                 all_instances.sort(key=lambda instance: instance[0])

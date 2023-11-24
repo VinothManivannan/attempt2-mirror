@@ -61,7 +61,7 @@ class CommandParser(object):
             node = node.find_release(args.tag)
             if node is None:
                 with open(args.output, "w", encoding="utf-8") as stream:
-                    stream.write(f"No release notes for '{args.tag}'")
+                    stream.write(f"No entry found for '{args.tag}'")
                     exit(0)
 
         if args.labels and node:

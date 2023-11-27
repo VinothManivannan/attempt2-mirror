@@ -832,5 +832,11 @@ class TestToCMapSourceMethod(unittest.TestCase):
         self.assertIsNone(regmap.children[0].register.bitfields[1].states[1].customer_alias)
 
 
+    def test_overlapping_registers(self):
+        """Check that overlapping registers are detected and error is raised"""
+        overlapping_regmap = path.join(PATH_TO_DATA, "test_input_json_example.json")
+        with self.assertRaises(TahiniCmapError):
+            _ = TahiniCmap.cmap_regmap_from_input_json_path(overlapping_regmap)
+
 if __name__ == '__main__':
     unittest.main()

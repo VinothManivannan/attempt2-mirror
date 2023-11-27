@@ -21,7 +21,7 @@ class TestCombiningJson(unittest.TestCase):
     def test(self):
         """Entry point for tests"""
         for i in range (1, 4):
-            input_json_file = path.join(PATH_TO_DATA, "data/test_input_json_example.json")
+            input_json_file = path.join(PATH_TO_DATA, "test_input_json_example.json")
             additional_json_file = path.join(PATH_TO_DATA, f"test_extra_regmap_info{i}.json")
             combined_json_file = path.join(PATH_TO_DATA, "test_combined_json_output.json")
             expected_combined_json_file = path.join(PATH_TO_DATA, f"test_expected_combined_json{i}.json")

@@ -49,26 +49,46 @@ class CommandParser(object):
                             help="Specify path for input release note file.")
         parser.add_argument('--output', required=True,
                             help="Specify path for output release note file.")
-        parser.add_argument('--tag', help="(Optional) Specify tag to render.")
         parser.add_argument('--labels', nargs='+', metavar="[PATH]",
                             help="(Optional) Specify labels to keep.")
 
         args = parser.parse_args()
 
-        node = LogTree.from_file(args.input)
+        log_tree = LogTree.from_file(args.input)
 
-        if args.tag:
-            node = node.find_release(args.tag)
-            if node is None:
-                with open(args.output, "w", encoding="utf-8") as stream:
-                    stream.write(f"No entry found for '{args.tag}'")
-                    exit(0)
-
-        if args.labels and node:
-            node.filter_labels(args.labels)
+        if args.labels:
+            log_tree.filter_labels(args.labels)
 
         with open(args.output, "wb") as stream:
-            node.render(stream)
+            log_tree.render(stream)
+
+    def render_tag(self):
+        """Command to render the content of a single tag
+        """
+        parser = argparse.ArgumentParser(
+            description="Cambridge Mechatronics Ltd. utility to render a single tag entry from release notes or changelogs.",
+            usage='logparse render_tag <options> [args]')
+        parser.add_argument('command', help=argparse.SUPPRESS)
+        parser.add_argument('--input', required=True,
+                            help="Specify path for input release note file.")
+        parser.add_argument('--output', required=True,
+                            help="Specify path for output release note file.")
+        parser.add_argument('--tag',  required=True,
+                            help="Specify tag to render.")
+
+        args = parser.parse_args()
+
+        log_tree = LogTree.from_file(args.input)
+
+        tag_entry = log_tree.find_release(args.tag)
+
+        if tag_entry is None:
+            with open(args.output, "w", encoding="utf-8") as stream:
+                stream.write(f"No entry found for '{args.tag}'")
+        else:
+            with open(args.output, "wb") as stream:
+                for log_entry in tag_entry.log_entries:
+                    log_entry.render(stream)
 
     def find_tag(self):
         """

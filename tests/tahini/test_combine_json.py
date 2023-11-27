@@ -19,7 +19,7 @@ class TestCombiningJson(unittest.TestCase):
     """Test class for addjsoninfo tahini method
     """
     def test(self):
-        """Entry point for tests"""
+        """Test if input json file combined correctly with extra json info for different cases"""
         for i in range (1, 4):
             input_json_file = path.join(PATH_TO_DATA, "test_input_json_example.json")
             additional_json_file = path.join(PATH_TO_DATA, f"test_extra_regmap_info{i}.json")

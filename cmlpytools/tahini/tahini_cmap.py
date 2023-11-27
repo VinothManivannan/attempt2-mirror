@@ -469,6 +469,30 @@ class TahiniCmap():
 
             return child
 
+    @staticmethod
+    def _cmap_get_all_instances(field: List[CmapRegisterOrStruct]) -> List[Tuple[int, str, int]]:
+        """Recursively get address, name info and size from each register
+
+        Args:
+            field (List[CmapRegisterOrStruct]): List of regmap or structs to process
+
+        Returns:
+            List[Tuple[int, str, int]]: List of tuples containing register address, name and size
+        """
+        all_instances = []
+        for item in field:
+            if item.type == CmapType.REGISTER:
+                if item.repeat_for is None:
+                    all_instances.append((item.addr, item.name, item.size))
+                else:
+                    for instance in item.get_instances():
+                        instance_name = item.name + instance.get_legacy_suffix()
+                        all_instances.append((instance.addr, instance_name, item.size))
+            elif item.type == CmapType.STRUCT:
+                all_instances.extend(TahiniCmap._cmap_get_all_instances(item.struct.children))
+
+        return all_instances
+
     @ staticmethod
     def cmap_regmap_from_input_json(input_json: InputJson) -> CmapRegmap:
         """Create a 'CMap Source' object from an 'Input JSON' object
@@ -581,5 +605,21 @@ class TahiniCmap():
                 version=TahiniVersion.create_extended_version_info(project_path, version_info_path),
                 regmap=TahiniCmap.cmap_regmap_from_input_json(input_json)
             )
+
+        # Now check for overlapping addresses in regmap
+
+        all_instances = TahiniCmap._cmap_get_all_instances(cmap.regmap.children)
+
+        addresses_and_names = [[],[]]
+        for instance in all_instances:
+            for i in range(0, instance[2]):
+                addresses_and_names[0].append(instance[0] + i)
+                addresses_and_names[1].append(instance[1])
+
+        for address in addresses_and_names[0]:
+            if addresses_and_names[0].count(address) > 1:
+                repeated_address_idx = [i for i, x in enumerate(addresses_and_names[0]) if x == address]
+                registers = [addresses_and_names[1][idx] for idx in repeated_address_idx]
+                raise TahiniCmapError(f"Duplicate address {hex(address)} for register {registers}")
 
         return cmap

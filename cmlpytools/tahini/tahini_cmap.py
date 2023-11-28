@@ -375,6 +375,7 @@ class TahiniCmap():
             input_regmap_by_name (Dict[str, InputEnum]): Top-level input regmap nodes indexed by names
             input_enum_by_name (Dict[str, InputEnum]): Set of enum definitions indexed by name
             context (_CmapContext): Context object provided information about nested arrays, etc...
+            support_hif_access (bool): Specify whether hif_access tags must be supported or not
 
         Raises:
             TahiniCmapError: The input regmap node could not be converted into a cmap node
@@ -501,6 +502,7 @@ class TahiniCmap():
 
         Args:
             input_json (InputJson): Input json object to be converted
+            support_hif_access (bool): Specify whether hif_access tags must be supported or not
 
         Raises:
             InputJsonParserError: Invalid data in Input Json file

@@ -364,7 +364,8 @@ class TahiniCmap():
                                                    input_regmap: InputRegmap,
                                                    input_regmap_by_name: Dict[str, InputRegmap],
                                                    input_enum_by_name: Dict[str, InputEnum],
-                                                   context: _CmapContext
+                                                   context: _CmapContext,
+                                                   support_hif_access: bool
                                                    ) -> Optional[CmapRegisterOrStruct]:
         """Construct Cmap 'RegisterOrStruct' ... this may be called recursively
 
@@ -374,6 +375,7 @@ class TahiniCmap():
             input_regmap_by_name (Dict[str, InputEnum]): Top-level input regmap nodes indexed by names
             input_enum_by_name (Dict[str, InputEnum]): Set of enum definitions indexed by name
             context (_CmapContext): Context object provided information about nested arrays, etc...
+            support_hif_access (bool): Specify whether hif_access tags must be supported or not
 
         Raises:
             TahiniCmapError: The input regmap node could not be converted into a cmap node
@@ -423,12 +425,13 @@ class TahiniCmap():
                 # Default value
                 child.access = CmapVisibilityOptions.PRIVATE
 
-            if input_regmap.hif_access is not None:
-                # Specified value
-                child.hif_access = input_regmap.hif_access
-            elif parent is not None:
-                # Inherited value
-                child.hif_access = parent.hif_access
+            if support_hif_access:
+                if input_regmap.hif_access is not None:
+                    # Specified value
+                    child.hif_access = input_regmap.hif_access
+                elif parent is not None:
+                    # Inherited value
+                    child.hif_access = parent.hif_access
 
             if input_regmap.namespace is not None:
                 # Specified value
@@ -461,7 +464,7 @@ class TahiniCmap():
             elif input_regmap.type in InputType.STRUCT:
                 for next_data in input_regmap.members:
                     new_child = TahiniCmap._cmap_register_or_struct_from_input_regmap(
-                        child, next_data, input_regmap_by_name, input_enum_by_name, context)
+                        child, next_data, input_regmap_by_name, input_enum_by_name, context, support_hif_access)
                     if new_child is not None:
                         child.struct.children.append(new_child)
             else:
@@ -494,11 +497,12 @@ class TahiniCmap():
         return all_instances
 
     @ staticmethod
-    def cmap_regmap_from_input_json(input_json: InputJson) -> CmapRegmap:
+    def cmap_regmap_from_input_json(input_json: InputJson, support_hif_access: bool = False) -> CmapRegmap:
         """Create a 'CMap Source' object from an 'Input JSON' object
 
         Args:
             input_json (InputJson): Input json object to be converted
+            support_hif_access (bool): Specify whether hif_access tags must be supported or not
 
         Raises:
             InputJsonParserError: Invalid data in Input Json file
@@ -523,7 +527,7 @@ class TahiniCmap():
             obj = CmapRegmap(children=[])
             for current_data in input_json.regmap:
                 new_child = TahiniCmap._cmap_register_or_struct_from_input_regmap(
-                    None, current_data, input_regmap_by_name, input_enum_by_name, context)
+                    None, current_data, input_regmap_by_name, input_enum_by_name, context, support_hif_access)
                 if new_child is not None:
                     obj.children.append(new_child)
 
@@ -593,17 +597,19 @@ class TahiniCmap():
             "Error: version_info_path or extended_version_info_path must be specified"
 
         if extended_version_info_path is not None:
+            version_info = ExtendedVersionInfo.load_json(extended_version_info_path)
             cmap = CmapFullRegmap(
                 scheme=CmapScheme(2, 0),
-                version=ExtendedVersionInfo.load_json(extended_version_info_path),
-                regmap=TahiniCmap.cmap_regmap_from_input_json(input_json)
+                version=version_info,
+                regmap=TahiniCmap.cmap_regmap_from_input_json(input_json, version_info.device_type == "cm8x4")
             )
         else:
             assert project_path is not None, "Error: version_info_path was specified but not project_path"
+            version_info = TahiniVersion.create_extended_version_info(project_path, version_info_path)
             cmap = CmapFullRegmap(
                 scheme=CmapScheme(2, 0),
-                version=TahiniVersion.create_extended_version_info(project_path, version_info_path),
-                regmap=TahiniCmap.cmap_regmap_from_input_json(input_json)
+                version=version_info,
+                regmap=TahiniCmap.cmap_regmap_from_input_json(input_json, version_info.device_type == "cm8x4")
             )
 
         # Now check for overlapping addresses in regmap

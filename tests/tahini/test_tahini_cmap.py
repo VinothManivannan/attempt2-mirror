@@ -91,7 +91,7 @@ class TestToCMapSourceMethod(unittest.TestCase):
             enums=[]
         )
 
-        cmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap)
+        cmap = TahiniCmap.cmap_regmap_from_input_json(input_regmap, support_hif_access=True)
 
         self.assertEqual("buz", cmap.children[0].name)
 

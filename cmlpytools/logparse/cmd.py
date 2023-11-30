@@ -10,24 +10,26 @@ import argparse
 import textwrap
 from .parse import LogTree
 
+
 class CommandParser(object):
     def __init__(self):
-        parser = argparse.ArgumentParser(usage="logparse <command> [args]", 
+        parser = argparse.ArgumentParser(usage="logparse <command> [args]",
                                          description="Cambridge Mechatronics Ltd. Release notes management tools.",
-                                         formatter_class=argparse.RawDescriptionHelpFormatter, 
+                                         formatter_class=argparse.RawDescriptionHelpFormatter,
                                          epilog=textwrap.dedent('''\
         Available commands:
             render      Create or modify a regmap configuration file
             find-tag    Create or modify a calibration file
         For more detailed help, type "logparse <command> -h" '''))
         parser.add_argument('command', help='logparse subcommand', nargs=1)
-        parser.add_argument('otherthings', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
+        parser.add_argument(
+            'otherthings', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
         args = parser.parse_args()
-        
+
         # argparse doesn't replace '-' with '_' in positional arguments automatically
-        command = args.command[0].replace('-','_') 
-        
-        # Commands are methods of the CommandParser class. 
+        command = args.command[0].replace('-', '_')
+
+        # Commands are methods of the CommandParser class.
         # This code checks if there's a method with the same name as the provided command.
         if not hasattr(self, command):
             print('Unrecognized command')
@@ -43,22 +45,50 @@ class CommandParser(object):
             description="Cambridge Mechatronics Ltd. utility to render release notes.",
             usage='logparse render <options> [args]')
         parser.add_argument('command', help=argparse.SUPPRESS)
-        parser.add_argument('--input', required=True, nargs=1, metavar="[PATH]",
-            help="Specify path for input release note file.")
-        parser.add_argument('--output', required=True, nargs=1, metavar="[PATH]",
-            help="Specify path for output release note file.")
+        parser.add_argument('--input', required=True,
+                            help="Specify path for input release note file.")
+        parser.add_argument('--output', required=True,
+                            help="Specify path for output release note file.")
         parser.add_argument('--labels', nargs='+', metavar="[PATH]",
-            help="(Optional) Specify labels to keep.")
-            
+                            help="(Optional) Specify labels to keep.")
+
         args = parser.parse_args()
-        
-        log_tree = LogTree.from_file(args.input[0])
-        
+
+        log_tree = LogTree.from_file(args.input)
+
         if args.labels:
             log_tree.filter_labels(args.labels)
-        
-        with open(args.output[0], "wb") as stream:
+
+        with open(args.output, "wb") as stream:
             log_tree.render(stream)
+
+    def render_tag(self):
+        """Command to render the content of a single tag
+        """
+        parser = argparse.ArgumentParser(
+            description="Cambridge Mechatronics Ltd. utility to render a single tag entry from release notes or changelogs.",
+            usage='logparse render_tag <options> [args]')
+        parser.add_argument('command', help=argparse.SUPPRESS)
+        parser.add_argument('--input', required=True,
+                            help="Specify path for input release note file.")
+        parser.add_argument('--output', required=True,
+                            help="Specify path for output release note file.")
+        parser.add_argument('--tag',  required=True,
+                            help="Specify tag to render.")
+
+        args = parser.parse_args()
+
+        log_tree = LogTree.from_file(args.input)
+
+        tag_entry = log_tree.find_release(args.tag)
+
+        if tag_entry is None:
+            with open(args.output, "w", encoding="utf-8") as stream:
+                stream.write(f"No entry found for '{args.tag}'")
+        else:
+            with open(args.output, "wb") as stream:
+                for log_entry in tag_entry.log_entries:
+                    log_entry.render(stream)
 
     def find_tag(self):
         """
@@ -69,13 +99,13 @@ class CommandParser(object):
             usage='minfs find-version <options> [args]')
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument('--input', required=True, nargs=1, metavar="[PATH]",
-            help="Specify path for input release note file.")
+                            help="Specify path for input release note file.")
         parser.add_argument('--tag', required=True, nargs=1, metavar="[PATH]",
-            help="Specify path for input release note file.")
+                            help="Specify path for input release note file.")
         args = parser.parse_args()
-        
+
         log_tree = LogTree.from_file(args.input[0])
-        
+
         if log_tree.has_release(args.tag[0]):
             print("Release {} was found.".format(args.tag[0]))
             exit(0)
@@ -83,6 +113,6 @@ class CommandParser(object):
             print("Release {} was not found.".format(args.tag[0]))
             exit(1)
 
+
 def RunCommandParser():
     CommandParser()
-

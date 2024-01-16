@@ -59,7 +59,7 @@ extern "C" {
     _GITVERSIONS = GitVersion(commit_id="abcd1234", last_tag=LastTag(major="1", minor="3", patch="2", branch_id="6789",
                                                                     release_num="1"))
 
-    _VERSION = ExtendedVersionInfo(device_type="Don't Care", config_name="Don't Care", config_id="Don't Care",
+    _VERSION = ExtendedVersionInfo(device_type="Don't Care", config_name="Don't Care", config_id="11",
                                    git_versions=[_GITVERSIONS])
 
     _EXPECTED_VERSION = """
@@ -71,7 +71,8 @@ extern "C" {
 #define CML_FW_VERSION_PATCH %%PATCH_VERSION%%
 #define CML_FW_SUBVERSION_MAJOR %%MAJOR_SUBVERSION%%
 #define CML_FW_SUBVERSION_MINOR %%MINOR_SUBVERSION%%
-#define CML_FW_UNIQUEID %%UNIQUE_ID%%
+#define CML_FW_UNIQUEID 0x%%UNIQUE_ID%%
+#define CML_FW_BUILDCONFIG %%BUILDCONFIG_ID%%
 
 /**************************************************************************************************
  * Firmware Version Information 
@@ -81,7 +82,8 @@ extern "C" {
     .replace("%%PATCH_VERSION%%", str(_GITVERSIONS.last_tag.patch))\
     .replace("%%MAJOR_SUBVERSION%%", str(_GITVERSIONS.last_tag.branch_id))\
     .replace("%%MINOR_SUBVERSION%%", str(_GITVERSIONS.last_tag.release_num))\
-    .replace("%%UNIQUE_ID%%", str(_VERSION.git_versions[0].commit_id))
+    .replace("%%UNIQUE_ID%%", str(_VERSION.git_versions[0].commit_id))\
+    .replace("%%BUILDCONFIG_ID%%", str(_VERSION.config_id))
 
     def run_test(self, cmapsource: CmapRegmap, expected_body: str) -> None:
         """Run test to compare a cmapsource with expected body

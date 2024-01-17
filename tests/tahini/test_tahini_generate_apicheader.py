@@ -72,7 +72,7 @@ extern "C" {
 #define CML_FW_SUBVERSION_MAJOR %%MAJOR_SUBVERSION%%
 #define CML_FW_SUBVERSION_MINOR %%MINOR_SUBVERSION%%
 #define CML_FW_UNIQUEID 0x%%UNIQUE_ID%%
-#define CML_FW_BUILDCONFIG %%BUILDCONFIG_ID%%
+#define CML_FW_BUILDCONFIGID %%BUILDCONFIG_ID%%
 
 /**************************************************************************************************
  * Firmware Version Information 

@@ -122,27 +122,30 @@ class GenerateApiCheader():
         # Output register states
         if register.register.states:
             for state in register.register.states:
-                state_name = register.get_customer_name().upper() + "_" + state.get_customer_name().upper()
-                state_name = prepend_namespaces(register, state_name)
-                output.write(f"    #define {state_name:<50} {state.value:>#10x} /* State */\n")
+                if state.access is CmapVisibilityOptions.PUBLIC:
+                    state_name = register.get_customer_name().upper() + "_" + state.get_customer_name().upper()
+                    state_name = prepend_namespaces(register, state_name)
+                    output.write(f"    #define {state_name:<50} {state.value:>#10x} /* State */\n")
 
         # Output register bitfields
         if register.register.bitfields:
             for bitfield in register.register.bitfields:
-                bitfield_name = register.get_customer_name().upper() + "_" + bitfield.get_customer_name().upper()
-                bitfield_name = prepend_namespaces(register, bitfield_name)
-                output.write(
-                    f"    #define {bitfield_name:<50} {bitfield.get_mask():>#10x} /* Bitfield */\n")
+                if bitfield.access is CmapVisibilityOptions.PUBLIC:
+                    bitfield_name = register.get_customer_name().upper() + "_" + bitfield.get_customer_name().upper()
+                    bitfield_name = prepend_namespaces(register, bitfield_name)
+                    output.write(
+                        f"    #define {bitfield_name:<50} {bitfield.get_mask():>#10x} /* Bitfield */\n")
 
                 # Output states associated to this bitfield
                 if bitfield.states:
                     for state in bitfield.states:
-                        state_mask = state.value << bitfield.position
-                        # Bitfield state name is prefixed with the Bitfield name for uniqueness
-                        state_name = bitfield_name + "_" + state.get_customer_name().upper()
-                        state_name = prepend_namespaces(register, state_name)
-                        output.write(
-                            f"        #define {state_name:<50} {state_mask:>#10x} /* Bitfield state */\n")
+                        if state.access is CmapVisibilityOptions.PUBLIC:
+                            state_mask = state.value << bitfield.position
+                            # Bitfield state name is prefixed with the Bitfield name for uniqueness
+                            state_name = bitfield_name + "_" + state.get_customer_name().upper()
+                            state_name = prepend_namespaces(register, state_name)
+                            output.write(
+                                f"        #define {state_name:<50} {state_mask:>#10x} /* Bitfield state */\n")
 
     @staticmethod
     def from_cmapsource_path(cmapsource_path: str, output_txt_path: str) -> None:

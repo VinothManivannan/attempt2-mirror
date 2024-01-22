@@ -272,7 +272,8 @@ extern "C" {
                         states=[
                             CmapState(
                                 name="beta_state",
-                                value=0x123
+                                value=0x123,
+                                access=CmapVisibilityOptions.PUBLIC
                             )
                         ]
                     ),
@@ -305,14 +306,17 @@ extern "C" {
                                 name="beta_bitfield",
                                 num_bits=4,
                                 position=4,
+                                access=CmapVisibilityOptions.PUBLIC,
                                 states=[
                                     CmapState(
                                         name="gamma_state",
-                                        value=1
+                                        value=1,
+                                        access=CmapVisibilityOptions.PUBLIC
                                     ),
                                     CmapState(
                                         name="delta_state",
-                                        value=2
+                                        value=2,
+                                        access=CmapVisibilityOptions.PUBLIC
                                     )
                                 ]
                             )
@@ -348,7 +352,8 @@ extern "C" {
                             CmapState(
                                 name="beta_state",
                                 value=0x123,
-                                customer_alias="alias_beta_state"
+                                customer_alias="alias_beta_state",
+                                access=CmapVisibilityOptions.PUBLIC
                             )
                         ]
                     ),
@@ -382,11 +387,13 @@ extern "C" {
                                 customer_alias="beta_bitfield_alias",
                                 num_bits=4,
                                 position=4,
+                                access=CmapVisibilityOptions.PUBLIC,
                                 states=[
                                     CmapState(
                                         name="gamma_state",
                                         value=1,
-                                        customer_alias="gamma_state_alias"
+                                        customer_alias="gamma_state_alias",
+                                        access=CmapVisibilityOptions.PUBLIC
                                     )
                                 ]
                             )

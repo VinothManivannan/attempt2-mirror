@@ -136,7 +136,7 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA                               0x100
+#define ALPHA                                                   0x100
 """
         self.run_test(cmapsource, expected_body)
 
@@ -171,8 +171,8 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA                             0x404fc
-#define BETA                           0x40006b14
+#define ALPHA                                                 0x404fc
+#define BETA                                               0x40006b14
 """
         self.run_test(cmapsource, expected_body)
 
@@ -196,7 +196,7 @@ extern "C" {
         )
 
         expected_body = """\
-#define BETA                                0x100
+#define BETA                                                    0x100
 """
         self.run_test(cmapsource, expected_body)
 
@@ -252,7 +252,7 @@ extern "C" {
         )
 
         expected_body = """\
-#define BETA                                0x200
+#define BETA                                                    0x200
 """
 
         self.run_test(cmapsource, expected_body)
@@ -282,8 +282,8 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA_REGISTER                      0x100
-    #define ALPHA_REGISTER_BETA_STATE           0x123 /* State */
+#define ALPHA_REGISTER                                          0x100
+    #define ALPHA_REGISTER_BETA_STATE                               0x123 /* State */
 """
 
         self.run_test(cmapsource, expected_body)
@@ -324,10 +324,10 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA_REGISTER                      0x100
-    #define ALPHA_REGISTER_BETA_BITFIELD         0xf0 /* Bitfield */
-        #define ALPHA_REGISTER_BETA_BITFIELD_GAMMA_STATE       0x10 /* Bitfield state */
-        #define ALPHA_REGISTER_BETA_BITFIELD_DELTA_STATE       0x20 /* Bitfield state */
+#define ALPHA_REGISTER                                          0x100
+    #define ALPHA_REGISTER_BETA_BITFIELD                             0xf0 /* Bitfield */
+        #define ALPHA_REGISTER_BETA_BITFIELD_GAMMA_STATE                 0x10 /* Bitfield state */
+        #define ALPHA_REGISTER_BETA_BITFIELD_DELTA_STATE                 0x20 /* Bitfield state */
 """
 
         self.run_test(cmapsource, expected_body)
@@ -358,8 +358,8 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA_REGISTER                      0x100
-    #define ALPHA_REGISTER_ALIAS_BETA_STATE      0x123 /* State */
+#define ALPHA_REGISTER                                          0x100
+    #define ALPHA_REGISTER_ALIAS_BETA_STATE                         0x123 /* State */
 """
 
         self.run_test(cmapsource, expected_body)
@@ -398,8 +398,8 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA_REGISTER                      0x100
-    #define ALPHA_REGISTER_BETA_BITFIELD_ALIAS       0xf0 /* Bitfield */
+#define ALPHA_REGISTER                                          0x100
+    #define ALPHA_REGISTER_BETA_BITFIELD_ALIAS                       0xf0 /* Bitfield */
         #define ALPHA_REGISTER_BETA_BITFIELD_ALIAS_GAMMA_STATE_ALIAS       0x10 /* Bitfield state */
 """
 

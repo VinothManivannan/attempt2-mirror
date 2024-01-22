@@ -104,7 +104,7 @@ class GenerateApiCheader():
                 else:
                     addr = addr + 0x40000000
             instance_name = prepend_namespaces(register, register.get_customer_name().upper())
-            output.write(f"#define {instance_name:<30} {addr:>#10x}\n")
+            output.write(f"#define {instance_name:<50} {addr:>#10x}\n")
         else:
             for instance in register.get_instances():
                 # Output register address
@@ -117,7 +117,7 @@ class GenerateApiCheader():
                         addr = addr + 0x40000000
                 instance_name = register.get_customer_name() + instance.get_legacy_suffix()
                 instance_name = prepend_namespaces(register, instance_name)
-                output.write(f"#define {instance_name.upper():<30} {addr:>#10x}\n")
+                output.write(f"#define {instance_name.upper():<50} {addr:>#10x}\n")
 
         # Output register states
         if register.register.states:

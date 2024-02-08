@@ -536,7 +536,7 @@ class TahiniVersion():
     """
 
     @staticmethod
-    def create_version_info(project_path: str, device_type: str, config_name: str, 
+    def create_version_info(project_path: str, device_type: str, config_name: str,
                             config_id: int, uid: str) -> VersionInfo:
         """Write version.info.json file
 

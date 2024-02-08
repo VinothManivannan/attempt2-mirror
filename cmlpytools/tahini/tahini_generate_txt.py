@@ -94,6 +94,7 @@ class GenerateTxt():
         output.write(_indent(2)+f"Access:{item.access.value}" +
                      _indent(2)+f"Bytes:{item.size}" +
                      _indent(2)+f"Format:{item.register.format}" +
+                     _indent(2)+f"Units:{item.register.units}" +
                      _indent(2)+f"Max:{item.register.max}" +
                      _indent(2)+f"Min:{item.register.min}\n")
 

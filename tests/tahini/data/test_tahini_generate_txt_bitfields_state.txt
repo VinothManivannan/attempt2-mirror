@@ -13,12 +13,12 @@
 
 
 bits                          
-    Access:private    Bytes:2    Format:None    Max:None    Min:None
+    Access:private    Bytes:2    Format:None    Units:None    Max:None    Min:None
     States:
             0:  standby
 
 bitfields                     Bit field members.
-    Access:private    Bytes:2    Format:None    Max:None    Min:None
+    Access:private    Bytes:2    Format:None    Units:None    Max:None    Min:None
     Flags:
         mask: 0x01    ois_flag    Normal OIS motion detected.
         mask: 0x02    pan_tilt_flag    Pan-tilt motion detected.

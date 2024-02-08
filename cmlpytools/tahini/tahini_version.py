@@ -321,6 +321,7 @@ class Repository():
 
         Args:
             basic_version (VersionInfo): Basic version information of topcode
+            uid (str): Firmware uid claimed from CMLWeb
         """
         topcode_version = self.__find_top_level()
         basic_version.project = topcode_version.name
@@ -535,7 +536,8 @@ class TahiniVersion():
     """
 
     @staticmethod
-    def create_version_info(project_path: str, device_type: str, config_name: str, config_id: int, uid: str) -> VersionInfo:
+    def create_version_info(project_path: str, device_type: str, config_name: str, 
+                            config_id: int, uid: str) -> VersionInfo:
         """Write version.info.json file
 
         Args:
@@ -543,6 +545,7 @@ class TahiniVersion():
             device_type (str): Device type
             config_name (str): Name of the build configuration
             config_id (int): ID of the build configuration
+            uid (str): Firmware uid claimed from CMLWeb
 
         Returns:
             VersionInfo: Basic version info object

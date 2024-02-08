@@ -4,7 +4,6 @@ This module implements the tahini command line argument.
 import argparse
 import textwrap
 import sys
-import json
 from .tahini_cmap import TahiniCmap
 from .tahini_crc import TahiniCrc
 from .tahini_gimli import TahiniGimli
@@ -143,7 +142,8 @@ class Tahini():
         parser = argparse.ArgumentParser(
             description="Generate basic version info",
             usage="\
-            tahini version <project-path> <device-type> <build-config-name> <build-config-id> [--uid=<firmware-uid>] [--output=<file-path>]")
+            tahini version <project-path> <device-type> <build-config-name> <build-config-id> \
+            [--uid=<firmware-uid>] [--output=<file-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("project_path", help="Firmware Project Path. Example: path/to/stmh")
         parser.add_argument("device_type", help="Device Type. Example: cm824_4ws")

@@ -154,11 +154,16 @@ class Tahini():
             help="Write the result into the file specified instead of the standard output.")
         args = parser.parse_args()
 
+        if args.fw_uid == "" or args.fw_uid is None:
+            fw_uid = "0"
+        else:
+            fw_uid = args.fw_uid
+
         version_info = TahiniVersion.create_version_info(args.project_path,
                                                          args.device_type,
                                                          args.config_name,
                                                          args.config_id,
-                                                         args.fw_uid)
+                                                         fw_uid)
 
         # pylint: disable=consider-using-with
         stdout = sys.stdout

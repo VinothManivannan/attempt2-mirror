@@ -346,6 +346,9 @@ class Repository():
     def get_basic_version(self, uid: str) -> VersionInfo:
         """User function to generate basic version info
 
+        Args:
+            uid (str): Firmware uid claimed from CMLWeb
+
         Returns:
             (VersionInfo): Extended version info
         """

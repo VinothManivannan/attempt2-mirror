@@ -316,17 +316,17 @@ class Repository():
         full_gitversion = full_gitversion + submodule_version
         return full_gitversion
 
-    def __initialise_version(self, basic_version: VersionInfo) -> None:
+    def __initialise_version(self, basic_version: VersionInfo, uid: str) -> None:
         """Initialize VersionInfo object
 
         Args:
             basic_version (VersionInfo): Basic version information of topcode
+            uid (str): Firmware uid claimed from CMLWeb
         """
         topcode_version = self.__find_top_level()
         basic_version.project = topcode_version.name
 
-        get_git_sha_cmd = 'git rev-parse HEAD'
-        basic_version.uid = str(self.run_command(get_git_sha_cmd))[:8]
+        basic_version.uid = uid
 
         get_version_cmd = 'git describe --tags --first-parent --always --long'
         basic_version.version = (
@@ -343,15 +343,18 @@ class Repository():
         """
         full_version.git_versions = self.__get_gitversion_list()
 
-    def get_basic_version(self) -> VersionInfo:
+    def get_basic_version(self, uid: str) -> VersionInfo:
         """User function to generate basic version info
+
+        Args:
+            uid (str): Firmware uid claimed from CMLWeb
 
         Returns:
             (VersionInfo): Extended version info
         """
         self.verify_project_path()
         basic_version = VersionInfo(self.device_type, self.config_name, self.config_id)
-        self.__initialise_version(basic_version)
+        self.__initialise_version(basic_version, uid)
         return basic_version
 
     def deserialize_basic_version(self, version_file_path: str) -> VersionInfo:
@@ -536,7 +539,8 @@ class TahiniVersion():
     """
 
     @staticmethod
-    def create_version_info(project_path: str, device_type: str, config_name: str, config_id: int) -> VersionInfo:
+    def create_version_info(project_path: str, device_type: str, config_name: str,
+                            config_id: int, uid: str) -> VersionInfo:
         """Write version.info.json file
 
         Args:
@@ -544,13 +548,14 @@ class TahiniVersion():
             device_type (str): Device type
             config_name (str): Name of the build configuration
             config_id (int): ID of the build configuration
+            uid (str): Firmware uid claimed from CMLWeb
 
         Returns:
             VersionInfo: Basic version info object
         """
 
         repo = LiveRepository(project_path, device_type, config_name, config_id)
-        return repo.get_basic_version()
+        return repo.get_basic_version(uid)
 
     @staticmethod
     def create_extended_version_info(project_path, version_info_path) -> ExtendedVersionInfo:

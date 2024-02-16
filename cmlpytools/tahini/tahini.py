@@ -142,20 +142,28 @@ class Tahini():
         parser = argparse.ArgumentParser(
             description="Generate basic version info",
             usage="\
-            tahini version <project-path> <device-type> <build-config-name> <build-config-id> [--output=<file-path>]")
+            tahini version <project-path> <device-type> <build-config-name> <build-config-id> \
+            [--uid=<firmware-uid>] [--output=<file-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("project_path", help="Firmware Project Path. Example: path/to/stmh")
         parser.add_argument("device_type", help="Device Type. Example: cm824_4ws")
         parser.add_argument("config_name", help="Build Configuration Name. Example fw_cm8x4_4ws")
         parser.add_argument("config_id", help="Build ID. Example: 9")
+        parser.add_argument("--fw_uid", required=False, help="Firmware UID claimed from CMLWeb")
         parser.add_argument("--output", required=False,
             help="Write the result into the file specified instead of the standard output.")
         args = parser.parse_args()
 
+        if args.fw_uid == "" or args.fw_uid is None:
+            fw_uid = "0"
+        else:
+            fw_uid = args.fw_uid
+
         version_info = TahiniVersion.create_version_info(args.project_path,
                                                          args.device_type,
                                                          args.config_name,
-                                                         args.config_id)
+                                                         args.config_id,
+                                                         fw_uid)
 
         # pylint: disable=consider-using-with
         stdout = sys.stdout

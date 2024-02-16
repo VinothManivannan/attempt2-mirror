@@ -177,7 +177,7 @@ class TestVersionInfo(unittest.TestCase):
         test_obj = MockRepositoryMaster(
             "Mock/Path", "DEVICE_TYPE", "CONFIG_NAME", 10)
 
-        version_info = test_obj.get_basic_version()
+        version_info = test_obj.get_basic_version("0123ABCD")
 
         self.assertEqual(version_info.project, "topcode")
         self.assertEqual(version_info.uid, "0123ABCD")
@@ -431,7 +431,7 @@ class TestDeserialization2(unittest.TestCase):
         test_obj = MockRepositoryMaster(
             None, None, "CONFIG_NAME", 10)
 
-        basic_version_obj = test_obj.get_basic_version()
+        basic_version_obj = test_obj.get_basic_version("0123ABCD")
 
         basic_version_deserialized = test_obj.deserialize_basic_version(
             "./tests/tahini/data/test_version.info.json")
@@ -500,16 +500,16 @@ class TestProjectPathValidity2(unittest.TestCase):
 
         with self.assertRaises(NotADirectoryError):
             test_obj = LiveRepository("invalid/path", None, None, None)
-            test_obj.get_basic_version()
+            test_obj.get_basic_version("0123ABCD")
 
         with self.assertRaises(expected_exception=(InvalidArgumentError, InvalidProjectPathError)):
             test_obj = LiveRepository(self.mock_file.name, None, None, None)
-            test_obj.get_basic_version()
+            test_obj.get_basic_version("0123ABCD")
 
         with self.assertRaises(InvalidProjectPathError):
             test_obj = LiveRepository(
                 self.mock_directory.name, None, None, None)
-            test_obj.get_basic_version()
+            test_obj.get_basic_version("0123ABCD")
 
     def test_version_info_path_exists(self):
         """Test if the path contains to version.info.json exists. MockRepositoryMaster is used so to skip

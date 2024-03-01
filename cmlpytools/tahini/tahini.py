@@ -15,6 +15,7 @@ from .tahini_generate_appnote_csv import GenerateAppnoteCSV
 from .tahini_generate_txt import GenerateTxt
 from .tahini_generate_api_cheader import GenerateApiCheader
 from .tahini_add_json_info import TahiniAddJsonInfo
+from .tahini_remove_param_prefix import TahiniRemoveParamPrefix
 
 class Tahini():
     """Class for Tahini Command Line implementation
@@ -96,6 +97,36 @@ class Tahini():
             sys.stdout = open(args.output, "w", encoding="UTF-8")
 
         TahiniGimli.main(args.elf_path, args.compile_unit_names)
+
+        if args.output is not None:
+            sys.stdout.close()
+        sys.stdout = stdout
+        # pylint: enable=consider-using-with
+
+    def removeparamprefix(self):
+        """
+        Combine input json and additional json files
+        """
+        parser = argparse.ArgumentParser(
+            description="Combine gimli generated JSON input file with additional one with extra information",
+            usage=
+                "tahini removeparamprefix <json-path.json> --output <json-path.json>")
+        parser.add_argument('command', help=argparse.SUPPRESS)
+        parser.add_argument("input_json_path", help="Path to gimli generated input json file. Example: path/to/stmh")
+        parser.add_argument("--output", required=False,
+            help="Write the result into the file specified instead of the standard output.")
+        args = parser.parse_args()
+
+        combined_json_output = TahiniRemoveParamPrefix.remove_param_prefix(args.input_json_path)
+
+        # pylint: disable=consider-using-with
+        stdout = sys.stdout
+        if args.output is not None:
+            sys.stdout = open(args.output, "w", encoding="UTF-8")
+        else:
+            sys.stdout = open(args.input_json_path, "w", encoding="UTF-8")
+
+        sys.stdout.write(combined_json_output.to_json(indent=4))
 
         if args.output is not None:
             sys.stdout.close()

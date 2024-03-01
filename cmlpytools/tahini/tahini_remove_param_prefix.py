@@ -1,17 +1,16 @@
 """
-This file contains methods to add json information, such as Cref, briefs... to the gimli generated 
-input json file from the compiled code
+This file implements a method to remove the Param prefix from the Rumba s10 registers
 """
 
 import re
 from .input_json_schema import InputJson, InputRegmap
 
 class TahiniRemoveParamPrefix:
-    """Class contains the necessary definitions to combine 2 input json files
+    """Class contains the necessary definitions to implement intended function
     """
     @staticmethod
     def remove_param_prefix(input_json_path: str) -> InputJson:
-        """Combine input json file with additional one including extra documentation
+        """Remove Param prefix from registers
 
         Args:
             input_json_path (str): gimli generated input json
@@ -33,17 +32,17 @@ class TahiniRemoveParamPrefix:
 
     @staticmethod
     def remove_reg_param_prefix(input_json_reg: InputRegmap):
-        """ Adds additonal information from extra json regmap entries to input json file 
+        """ Removes Param prefix from registers
 
         Args:
-            input_json_reg (InputRegmap): InputRegmap object from which information is to be added
+            input_json_reg (InputRegmap): InputRegmap object to remove Param prefix from
         """
         if input_json_reg.type != "struct":
-            if (re.match(r"Param*",input_json_reg.name) is not None):
+            if re.match(r"Param*",input_json_reg.name) is not None:
                 input_json_reg.name = input_json_reg.name[5:]
 
         else:
-            if (re.match(r"Param*",input_json_reg.name) is not None):
+            if re.match(r"Param*",input_json_reg.name) is not None:
                 input_json_reg.name = input_json_reg.name[5:]
             for reg in input_json_reg.members:
                 TahiniRemoveParamPrefix.remove_reg_param_prefix(reg)

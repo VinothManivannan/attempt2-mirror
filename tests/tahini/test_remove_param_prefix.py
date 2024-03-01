@@ -20,8 +20,6 @@ class TestRemoveParamPrefix(unittest.TestCase):
 
         json_result = TahiniRemoveParamPrefix.remove_param_prefix(input_json_file)
 
-        print("something")
-
         expected_json_result = InputJson.load_json(output_json_file)
         self.assertEqual(expected_json_result, json_result,
                             "removeparamprefix test failed, generated json not equal to expected")

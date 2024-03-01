@@ -38,11 +38,11 @@ class TahiniRemoveParamPrefix:
             input_json_reg (InputRegmap): InputRegmap object to remove Param prefix from
         """
         if input_json_reg.type != "struct":
-            if re.match(r"Param*",input_json_reg.name) is not None:
+            if re.match("Param",input_json_reg.name) is not None:
                 input_json_reg.name = input_json_reg.name[5:]
 
         else:
-            if re.match(r"Param*",input_json_reg.name) is not None:
+            if re.match("Param",input_json_reg.name) is not None:
                 input_json_reg.name = input_json_reg.name[5:]
             for reg in input_json_reg.members:
                 TahiniRemoveParamPrefix.remove_reg_param_prefix(reg)

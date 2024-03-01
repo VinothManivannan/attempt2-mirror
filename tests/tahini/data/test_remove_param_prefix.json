@@ -34,7 +34,7 @@
                         },
                         {
                             "type": "unsigned char",
-                            "name": "va_slv_addr"
+                            "name": "vaParam_slv_addr_Param"
                         }
                     ],
                     "brief": "Add brief to regmap struct",

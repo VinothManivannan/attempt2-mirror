@@ -14,7 +14,7 @@ class TestRemoveParamPrefix(unittest.TestCase):
     """Test class for addjsoninfo tahini method
     """
     def test(self):
-        """Test if Param prefix removed as expected"""
+        """Test if Param prefix is removed as expected"""
         input_json_file = path.join(PATH_TO_DATA, "test_remove_param_prefix.json")
         output_json_file = path.join(PATH_TO_DATA, "test_remove_param_prefix_result.json")
 

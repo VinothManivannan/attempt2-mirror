@@ -119,7 +119,7 @@ class Tahini():
             help="Write the result into the file specified instead of the standard output.")
         args = parser.parse_args()
 
-        combined_json_output = TahiniRemoveParamPrefix.remove_param_prefix(args.input_json_path)
+        json_output = TahiniRemoveParamPrefix.remove_param_prefix(args.input_json_path)
 
         # pylint: disable=consider-using-with
         stdout = sys.stdout
@@ -128,7 +128,7 @@ class Tahini():
         else:
             sys.stdout = open(args.input_json_path, "w", encoding="UTF-8")
 
-        sys.stdout.write(combined_json_output.to_json(indent=4))
+        sys.stdout.write(json_output.to_json(indent=4))
 
         if args.output is not None:
             sys.stdout.close()

@@ -6,7 +6,7 @@ import re
 from .input_json_schema import InputJson, InputRegmap
 
 class TahiniRemoveParamPrefix:
-    """Class contains the necessary definitions to implement intended function
+    """Class contains the necessary definitions to implement the intended function
     """
     @staticmethod
     def remove_param_prefix(input_json_path: str) -> InputJson:

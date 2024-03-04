@@ -598,18 +598,20 @@ class TahiniCmap():
 
         if extended_version_info_path is not None:
             version_info = ExtendedVersionInfo.load_json(extended_version_info_path)
+            support_hif_access = (version_info.device_type == "cm8x4") or (version_info.device_type == "cm824")
             cmap = CmapFullRegmap(
                 scheme=CmapScheme(2, 0),
                 version=version_info,
-                regmap=TahiniCmap.cmap_regmap_from_input_json(input_json, version_info.device_type == "cm824")
+                regmap=TahiniCmap.cmap_regmap_from_input_json(input_json, support_hif_access)
             )
         else:
             assert project_path is not None, "Error: version_info_path was specified but not project_path"
             version_info = TahiniVersion.create_extended_version_info(project_path, version_info_path)
+            support_hif_access = (version_info.device_type == "cm8x4") or (version_info.device_type == "cm824")
             cmap = CmapFullRegmap(
                 scheme=CmapScheme(2, 0),
                 version=version_info,
-                regmap=TahiniCmap.cmap_regmap_from_input_json(input_json, version_info.device_type == "cm824")
+                regmap=TahiniCmap.cmap_regmap_from_input_json(input_json, support_hif_access)
             )
 
         # Now check for overlapping addresses in regmap

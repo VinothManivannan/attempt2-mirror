@@ -1,6 +1,6 @@
 """
-This program tests if Param prefix is eliminated regardless of whether register is in struct
-and ensures param is not eliminated and nothing else changes
+This program tests if Param prefix is eliminated regardless of whether register is a struct
+and ensures param (lowercase) is not eliminated and nothing else changes
 """
 # pylint: disable=wrong-import-position
 from os import path
@@ -11,7 +11,7 @@ from cmlpytools.tahini.input_json_schema import InputJson
 PATH_TO_DATA = "./tests/tahini/data"
 
 class TestRemoveParamPrefix(unittest.TestCase):
-    """Test class for addjsoninfo tahini method
+    """Test class for removeparamprefix tahini method
     """
     def test(self):
         """Test if Param prefix is removed as expected"""

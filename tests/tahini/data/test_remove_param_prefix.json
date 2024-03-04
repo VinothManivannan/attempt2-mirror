@@ -1,0 +1,69 @@
+{
+    "regmap": [
+        {
+            "type": "struct",
+            "name": "SiggenParams4Dof",
+            "byte_size": 36,
+            "members": [
+                {
+                    "type": "unsigned int",
+                    "name": "ParamPwm_frequency",
+                    "byte_size": 4,
+                    "brief": "Target PWM frequency in Hz",
+                    "byte_offset": 0,
+                    "access": "public"
+                },
+                {
+                    "type": "unsigned int",
+                    "name": "parameter1",
+                    "byte_size": 4
+                },
+                {
+                    "type": "struct",
+                    "name": "ParamProtection_config",
+                    "byte_size": 20,
+                    "members": [
+                        {
+                            "type": "unsigned char",
+                            "name": "siggen_params_4dof",
+                            "byte_size": 1,
+                            "brief": "Some",
+                            "byte_offset": 552,
+                            "array_count": 36,
+                            "cref": "SiggenParams4Dof"
+                        },
+                        {
+                            "type": "unsigned char",
+                            "name": "vaParam_slv_addr_Param"
+                        }
+                    ],
+                    "brief": "Add brief to regmap struct",
+                    "byte_offset": 4,
+                    "hif_access": false
+                },
+                {
+                    "type": "unsigned int",
+                    "name": "param_flash_write",
+                    "access": "private"
+                },
+                {
+                    "type": "unsigned int",
+                    "name": "ParamFlash_read_data",
+                    "byte_size": 4,
+                    "byte_offset": 236
+                }
+            ]
+        }
+    ],
+    "enums": [
+        {
+            "name": "None",
+            "enumerators": [
+                {
+                    "name": "None",
+                    "value": 0
+                }
+            ]
+        }
+    ]
+}

@@ -7,9 +7,7 @@ Test 3 tests that every single field can be added and that if some fields are no
 """
 # pylint: disable=wrong-import-position
 from os import path
-import sys
 import unittest
-sys.path.append('../')
 from cmlpytools.tahini.tahini_add_json_info import TahiniAddJsonInfo
 from cmlpytools.tahini.input_json_schema import InputJson
 
@@ -23,24 +21,10 @@ class TestCombiningJson(unittest.TestCase):
         for i in range (1, 4):
             input_json_file = path.join(PATH_TO_DATA, "test_input_json_example.json")
             additional_json_file = path.join(PATH_TO_DATA, f"test_extra_regmap_info{i}.json")
-            combined_json_file = path.join(PATH_TO_DATA, "test_combined_json_output.json")
             expected_combined_json_file = path.join(PATH_TO_DATA, f"test_expected_combined_json{i}.json")
 
             combined_json_output = TahiniAddJsonInfo.combine_json_files(input_json_file, additional_json_file)
 
-            # pylint: disable=consider-using-with
-            stdout = sys.stdout
-            if combined_json_file is not None:
-                sys.stdout = open(combined_json_file, "w", encoding="UTF-8")
-
-            sys.stdout.write(combined_json_output.to_json(indent=4))
-
-            if combined_json_file is not None:
-                sys.stdout.close()
-            sys.stdout = stdout
-            # pylint: enable=consider-using-with
-
-            combined_json_obj = InputJson.load_json(combined_json_file)
             expected_combined_json_obj = InputJson.load_json(expected_combined_json_file)
-            self.assertEqual(expected_combined_json_obj, combined_json_obj,
+            self.assertEqual(expected_combined_json_obj, combined_json_output,
                              f"Addjsoninfo test {i} failed, generated json file not equal to expected")

@@ -15,6 +15,7 @@ from .tahini_generate_appnote_csv import GenerateAppnoteCSV
 from .tahini_generate_txt import GenerateTxt
 from .tahini_generate_api_cheader import GenerateApiCheader
 from .tahini_add_json_info import TahiniAddJsonInfo
+from .tahini_remove_param_prefix import TahiniRemoveParamPrefix
 
 class Tahini():
     """Class for Tahini Command Line implementation
@@ -26,26 +27,28 @@ class Tahini():
                                          formatter_class=argparse.RawDescriptionHelpFormatter,
                                          epilog=textwrap.dedent('''\
         Available commands:
-            gimli         Generate JSON input file from C definitions from a compiled file (elf, o, exe).
-                            Usage: tahini gimli <firmware-file-path> --output <json-path.json>
-            addjsoninfo   Combine gimli generated JSON input file with additional one with extra information when needed (e.g. Rumba S10)
-                            Usage: tahini addjsoninfo <json-path.json> <additional-json-path.json> --output <json-path.json>
-            version       Generate version json file
-                            Usage: tahini version <device-type> <project-path> <build-config-name> <build-config-id> --output <version.info.json>
-            cmap          Generate cmap source file. This file is a source for other interpretations of the regmap (txt, csv, etc...)
-                            Usage: tahini cmap <project-path> <version-info-file> <input-json-path> outputs a Cmapsource File to stdout
-            crc           Create a CRC-appended ARM Cortex-M firmware binary
-                            Usage: tahini crc <firmware-file.bin> --output <firmware-file.bin>
-            flattxt       Generate flat txt regmap. 
-                            Usage: tahini flattxt <cmap-json-path> --output <flat-txt-path.txt>
-            csv           Generate csv regmap file (usually for appnotes).
-                            Usage: tahini csv <cmap-json-path> --output <csv-file.csv>
-            txt           Generate human-readable regmap txt file
-                            Usage: tahini txt <cmap-json-path> --output <txt-path.txt>
-            legacycheader Generate old-style json header for compatipiliti with Tzatziki
-                            Usage: tahini legacycheader <legacy-json-path> --output <legacy-header.json>
-            apicheader    Generate API c header for the API code
-                            Usage: tahini apicheader <cmap-json-path> --output <c-header.h>
+            gimli             Generate JSON input file from C definitions from a compiled file (elf, o, exe).
+                                Usage: tahini gimli <firmware-file-path> --output <json-path.json>
+            removeparamprefix Remove Param prefix from s10 registers.
+                                Usage: tahini removeparamprefix <json-path.json> --output <json-path.json>
+            addjsoninfo       Combine gimli generated JSON input file with additional one with extra information when needed (e.g. Rumba S10)
+                                Usage: tahini addjsoninfo <json-path.json> <additional-json-path.json> --output <json-path.json>
+            version           Generate version json file
+                                Usage: tahini version <device-type> <project-path> <build-config-name> <build-config-id> --output <version.info.json>
+            cmap              Generate cmap source file. This file is a source for other interpretations of the regmap (txt, csv, etc...)
+                                Usage: tahini cmap <project-path> <version-info-file> <input-json-path> outputs a Cmapsource File to stdout
+            crc               Create a CRC-appended ARM Cortex-M firmware binary
+                                Usage: tahini crc <firmware-file.bin> --output <firmware-file.bin>
+            flattxt           Generate flat txt regmap. 
+                                Usage: tahini flattxt <cmap-json-path> --output <flat-txt-path.txt>
+            csv               Generate csv regmap file (usually for appnotes).
+                                Usage: tahini csv <cmap-json-path> --output <csv-file.csv>
+            txt               Generate human-readable regmap txt file
+                                Usage: tahini txt <cmap-json-path> --output <txt-path.txt>
+            legacycheader     Generate old-style json header for compatipiliti with Tzatziki
+                                Usage: tahini legacycheader <legacy-json-path> --output <legacy-header.json>
+            apicheader        Generate API c header for the API code
+                                Usage: tahini apicheader <cmap-json-path> --output <c-header.h>
         All these commands can output the result to stdout if `--output` is not set.
         For more detailed help, type "tahini <command> -h" '''))
 
@@ -96,6 +99,36 @@ class Tahini():
             sys.stdout = open(args.output, "w", encoding="UTF-8")
 
         TahiniGimli.main(args.elf_path, args.compile_unit_names)
+
+        if args.output is not None:
+            sys.stdout.close()
+        sys.stdout = stdout
+        # pylint: enable=consider-using-with
+
+    def removeparamprefix(self):
+        """
+        Remove Param prefix from s10 registers
+        """
+        parser = argparse.ArgumentParser(
+            description="Remove Param prefix from s10 registers.",
+            usage=
+                "tahini removeparamprefix <json-path.json> --output <json-path.json>")
+        parser.add_argument('command', help=argparse.SUPPRESS)
+        parser.add_argument("input_json_path", help="Path to gimli generated input json file. Example: path/to/stmh")
+        parser.add_argument("--output", required=False,
+            help="Write the result into the file specified instead of the standard output.")
+        args = parser.parse_args()
+
+        json_output = TahiniRemoveParamPrefix.remove_param_prefix(args.input_json_path)
+
+        # pylint: disable=consider-using-with
+        stdout = sys.stdout
+        if args.output is not None:
+            sys.stdout = open(args.output, "w", encoding="UTF-8")
+        else:
+            sys.stdout = open(args.input_json_path, "w", encoding="UTF-8")
+
+        sys.stdout.write(json_output.to_json(indent=4))
 
         if args.output is not None:
             sys.stdout.close()

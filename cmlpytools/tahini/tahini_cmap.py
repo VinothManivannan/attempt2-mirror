@@ -598,7 +598,7 @@ class TahiniCmap():
 
         if extended_version_info_path is not None:
             version_info = ExtendedVersionInfo.load_json(extended_version_info_path)
-            support_hif_access = (version_info.device_type == "cm8x4") or (version_info.device_type == "cm824")
+            support_hif_access = version_info.device_type in {"cm8x4", "cm824"}
             cmap = CmapFullRegmap(
                 scheme=CmapScheme(2, 0),
                 version=version_info,
@@ -607,7 +607,7 @@ class TahiniCmap():
         else:
             assert project_path is not None, "Error: version_info_path was specified but not project_path"
             version_info = TahiniVersion.create_extended_version_info(project_path, version_info_path)
-            support_hif_access = (version_info.device_type == "cm8x4") or (version_info.device_type == "cm824")
+            support_hif_access = version_info.device_type in {"cm8x4", "cm824"}
             cmap = CmapFullRegmap(
                 scheme=CmapScheme(2, 0),
                 version=version_info,

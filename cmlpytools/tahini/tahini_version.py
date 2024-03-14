@@ -54,7 +54,7 @@ class Repository():
 
     # The branch commit regex is similar, just accounting for the odd "-", and searching for alpha-numeric characters in
     # the commit_id
-    BRANCH_COMMIT_TAG_REGEX = r"((-)(?P<branch>[0-9]+)(\.)(?P<release_num>[0-9]+))?" 
+    BRANCH_COMMIT_TAG_REGEX = r"((-)(?P<branch>[0-9]+)(\.)(?P<release_num>[0-9]+))?"
 
     # The git branch regex is searching for issue numbers like "FW-123", or older "CAEF-123", so letters of any case,
     # followed by a "-", and then any set of numbers.

@@ -17,8 +17,7 @@
                 "last_tag": {
                     "major": 1,
                     "minor": 2,
-                    "patch": 3,
-                    "commit_num": 10
+                    "patch": 3
                 },
                 "branch_ids": [
                     "FW-1234",
@@ -28,29 +27,25 @@
                     "FW-5678",
                     "FW-6789",
                     "FW-7890"
-                ],
-                "commit_id": "123ABCD"
+                ]
             },
             {
                 "name": "submodule1",
                 "last_tag": {
                     "major": 4,
                     "minor": 5,
-                    "patch": 6,
-                    "commit_num": 20
+                    "patch": 6
                 },
                 "branch_ids": [
                     "FW-4321",
                     "FW-8765",
                     "FW-2109"
-                ],
-                "commit_id": "345CDEF"
+                ]
             },
             {
                 "name": "submodule2",
                 "last_tag": {},
-                "branch_ids": [],
-                "commit_id": "567EFAB"
+                "branch_ids": []
             }
         ]
     },

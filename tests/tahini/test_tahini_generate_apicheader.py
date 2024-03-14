@@ -56,7 +56,7 @@ extern "C" {
 #endif /* API_HEADER_H */
 """
 
-    _GITVERSIONS = GitVersion(commit_id="abcd1234", last_tag=LastTag(major="1", minor="3", patch="2", branch_id="6789",
+    _GITVERSIONS = GitVersion(last_tag=LastTag(major="1", minor="3", patch="2", branch_id="6789",
                                                                     release_num="1"))
 
     _VERSION = ExtendedVersionInfo(device_type="Don't Care", config_name="Don't Care", config_id="11",
@@ -82,7 +82,6 @@ extern "C" {
     .replace("%%PATCH_VERSION%%", str(_GITVERSIONS.last_tag.patch))\
     .replace("%%MAJOR_SUBVERSION%%", str(_GITVERSIONS.last_tag.branch_id))\
     .replace("%%MINOR_SUBVERSION%%", str(_GITVERSIONS.last_tag.release_num))\
-    .replace("%%UNIQUE_ID%%", str(_VERSION.git_versions[0].commit_id))\
     .replace("%%BUILDCONFIG_ID%%", str(_VERSION.config_id))
 
     def run_test(self, cmapsource: CmapRegmap, expected_body: str) -> None:

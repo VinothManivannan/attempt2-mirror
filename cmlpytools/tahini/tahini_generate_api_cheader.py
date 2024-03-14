@@ -183,7 +183,6 @@ class GenerateApiCheader():
             .replace("%%PATCH_VERSION%%", str(last_tag.patch))\
             .replace("%%MAJOR_SUBVERSION%%", str(last_tag.branch_id))\
             .replace("%%MINOR_SUBVERSION%%", str(last_tag.release_num))\
-            .replace("%%UNIQUE_ID%%", str(version.git_versions[0].commit_id))\
             .replace("%%BUILDCONFIG_ID%%", str(version.config_id))
 
         output.write(header)

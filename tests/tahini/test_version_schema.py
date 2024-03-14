@@ -244,27 +244,12 @@ class TestVersionInfo(unittest.TestCase):
         self.assertEqual(
             full_version_info.git_versions[2].last_tag.release_num, self.test_ver_submod2.last_tag.release_num)
 
-        self.assertEqual(
-            full_version_info.git_versions[0].last_tag.commit_num, self.test_ver_topcode.last_tag.commit_num)
-        self.assertEqual(
-            full_version_info.git_versions[1].last_tag.commit_num, self.test_ver_submod1.last_tag.commit_num)
-        self.assertEqual(
-            full_version_info.git_versions[2].last_tag.commit_num, self.test_ver_submod2.last_tag.commit_num)
-
         self.assertEqual(full_version_info.git_versions[0].branch_ids,
                          self.test_ver_topcode.branch_ids)
         self.assertEqual(full_version_info.git_versions[1].branch_ids,
                          self.test_ver_submod1.branch_ids)
         self.assertEqual(full_version_info.git_versions[2].branch_ids,
                          self.test_ver_submod2.branch_ids)
-
-        self.assertEqual(full_version_info.git_versions[0].commit_id,
-                         self.test_ver_topcode.commit_id)
-        self.assertEqual(full_version_info.git_versions[1].commit_id,
-                         self.test_ver_submod1.commit_id)
-        self.assertEqual(full_version_info.git_versions[2].commit_id,
-                         self.test_ver_submod2.commit_id)
-
 
 class TestVersionInfoBranch(unittest.TestCase):
     """This tests whether Repository class can be used to get git information
@@ -348,12 +333,7 @@ class TestSerialization(unittest.TestCase):
                 git_version_list.last_tag.release_num,
                 full_version_dict["git_versions"][index]["last_tag"]["release_num"])
             self.assertEqual(
-                git_version_list.last_tag.commit_num,
-                full_version_dict["git_versions"][index]["last_tag"]["commit_num"])
-            self.assertEqual(
                 git_version_list.branch_ids, full_version_dict["git_versions"][index]["branch_ids"])
-            self.assertEqual(
-                git_version_list.commit_id, full_version_dict["git_versions"][index]["commit_id"])
 
 
 class TestDeserialization1(unittest.TestCase):
@@ -410,11 +390,7 @@ class TestDeserialization1(unittest.TestCase):
                 git_version_list.last_tag.release_num,
                 full_version_deserialized.git_versions[index].last_tag.release_num)
             self.assertEqual(
-                git_version_list.last_tag.commit_num, full_version_deserialized.git_versions[index].last_tag.commit_num)
-            self.assertEqual(
                 git_version_list.branch_ids, full_version_deserialized.git_versions[index].branch_ids)
-            self.assertEqual(
-                git_version_list.commit_id, full_version_deserialized.git_versions[index].commit_id)
 
 
 class TestDeserialization2(unittest.TestCase):

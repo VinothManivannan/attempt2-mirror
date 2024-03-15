@@ -164,11 +164,11 @@ class TestVersionInfo(unittest.TestCase):
     # function return values need to be changed, accordingly
 
     test_ver_topcode = GitVersion('topcode', LastTag(
-        1, 2, 3, 4567, 8, 9), ['BRANCH-00'])
+        1, 2, 3, 4567, 8), ['BRANCH-00'])
     test_ver_submod1 = GitVersion('submodule1', LastTag(
-        2, 3, 4, 5678, 9, 10), ['BRANCH-01', 'BRANCH-03', 'BRANCH-05'])
+        2, 3, 4, 5678, 9), ['BRANCH-01', 'BRANCH-03', 'BRANCH-05'])
     test_ver_submod2 = GitVersion('submodule2', LastTag(
-        3, 4, 5, 6789, 10, 11), ['BRANCH-02', 'BRANCH-04', 'BRANCH-06'])
+        3, 4, 5, 6789, 10), ['BRANCH-02', 'BRANCH-04', 'BRANCH-06'])
 
     def test_version_info(self):
         """Test whether the version information of topcode and submodules could be generated using
@@ -260,11 +260,11 @@ class TestVersionInfoBranch(unittest.TestCase):
     """
 
     test_ver_topcode = GitVersion('topcode', LastTag(
-        1, 2, 3, 9, 4567, 8), ['BRANCH-00', 'XYZ-789'])
+        1, 2, 3, 9, 4567), ['BRANCH-00', 'XYZ-789'])
     test_ver_submod1 = GitVersion('submodule1', LastTag(
-        2, 3, 4, 10, 5678, 9), ['BRANCH-01', 'BRANCH-03', 'BRANCH-05', 'ABC-123'])
+        2, 3, 4, 10, 5678), ['BRANCH-01', 'BRANCH-03', 'BRANCH-05', 'ABC-123'])
     test_ver_submod2 = GitVersion('submodule2', LastTag(
-        3, 4, 5, 11, 6789, 10), ['BRANCH-02', 'BRANCH-04', 'BRANCH-06', 'DEF-456'])
+        3, 4, 5, 11, 6789), ['BRANCH-02', 'BRANCH-04', 'BRANCH-06', 'DEF-456'])
 
     def test_version_info(self):
         """Test whether the version information of topcode and submodules could be generated using

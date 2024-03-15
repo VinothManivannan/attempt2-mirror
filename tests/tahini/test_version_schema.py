@@ -30,8 +30,8 @@ class MockRepositoryMaster(Repository):
         if command == "git rev-parse HEAD":
             return "0123ABCDEF"
 
-        if command == "git describe --tags --first-parent --always --long":
-            return "1.2.3-4567.8-9-gABCDEF"
+        if command == "git describe --tags --first-parent --always --abbrev=0":
+            return "1.2.3-4567.8"
 
         if command == "git log --merges --pretty=%s":
             return "Merge branch 'branch-00-topcde' into 'master'"
@@ -40,9 +40,9 @@ class MockRepositoryMaster(Repository):
             return "Entering 'topcode/submodule1'" + "\n" + "topcode/submodule1.git" + "\n" + \
                 "Entering 'topcode/submodule2'" + "\n" + "topcode/submodule2.git"
 
-        if command == "git submodule foreach --recursive git describe --tags --first-parent --always --long":
-            return "Entering 'topcode/submodule1'" + "\n" + "2.3.4-5678.9-10-gBCDEFA" + "\n" + \
-                "Entering 'topcode/submodule2'" + "\n" + "3.4.5-6789.10-11-gCDEFAB"
+        if command == "git submodule foreach --recursive git describe --tags --first-parent --always --abbrev=0":
+            return "Entering 'topcode/submodule1'" + "\n" + "2.3.4-5678.9" + "\n" + \
+                "Entering 'topcode/submodule2'" + "\n" + "3.4.5-6789.10"
 
         if command == "git -C topcode/submodule1 log --merges":
             return "Merge branch 'branch-01-submodule1' into 'master' \
@@ -102,8 +102,8 @@ class MockRepositoryBranch(Repository):
         if command == "git remote get-url origin":
             return "/topcode.git"
 
-        if command == "git describe --tags --first-parent --always --long":
-            return "1.2.3-4567.8-9-gABCDEF"
+        if command == "git describe --tags --first-parent --always --abbrev=0":
+            return "1.2.3-4567.8"
 
         if command == "git log --merges --pretty=%s":
             return "Merge branch 'branch-00-topcde' into 'master'"
@@ -112,9 +112,9 @@ class MockRepositoryBranch(Repository):
             return "Entering 'topcode/submodule1'" + "\n" + "topcode/submodule1.git" + "\n" + \
                 "Entering 'topcode/submodule2'" + "\n" + "topcode/submodule2.git"
 
-        if command == "git submodule foreach --recursive git describe --tags --first-parent --always --long":
-            return "Entering 'topcode/submodule1'" + "\n" + "2.3.4-5678.9-10-gBCDEFA" + "\n" + \
-                "Entering 'topcode/submodule2'" + "\n" + "3.4.5-6789.10-11-gCDEFAB"
+        if command == "git submodule foreach --recursive git describe --tags --first-parent --always --abbrev=0":
+            return "Entering 'topcode/submodule1'" + "\n" + "2.3.4-5678.9-10" + "\n" + \
+                "Entering 'topcode/submodule2'" + "\n" + "3.4.5-6789.10"
 
         if command == "git -C topcode/submodule1 log --merges":
             return "Merge branch 'branch-01-submodule1' into 'master' \

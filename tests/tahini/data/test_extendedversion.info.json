@@ -1,7 +1,7 @@
 {
     "project": "topcode",
     "uid": "0123ABC",
-    "version": "1.2.3-4567.8-9-gABCDEF",
+    "version": "1.2.3-4567.8",
     "device_type": "DEV_TYPE",
     "config_name": "CONFIG_NAME",
     "config_id": 10,

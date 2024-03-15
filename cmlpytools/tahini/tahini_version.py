@@ -103,7 +103,7 @@ class Repository():
             origin_tag_regex = self.VERSION_TAG_REGEX + self.BRANCH_COMMIT_TAG_REGEX
             self.is_s10 = False
 
-        get_version_cmd = 'git describe --tags --first-parent --always --long'
+        get_version_cmd = 'git describe --tags --first-parent --always --abbrev=0'
         topcode_tag = self.run_command(get_version_cmd)
 
         get_log_cmd = 'git log --merges --pretty=%s'
@@ -126,7 +126,7 @@ class Repository():
         git_submodule_urls.strip()
         git_submodule_urls = git_submodule_urls.splitlines()
         get_submodule_versions_cmd = \
-            'git submodule foreach --recursive git describe --tags --first-parent --always --long'
+            'git submodule foreach --recursive git describe --tags --first-parent --always --abbrev=0'
         submodule_tags = self.run_command(
             get_submodule_versions_cmd)
         submodule_tags = submodule_tags.splitlines()
@@ -313,7 +313,7 @@ class Repository():
 
         basic_version.uid = uid
 
-        get_version_cmd = 'git describe --tags --first-parent --always --long'
+        get_version_cmd = 'git describe --tags --first-parent --always --abbrev=0'
         basic_version.version = (
             self.run_command(get_version_cmd)).rstrip()
 

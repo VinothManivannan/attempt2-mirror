@@ -178,12 +178,16 @@ class GenerateApiCheader():
         header = HEADER_TEMPLATE.replace("%%YEAR%%", str(year)).replace("%%HEADER_GUARD%%", header_guard)
         footer = FOOTER_TEMPLATE.replace("%%HEADER_GUARD%%", header_guard)
         last_tag = version.git_versions[0].last_tag
+        if (version.uid == None):
+            version_uid = 0
+        else:
+            version_uid = version.uid
         version_string = VERSION_TEMPLATE.replace("%%MAJOR_VERSION%%", str(last_tag.major))\
             .replace("%%MINOR_VERSION%%", str(last_tag.minor))\
             .replace("%%PATCH_VERSION%%", str(last_tag.patch))\
             .replace("%%MAJOR_SUBVERSION%%", str(last_tag.branch_id))\
             .replace("%%MINOR_SUBVERSION%%", str(last_tag.release_num))\
-            .replace("%%UNIQUE_ID%%", str(int(0 or version.uid)))\
+            .replace("%%UNIQUE_ID%%", str(version_uid)\
             .replace("%%BUILDCONFIG_ID%%", str(version.config_id))
 
         output.write(header)

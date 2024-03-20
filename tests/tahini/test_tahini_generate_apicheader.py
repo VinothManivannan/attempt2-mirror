@@ -14,6 +14,7 @@ from cmlpytools.tahini.cmap_schema import Type as CmapType
 from cmlpytools.tahini.cmap_schema import VisibilityOptions as CmapVisibilityOptions
 from cmlpytools.tahini.cmap_schema import Bitfield as CmapBitfield
 from cmlpytools.tahini.cmap_schema import State as CmapState
+from cmlpytools.tahini.cmap_schema import ArrayIndex as CmapArrayIndex
 from cmlpytools.tahini.version_schema import ExtendedVersionInfo
 from cmlpytools.tahini.version_schema import GitVersion
 from cmlpytools.tahini.version_schema import LastTag
@@ -253,6 +254,72 @@ extern "C" {
 
         expected_body = """\
 #define BETA                                                    0x200
+"""
+
+        self.run_test(cmapsource, expected_body)
+        
+    def test_repeated_register(self):
+        """Test we can output a public register that is repeated
+        """
+        cmapsource = CmapRegmap(
+            children=[
+                CmapRegisterOrStruct(
+                    name="beta",
+                    type=CmapType.REGISTER,
+                    addr=512,
+                    size=1,
+                    repeat_for=[
+                        CmapArrayIndex(
+                            count=4,
+                            offset=1
+                        )
+                    ],
+                    register=CmapRegister(
+                        ctype=CmapCtype.UINT16,
+                    ),
+                    access=CmapVisibilityOptions.PUBLIC
+                )
+            ]
+        )
+
+        expected_body = """\
+#define BETA_0                                                  0x200
+#define BETA_1                                                  0x201
+#define BETA_2                                                  0x202
+#define BETA_3                                                  0x203
+"""
+
+        self.run_test(cmapsource, expected_body)
+        
+    def test_repeated_register_aliased(self):
+        """Test we can output a public register that is repeated and aliased
+        """
+        cmapsource = CmapRegmap(
+            children=[
+                CmapRegisterOrStruct(
+                    name="beta",
+                    type=CmapType.REGISTER,
+                    addr=512,
+                    size=1,
+                    repeat_for=[
+                        CmapArrayIndex(
+                            count=3,
+                            offset=1,
+                            aliases=["x", "y", "z"]
+                        )
+                    ],
+                    register=CmapRegister(
+                        ctype=CmapCtype.UINT16,
+                    ),
+                    access=CmapVisibilityOptions.PUBLIC
+                )
+            ]
+        )
+
+        expected_body = """\
+#define BETA_X                                                  0x200
+#define BETA_Y                                                  0x201
+#define BETA_Z                                                  0x202
 """
 
         self.run_test(cmapsource, expected_body)

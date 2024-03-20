@@ -115,7 +115,7 @@ class GenerateApiCheader():
                         addr = addr + 0x3e000
                     else:
                         addr = addr + 0x40000000
-                instance_name = register.get_customer_name() + instance.get_legacy_suffix()
+                instance_name = register.get_customer_name() + '_' + instance.get_legacy_suffix()
                 instance_name = prepend_namespaces(register, instance_name)
                 output.write(f"#define {instance_name.upper():<50} {addr:>#10x}\n")
 

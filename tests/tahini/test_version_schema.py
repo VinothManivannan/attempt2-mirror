@@ -30,8 +30,8 @@ class MockRepositoryMaster(Repository):
         if command == "git rev-parse HEAD":
             return "0123ABCDEF"
 
-        if command == "git describe --tags --first-parent --always --long":
-            return "1.2.3-4567.8-9-gABCDEF"
+        if command == "git describe --tags --first-parent --always --abbrev=0":
+            return "1.2.3-4567.8"
 
         if command == "git log --merges --pretty=%s":
             return "Merge branch 'branch-00-topcde' into 'master'"
@@ -40,9 +40,9 @@ class MockRepositoryMaster(Repository):
             return "Entering 'topcode/submodule1'" + "\n" + "topcode/submodule1.git" + "\n" + \
                 "Entering 'topcode/submodule2'" + "\n" + "topcode/submodule2.git"
 
-        if command == "git submodule foreach --recursive git describe --tags --first-parent --always --long":
-            return "Entering 'topcode/submodule1'" + "\n" + "2.3.4-5678.9-10-gBCDEFA" + "\n" + \
-                "Entering 'topcode/submodule2'" + "\n" + "3.4.5-6789.10-11-gCDEFAB"
+        if command == "git submodule foreach --recursive git describe --tags --first-parent --always --abbrev=0":
+            return "Entering 'topcode/submodule1'" + "\n" + "2.3.4-5678.9" + "\n" + \
+                "Entering 'topcode/submodule2'" + "\n" + "3.4.5-6789.10"
 
         if command == "git -C topcode/submodule1 log --merges":
             return "Merge branch 'branch-01-submodule1' into 'master' \
@@ -102,8 +102,8 @@ class MockRepositoryBranch(Repository):
         if command == "git remote get-url origin":
             return "/topcode.git"
 
-        if command == "git describe --tags --first-parent --always --long":
-            return "1.2.3-4567.8-9-gABCDEF"
+        if command == "git describe --tags --first-parent --always --abbrev=0":
+            return "1.2.3-4567.8"
 
         if command == "git log --merges --pretty=%s":
             return "Merge branch 'branch-00-topcde' into 'master'"
@@ -112,9 +112,9 @@ class MockRepositoryBranch(Repository):
             return "Entering 'topcode/submodule1'" + "\n" + "topcode/submodule1.git" + "\n" + \
                 "Entering 'topcode/submodule2'" + "\n" + "topcode/submodule2.git"
 
-        if command == "git submodule foreach --recursive git describe --tags --first-parent --always --long":
-            return "Entering 'topcode/submodule1'" + "\n" + "2.3.4-5678.9-10-gBCDEFA" + "\n" + \
-                "Entering 'topcode/submodule2'" + "\n" + "3.4.5-6789.10-11-gCDEFAB"
+        if command == "git submodule foreach --recursive git describe --tags --first-parent --always --abbrev=0":
+            return "Entering 'topcode/submodule1'" + "\n" + "2.3.4-5678.9-10" + "\n" + \
+                "Entering 'topcode/submodule2'" + "\n" + "3.4.5-6789.10"
 
         if command == "git -C topcode/submodule1 log --merges":
             return "Merge branch 'branch-01-submodule1' into 'master' \
@@ -164,11 +164,11 @@ class TestVersionInfo(unittest.TestCase):
     # function return values need to be changed, accordingly
 
     test_ver_topcode = GitVersion('topcode', LastTag(
-        1, 2, 3, 4567, 8, 9), ['BRANCH-00'], 'ABCDEF')
+        1, 2, 3, 4567, 8), ['BRANCH-00'])
     test_ver_submod1 = GitVersion('submodule1', LastTag(
-        2, 3, 4, 5678, 9, 10), ['BRANCH-01', 'BRANCH-03', 'BRANCH-05'], 'BCDEFA')
+        2, 3, 4, 5678, 9), ['BRANCH-01', 'BRANCH-03', 'BRANCH-05'])
     test_ver_submod2 = GitVersion('submodule2', LastTag(
-        3, 4, 5, 6789, 10, 11), ['BRANCH-02', 'BRANCH-04', 'BRANCH-06'], 'CDEFAB')
+        3, 4, 5, 6789, 10), ['BRANCH-02', 'BRANCH-04', 'BRANCH-06'])
 
     def test_version_info(self):
         """Test whether the version information of topcode and submodules could be generated using
@@ -181,7 +181,7 @@ class TestVersionInfo(unittest.TestCase):
 
         self.assertEqual(version_info.project, "topcode")
         self.assertEqual(version_info.uid, "0123ABCD")
-        self.assertEqual(version_info.version, "1.2.3-4567.8-9-gABCDEF")
+        self.assertEqual(version_info.version, "1.2.3-4567.8")
         self.assertEqual(version_info.device_type, "DEVICE_TYPE")
         self.assertEqual(version_info.config_name, "CONFIG_NAME")
         self.assertEqual(version_info.config_id, 10)
@@ -195,7 +195,7 @@ class TestVersionInfo(unittest.TestCase):
 
         self.assertEqual(full_version_info.project, "topcode")
         self.assertEqual(full_version_info.uid, "0123ABCD")
-        self.assertEqual(full_version_info.version, "1.2.3-4567.8-9-gABCDEF")
+        self.assertEqual(full_version_info.version, "1.2.3-4567.8")
         self.assertEqual(full_version_info.device_type, "DEV_TYPE")
         self.assertEqual(full_version_info.config_name, "CONFIG_NAME")
         self.assertEqual(full_version_info.config_id, 10)
@@ -244,27 +244,12 @@ class TestVersionInfo(unittest.TestCase):
         self.assertEqual(
             full_version_info.git_versions[2].last_tag.release_num, self.test_ver_submod2.last_tag.release_num)
 
-        self.assertEqual(
-            full_version_info.git_versions[0].last_tag.commit_num, self.test_ver_topcode.last_tag.commit_num)
-        self.assertEqual(
-            full_version_info.git_versions[1].last_tag.commit_num, self.test_ver_submod1.last_tag.commit_num)
-        self.assertEqual(
-            full_version_info.git_versions[2].last_tag.commit_num, self.test_ver_submod2.last_tag.commit_num)
-
         self.assertEqual(full_version_info.git_versions[0].branch_ids,
                          self.test_ver_topcode.branch_ids)
         self.assertEqual(full_version_info.git_versions[1].branch_ids,
                          self.test_ver_submod1.branch_ids)
         self.assertEqual(full_version_info.git_versions[2].branch_ids,
                          self.test_ver_submod2.branch_ids)
-
-        self.assertEqual(full_version_info.git_versions[0].commit_id,
-                         self.test_ver_topcode.commit_id)
-        self.assertEqual(full_version_info.git_versions[1].commit_id,
-                         self.test_ver_submod1.commit_id)
-        self.assertEqual(full_version_info.git_versions[2].commit_id,
-                         self.test_ver_submod2.commit_id)
-
 
 class TestVersionInfoBranch(unittest.TestCase):
     """This tests whether Repository class can be used to get git information
@@ -275,11 +260,11 @@ class TestVersionInfoBranch(unittest.TestCase):
     """
 
     test_ver_topcode = GitVersion('topcode', LastTag(
-        1, 2, 3, 9, 4567, 8), ['BRANCH-00', 'XYZ-789'], 'ABCDEF')
+        1, 2, 3, 9, 4567), ['BRANCH-00', 'XYZ-789'])
     test_ver_submod1 = GitVersion('submodule1', LastTag(
-        2, 3, 4, 10, 5678, 9), ['BRANCH-01', 'BRANCH-03', 'BRANCH-05', 'ABC-123'], 'BCDEFA')
+        2, 3, 4, 10, 5678), ['BRANCH-01', 'BRANCH-03', 'BRANCH-05', 'ABC-123'])
     test_ver_submod2 = GitVersion('submodule2', LastTag(
-        3, 4, 5, 11, 6789, 10), ['BRANCH-02', 'BRANCH-04', 'BRANCH-06', 'DEF-456'], 'CDEFAB')
+        3, 4, 5, 11, 6789), ['BRANCH-02', 'BRANCH-04', 'BRANCH-06', 'DEF-456'])
 
     def test_version_info(self):
         """Test whether the version information of topcode and submodules could be generated using
@@ -348,12 +333,7 @@ class TestSerialization(unittest.TestCase):
                 git_version_list.last_tag.release_num,
                 full_version_dict["git_versions"][index]["last_tag"]["release_num"])
             self.assertEqual(
-                git_version_list.last_tag.commit_num,
-                full_version_dict["git_versions"][index]["last_tag"]["commit_num"])
-            self.assertEqual(
                 git_version_list.branch_ids, full_version_dict["git_versions"][index]["branch_ids"])
-            self.assertEqual(
-                git_version_list.commit_id, full_version_dict["git_versions"][index]["commit_id"])
 
 
 class TestDeserialization1(unittest.TestCase):
@@ -410,11 +390,7 @@ class TestDeserialization1(unittest.TestCase):
                 git_version_list.last_tag.release_num,
                 full_version_deserialized.git_versions[index].last_tag.release_num)
             self.assertEqual(
-                git_version_list.last_tag.commit_num, full_version_deserialized.git_versions[index].last_tag.commit_num)
-            self.assertEqual(
                 git_version_list.branch_ids, full_version_deserialized.git_versions[index].branch_ids)
-            self.assertEqual(
-                git_version_list.commit_id, full_version_deserialized.git_versions[index].commit_id)
 
 
 class TestDeserialization2(unittest.TestCase):

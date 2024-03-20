@@ -17,15 +17,13 @@ class LastTag():
     patch: Optional[int] = field(metadata=dict(metadata=dict(legacy_name="Patch")))
     branch_id: Optional[int] = field(metadata=dict(metadata=dict(legacy_name="BranchId")))
     release_num: Optional[int] = field(metadata=dict(metadata=dict(legacy_name="ReleaseNumber")))
-    commit_num: Optional[int] = field(metadata=dict(metadata=dict(legacy_name="CommitNumber")))
 
-    def __init__(self, major=None, minor=None, patch=None, branch_id=None, release_num=None, commit_num=None):
+    def __init__(self, major=None, minor=None, patch=None, branch_id=None, release_num=None):
         self.major = major
         self.minor = minor
         self.patch = patch
         self.branch_id = branch_id
         self.release_num = release_num
-        self.commit_num = commit_num
 
 
 @dataclass
@@ -36,14 +34,11 @@ class GitVersion():
     name: str = field(metadata=dict(metadata=dict(legacy_name="Name")))
     last_tag: LastTag = field(metadata=dict(metadata=dict(legacy_name="LastTag")))
     branch_ids: Optional[list[str]] = field(metadata=dict(metadata=dict(legacy_name="BranchIds")))
-    commit_id: str = field(metadata=dict(metadata=dict(legacy_name="CommitId")))
 
-    def __init__(self, name=None, last_tag=None, branch_ids=None, commit_id=None):
+    def __init__(self, name=None, last_tag=None, branch_ids=None):
         self.name = name
         self.last_tag = last_tag
         self.branch_ids = branch_ids
-        self.commit_id = commit_id
-
 
 @dataclass
 class VersionInfo():

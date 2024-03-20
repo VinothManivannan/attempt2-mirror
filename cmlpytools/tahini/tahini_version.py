@@ -54,9 +54,7 @@ class Repository():
 
     # The branch commit regex is similar, just accounting for the odd "-", and searching for alpha-numeric characters in
     # the commit_id
-    BRANCH_COMMIT_TAG_REGEX = r"((-)(?P<branch>[0-9]+)(\.)(?P<release_num>[0-9]+))?" \
-        r"((-)(?P<commit_num>[0-9]+)" \
-        r"(-)?([g])?(?P<commit_id>[\w]+))?"
+    BRANCH_COMMIT_TAG_REGEX = r"((-)(?P<branch>[0-9]+)(\.)(?P<release_num>[0-9]+))?"
 
     # The git branch regex is searching for issue numbers like "FW-123", or older "CAEF-123", so letters of any case,
     # followed by a "-", and then any set of numbers.
@@ -65,9 +63,7 @@ class Repository():
     # A modified version of the version tag below. The "[g]" is there as the command used sometimes put a "g" infront of
     # the git hash
     SUBMODULE_TAG_REGEX = r"((?P<major>[0-9]+)(\.)(?P<minor>[0-9]+)(\.)(?P<patch>[0-9]+))?" \
-        r"((-)(?P<branch>[0-9]+)(\.)(?P<release_num>[0-9]+))?" \
-        r"((-)(?P<commit_num>[0-9]+))?" \
-        r"(-)?(([g])?(?P<commit_id>[\w]+)?)"
+        r"((-)(?P<branch>[0-9]+)(\.)(?P<release_num>[0-9]+))?"
 
     # This regex looks for patterns which indicates the branch which is merged to the Master,
     # i.e. "Merge branch 'FW-1234-"
@@ -107,7 +103,7 @@ class Repository():
             origin_tag_regex = self.VERSION_TAG_REGEX + self.BRANCH_COMMIT_TAG_REGEX
             self.is_s10 = False
 
-        get_version_cmd = 'git describe --tags --first-parent --always --long'
+        get_version_cmd = 'git describe --tags --first-parent --always --abbrev=0'
         topcode_tag = self.run_command(get_version_cmd)
 
         get_log_cmd = 'git log --merges --pretty=%s'
@@ -130,7 +126,7 @@ class Repository():
         git_submodule_urls.strip()
         git_submodule_urls = git_submodule_urls.splitlines()
         get_submodule_versions_cmd = \
-            'git submodule foreach --recursive git describe --tags --first-parent --always --long'
+            'git submodule foreach --recursive git describe --tags --first-parent --always --abbrev=0'
         submodule_tags = self.run_command(
             get_submodule_versions_cmd)
         submodule_tags = submodule_tags.splitlines()
@@ -213,9 +209,7 @@ class Repository():
                       patch: Optional[int],
                       branch: Optional[int],
                       release_num: Optional[int],
-                      commit_num: Optional[int],
-                      branch_ids: List[str],
-                      commit_id: str
+                      branch_ids: List[str]
                       ) -> None:
         """Generate version information in GitVersion python object form
 
@@ -226,19 +220,17 @@ class Repository():
             patch (str): Version tag patch
             branch (_type_): Branch id
             release_num (str): Release number
-            commit_num (str): Commit number of the branch tag
             branch_ids (list[str]): List of branch ids those are merged
-            commit_id (str): Reference of last Git commit
 
         Returns:
             (GitVersion): Version Tag information in GitVersion object format
         """
 
         last_tag_obj = LastTag(
-            major, minor, patch, branch, release_num, commit_num)
+            major, minor, patch, branch, release_num)
 
         git_version_obj = GitVersion(
-            git_origin, last_tag_obj, branch_ids, commit_id)
+            git_origin, last_tag_obj, branch_ids)
 
         return git_version_obj
 
@@ -282,14 +274,7 @@ class Repository():
         if release_num is not None:
             release_num = int(release_num)
 
-        commit_num = search_version_tag.group('commit_num')
-        if commit_num is not None:
-            commit_num = int(commit_num)
-
-        commit_id = search_version_tag.group('commit_id')
-        commit_id.rstrip()
-
-        return self.__add_version(origin, major, minor, patch, branch, release_num, commit_num, branch_ids, commit_id)
+        return self.__add_version(origin, major, minor, patch, branch, release_num, branch_ids)
 
     def run_command(self, command: str) -> str:
         """Run Git Command
@@ -328,7 +313,7 @@ class Repository():
 
         basic_version.uid = uid
 
-        get_version_cmd = 'git describe --tags --first-parent --always --long'
+        get_version_cmd = 'git describe --tags --first-parent --always --abbrev=0'
         basic_version.version = (
             self.run_command(get_version_cmd)).rstrip()
 

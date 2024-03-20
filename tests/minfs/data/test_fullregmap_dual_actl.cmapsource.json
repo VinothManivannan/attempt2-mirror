@@ -17,8 +17,7 @@
                 "last_tag": {
                     "major": 4,
                     "minor": 16,
-                    "patch": 0,
-                    "commit_num": 0
+                    "patch": 0
                 },
                 "branch_ids": [
                     "FW-3631",
@@ -538,16 +537,14 @@
                     "FW-953",
                     "FW-869",
                     "FW-871"
-                ],
-                "commit_id": "4958232a"
+                ]
             },
             {
                 "name": "dw9787-fw",
                 "last_tag": {
                     "major": 2,
                     "minor": 23,
-                    "patch": 0,
-                    "commit_num": 19
+                    "patch": 0
                 },
                 "branch_ids": [
                     "FW-3502",
@@ -899,16 +896,14 @@
                     "FW-1015",
                     "FW-962",
                     "FW-789"
-                ],
-                "commit_id": "ce3ba413"
+                ]
             },
             {
                 "name": "minfs",
                 "last_tag": {
                     "major": 1,
                     "minor": 0,
-                    "patch": 7,
-                    "commit_num": 7
+                    "patch": 7
                 },
                 "branch_ids": [
                     "FW-2395",
@@ -924,14 +919,12 @@
                     "MFS-15",
                     "MFS-13",
                     "MFS-12"
-                ],
-                "commit_id": "dd488d6"
+                ]
             },
             {
                 "name": "gtest_cml",
                 "last_tag": {},
-                "branch_ids": [],
-                "commit_id": "1ab3bd0"
+                "branch_ids": []
             },
             {
                 "name": "shared-lib-configs",
@@ -940,8 +933,7 @@
                     "minor": 14,
                     "patch": 0,
                     "branch_id": 3626,
-                    "release_num": 1,
-                    "commit_num": 0
+                    "release_num": 1
                 },
                 "branch_ids": [
                     "FW-3502",
@@ -1102,8 +1094,7 @@
                     "FW-1445",
                     "FW-1692",
                     "FW-1562"
-                ],
-                "commit_id": "8c86168"
+                ]
             },
             {
                 "name": "rumba-s10-firmware",
@@ -1292,8 +1283,7 @@
                     "FW-703",
                     "FW-704",
                     "FW-702"
-                ],
-                "commit_id": "rev36752"
+                ]
             }
         ]
     },

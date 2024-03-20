@@ -257,7 +257,7 @@ extern "C" {
 """
 
         self.run_test(cmapsource, expected_body)
-        
+
     def test_repeated_register(self):
         """Test we can output a public register that is repeated
         """
@@ -290,7 +290,7 @@ extern "C" {
 """
 
         self.run_test(cmapsource, expected_body)
-        
+
     def test_repeated_register_aliased(self):
         """Test we can output a public register that is repeated and aliased
         """

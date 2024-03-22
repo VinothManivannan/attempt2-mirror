@@ -282,10 +282,10 @@ extern "C" {
         )
 
         expected_body = """\
-#define BETA_0                                                  0x200
-#define BETA_1                                                  0x201
-#define BETA_2                                                  0x202
-#define BETA_3                                                  0x203
+#define BETA0                                                   0x200
+#define BETA1                                                   0x201
+#define BETA2                                                   0x202
+#define BETA3                                                   0x203
 """
 
         self.run_test(cmapsource, expected_body)
@@ -316,9 +316,9 @@ extern "C" {
         )
 
         expected_body = """\
-#define BETA_X                                                  0x200
-#define BETA_Y                                                  0x201
-#define BETA_Z                                                  0x202
+#define BETAX                                                   0x200
+#define BETAY                                                   0x201
+#define BETAZ                                                   0x202
 """
 
         self.run_test(cmapsource, expected_body)

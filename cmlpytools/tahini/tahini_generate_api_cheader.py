@@ -179,7 +179,7 @@ class GenerateApiCheader():
         footer = FOOTER_TEMPLATE.replace("%%HEADER_GUARD%%", header_guard)
         last_tag = version.git_versions[0].last_tag
         if version.uid is None:
-            version_uid = 0
+            version_uid = 0x0
         else:
             version_uid = version.uid
 

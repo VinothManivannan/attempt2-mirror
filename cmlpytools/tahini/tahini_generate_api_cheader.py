@@ -51,7 +51,7 @@ VERSION_TEMPLATE = """
 #define CML_FW_VERSION_PATCH %%PATCH_VERSION%%
 #define CML_FW_SUBVERSION_MAJOR %%MAJOR_SUBVERSION%%
 #define CML_FW_SUBVERSION_MINOR %%MINOR_SUBVERSION%%
-#define CML_FW_UNIQUEID 0x%%UNIQUE_ID%%
+#define CML_FW_UNIQUEID %%UNIQUE_ID%%
 #define CML_FW_BUILDCONFIGID %%BUILDCONFIG_ID%%
 
 /**************************************************************************************************

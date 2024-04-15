@@ -175,7 +175,7 @@ class GenerateApiCheader():
         """
         year = datetime.date.today().year
         header_guard = filename.replace(".", "_").replace("-", "_").upper()
-        header = HEADER_TEMPLATE.replace("%%CHIP_NAME%%", version.device_type).replace("%%YEAR%%", str(year)).replace("%%HEADER_GUARD%%", header_guard)
+        header = HEADER_TEMPLATE.replace("%%CHIP_NAME%%", version.device_display_name).replace("%%YEAR%%", str(year)).replace("%%HEADER_GUARD%%", header_guard)
         footer = FOOTER_TEMPLATE.replace("%%HEADER_GUARD%%", header_guard)
         last_tag = version.git_versions[0].last_tag
         if version.uid is None:

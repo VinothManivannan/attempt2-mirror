@@ -60,7 +60,7 @@ extern "C" {
     _GITVERSIONS = GitVersion(last_tag=LastTag(major="1", minor="3", patch="2", branch_id="6789",
                                                                     release_num="1"))
 
-    _VERSION = ExtendedVersionInfo(device_type="Don't Care", config_name="Don't Care", config_id="11",
+    _VERSION = ExtendedVersionInfo(device_type="Don't Care", device_display_name="Device Name", config_name="Don't Care", config_id="11",
                                    git_versions=[_GITVERSIONS])
 
     _EXPECTED_VERSION = """

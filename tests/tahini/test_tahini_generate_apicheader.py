@@ -76,7 +76,7 @@ extern "C" {
 #define CML_FW_BUILDCONFIGID %%BUILDCONFIG_ID%%
 
 /**************************************************************************************************
- * Firmware Version Information 
+ * Register Information 
  *************************************************************************************************/
 """.replace("%%MAJOR_VERSION%%", str(_GITVERSIONS.last_tag.major))\
     .replace("%%MINOR_VERSION%%", str(_GITVERSIONS.last_tag.minor))\

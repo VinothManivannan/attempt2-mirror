@@ -175,7 +175,7 @@ class TestVersionInfo(unittest.TestCase):
             while building from master
         """
         test_obj = MockRepositoryMaster(
-            "Mock/Path", "DEVICE_TYPE", "CONFIG_NAME", 10)
+            "Mock/Path", "DEVICE_TYPE", "CM8x4", "CONFIG_NAME", 10)
 
         version_info = test_obj.get_basic_version("0123ABCD")
 
@@ -271,7 +271,7 @@ class TestVersionInfoBranch(unittest.TestCase):
             ExtendedVersionInfo class and its method while building from a branch
         """
         test_obj = MockRepositoryBranch(
-            None, None, "CONFIG_NAME", 3)
+            None, None, None, "CONFIG_NAME", 3)
 
         full_version_info = test_obj.get_full_version(
             "./tests/tahini/data/test_version.info.json")

@@ -406,7 +406,8 @@ class Repository():
             version_file_path)
 
         full_version = ExtendedVersionInfo(
-            device_type=self.device_type, device_display_name=self.device_display_name, config_name=self.config_name, config_id=self.config_id)
+            device_type=self.device_type, device_display_name=self.device_display_name, config_name=self.config_name,
+             config_id=self.config_id)
 
         full_version.project = version_info_obj.project
         full_version.uid = version_info_obj.uid
@@ -532,6 +533,7 @@ class TahiniVersion():
         Args:
             project_path (str): Project path
             device_type (str): Device type
+            device_display_name (str): External display name of the device
             config_name (str): Name of the build configuration
             config_id (int): ID of the build configuration
             uid (str): Firmware uid claimed from CMLWeb
@@ -557,6 +559,7 @@ class TahiniVersion():
 
         version_info = VersionInfo.load_json(version_info_path)
 
-        repo = LiveRepository(project_path, version_info.device_type, version_info.device_display_name, version_info.config_name, version_info.config_id)
+        repo = LiveRepository(project_path, version_info.device_type, version_info.device_display_name,
+                              version_info.config_name, version_info.config_id)
 
         return repo.get_full_version(version_info_path)

@@ -53,7 +53,8 @@ class VersionInfo():
     config_id: Optional[int]
     timestamp: str
 
-    def __init__(self, device_type, device_display_name, config_name, config_id, project=None, uid=None, version=None, timestamp=None):
+    def __init__(self, device_type, device_display_name, config_name, config_id, project=None, uid=None, version=None,
+                  timestamp=None):
         self.project = project
         self.uid = uid
         self.version = version

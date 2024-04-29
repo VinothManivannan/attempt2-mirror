@@ -183,12 +183,18 @@ class GenerateApiCheader():
             version_uid = 0
         else:
             version_uid = version.uid
+        if last_tag.branch_id is None:
+            branch_id = 0
+            release_num = 0
+        else:
+            branch_id = last_tag.branch_id
+            release_num = last_tag.release_num
 
         version_string = VERSION_TEMPLATE.replace("%%MAJOR_VERSION%%", str(last_tag.major))\
             .replace("%%MINOR_VERSION%%", str(last_tag.minor))\
             .replace("%%PATCH_VERSION%%", str(last_tag.patch))\
-            .replace("%%MAJOR_SUBVERSION%%", str(last_tag.branch_id))\
-            .replace("%%MINOR_SUBVERSION%%", str(last_tag.release_num))\
+            .replace("%%MAJOR_SUBVERSION%%", str(branch_id))\
+            .replace("%%MINOR_SUBVERSION%%", str(release_num))\
             .replace("%%UNIQUE_ID%%", str(version_uid))\
             .replace("%%BUILDCONFIG_ID%%", str(version.config_id))
 

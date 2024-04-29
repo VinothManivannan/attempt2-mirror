@@ -175,7 +175,7 @@ class Tahini():
         parser = argparse.ArgumentParser(
             description="Generate basic version info",
             usage="\
-            tahini version <project-path> <device-type> <device-display-name> <build-config-name> <build-config-id> \
+            tahini version <project-path> <device-type> <build-config-name> <build-config-id> \
             [--uid=<firmware-uid>] [--output=<file-path>]")
         parser.add_argument('command', help=argparse.SUPPRESS)
         parser.add_argument("project_path", help="Firmware Project Path. Example: path/to/stmh")

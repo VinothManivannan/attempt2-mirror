@@ -94,6 +94,16 @@ class GenerateApiCheader():
         if register.access is not CmapVisibilityOptions.PUBLIC:
             return
 
+        # Assemble register documentation string
+        # Remove the 'Ctype.' from the type name so the type name is the C type name
+        doc_string = str(register.register.ctype)[6:].lower()
+        
+        if register.register.format != None:
+            doc_string = doc_string + " " + str(register.register.format)
+        # TODO the briefs will be added to the doc_string once they have been cleaned up to be customer friendly
+        #if register.brief != None:
+        #    doc_string = doc_string + " : " + register.brief
+
         if register.repeat_for is None:
             # Output register address
             addr = register.addr
@@ -104,7 +114,7 @@ class GenerateApiCheader():
                 else:
                     addr = addr + 0x40000000
             instance_name = prepend_namespaces(register, register.get_customer_name().upper())
-            output.write(f"#define {instance_name:<50} {addr:>#10x}\n")
+            output.write(f"#define {instance_name:<50} {addr:>#10x} /* {doc_string} */\n")
         else:
             for instance in register.get_instances():
                 # Output register address
@@ -117,7 +127,7 @@ class GenerateApiCheader():
                         addr = addr + 0x40000000
                 instance_name = register.get_customer_name() + instance.get_legacy_suffix()
                 instance_name = prepend_namespaces(register, instance_name)
-                output.write(f"#define {instance_name.upper():<50} {addr:>#10x}\n")
+                output.write(f"#define {instance_name.upper():<50} {addr:>#10x} /* {doc_string} */\n")
 
         # Output register states
         if register.register.states:

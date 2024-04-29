@@ -97,11 +97,11 @@ class GenerateApiCheader():
         # Assemble register documentation string
         # Remove the 'Ctype.' from the type name so the type name is the C type name
         doc_string = str(register.register.ctype)[6:].lower()
-        
-        if register.register.format != None:
+
+        if register.register.format is not None:
             doc_string = doc_string + " " + str(register.register.format)
         # TODO the briefs will be added to the doc_string once they have been cleaned up to be customer friendly
-        #if register.brief != None:
+        #if register.brief is not None:
         #    doc_string = doc_string + " : " + register.brief
 
         if register.repeat_for is None:

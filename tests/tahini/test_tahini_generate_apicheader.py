@@ -136,7 +136,7 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA                                                   0x100
+#define ALPHA                                                   0x100 /* uint16 */
 """
         self.run_test(cmapsource, expected_body)
 
@@ -171,8 +171,8 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA                                                 0x404fc
-#define BETA                                               0x40006b14
+#define ALPHA                                                 0x404fc /* uint16 */
+#define BETA                                               0x40006b14 /* uint16 */
 """
         self.run_test(cmapsource, expected_body)
 
@@ -196,7 +196,7 @@ extern "C" {
         )
 
         expected_body = """\
-#define BETA                                                    0x100
+#define BETA                                                    0x100 /* uint16 */
 """
         self.run_test(cmapsource, expected_body)
 
@@ -252,7 +252,7 @@ extern "C" {
         )
 
         expected_body = """\
-#define BETA                                                    0x200
+#define BETA                                                    0x200 /* uint16 */
 """
 
         self.run_test(cmapsource, expected_body)
@@ -282,10 +282,10 @@ extern "C" {
         )
 
         expected_body = """\
-#define BETA0                                                   0x200
-#define BETA1                                                   0x201
-#define BETA2                                                   0x202
-#define BETA3                                                   0x203
+#define BETA0                                                   0x200 /* uint16 */
+#define BETA1                                                   0x201 /* uint16 */
+#define BETA2                                                   0x202 /* uint16 */
+#define BETA3                                                   0x203 /* uint16 */
 """
 
         self.run_test(cmapsource, expected_body)
@@ -316,9 +316,9 @@ extern "C" {
         )
 
         expected_body = """\
-#define BETAX                                                   0x200
-#define BETAY                                                   0x201
-#define BETAZ                                                   0x202
+#define BETAX                                                   0x200 /* uint16 */
+#define BETAY                                                   0x201 /* uint16 */
+#define BETAZ                                                   0x202 /* uint16 */
 """
 
         self.run_test(cmapsource, expected_body)
@@ -349,7 +349,7 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA_REGISTER                                          0x100
+#define ALPHA_REGISTER                                          0x100 /* uint16 */
     #define ALPHA_REGISTER_BETA_STATE                               0x123 /* State */
 """
 
@@ -394,7 +394,7 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA_REGISTER                                          0x100
+#define ALPHA_REGISTER                                          0x100 /* uint16 */
     #define ALPHA_REGISTER_BETA_BITFIELD                             0xf0 /* Bitfield */
         #define ALPHA_REGISTER_BETA_BITFIELD_GAMMA_STATE                 0x10 /* Bitfield state */
         #define ALPHA_REGISTER_BETA_BITFIELD_DELTA_STATE                 0x20 /* Bitfield state */
@@ -429,7 +429,7 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA_REGISTER                                          0x100
+#define ALPHA_REGISTER                                          0x100 /* uint16 */
     #define ALPHA_REGISTER_ALIAS_BETA_STATE                         0x123 /* State */
 """
 
@@ -471,7 +471,7 @@ extern "C" {
         )
 
         expected_body = """\
-#define ALPHA_REGISTER                                          0x100
+#define ALPHA_REGISTER                                          0x100 /* uint16 */
     #define ALPHA_REGISTER_BETA_BITFIELD_ALIAS                       0xf0 /* Bitfield */
         #define ALPHA_REGISTER_BETA_BITFIELD_ALIAS_GAMMA_STATE_ALIAS       0x10 /* Bitfield state */
 """

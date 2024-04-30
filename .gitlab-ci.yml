@@ -4,7 +4,7 @@ variables:
 
 # Template for docker windows jobs
 .windows-docker-job: &windows-docker-job
-    image: $REGISTRY_URL/devops/fw-builder:1.21-win
+    image: $REGISTRY_URL/devops/fw-builder:3.24-win
     interruptible: true
     tags:
         - win-docker-20H2
@@ -16,7 +16,7 @@ variables:
 
 # Template for docker linux jobs
 .linux-docker-job: &linux-docker-job
-    image: $REGISTRY_URL/devops/fw-builder:3.0
+    image: $REGISTRY_URL/devops/fw-builder:3.24
     interruptible: true
     tags:
         - linux-docker-exec

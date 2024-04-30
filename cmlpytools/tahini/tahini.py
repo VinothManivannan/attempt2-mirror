@@ -190,7 +190,7 @@ class Tahini():
         args = parser.parse_args()
 
         if args.fw_uid == "" or args.fw_uid is None:
-            fw_uid = "0"
+            fw_uid = "0x0"
         else:
             fw_uid = args.fw_uid
 

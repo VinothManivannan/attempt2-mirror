@@ -185,6 +185,8 @@ class Tahini():
         parser.add_argument("--fw_uid", required=False, help="Firmware UID claimed from CMLWeb")
         parser.add_argument("--output", required=False,
             help="Write the result into the file specified instead of the standard output.")
+        parser.add_argument("--device_display_name", required=False,
+            help="Device name that should be displayed in customer facing files")
         args = parser.parse_args()
 
         if args.fw_uid == "" or args.fw_uid is None:
@@ -192,8 +194,15 @@ class Tahini():
         else:
             fw_uid = args.fw_uid
 
+        # If a display name wasn't provided then use the device type as the display name as well
+        if args.device_display_name is None:
+            display_name = args.device_type
+        else:
+            display_name = args.device_display_name
+
         version_info = TahiniVersion.create_version_info(args.project_path,
                                                          args.device_type,
+                                                         display_name,
                                                          args.config_name,
                                                          args.config_id,
                                                          fw_uid)

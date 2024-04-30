@@ -175,7 +175,7 @@ class TestVersionInfo(unittest.TestCase):
             while building from master
         """
         test_obj = MockRepositoryMaster(
-            "Mock/Path", "DEVICE_TYPE", "CONFIG_NAME", 10)
+            "Mock/Path", "DEVICE_TYPE", "CM8x4", "CONFIG_NAME", 10)
 
         version_info = test_obj.get_basic_version("0123ABCD")
 
@@ -271,7 +271,7 @@ class TestVersionInfoBranch(unittest.TestCase):
             ExtendedVersionInfo class and its method while building from a branch
         """
         test_obj = MockRepositoryBranch(
-            None, None, "CONFIG_NAME", 3)
+            None, None, None, "CONFIG_NAME", 3)
 
         full_version_info = test_obj.get_full_version(
             "./tests/tahini/data/test_version.info.json")
@@ -296,7 +296,7 @@ class TestSerialization(unittest.TestCase):
         """
 
         test_obj = MockRepositoryMaster(
-            None, None, None, None)
+            None, None, None, None, None)
 
         full_version_info = test_obj.get_full_version(
             "./tests/tahini/data/test_version.info.json")
@@ -348,7 +348,7 @@ class TestDeserialization1(unittest.TestCase):
         """
 
         test_obj = MockRepositoryMaster(
-            None, None, "CONFIG_NAME", 10)
+            None, None, None, "CONFIG_NAME", 10)
 
         full_version_obj = test_obj.get_full_version(
             "./tests/tahini/data/test_version.info.json")
@@ -405,7 +405,7 @@ class TestDeserialization2(unittest.TestCase):
         """
 
         test_obj = MockRepositoryMaster(
-            None, None, "CONFIG_NAME", 10)
+            None, None, None, "CONFIG_NAME", 10)
 
         basic_version_obj = test_obj.get_basic_version("0123ABCD")
 
@@ -440,10 +440,10 @@ class TestProjectPathValidity1(unittest.TestCase):
         """
 
         with self.assertRaises(InvalidArgumentError):
-            LiveRepository(None, None, None, None)
+            LiveRepository(None, None, None, None, None)
 
         with self.assertRaises(InvalidArgumentError):
-            LiveRepository("", None, None, None)
+            LiveRepository("", None, None, None, None)
 
 
 # Calls to setUp and tearDown are always made, disable the pylint suggestion to use 'with'
@@ -475,16 +475,16 @@ class TestProjectPathValidity2(unittest.TestCase):
         """
 
         with self.assertRaises(NotADirectoryError):
-            test_obj = LiveRepository("invalid/path", None, None, None)
+            test_obj = LiveRepository("invalid/path", None, None, None, None)
             test_obj.get_basic_version("0123ABCD")
 
         with self.assertRaises(expected_exception=(InvalidArgumentError, InvalidProjectPathError)):
-            test_obj = LiveRepository(self.mock_file.name, None, None, None)
+            test_obj = LiveRepository(self.mock_file.name, None, None, None, None)
             test_obj.get_basic_version("0123ABCD")
 
         with self.assertRaises(InvalidProjectPathError):
             test_obj = LiveRepository(
-                self.mock_directory.name, None, None, None)
+                self.mock_directory.name, None, None, None, None)
             test_obj.get_basic_version("0123ABCD")
 
     def test_version_info_path_exists(self):
@@ -495,7 +495,7 @@ class TestProjectPathValidity2(unittest.TestCase):
 
         with self.assertRaises(FileNotFoundError):
             test_obj = MockRepositoryMaster(
-                self.mock_directory.name, None, None, None)
+                self.mock_directory.name, None, None, None, None)
             test_obj.get_full_version(
                 self.mock_directory.name + "invalid.file")
 

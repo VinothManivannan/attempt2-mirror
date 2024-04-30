@@ -72,9 +72,10 @@ class Repository():
     # S10 has a different versioning scheme to most other products, so needs it's own regex
     S10_VERSION_REGEX = r"rev(?P<major>[0-9]+)(\.)(?P<minor>[0-9]+)"
 
-    def __init__(self, project_path, device_type, config_name, config_id):
+    def __init__(self, project_path, device_type, device_display_name, config_name, config_id):
         self.project_path = project_path
         self.device_type = device_type
+        self.device_display_name = device_display_name
         self.config_name = config_name
         self.config_id = config_id
 
@@ -338,7 +339,7 @@ class Repository():
             (VersionInfo): Extended version info
         """
         self.verify_project_path()
-        basic_version = VersionInfo(self.device_type, self.config_name, self.config_id)
+        basic_version = VersionInfo(self.device_type, self.device_display_name, self.config_name, self.config_id)
         self.__initialise_version(basic_version, uid)
         return basic_version
 
@@ -405,7 +406,8 @@ class Repository():
             version_file_path)
 
         full_version = ExtendedVersionInfo(
-            device_type=self.device_type, config_name=self.config_name, config_id=self.config_id)
+            device_type=self.device_type, device_display_name=self.device_display_name, config_name=self.config_name,
+             config_id=self.config_id)
 
         full_version.project = version_info_obj.project
         full_version.uid = version_info_obj.uid
@@ -465,7 +467,7 @@ class LiveRepository(Repository):
     """This subclass is for use in a real build process
     """
 
-    def __init__(self, project_path: str, device_type: str, config_name: str, config_id: int):
+    def __init__(self, project_path: str, device_type: str, device_display_name: str, config_name: str, config_id: int):
         """Initialise a LiveRepository object
 
         Args:
@@ -473,7 +475,7 @@ class LiveRepository(Repository):
             config_name (str): Name of the build configuration
             config_id (int): ID of the build configuration
         """
-        Repository.__init__(self, project_path, device_type, config_name, config_id)
+        Repository.__init__(self, project_path, device_type, device_display_name, config_name, config_id)
 
         self.check_path_sanity(project_path)
 
@@ -524,13 +526,14 @@ class TahiniVersion():
     """
 
     @staticmethod
-    def create_version_info(project_path: str, device_type: str, config_name: str,
+    def create_version_info(project_path: str, device_type: str, device_display_name: str, config_name: str,
                             config_id: int, uid: str) -> VersionInfo:
         """Write version.info.json file
 
         Args:
             project_path (str): Project path
             device_type (str): Device type
+            device_display_name (str): External display name of the device
             config_name (str): Name of the build configuration
             config_id (int): ID of the build configuration
             uid (str): Firmware uid claimed from CMLWeb
@@ -539,7 +542,7 @@ class TahiniVersion():
             VersionInfo: Basic version info object
         """
 
-        repo = LiveRepository(project_path, device_type, config_name, config_id)
+        repo = LiveRepository(project_path, device_type, device_display_name, config_name, config_id)
         return repo.get_basic_version(uid)
 
     @staticmethod
@@ -556,6 +559,7 @@ class TahiniVersion():
 
         version_info = VersionInfo.load_json(version_info_path)
 
-        repo = LiveRepository(project_path, version_info.device_type, version_info.config_name, version_info.config_id)
+        repo = LiveRepository(project_path, version_info.device_type, version_info.device_display_name,
+                              version_info.config_name, version_info.config_id)
 
         return repo.get_full_version(version_info_path)

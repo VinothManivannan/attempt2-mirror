@@ -7,12 +7,12 @@ variables:
     image: $REGISTRY_URL/devops/fw-builder:3.24-win
     interruptible: true
     tags:
-        - win-docker-20H2
+        - win-docker-latest
 
 # Template for windows shell jobs
 .windows-shell-job: &windows-shell-job
     tags:
-        - win-20h2
+        - win-latest
 
 # Template for docker linux jobs
 .linux-docker-job: &linux-docker-job

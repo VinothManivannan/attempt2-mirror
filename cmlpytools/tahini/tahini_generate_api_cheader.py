@@ -98,17 +98,13 @@ class GenerateApiCheader():
         # If the regmap is not all CML owned insert headers on the section to indicate ownership
         not_cml_block = not_in_cml_block
         if ((cml_owned_regs is not None) and not_in_cml_block):
-            if (register_or_struct.name in cml_owned_regs):
+            if register_or_struct.name in cml_owned_regs:
                 not_cml_block = False
-                if (GenerateApiCheader._current_section_template != "cml"):
+                if GenerateApiCheader._current_section_template != "cml":
                     output.write(CML_TEMPLATE)
                     GenerateApiCheader._current_section_template = "cml"
-                    output.write("regname " + register_or_struct.name + "\n")
-                    output.write(str(cml_owned_regs) + "\n")
-            elif (GenerateApiCheader._current_section_template != "non_cml"):
+            elif GenerateApiCheader._current_section_template != "non_cml":
                 output.write(NON_CML_TEMPLATE)
-                output.write("regname " + register_or_struct.name + "\n")
-                output.write(str(cml_owned_regs) + "\n")
                 GenerateApiCheader._current_section_template = "non_cml"
 
         if register_or_struct.type is CmapType.REGISTER:
@@ -212,6 +208,7 @@ class GenerateApiCheader():
             output (TextIOWrapper): Text IO handle to write the output to. It must already be opened.
             filename (str): Name of the file to be created
             version (ExtendedVersionInfo): firmware git tag and commit version information
+            cml_owned_regs: list of register map blocks/structs that are defined by CML
         """
         year = datetime.date.today().year
         header_guard = filename.replace(".", "_").replace("-", "_").upper()

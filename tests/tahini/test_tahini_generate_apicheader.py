@@ -93,7 +93,7 @@ extern "C" {
             expected_body (str): Body of expected result
         """
         output = StringIO()
-        GenerateApiCheader.from_cmapsource(cmapsource, output, "api_header.h", TestGenerateApiCHeader._VERSION)
+        GenerateApiCheader.from_cmapsource(cmapsource, output, "api_header.h", TestGenerateApiCHeader._VERSION, None)
 
         output.seek(0)
         self.compare_outputs(expected_body, output)

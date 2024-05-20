@@ -184,12 +184,13 @@ class GenerateApiCheader():
                                 f"        #define {state_name:<50} {state_mask:>#10x} /* Bitfield state */\n")
 
     @staticmethod
-    def from_cmapsource_path(cmapsource_path: str, output_txt_path: str, cml_owned_regs: str) -> None:
+    def from_cmapsource_path(cmapsource_path: str, output_txt_path: str, cml_owned_regs: [str]) -> None:
         """Create txt output file from cmapsource file path
 
         Args:
             cmapsource_path (str): Cmapsource file path to process
             output_txt_path (str): Output file path
+            cml_owned_regs: list of register map blocks/structs that are defined by CML
         """
 
         cmapsource = CmapFullRegmap.load_json(cmapsource_path)
@@ -200,7 +201,7 @@ class GenerateApiCheader():
 
     @staticmethod
     def from_cmapsource(cmapsource: CmapRegmap, output: TextIOWrapper, filename: str,
-                        version: ExtendedVersionInfo, cml_owned_regs) -> None:
+                        version: ExtendedVersionInfo, cml_owned_regs: [str]) -> None:
         """Create txt output file from cmapsource file path
 
         Args:

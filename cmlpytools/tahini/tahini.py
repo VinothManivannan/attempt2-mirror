@@ -378,9 +378,11 @@ class Tahini():
         parser.add_argument("cmap_path", help="Path to the CmapSource json file")
         parser.add_argument("--output", required=True,
             help="Write the result into the file specified.")
+        parser.add_argument("--cml_owned_regs", required=False, type=str, nargs='+',
+            help="parent block names of registers that CML control. Not required if all registers controlled by CML")
 
         args = parser.parse_args()
-        GenerateApiCheader.from_cmapsource_path(args.cmap_path, args.output)
+        GenerateApiCheader.from_cmapsource_path(args.cmap_path, args.output, args.cml_owned_regs)
 
 
 def main():

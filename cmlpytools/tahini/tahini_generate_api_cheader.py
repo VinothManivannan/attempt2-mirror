@@ -59,6 +59,18 @@ VERSION_TEMPLATE = """
  *************************************************************************************************/
 """
 
+NON_CML_TEMPLATE = """
+/**************************************************************************************************
+ * Non-CML Owned Register Section (For Reference Only! May change independently of CML changes!)
+ *************************************************************************************************/
+"""
+
+CML_TEMPLATE = """
+/**************************************************************************************************
+ * CML Owned Register Section
+ *************************************************************************************************/
+"""
+
 def prepend_namespaces(register: CmapRegisterOrStruct, inst_name: str):
     """
     If the input register has a namespace property then prepend it to the string name
@@ -76,16 +88,34 @@ def prepend_namespaces(register: CmapRegisterOrStruct, inst_name: str):
 class GenerateApiCheader():
     """Class for generating C header files used in customer Api code
     """
+    _current_section_template = "none"
 
     @staticmethod
-    def _output_register_or_struct(register_or_struct: CmapRegisterOrStruct, output: TextIOWrapper) -> None:
+    def _output_register_or_struct(register_or_struct: CmapRegisterOrStruct, output: TextIOWrapper, cml_owned_regs,
+                                   not_in_cml_block) -> None:
         """ Generate c header content for a register or struct object
         """
+        # If the regmap is not all CML owned insert headers on the section to indicate ownership
+        not_cml_block = not_in_cml_block
+        if ((cml_owned_regs is not None) and not_in_cml_block):
+            if (register_or_struct.name in cml_owned_regs):
+                not_cml_block = False
+                if (GenerateApiCheader._current_section_template != "cml"):
+                    output.write(CML_TEMPLATE)
+                    GenerateApiCheader._current_section_template = "cml"
+                    output.write("regname " + register_or_struct.name + "\n")
+                    output.write(str(cml_owned_regs) + "\n")
+            elif (GenerateApiCheader._current_section_template != "non_cml"):
+                output.write(NON_CML_TEMPLATE)
+                output.write("regname " + register_or_struct.name + "\n")
+                output.write(str(cml_owned_regs) + "\n")
+                GenerateApiCheader._current_section_template = "non_cml"
+
         if register_or_struct.type is CmapType.REGISTER:
             GenerateApiCheader._output_register(register_or_struct, output)
         elif register_or_struct.type is CmapType.STRUCT:
             for child in register_or_struct.struct.children:
-                GenerateApiCheader._output_register_or_struct(child, output)
+                GenerateApiCheader._output_register_or_struct(child, output, cml_owned_regs, not_cml_block)
 
     @staticmethod
     def _output_register(register: CmapRegisterOrStruct, output: TextIOWrapper) -> None:
@@ -158,7 +188,7 @@ class GenerateApiCheader():
                                 f"        #define {state_name:<50} {state_mask:>#10x} /* Bitfield state */\n")
 
     @staticmethod
-    def from_cmapsource_path(cmapsource_path: str, output_txt_path: str) -> None:
+    def from_cmapsource_path(cmapsource_path: str, output_txt_path: str, cml_owned_regs: str) -> None:
         """Create txt output file from cmapsource file path
 
         Args:
@@ -170,11 +200,11 @@ class GenerateApiCheader():
 
         with open(output_txt_path, 'w', encoding='utf-8') as output:
             GenerateApiCheader.from_cmapsource(cmapsource.regmap, output, os.path.basename(output_txt_path),
-                                               cmapsource.version)
+                                               cmapsource.version, cml_owned_regs)
 
     @staticmethod
     def from_cmapsource(cmapsource: CmapRegmap, output: TextIOWrapper, filename: str,
-                        version: ExtendedVersionInfo) -> None:
+                        version: ExtendedVersionInfo, cml_owned_regs) -> None:
         """Create txt output file from cmapsource file path
 
         Args:
@@ -212,7 +242,9 @@ class GenerateApiCheader():
 
         output.write(version_string)
 
+        GenerateApiCheader._current_section_template= "none"
+
         for register_or_struct in cmapsource.children:
-            GenerateApiCheader._output_register_or_struct(register_or_struct, output)
+            GenerateApiCheader._output_register_or_struct(register_or_struct, output, cml_owned_regs, True)
 
         output.write(footer)

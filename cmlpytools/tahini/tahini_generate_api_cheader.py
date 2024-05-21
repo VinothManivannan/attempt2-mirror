@@ -89,6 +89,7 @@ class GenerateApiCheader():
     """Class for generating C header files used in customer Api code
     """
     _current_section_template = "none"
+    _header_text = ""
 
     @staticmethod
     def _output_register_or_struct(register_or_struct: CmapRegisterOrStruct, output: TextIOWrapper, cml_owned_regs,
@@ -96,15 +97,17 @@ class GenerateApiCheader():
         """ Generate c header content for a register or struct object
         """
         # If the regmap is not all CML owned insert headers on the section to indicate ownership
+        # The header isn't written until a public register is encountered in the block to avoid 
+        # empty sections in the output
         not_cml_block = not_in_cml_block
         if ((cml_owned_regs is not None) and not_in_cml_block):
             if register_or_struct.name in cml_owned_regs:
                 not_cml_block = False
                 if GenerateApiCheader._current_section_template != "cml":
-                    output.write(CML_TEMPLATE)
+                    GenerateApiCheader._header_text = CML_TEMPLATE
                     GenerateApiCheader._current_section_template = "cml"
             elif GenerateApiCheader._current_section_template != "non_cml":
-                output.write(NON_CML_TEMPLATE)
+                GenerateApiCheader._header_text = NON_CML_TEMPLATE
                 GenerateApiCheader._current_section_template = "non_cml"
 
         if register_or_struct.type is CmapType.REGISTER:
@@ -119,6 +122,11 @@ class GenerateApiCheader():
         """
         if register.access is not CmapVisibilityOptions.PUBLIC:
             return
+
+        # If this is the first public register in a section then write the header before the register
+        # and clear the header string to mark it as displayed
+        output.write(GenerateApiCheader._header_text)
+        GenerateApiCheader._header_text = ""
 
         # Assemble register documentation string
         # Remove the 'Ctype.' from the type name so the type name is the C type name

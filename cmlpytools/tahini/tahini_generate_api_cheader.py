@@ -97,7 +97,7 @@ class GenerateApiCheader():
         """ Generate c header content for a register or struct object
         """
         # If the regmap is not all CML owned insert headers on the section to indicate ownership
-        # The header isn't written until a public register is encountered in the block to avoid 
+        # The header isn't written until a public register is encountered in the block to avoid
         # empty sections in the output
         not_cml_block = not_in_cml_block
         if ((cml_owned_regs is not None) and not_in_cml_block):

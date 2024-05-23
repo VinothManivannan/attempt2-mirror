@@ -134,9 +134,9 @@ class GenerateApiCheader():
 
         if register.register.format is not None:
             doc_string = doc_string + " " + str(register.register.format)
-        # TODO the briefs will be added to the doc_string once they have been cleaned up to be customer friendly
-        #if register.brief is not None:
-        #    doc_string = doc_string + " : " + register.brief
+
+        if register.brief is not None:
+            doc_string = doc_string + " : " + register.brief
 
         if register.repeat_for is None:
             # Output register address

@@ -100,6 +100,9 @@ def _extract_constants(const_value: Dict, description: str, const_type: str = No
         elif const_type == "initvalues":
             value = str(myvalues[i])
             prefix = ""
+        else:
+            # else case sets to empty string to satisfy the linter
+            value = prefix = ""
 
         header_text += "#define " + prefix + mykeys[i].upper() + " " + value + "\n"
 

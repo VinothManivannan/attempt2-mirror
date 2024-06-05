@@ -201,7 +201,7 @@ class GenerateApiCheader():
                             else:
                                 doc_string = ""
                             output.write(
-                                f"        #define {state_name:<50} {state_mask:>#10x} /* Bitfield state{doc_string} */\n")
+                            f"        #define {state_name:<50} {state_mask:>#10x} /* Bitfield state{doc_string} */\n")
 
     @staticmethod
     def from_cmapsource_path(cmapsource_path: str, output_txt_path: str, cml_owned_regs: [str]) -> None:

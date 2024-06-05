@@ -169,7 +169,11 @@ class GenerateApiCheader():
                 if state.access is CmapVisibilityOptions.PUBLIC:
                     state_name = register.get_customer_name().upper() + "_" + state.get_customer_name().upper()
                     state_name = prepend_namespaces(register, state_name)
-                    output.write(f"    #define {state_name:<50} {state.value:>#10x} /* State */\n")
+                    if state.brief is not None:
+                        doc_string = " : " + state.brief
+                    else:
+                        doc_string = ""
+                    output.write(f"    #define {state_name:<50} {state.value:>#10x} /* State{doc_string} */\n")
 
         # Output register bitfields
         if register.register.bitfields:
@@ -177,8 +181,12 @@ class GenerateApiCheader():
                 if bitfield.access is CmapVisibilityOptions.PUBLIC:
                     bitfield_name = register.get_customer_name().upper() + "_" + bitfield.get_customer_name().upper()
                     bitfield_name = prepend_namespaces(register, bitfield_name)
+                    if bitfield.brief is not None:
+                        doc_string = " : " + bitfield.brief
+                    else:
+                        doc_string = ""
                     output.write(
-                        f"    #define {bitfield_name:<50} {bitfield.get_mask():>#10x} /* Bitfield */\n")
+                        f"    #define {bitfield_name:<50} {bitfield.get_mask():>#10x} /* Bitfield{doc_string} */\n")
 
                 # Output states associated to this bitfield
                 if bitfield.states:
@@ -188,8 +196,12 @@ class GenerateApiCheader():
                             # Bitfield state name is prefixed with the Bitfield name for uniqueness
                             state_name = bitfield_name + "_" + state.get_customer_name().upper()
                             state_name = prepend_namespaces(register, state_name)
+                            if state.brief is not None:
+                                doc_string = " : " + state.brief
+                            else:
+                                doc_string = ""
                             output.write(
-                                f"        #define {state_name:<50} {state_mask:>#10x} /* Bitfield state */\n")
+                                f"        #define {state_name:<50} {state_mask:>#10x} /* Bitfield state{doc_string} */\n")
 
     @staticmethod
     def from_cmapsource_path(cmapsource_path: str, output_txt_path: str, cml_owned_regs: [str]) -> None:

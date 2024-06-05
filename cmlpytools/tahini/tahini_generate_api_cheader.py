@@ -191,15 +191,16 @@ class GenerateApiCheader():
                 # Output states associated to this bitfield
                 if bitfield.states:
                     for state in bitfield.states:
+                        # Ideally this logic is inside state is public block. Lifted out to satisfy linter nesting rule
+                        if state.brief is not None:
+                            doc_string = " : " + state.brief
+                        else:
+                            doc_string = ""
                         if state.access is CmapVisibilityOptions.PUBLIC:
                             state_mask = state.value << bitfield.position
                             # Bitfield state name is prefixed with the Bitfield name for uniqueness
                             state_name = bitfield_name + "_" + state.get_customer_name().upper()
                             state_name = prepend_namespaces(register, state_name)
-                            if state.brief is not None:
-                                doc_string = " : " + state.brief
-                            else:
-                                doc_string = ""
                             output.write(
                             f"        #define {state_name:<50} {state_mask:>#10x} /* Bitfield state{doc_string} */\n")
 

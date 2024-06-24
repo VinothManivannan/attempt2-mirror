@@ -4,19 +4,19 @@ variables:
 
 # Template for docker windows jobs
 .windows-docker-job: &windows-docker-job
-    image: $REGISTRY_URL/devops/fw-builder:1.21-win
+    image: $REGISTRY_URL/devops/fw-builder:3.28-win
     interruptible: true
     tags:
-        - win-docker-20H2
+        - win-docker-latest
 
 # Template for windows shell jobs
 .windows-shell-job: &windows-shell-job
     tags:
-        - win-20h2
+        - win-latest
 
 # Template for docker linux jobs
 .linux-docker-job: &linux-docker-job
-    image: $REGISTRY_URL/devops/fw-builder:3.0
+    image: $REGISTRY_URL/devops/fw-builder:3.28
     interruptible: true
     tags:
         - linux-docker-exec
@@ -46,8 +46,8 @@ Build Gimli for Linux:
     paths:
       - cmlpytools/tahini/gimli/build-linux
   script:
-    - ln -s /usr/bin/clang-15 /usr/bin/clang
-    - ln -s /usr/bin/clang++-15 /usr/bin/clang++
+    - ln -s /usr/bin/clang-18 /usr/bin/clang
+    - ln -s /usr/bin/clang++-18 /usr/bin/clang++
     - cd cmlpytools/tahini/gimli
     - cmake -B build-linux -G Ninja -DCMAKE_SYSTEM_NAME=Linux
     - cmake --build build-linux/

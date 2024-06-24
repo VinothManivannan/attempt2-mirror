@@ -12,11 +12,11 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
   add_executable(gimli gimli.cpp)
 
   target_compile_features(gimli PUBLIC cxx_std_17)
-  target_link_libraries(gimli libLLVM-15)
+  target_link_libraries(gimli libLLVM-18)
 
   # Quick and dirty way of satisfying DLL dependencies - improve!!!
   add_custom_command(TARGET gimli POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{MSYS2_INSTALL_DIR}/mingw64/bin/libgcc_s_seh-1.dll" $<TARGET_FILE_DIR:gimli>)
-  add_custom_command(TARGET gimli POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{MSYS2_INSTALL_DIR}/mingw64/bin/libLLVM-15.dll" $<TARGET_FILE_DIR:gimli>)
+  add_custom_command(TARGET gimli POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{MSYS2_INSTALL_DIR}/mingw64/bin/libLLVM-18.dll" $<TARGET_FILE_DIR:gimli>)
   add_custom_command(TARGET gimli POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{MSYS2_INSTALL_DIR}/mingw64/bin/libstdc++-6.dll" $<TARGET_FILE_DIR:gimli>)
   add_custom_command(TARGET gimli POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{MSYS2_INSTALL_DIR}/mingw64/bin/libwinpthread-1.dll" $<TARGET_FILE_DIR:gimli>)
   add_custom_command(TARGET gimli POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different "$ENV{MSYS2_INSTALL_DIR}/mingw64/bin/libffi-8.dll" $<TARGET_FILE_DIR:gimli>)
@@ -33,9 +33,9 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 
   add_executable(gimli gimli.cpp)
 
-  target_include_directories(gimli PUBLIC /usr/lib/llvm-15/include)
+  target_include_directories(gimli PUBLIC /usr/lib/llvm-18/include)
 
-  link_directories(/usr/lib/llvm-15/lib)
+  link_directories(/usr/lib/llvm-18/lib)
 
   target_compile_features(gimli PUBLIC cxx_std_17)
   target_link_libraries(gimli LLVMDebugInfoDWARF)

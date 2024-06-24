@@ -59,6 +59,18 @@ VERSION_TEMPLATE = """
  *************************************************************************************************/
 """
 
+NON_CML_TEMPLATE = """
+/**************************************************************************************************
+ * Non-CML Owned Register Section (For Reference Only! May change independently of CML changes!)
+ *************************************************************************************************/
+"""
+
+CML_TEMPLATE = """
+/**************************************************************************************************
+ * CML Owned Register Section
+ *************************************************************************************************/
+"""
+
 def prepend_namespaces(register: CmapRegisterOrStruct, inst_name: str):
     """
     If the input register has a namespace property then prepend it to the string name
@@ -76,16 +88,33 @@ def prepend_namespaces(register: CmapRegisterOrStruct, inst_name: str):
 class GenerateApiCheader():
     """Class for generating C header files used in customer Api code
     """
+    _current_section_template = "none"
+    _header_text = ""
 
     @staticmethod
-    def _output_register_or_struct(register_or_struct: CmapRegisterOrStruct, output: TextIOWrapper) -> None:
+    def _output_register_or_struct(register_or_struct: CmapRegisterOrStruct, output: TextIOWrapper, cml_owned_regs,
+                                   not_in_cml_block) -> None:
         """ Generate c header content for a register or struct object
         """
+        # If the regmap is not all CML owned insert headers on the section to indicate ownership
+        # The header isn't written until a public register is encountered in the block to avoid
+        # empty sections in the output
+        not_cml_block = not_in_cml_block
+        if ((cml_owned_regs is not None) and not_in_cml_block):
+            if register_or_struct.name in cml_owned_regs:
+                not_cml_block = False
+                if GenerateApiCheader._current_section_template != "cml":
+                    GenerateApiCheader._header_text = CML_TEMPLATE
+                    GenerateApiCheader._current_section_template = "cml"
+            elif GenerateApiCheader._current_section_template != "non_cml":
+                GenerateApiCheader._header_text = NON_CML_TEMPLATE
+                GenerateApiCheader._current_section_template = "non_cml"
+
         if register_or_struct.type is CmapType.REGISTER:
             GenerateApiCheader._output_register(register_or_struct, output)
         elif register_or_struct.type is CmapType.STRUCT:
             for child in register_or_struct.struct.children:
-                GenerateApiCheader._output_register_or_struct(child, output)
+                GenerateApiCheader._output_register_or_struct(child, output, cml_owned_regs, not_cml_block)
 
     @staticmethod
     def _output_register(register: CmapRegisterOrStruct, output: TextIOWrapper) -> None:
@@ -94,15 +123,20 @@ class GenerateApiCheader():
         if register.access is not CmapVisibilityOptions.PUBLIC:
             return
 
+        # If this is the first public register in a section then write the header before the register
+        # and clear the header string to mark it as displayed
+        output.write(GenerateApiCheader._header_text)
+        GenerateApiCheader._header_text = ""
+
         # Assemble register documentation string
         # Remove the 'Ctype.' from the type name so the type name is the C type name
         doc_string = str(register.register.ctype)[6:].lower()
 
         if register.register.format is not None:
             doc_string = doc_string + " " + str(register.register.format)
-        # TODO the briefs will be added to the doc_string once they have been cleaned up to be customer friendly
-        #if register.brief is not None:
-        #    doc_string = doc_string + " : " + register.brief
+
+        if register.brief is not None:
+            doc_string = doc_string + " : " + register.brief
 
         if register.repeat_for is None:
             # Output register address
@@ -135,7 +169,11 @@ class GenerateApiCheader():
                 if state.access is CmapVisibilityOptions.PUBLIC:
                     state_name = register.get_customer_name().upper() + "_" + state.get_customer_name().upper()
                     state_name = prepend_namespaces(register, state_name)
-                    output.write(f"    #define {state_name:<50} {state.value:>#10x} /* State */\n")
+                    if state.brief is not None:
+                        doc_string = " : " + state.brief
+                    else:
+                        doc_string = ""
+                    output.write(f"    #define {state_name:<50} {state.value:>#10x} /* State{doc_string} */\n")
 
         # Output register bitfields
         if register.register.bitfields:
@@ -143,38 +181,48 @@ class GenerateApiCheader():
                 if bitfield.access is CmapVisibilityOptions.PUBLIC:
                     bitfield_name = register.get_customer_name().upper() + "_" + bitfield.get_customer_name().upper()
                     bitfield_name = prepend_namespaces(register, bitfield_name)
+                    if bitfield.brief is not None:
+                        doc_string = " : " + bitfield.brief
+                    else:
+                        doc_string = ""
                     output.write(
-                        f"    #define {bitfield_name:<50} {bitfield.get_mask():>#10x} /* Bitfield */\n")
+                        f"    #define {bitfield_name:<50} {bitfield.get_mask():>#10x} /* Bitfield{doc_string} */\n")
 
                 # Output states associated to this bitfield
                 if bitfield.states:
                     for state in bitfield.states:
+                        # Ideally this logic is inside state is public block. Lifted out to satisfy linter nesting rule
+                        if state.brief is not None:
+                            doc_string = " : " + state.brief
+                        else:
+                            doc_string = ""
                         if state.access is CmapVisibilityOptions.PUBLIC:
                             state_mask = state.value << bitfield.position
                             # Bitfield state name is prefixed with the Bitfield name for uniqueness
                             state_name = bitfield_name + "_" + state.get_customer_name().upper()
                             state_name = prepend_namespaces(register, state_name)
                             output.write(
-                                f"        #define {state_name:<50} {state_mask:>#10x} /* Bitfield state */\n")
+                            f"        #define {state_name:<50} {state_mask:>#10x} /* Bitfield state{doc_string} */\n")
 
     @staticmethod
-    def from_cmapsource_path(cmapsource_path: str, output_txt_path: str) -> None:
+    def from_cmapsource_path(cmapsource_path: str, output_txt_path: str, cml_owned_regs: [str]) -> None:
         """Create txt output file from cmapsource file path
 
         Args:
             cmapsource_path (str): Cmapsource file path to process
             output_txt_path (str): Output file path
+            cml_owned_regs: list of register map blocks/structs that are defined by CML
         """
 
         cmapsource = CmapFullRegmap.load_json(cmapsource_path)
 
         with open(output_txt_path, 'w', encoding='utf-8') as output:
             GenerateApiCheader.from_cmapsource(cmapsource.regmap, output, os.path.basename(output_txt_path),
-                                               cmapsource.version)
+                                               cmapsource.version, cml_owned_regs)
 
     @staticmethod
     def from_cmapsource(cmapsource: CmapRegmap, output: TextIOWrapper, filename: str,
-                        version: ExtendedVersionInfo) -> None:
+                        version: ExtendedVersionInfo, cml_owned_regs: [str]) -> None:
         """Create txt output file from cmapsource file path
 
         Args:
@@ -182,6 +230,7 @@ class GenerateApiCheader():
             output (TextIOWrapper): Text IO handle to write the output to. It must already be opened.
             filename (str): Name of the file to be created
             version (ExtendedVersionInfo): firmware git tag and commit version information
+            cml_owned_regs: list of register map blocks/structs that are defined by CML
         """
         year = datetime.date.today().year
         header_guard = filename.replace(".", "_").replace("-", "_").upper()
@@ -212,7 +261,9 @@ class GenerateApiCheader():
 
         output.write(version_string)
 
+        GenerateApiCheader._current_section_template= "none"
+
         for register_or_struct in cmapsource.children:
-            GenerateApiCheader._output_register_or_struct(register_or_struct, output)
+            GenerateApiCheader._output_register_or_struct(register_or_struct, output, cml_owned_regs, True)
 
         output.write(footer)

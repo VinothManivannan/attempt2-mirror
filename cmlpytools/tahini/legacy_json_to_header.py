@@ -90,8 +90,6 @@ def _extract_constants(const_value: Dict, description: str, const_type: str = No
     num_items = len(const_value.items())
     mykeys = list(const_value.keys())
     myvalues = list(const_value.values())
-    value = ""
-    prefix = ""
     for i in range(0, num_items):
         if const_type == "controlindexes":
             value = str(myvalues[i])
@@ -101,6 +99,10 @@ def _extract_constants(const_value: Dict, description: str, const_type: str = No
             prefix = description + "_"
         elif const_type == "initvalues":
             value = str(myvalues[i])
+            prefix = ""
+        else:
+            # else case sets to empty string to satisfy the linter
+            value = prefix = ""
 
         header_text += "#define " + prefix + mykeys[i].upper() + " " + value + "\n"
 

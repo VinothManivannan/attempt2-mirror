@@ -46,8 +46,8 @@ Build Gimli for Linux:
     paths:
       - cmlpytools/tahini/gimli/build-linux
   script:
-    - ln -s /usr/bin/clang-15 /usr/bin/clang
-    - ln -s /usr/bin/clang++-15 /usr/bin/clang++
+    - ln -s /usr/bin/clang-18 /usr/bin/clang
+    - ln -s /usr/bin/clang++-18 /usr/bin/clang++
     - cd cmlpytools/tahini/gimli
     - cmake -B build-linux -G Ninja -DCMAKE_SYSTEM_NAME=Linux
     - cmake --build build-linux/

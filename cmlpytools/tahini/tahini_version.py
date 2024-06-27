@@ -104,7 +104,7 @@ class Repository():
             origin_tag_regex = self.VERSION_TAG_REGEX + self.BRANCH_COMMIT_TAG_REGEX
             self.is_s10 = False
 
-        get_version_cmd = 'git describe --tags --first-parent --always --abbrev=0'
+        get_version_cmd = 'git describe --tags --first-parent --always --long'
         topcode_tag = self.run_command(get_version_cmd)
 
         get_log_cmd = 'git log --merges --pretty=%s'

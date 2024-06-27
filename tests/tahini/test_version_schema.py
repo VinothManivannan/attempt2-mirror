@@ -32,6 +32,9 @@ class MockRepositoryMaster(Repository):
 
         if command == "git describe --tags --first-parent --always --abbrev=0":
             return "1.2.3-4567.8"
+        
+        if command == "git describe --tags --first-parent --always --long":
+            return "1.2.3-4567.8-9-gABCDEF"
 
         if command == "git log --merges --pretty=%s":
             return "Merge branch 'branch-00-topcde' into 'master'"
@@ -98,12 +101,15 @@ class MockRepositoryBranch(Repository):
     Returns:
         (str): Mock Git command output
     """
+    
+        print("1")
 
         if command == "git remote get-url origin":
             return "/topcode.git"
 
-        if command == "git describe --tags --first-parent --always --abbrev=0":
-            return "1.2.3-4567.8"
+        if command == "git describe --tags --first-parent --always --long":
+            print("2")
+            return "1.2.3-4567.8-9-gABCDEF"
 
         if command == "git log --merges --pretty=%s":
             return "Merge branch 'branch-00-topcde' into 'master'"
@@ -137,7 +143,8 @@ class MockRepositoryBranch(Repository):
         if command == "git -C topcode/submodule2 branch -a --contains HEAD":
             return "DEF-456-branch-name \
                     remotes/origin/DEF-456-branch-name"
-
+        
+        print(command)
         return None
 
     def check_path_sanity(self, path):
@@ -181,7 +188,7 @@ class TestVersionInfo(unittest.TestCase):
 
         self.assertEqual(version_info.project, "topcode")
         self.assertEqual(version_info.uid, "0123ABCD")
-        self.assertEqual(version_info.version, "1.2.3-4567.8")
+        self.assertEqual(version_info.version, "1.2.3-4567.8-9-gABCDEF")
         self.assertEqual(version_info.device_type, "DEVICE_TYPE")
         self.assertEqual(version_info.config_name, "CONFIG_NAME")
         self.assertEqual(version_info.config_id, 10)
@@ -195,7 +202,7 @@ class TestVersionInfo(unittest.TestCase):
 
         self.assertEqual(full_version_info.project, "topcode")
         self.assertEqual(full_version_info.uid, "0123ABCD")
-        self.assertEqual(full_version_info.version, "1.2.3-4567.8")
+        self.assertEqual(full_version_info.version, "1.2.3-4567.8-9-gABCDEF")
         self.assertEqual(full_version_info.device_type, "DEV_TYPE")
         self.assertEqual(full_version_info.config_name, "CONFIG_NAME")
         self.assertEqual(full_version_info.config_id, 10)

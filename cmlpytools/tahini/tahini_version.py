@@ -322,7 +322,7 @@ class Repository():
         latest_tag = version_components[0]
         commits = version_components[1]
 
-        basic_version.version = latest_tag if commits == 0 else full_version
+        basic_version.version = latest_tag if commits == "0" else full_version
         basic_version.timestamp = datetime.datetime.utcnow().replace(
             microsecond=0).isoformat() + "+00:00"
 

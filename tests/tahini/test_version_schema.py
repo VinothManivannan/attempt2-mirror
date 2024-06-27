@@ -32,7 +32,7 @@ class MockRepositoryMaster(Repository):
 
         if command == "git describe --tags --first-parent --always --abbrev=0":
             return "1.2.3-4567.8"
-        
+
         if command == "git describe --tags --first-parent --always --long":
             return "1.2.3-4567.8-9-gABCDEF"
 
@@ -101,14 +101,10 @@ class MockRepositoryBranch(Repository):
     Returns:
         (str): Mock Git command output
     """
-    
-        print("1")
-
         if command == "git remote get-url origin":
             return "/topcode.git"
 
         if command == "git describe --tags --first-parent --always --long":
-            print("2")
             return "1.2.3-4567.8-9-gABCDEF"
 
         if command == "git log --merges --pretty=%s":
@@ -143,8 +139,7 @@ class MockRepositoryBranch(Repository):
         if command == "git -C topcode/submodule2 branch -a --contains HEAD":
             return "DEF-456-branch-name \
                     remotes/origin/DEF-456-branch-name"
-        
-        print(command)
+
         return None
 
     def check_path_sanity(self, path):

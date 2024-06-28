@@ -314,10 +314,15 @@ class Repository():
 
         basic_version.uid = uid
 
-        get_version_cmd = 'git describe --tags --first-parent --always --abbrev=0'
-        basic_version.version = (
+        get_version_cmd = 'git describe --tags --first-parent --always --long'
+        full_version = (
             self.run_command(get_version_cmd)).rstrip()
 
+        version_components = full_version.split('-')
+        latest_tag = version_components[0]
+        commits = version_components[1]
+
+        basic_version.version = latest_tag if commits == "0" else full_version
         basic_version.timestamp = datetime.datetime.utcnow().replace(
             microsecond=0).isoformat() + "+00:00"
 

@@ -103,7 +103,7 @@ class MockRepositoryBranch(Repository):
     """
         if command == "git remote get-url origin":
             return "/topcode.git"
-        
+
         if command == "git describe --tags --first-parent --always --abbrev=0":
             return "1.2.3-4567.8"
 

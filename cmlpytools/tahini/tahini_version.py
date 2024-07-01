@@ -318,9 +318,16 @@ class Repository():
         full_version = (
             self.run_command(get_version_cmd)).rstrip()
 
-        version_components = full_version.split('-')
-        latest_tag = version_components[0]
-        commits = version_components[1]
+        sub_str = full_version.split('-')
+
+        if '.' in sub_str[1]:
+            # branch tag
+            latest_tag = sub_str[0] + '-' + sub_str[1]
+            commits = sub_str[2]
+        else:
+            # master tag
+            latest_tag = sub_str[0]
+            commits = sub_str[1]
 
         basic_version.version = latest_tag if commits == "0" else full_version
         basic_version.timestamp = datetime.datetime.utcnow().replace(

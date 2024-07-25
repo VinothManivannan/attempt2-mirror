@@ -313,8 +313,11 @@ class Repository():
         basic_version.project = topcode_version.name
 
         if uid == "git-sha":
+            topcode_version = self.__find_top_level()
+            basic_version.project = topcode_version.name
+
             get_git_sha_cmd = 'git rev-parse HEAD'
-            basic_version.uid = "0x" + str(self.run_command(get_git_sha_cmd))[:8]
+            basic_version.uid = str(self.run_command(get_git_sha_cmd))[:8]
         else:
             basic_version.uid = uid
 

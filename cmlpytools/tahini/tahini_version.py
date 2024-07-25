@@ -311,13 +311,19 @@ class Repository():
         """
         topcode_version = self.__find_top_level()
         basic_version.project = topcode_version.name
-
-        basic_version.uid = uid
-
+        
+        if uid == "git-sha":
+            get_git_sha_cmd = 'git rev-parse HEAD'
+            basic_version.uid = str(self.run_command(get_git_sha_cmd))[:8]
+        else:
+            basic_version.uid = uid
+        
         get_version_cmd = 'git describe --tags --first-parent --always --long'
         full_version = (
             self.run_command(get_version_cmd)).rstrip()
 
+        # format is either (master tag) maj.min.pat-commit-gitsha or 
+        # (branch tag) maj.min.pat-branch.itration-commit-gitsha
         sub_str = full_version.split('-')
 
         if '.' in sub_str[1]:

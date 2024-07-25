@@ -314,7 +314,7 @@ class Repository():
 
         if uid == "git-sha":
             get_git_sha_cmd = 'git rev-parse HEAD'
-            basic_version.uid = str(self.run_command(get_git_sha_cmd))[:8]
+            basic_version.uid = "0x" + str(self.run_command(get_git_sha_cmd))[:8]
         else:
             basic_version.uid = uid
 

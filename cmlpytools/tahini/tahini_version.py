@@ -193,7 +193,10 @@ class Repository():
         else:
             git_branch_list = re.findall(branch_regex, git_branch_log)
             for item in git_branch_list:
-                branch_ids.append(str(item[0]))
+                if ('master' in item or 'main' in item or 'stable' in item):
+                    pass
+                else:
+                    branch_ids.append(str(item[0]))
 
         # Branch IDs should be upper case
         for index in branch_ids:

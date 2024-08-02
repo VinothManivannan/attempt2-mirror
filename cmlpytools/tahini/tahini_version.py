@@ -187,7 +187,7 @@ class Repository():
 
         git_branch_log = self.run_command(branch_command)
 
-        if ('master' in git_branch_log) or ('main' in git_branch_log) or ('stable' in git_branch_log):
+        if (('master' in git_branch_log or 'main' in git_branch_log or 'stable' in git_branch_log) and 'cherry' not in git_branch_log):
             pass
         else:
             git_branch_list = re.findall(branch_regex, git_branch_log)
@@ -313,9 +313,6 @@ class Repository():
         basic_version.project = topcode_version.name
 
         if uid == "git-sha":
-            topcode_version = self.__find_top_level()
-            basic_version.project = topcode_version.name
-
             get_git_sha_cmd = 'git rev-parse HEAD'
             basic_version.uid = str(self.run_command(get_git_sha_cmd))[:8]
         else:
